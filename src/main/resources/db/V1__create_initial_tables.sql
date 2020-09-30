@@ -1,19 +1,19 @@
 CREATE TABLE Lists (
-    id INTEGER,
+    id INTEGER PRIMARY KEY,
     title VARCHAR(255),
     description VARCHAR(255),
     num_completions INTEGER
 );
 
 CREATE TABLE Options (
-    id INTEGER,
+    id INTEGER PRIMARY KEY,
     name VARCHAR(255),
     photo_URL VARCHAR(5000),
     FOREIGN KEY(list_id) REFERENCES Lists(id)
 );
 
 CREATE TABLE Users (
-    id INTEGER,
+    id INTEGER PRIMARY KEY,
     name VARCHAR(250),
     avatar_URL VARCHAR(5000)
 );
