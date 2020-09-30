@@ -2,35 +2,30 @@ CREATE TABLE Lists (
     id INTEGER,
     title VARCHAR(255),
     description VARCHAR(255),
-    numCompletions INTEGER
+    num_completions INTEGER
 );
 
 CREATE TABLE Options (
-    id int,
+    id INTEGER,
     name VARCHAR(255),
-    photoURL VARCHAR(5000),
-    listId INTEGER,
-  FOREIGN KEY(listId) REFERENCES Lists(id)
+    photo_URL VARCHAR(5000),
+    FOREIGN KEY(list_id) REFERENCES Lists(id)
 );
 
 CREATE TABLE Users (
     id INTEGER,
     name VARCHAR(250),
-    avatarURL VARCHAR(5000)
+    avatar_URL VARCHAR(5000)
 );
 
 CREATE TABLE Scores (
     score INTEGER,
-    optionId INTEGER,
-  FOREIGN KEY(optionID) REFERENCES Options(id),
-    userId INTEGER,
-  FOREIGN KEY(userID) REFERENCES users(id),
+    FOREIGN KEY(option_id) REFERENCES Options(id),
+    FOREIGN KEY(user_id) REFERENCES Users(id),
 );
 
 CREATE TABLE UserLists (
-    userId INTEGER,
-  FOREIGN KEY(userID) REFERENCES users(id),
-    istId INTEGER,
-  FOREIGN KEY(listId) REFERENCES Lists(id),
-   completionStatus BOOL
+    FOREIGN KEY(user_id) REFERENCES Users(id),
+    FOREIGN KEY(list_id) REFERENCES Lists(id),
+    completion_status BOOLEAN
 );
