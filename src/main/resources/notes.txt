@@ -1,0 +1,2 @@
+To flyway clean:
+flyway clean -url=jdbc:postgresql://localhost:5432/ranker -user=rankeradmin -password=rankerbaby
