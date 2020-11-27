@@ -1,23 +1,41 @@
 package com.rankerapp.resource;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.rankerapp.core.ListFetcher;
+import com.rankerapp.core.ListWriter;
+import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.transport.model.CastVoteRequest;
+import com.rankerapp.transport.model.ListResponse;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class RankerAppResource {
 
-    @GetMapping("/greeting")
-    public SampleResponse greeting(@RequestParam(value = "name") String name) {
-        System.out.println("Hello " + name);
+    private final ListWriter listWriter;
 
-        return SampleResponse.builder()
-                .first("aaaa")
-                .second(3)
-                .third(Instant.now())
-                .build();
+    private final ListFetcher listFetcher;
+
+    @Inject
+    public RankerAppResource(ListWriter listWriter, ListFetcher listFetcher) {
+        this.listWriter = listWriter;
+        this.listFetcher = listFetcher;
+    }
+
+    @GetMapping("/greeting")
+    public ListResponse greeting(@RequestParam(value = "name") String name) {
+        System.out.println("Hello " + name);
+        List<String> options = new ArrayList<>();
+        options.add("dude");
+        options.add("man");
+        options.add("bro");
+        ListEntity writtenList = listWriter.writeList(name, "List for " + name, options);
+
+        return listFetcher.fetchListById(writtenList.getId());
     }
 
     @GetMapping("/{listId}/nextPair")

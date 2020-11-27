@@ -1,22 +1,21 @@
 package com.rankerapp.db.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "Options")
 public class OptionEntity {
+
     @Id
     private UUID id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "list_id")
-    private UUID listId;
+    @ManyToOne(targetEntity = ListEntity.class)
+    @JoinColumn(name = "list_id")
+    private ListEntity list;
 
     @Column(name = "photoUrl")
     private String photoUrl;
@@ -25,10 +24,42 @@ public class OptionEntity {
 
     }
 
-    public OptionEntity(UUID id, String name, UUID listId, String photoUrl) {
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.listId = listId;
+    }
+
+    public ListEntity getList() {
+        return list;
+    }
+
+    public void setList(ListEntity list) {
+        this.list = list;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public OptionEntity(String name, ListEntity list, String photoUrl) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.list = list;
         this.photoUrl = photoUrl;
     }
 }
