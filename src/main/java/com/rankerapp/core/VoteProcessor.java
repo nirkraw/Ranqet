@@ -5,6 +5,7 @@ import com.rankerapp.db.ScoresRepository;
 import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.OptionEntity;
 import com.rankerapp.db.model.ScoreEntity;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Component
 public class VoteProcessor {
 
     private static final int INITIAL_SCORE = 1400;
