@@ -3,6 +3,7 @@ package com.rankerapp.resource;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.rankerapp.core.ListFetcher;
 import com.rankerapp.core.ListWriter;
+import com.rankerapp.core.VoteProcessor;
 import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.transport.model.CastVoteRequest;
 import com.rankerapp.transport.model.ListResponse;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class RankerAppResource {
@@ -20,10 +22,13 @@ public class RankerAppResource {
 
     private final ListFetcher listFetcher;
 
+    private final VoteProcessor voteProcessor;
+
     @Inject
-    public RankerAppResource(ListWriter listWriter, ListFetcher listFetcher) {
+    public RankerAppResource(ListWriter listWriter, ListFetcher listFetcher, VoteProcessor voteProcessor) {
         this.listWriter = listWriter;
         this.listFetcher = listFetcher;
+        this.voteProcessor = voteProcessor;
     }
 
     @GetMapping("/greeting")
@@ -49,7 +54,8 @@ public class RankerAppResource {
     // Expose vote endpoint to cast a vote on a list
     @PostMapping("/{listId}/vote")
     public void castVote(@PathVariable(value = "listId") String listId, @RequestBody CastVoteRequest request) {
-        // Implement this;
+        voteProcessor.castVote(asUUID(listId), asUUID(request.getUserId()),
+                asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
 
     @GetMapping("/{listId}/rankings")
@@ -57,6 +63,10 @@ public class RankerAppResource {
                             @RequestParam(value = "userId") String userId) {
         // Implement this;
         System.out.println(listId + " " + userId);
+    }
+
+    private static UUID asUUID(String id) {
+        return UUID.fromString(id);
     }
 
     @JsonSerialize

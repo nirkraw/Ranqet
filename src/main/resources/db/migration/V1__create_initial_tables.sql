@@ -23,17 +23,22 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Scores (
-    score INTEGER
+    id UUID PRIMARY KEY,
+    score FLOAT
 );
 
+ALTER TABLE Scores ADD COLUMN list_id UUID;
+ALTER TABLE Scores ADD CONSTRAINT list_id_fk FOREIGN KEY(list_id) REFERENCES Lists(id);
 ALTER TABLE Scores ADD COLUMN option_id UUID;
 ALTER TABLE Scores ADD CONSTRAINT option_id_fk FOREIGN KEY(option_id) REFERENCES Options(id);
 ALTER TABLE Scores ADD COLUMN user_id UUID;
 ALTER TABLE Scores ADD CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES Users(id);
 
+CREATE UNIQUE INDEX scores_list_id_user_id_idx on Scores(list_id, user_id);
+
 CREATE TABLE UserLists (
     completion_status BOOLEAN,
-    create_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE UserLists ADD COLUMN user_id UUID;
