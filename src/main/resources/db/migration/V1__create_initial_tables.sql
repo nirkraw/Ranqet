@@ -22,6 +22,9 @@ CREATE TABLE Users (
     created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE Lists ADD COLUMN created_by UUID;
+ALTER TABLE Lists ADD CONSTRAINT created_by_fk FOREIGN KEY(created_by) REFERENCES Users(id);
+
 CREATE TABLE Scores (
     id UUID PRIMARY KEY,
     score FLOAT

@@ -27,6 +27,10 @@ public class ListEntity {
     @OneToMany(targetEntity = OptionEntity.class, mappedBy = "list", cascade = CascadeType.ALL)
     private List<OptionEntity> options;
 
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     public UUID getId() {
         return id;
     }
@@ -73,6 +77,14 @@ public class ListEntity {
 
     public void setOptions(List<OptionEntity> options) {
         this.options = options;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
 }
