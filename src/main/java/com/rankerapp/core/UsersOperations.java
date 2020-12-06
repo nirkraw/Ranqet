@@ -35,7 +35,7 @@ public class UsersOperations {
         return convertUserEntity(userEntity);
     }
 
-    private User convertUserEntity(UserEntity userEntity) {
+    static User convertUserEntity(UserEntity userEntity) {
         return User.builder()
                 .id(userEntity.getId().toString())
                 .name(userEntity.getName())

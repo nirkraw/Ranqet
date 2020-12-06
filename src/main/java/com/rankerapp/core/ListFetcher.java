@@ -36,6 +36,7 @@ public class ListFetcher {
                 .numCompletions(listEntity.getNumCompletions())
                 .title(listEntity.getTitle())
                 .options(options)
+                .createdBy(UsersOperations.convertUserEntity(listEntity.getCreatedBy()))
                 .build();
     }
 

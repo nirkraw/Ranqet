@@ -1,18 +1,14 @@
 package com.rankerapp.resource;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.rankerapp.core.ListFetcher;
 import com.rankerapp.core.ListWriter;
 import com.rankerapp.core.VoteProcessor;
-import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.transport.model.CastVoteRequest;
+import com.rankerapp.transport.model.CreateListRequest;
 import com.rankerapp.transport.model.ListResponse;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,19 +27,20 @@ public class RankerAppResource {
         this.voteProcessor = voteProcessor;
     }
 
-    @GetMapping("/greeting")
-    public ListResponse greeting(@RequestParam(value = "name") String name) {
-        System.out.println("Hello " + name);
-        List<String> options = new ArrayList<>();
-        options.add("dude");
-        options.add("man");
-        options.add("bro");
-        ListEntity writtenList = listWriter.writeList(name, "List for " + name, options);
+    @PostMapping("/list/create")
+    public ListResponse createNewList(@RequestBody CreateListRequest request) {
+        UUID persistedId = listWriter.createList(request.getName(), request.getDescription(),
+                UUID.fromString(request.getAuthorId()), request.getOptions()).getId();
 
-        return listFetcher.fetchListById(writtenList.getId());
+        return listFetcher.fetchListById(persistedId);
     }
 
-    @GetMapping("/{listId}/nextPair")
+    @GetMapping("/list/{listId}/")
+    public ListResponse getList(@PathVariable(value = "listId") String listId) {
+        return listFetcher.fetchListById(UUID.fromString(listId));
+    }
+
+    @GetMapping("/list/{listId}/nextPair")
     public void getNextPair(@PathVariable(value = "listId") String listId,
                                   @RequestParam(value = "userId") String userId) {
         // Implement this;
@@ -52,13 +49,13 @@ public class RankerAppResource {
     }
 
     // Expose vote endpoint to cast a vote on a list
-    @PostMapping("/{listId}/vote")
+    @PostMapping("/list/{listId}/vote")
     public void castVote(@PathVariable(value = "listId") String listId, @RequestBody CastVoteRequest request) {
         voteProcessor.castVote(asUUID(listId), asUUID(request.getUserId()),
                 asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
 
-    @GetMapping("/{listId}/rankings")
+    @GetMapping("/list/{listId}/rankings")
     public void getRankings(@PathVariable(value = "listId") String listId,
                             @RequestParam(value = "userId") String userId) {
         // Implement this;
@@ -67,67 +64,5 @@ public class RankerAppResource {
 
     private static UUID asUUID(String id) {
         return UUID.fromString(id);
-    }
-
-    @JsonSerialize
-    public static class SampleResponse {
-        private final String first;
-
-        private final int second;
-
-        private final Instant third;
-
-        private SampleResponse(Builder builder) {
-            this.first = builder.first;
-            this.second = builder.second;
-            this.third = builder.third;
-        }
-
-
-        public String getFirst() {
-            return first;
-        }
-
-        public int getSecond() {
-            return second;
-        }
-
-        public Instant getThird() {
-            return third;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static final class Builder {
-
-            private String first;
-
-            private int second;
-
-            private Instant third;
-
-            public Builder first(String first) {
-                this.first = first;
-                return this;
-            }
-
-            public Builder second(int second) {
-                this.second = second;
-                return this;
-            }
-
-            public Builder third(Instant third) {
-                this.third = third;
-                return this;
-            }
-
-            public SampleResponse build() {
-                return new SampleResponse(this);
-            }
-
-        }
-
     }
 }

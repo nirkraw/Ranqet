@@ -17,6 +17,8 @@ public class ListResponse {
 
     private final List<Option> options;
 
+    private final User createdBy;
+
     private ListResponse(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
@@ -24,6 +26,7 @@ public class ListResponse {
         this.numCompletions = builder.numCompletions;
         this.createdOn = builder.createdOn;
         this.options = builder.options;
+        this.createdBy = builder.createdBy;
     }
 
     public String getId() {
@@ -68,6 +71,8 @@ public class ListResponse {
 
         private List<Option> options;
 
+        private User createdBy;
+
         private Builder() {
 
         }
@@ -99,6 +104,11 @@ public class ListResponse {
 
         public Builder options(List<Option> options) {
             this.options = options;
+            return this;
+        }
+
+        public Builder createdBy(User createdBy) {
+            this.createdBy = createdBy;
             return this;
         }
 

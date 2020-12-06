@@ -28,8 +28,8 @@ public class ListEntity {
     private List<OptionEntity> options;
 
     @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @JoinColumn(name = "created_by")
+    private UserEntity createdBy;
 
     public UUID getId() {
         return id;
@@ -79,12 +79,12 @@ public class ListEntity {
         this.options = options;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getCreatedBy() {
+        return createdBy;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setCreatedBy(UserEntity createdBy) {
+        this.createdBy = createdBy;
     }
 
 }
