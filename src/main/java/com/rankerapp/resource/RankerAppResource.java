@@ -27,6 +27,7 @@ public class RankerAppResource {
         this.voteProcessor = voteProcessor;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/list/create")
     public ListResponse createNewList(@RequestBody CreateListRequest request) {
         UUID persistedId = listWriter.createList(request.getName(), request.getDescription(),
@@ -35,11 +36,15 @@ public class RankerAppResource {
         return listFetcher.fetchListById(persistedId);
     }
 
-    @GetMapping("/list/{listId}/")
+    // Filter by completed, in progress and by userId
+    // Return info
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/list/{listId}")
     public ListResponse getList(@PathVariable(value = "listId") String listId) {
         return listFetcher.fetchListById(UUID.fromString(listId));
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/list/{listId}/nextPair")
     public void getNextPair(@PathVariable(value = "listId") String listId,
                                   @RequestParam(value = "userId") String userId) {
@@ -49,16 +54,18 @@ public class RankerAppResource {
     }
 
     // Expose vote endpoint to cast a vote on a list
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/list/{listId}/vote")
     public void castVote(@PathVariable(value = "listId") String listId, @RequestBody CastVoteRequest request) {
         voteProcessor.castVote(asUUID(listId), asUUID(request.getUserId()),
                 asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/list/{listId}/rankings")
     public void getRankings(@PathVariable(value = "listId") String listId,
                             @RequestParam(value = "userId") String userId) {
-        // Implement this;
+        // Implement this; Return personal ranking and global ranking if user has completed list. Otherwise 403 FORBIDDEN
         System.out.println(listId + " " + userId);
     }
 
