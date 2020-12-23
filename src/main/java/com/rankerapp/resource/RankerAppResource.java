@@ -6,6 +6,7 @@ import com.rankerapp.core.VoteProcessor;
 import com.rankerapp.transport.model.CastVoteRequest;
 import com.rankerapp.transport.model.CreateListRequest;
 import com.rankerapp.transport.model.ListResponse;
+import com.rankerapp.transport.model.RankingResponse;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -63,10 +64,10 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/list/{listId}/rankings")
-    public void getRankings(@PathVariable(value = "listId") String listId,
-                            @RequestParam(value = "userId") String userId) {
+    public RankingResponse getRankings(@PathVariable(value = "listId") String listId,
+                                       @RequestParam(value = "userId") String userId) {
         // Implement this; Return personal ranking and global ranking if user has completed list. Otherwise 403 FORBIDDEN
-        System.out.println(listId + " " + userId);
+        return listFetcher.fetchRankings(asUUID(listId), asUUID(userId));
     }
 
     private static UUID asUUID(String id) {

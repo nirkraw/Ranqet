@@ -1,0 +1,82 @@
+package com.rankerapp.transport.model;
+
+import java.util.List;
+import java.util.UUID;
+
+public class RankingResponse {
+
+    private final String title;
+
+    private final String description;
+
+    private final List<Option> options;
+
+    private final User completedBy;
+
+    private RankingResponse(Builder builder) {
+        this.title = builder.title;
+        this.description = builder.description;
+        this.options = builder.options;
+        this.completedBy = builder.completedBy;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public User getCompletedBy() {
+        return completedBy;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private String title;
+
+        private String description;
+
+        private List<Option> options;
+
+        private User completedBy;
+
+        private Builder() {
+
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder options(List<Option> options) {
+            this.options = options;
+            return this;
+        }
+
+        public Builder completedBy(User completedBy) {
+            this.completedBy = completedBy;
+            return this;
+        }
+
+        public RankingResponse build() {
+            return new RankingResponse(this);
+        }
+
+    }
+}

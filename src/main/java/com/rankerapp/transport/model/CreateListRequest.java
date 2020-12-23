@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.util.List;
-import java.util.UUID;
 
 @JsonDeserialize(builder = CreateListRequest.Builder.class)
 public class CreateListRequest {

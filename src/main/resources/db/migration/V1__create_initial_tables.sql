@@ -37,7 +37,7 @@ ALTER TABLE Scores ADD CONSTRAINT option_id_fk FOREIGN KEY(option_id) REFERENCES
 ALTER TABLE Scores ADD COLUMN user_id UUID;
 ALTER TABLE Scores ADD CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES Users(id);
 
-CREATE UNIQUE INDEX scores_list_id_user_id_idx on Scores(list_id, user_id);
+CREATE INDEX scores_list_id_user_id_idx on Scores(list_id, user_id);
 
 CREATE TABLE UserLists (
     completion_status BOOLEAN,

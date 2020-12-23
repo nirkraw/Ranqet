@@ -1,2 +1,21 @@
 To flyway clean:
 flyway clean -url=jdbc:postgresql://localhost:5432/ranker -user=rankeradmin -password=rankerbaby
+
+Sample User Id:
+c7681fc7-f3e0-4290-a3e4-8a2cd6549238
+
+Sample List Id:
+b8fa04fc-c1a7-419a-89d2-c8d3b2a21cde
+
+Sample GET List Request:
+curl localhost:8080/list/b8fa04fc-c1a7-419a-89d2-c8d3b2a21cde -X GET
+
+Sample POST Vote Request:
+curl localhost:8080/list/b8fa04fc-c1a7-419a-89d2-c8d3b2a21cde/vote -X POST \
+    -d '{"userId": "c7681fc7-f3e0-4290-a3e4-8a2cd6549238", \
+    "winningOptionId": "6b99194c-9f70-476c-b2f5-27dcce3bbcca", \
+    "losingOptionId": "de7323d8-1a2a-4c6c-b698-ad24266517fb"}' \
+    -H 'Content-Type: application/json'
+
+Sample GET Rankings Request:
+curl -X GET localhost:8080/list/b8fa04fc-c1a7-419a-89d2-c8d3b2a21cde/rankings?userId=c7681fc7-f3e0-4290-a3e4-8a2cd6549238
