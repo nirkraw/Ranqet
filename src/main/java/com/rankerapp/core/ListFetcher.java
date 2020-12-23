@@ -9,6 +9,7 @@ import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.transport.model.ListResponse;
 import com.rankerapp.transport.model.Option;
+import com.rankerapp.transport.model.RankedOption;
 import com.rankerapp.transport.model.RankingResponse;
 import org.springframework.stereotype.Component;
 
@@ -56,10 +57,9 @@ public class ListFetcher {
         ListEntity list = listsRepo.getOne(listId);
         UserEntity user = usersRepo.getOne(userId);
 
-        List<Option> rankedOptions = scores.stream()
-                .sorted((first, second) -> Double.compare(first.getScore(), second.getScore() * -1))
-                .map(ScoreEntity::getOption)
-                .map(ListFetcher::convertOption)
+        List<RankedOption> rankedOptions = scores.stream()
+                .map(ListFetcher::convertToRankedOption)
+                .sorted((first, second) -> Double.compare(first.getScore(), second.getScore()) * -1)
                 .collect(Collectors.toList());
 
         return RankingResponse.builder()
@@ -75,6 +75,14 @@ public class ListFetcher {
                 .id(option.getId().toString())
                 .name(option.getName())
                 .photoUrl(option.getPhotoUrl())
+                .build();
+    }
+
+    private static RankedOption convertToRankedOption(ScoreEntity score) {
+        return RankedOption.builder()
+                .name(score.getOption().getName())
+                .photoUrl(score.getOption().getPhotoUrl())
+                .score(score.getScore())
                 .build();
     }
 

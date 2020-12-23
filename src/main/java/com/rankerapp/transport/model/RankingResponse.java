@@ -1,7 +1,6 @@
 package com.rankerapp.transport.model;
 
 import java.util.List;
-import java.util.UUID;
 
 public class RankingResponse {
 
@@ -9,7 +8,7 @@ public class RankingResponse {
 
     private final String description;
 
-    private final List<Option> options;
+    private final List<RankedOption> options;
 
     private final User completedBy;
 
@@ -28,7 +27,7 @@ public class RankingResponse {
         return description;
     }
 
-    public List<Option> getOptions() {
+    public List<RankedOption> getOptions() {
         return options;
     }
 
@@ -46,7 +45,7 @@ public class RankingResponse {
 
         private String description;
 
-        private List<Option> options;
+        private List<RankedOption> options;
 
         private User completedBy;
 
@@ -64,7 +63,7 @@ public class RankingResponse {
             return this;
         }
 
-        public Builder options(List<Option> options) {
+        public Builder options(List<RankedOption> options) {
             this.options = options;
             return this;
         }
