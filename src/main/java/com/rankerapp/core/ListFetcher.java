@@ -7,10 +7,7 @@ import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.OptionEntity;
 import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
-import com.rankerapp.transport.model.ListResponse;
-import com.rankerapp.transport.model.Option;
-import com.rankerapp.transport.model.RankedOption;
-import com.rankerapp.transport.model.RankingResponse;
+import com.rankerapp.transport.model.*;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -67,6 +64,31 @@ public class ListFetcher {
                 .description(list.getDescription())
                 .options(rankedOptions)
                 .completedBy(UsersOperations.convertUserEntity(user))
+                .build();
+    }
+
+    public GetAllListsResponse getAllLists() {
+        List<ListEntity> lists = listsRepo.findAll();
+        return GetAllListsResponse.builder()
+                .lists(lists.stream()
+                        .map(ListFetcher::convertListToResponse)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    private static ListResponse convertListToResponse(ListEntity listEntity) {
+        List<Option> options = listEntity.getOptions().stream()
+                .map(ListFetcher::convertOption)
+                .collect(Collectors.toList());
+
+        return ListResponse.builder()
+                .id(listEntity.getId().toString())
+                .createdOn(listEntity.getCreatedOn())
+                .description(listEntity.getDescription())
+                .numCompletions(listEntity.getNumCompletions())
+                .title(listEntity.getTitle())
+                .options(options)
+                .createdBy(UsersOperations.convertUserEntity(listEntity.getCreatedBy()))
                 .build();
     }
 

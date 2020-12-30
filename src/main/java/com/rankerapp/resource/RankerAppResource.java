@@ -3,10 +3,7 @@ package com.rankerapp.resource;
 import com.rankerapp.core.ListFetcher;
 import com.rankerapp.core.ListWriter;
 import com.rankerapp.core.VoteProcessor;
-import com.rankerapp.transport.model.CastVoteRequest;
-import com.rankerapp.transport.model.CreateListRequest;
-import com.rankerapp.transport.model.ListResponse;
-import com.rankerapp.transport.model.RankingResponse;
+import com.rankerapp.transport.model.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -37,6 +34,12 @@ public class RankerAppResource {
         return listFetcher.fetchListById(persistedId);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/lists/all")
+    public GetAllListsResponse getAllLists() {
+        return listFetcher.getAllLists();
+    }
+
     // Filter by completed, in progress and by userId
     // Return info
     @CrossOrigin(origins = "http://localhost:3000")
@@ -50,6 +53,7 @@ public class RankerAppResource {
     public void getNextPair(@PathVariable(value = "listId") String listId,
                                   @RequestParam(value = "userId") String userId) {
         // Implement this;
+        // TODO: work on algorithm for this
         //Params params = new Params(listId, userId);
 
     }
