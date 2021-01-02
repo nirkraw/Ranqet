@@ -44,6 +44,9 @@ public class ListWriter {
         List<OptionEntity> optionEntities = options.stream()
                 .map((submittedOption) -> new OptionEntity(submittedOption.getName(), listEntity, submittedOption.getImageUrl()))
                 .collect(Collectors.toList());
+        for (int i = 0; i < optionEntities.size(); i++) {
+            optionEntities.get(i).setOptionNumber(i + 1);
+        }
         listEntity.setOptions(optionEntities);
         listEntity.setCreatedOn(Instant.now());
         listEntity.setCreatedBy(author);

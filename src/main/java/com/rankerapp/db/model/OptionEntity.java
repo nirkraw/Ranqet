@@ -10,6 +10,9 @@ public class OptionEntity {
     @Id
     private UUID id;
 
+    @Column(name = "option_number")
+    private int optionNumber;
+
     @Column(name = "name")
     private String name;
 
@@ -38,6 +41,14 @@ public class OptionEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getOptionNumber() {
+        return optionNumber;
+    }
+
+    public void setOptionNumber(int optionNumber) {
+        this.optionNumber = optionNumber;
     }
 
     public ListEntity getList() {

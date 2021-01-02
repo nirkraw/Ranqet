@@ -2,15 +2,13 @@ package com.rankerapp.core;
 
 import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.ScoresRepository;
-import com.rankerapp.db.model.ListEntity;
-import com.rankerapp.db.model.OptionEntity;
-import com.rankerapp.db.model.ScoreEntity;
+import com.rankerapp.db.UserListsRepository;
+import com.rankerapp.db.UsersRepository;
+import com.rankerapp.db.model.*;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,10 +22,37 @@ public class VoteProcessor {
 
     private final ScoresRepository scoresRepo;
 
+    private final UserListsRepository userListsRepo;
+
     @Inject
-    public VoteProcessor(ListsRepository listsRepo, ScoresRepository scoresRepo) {
+    public VoteProcessor(ListsRepository listsRepo, ScoresRepository scoresRepo, UserListsRepository userListsRepo) {
         this.listsRepo = listsRepo;
         this.scoresRepo = scoresRepo;
+        this.userListsRepo = userListsRepo;
+    }
+
+    public void getNextPair(UUID listId, UUID userId) {
+        ListEntity list = listsRepo.getOne(listId);
+
+        Optional<UserListEntity> userListMaybe = userListsRepo.findByUserIdAndListId(userId, listId);
+
+        if (!userListMaybe.isPresent()) {
+            userListMaybe = Optional.of(persistNewUserListEntity(userId, list));
+        }
+
+        UserListEntity userList = userListMaybe.get();
+        String matchup = userList.getMatchupsList().get(0);
+
+        String[] matchupPair = matchup.split(":");
+        OptionEntity firstMatchupOption = list.getOptions().stream()
+                .filter((op) -> op.getId().equals(UUID.fromString(matchupPair[0])))
+                .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matchup option"));
+
+        OptionEntity secondMatchupOption = list.getOptions().stream()
+                .filter((op) -> op.getId().equals(UUID.fromString(matchupPair[1])))
+                .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matching option"));
+
+        // TODO: Fetch next matchup pair if the scores for these two don't satisfy criteria.
     }
 
     public void castVote(UUID listId, UUID userId, UUID winningOptionId, UUID losingOptionId) {
@@ -54,6 +79,37 @@ public class VoteProcessor {
         losingOptionScore.setScore(newLoserScore);
 
         scoresRepo.saveAll(Arrays.asList(winningOptionScore, losingOptionScore));
+
+        // update the queue;
+
+    }
+
+    /**
+     * Persists a new user list entity with a randomized matchup order
+     */
+    private UserListEntity persistNewUserListEntity(UUID userId, ListEntity list) {
+        UserListEntity userListEntity = new UserListEntity();
+        userListEntity.setCompleted(false);
+        userListEntity.setUserId(userId);
+        userListEntity.setListId(list.getId());
+        List<String> numberedMatchups = MatchupGenerator.MATCHUP_ORIENTATIONS.get(list.getOptions().size());
+        Collections.shuffle(numberedMatchups);
+        userListEntity.setMatchups(String.join(",", optionIdMappedQueue(numberedMatchups, list.getOptions())));
+        userListsRepo.save(userListEntity);
+
+        return userListEntity;
+    }
+
+    private List<String> optionIdMappedQueue(List<String> numberedOptions, List<OptionEntity> options) {
+        Map<Integer, String> numberToOptionId = new HashMap<>();
+        for (OptionEntity option : options) {
+            numberToOptionId.put(option.getOptionNumber(), option.getId().toString());
+        }
+
+        return numberedOptions.stream().map((option) -> {
+            String[] pair = option.split(",");
+            return numberToOptionId.get(Integer.parseInt(pair[0])) + ":" + numberToOptionId.get(Integer.parseInt(pair[1]));
+        }).collect(Collectors.toList());
     }
 
     private double getExpectedScore(ScoreEntity target, ScoreEntity matchup) {

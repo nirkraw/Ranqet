@@ -31,6 +31,9 @@ public class ListEntity {
     @JoinColumn(name = "created_by")
     private UserEntity createdBy;
 
+    @Column(name = "is_private")
+    private boolean isPrivate;
+
     public UUID getId() {
         return id;
     }
@@ -85,6 +88,14 @@ public class ListEntity {
 
     public void setCreatedBy(UserEntity createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
 }

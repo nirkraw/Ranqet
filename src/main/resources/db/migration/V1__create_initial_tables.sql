@@ -3,11 +3,13 @@ CREATE TABLE Lists (
     title VARCHAR(255),
     description VARCHAR(255),
     num_completions INTEGER,
-    created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_private BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE Options (
     id UUID PRIMARY KEY,
+    option_number INTEGER NOT NULL,
     name VARCHAR(255),
     photo_URL VARCHAR(5000)
 );
@@ -40,6 +42,8 @@ ALTER TABLE Scores ADD CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES Use
 CREATE INDEX scores_list_id_user_id_idx on Scores(list_id, user_id);
 
 CREATE TABLE UserLists (
+    id UUID PRIMARY KEY,
+    matchups VARCHAR NOT NULL,
     completion_status BOOLEAN,
     created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
