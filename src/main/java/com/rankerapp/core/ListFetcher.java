@@ -4,7 +4,6 @@ import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.ScoresRepository;
 import com.rankerapp.db.UsersRepository;
 import com.rankerapp.db.model.ListEntity;
-import com.rankerapp.db.model.OptionEntity;
 import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.transport.model.*;
@@ -35,7 +34,7 @@ public class ListFetcher {
         ListEntity listEntity = listsRepo.getOne(id);
 
         List<Option> options = listEntity.getOptions().stream()
-                .map(ListFetcher::convertOption)
+                .map(OptionsFactory::convertOption)
                 .collect(Collectors.toList());
 
         return ListResponse.builder()
@@ -55,7 +54,7 @@ public class ListFetcher {
         UserEntity user = usersRepo.getOne(userId);
 
         List<RankedOption> rankedOptions = scores.stream()
-                .map(ListFetcher::convertToRankedOption)
+                .map(OptionsFactory::convertToRankedOption)
                 .sorted((first, second) -> Double.compare(first.getScore(), second.getScore()) * -1)
                 .collect(Collectors.toList());
 
@@ -78,7 +77,7 @@ public class ListFetcher {
 
     private static ListResponse convertListToResponse(ListEntity listEntity) {
         List<Option> options = listEntity.getOptions().stream()
-                .map(ListFetcher::convertOption)
+                .map(OptionsFactory::convertOption)
                 .collect(Collectors.toList());
 
         return ListResponse.builder()
@@ -92,21 +91,7 @@ public class ListFetcher {
                 .build();
     }
 
-    private static Option convertOption(OptionEntity option) {
-        return Option.builder()
-                .id(option.getId().toString())
-                .name(option.getName())
-                .photoUrl(option.getPhotoUrl())
-                .build();
-    }
 
-    private static RankedOption convertToRankedOption(ScoreEntity score) {
-        return RankedOption.builder()
-                .name(score.getOption().getName())
-                .photoUrl(score.getOption().getPhotoUrl())
-                .score(score.getScore())
-                .build();
-    }
 
 
 }

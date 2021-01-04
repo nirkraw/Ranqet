@@ -61,8 +61,8 @@ public class RankerAppResource {
     // Expose vote endpoint to cast a vote on a list
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/list/{listId}/vote")
-    public void castVote(@PathVariable(value = "listId") String listId, @RequestBody CastVoteRequest request) {
-        voteProcessor.castVote(asUUID(listId), asUUID(request.getUserId()),
+    public OptionPairResponse castVote(@PathVariable(value = "listId") String listId, @RequestBody CastVoteRequest request) {
+        return voteProcessor.castVote(asUUID(listId), asUUID(request.getUserId()),
                 asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
 

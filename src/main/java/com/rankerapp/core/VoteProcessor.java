@@ -3,8 +3,11 @@ package com.rankerapp.core;
 import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.ScoresRepository;
 import com.rankerapp.db.UserListsRepository;
-import com.rankerapp.db.UsersRepository;
 import com.rankerapp.db.model.*;
+import com.rankerapp.exceptions.BadRequestException;
+import com.rankerapp.exceptions.NotFoundException;
+import com.rankerapp.transport.model.OptionPairResponse;
+import javafx.util.Pair;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -31,13 +34,18 @@ public class VoteProcessor {
         this.userListsRepo = userListsRepo;
     }
 
-    public void getNextPair(UUID listId, UUID userId) {
-        ListEntity list = listsRepo.getOne(listId);
+    public OptionPairResponse getNextPair(UUID listId, UUID userId) {
+
+        // TODO: check if the list is already done; exit early if it is
 
         Optional<UserListEntity> userListMaybe = userListsRepo.findByUserIdAndListId(userId, listId);
+        ListEntity list = listsRepo.getOne(listId);
 
         if (!userListMaybe.isPresent()) {
             userListMaybe = Optional.of(persistNewUserListEntity(userId, list));
+        } else if (userListMaybe.get().isCompleted()) {
+            // this list is completed; return an empty response
+            return OptionPairResponse.builder().build();
         }
 
         UserListEntity userList = userListMaybe.get();
@@ -53,9 +61,33 @@ public class VoteProcessor {
                 .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matching option"));
 
         // TODO: Fetch next matchup pair if the scores for these two don't satisfy criteria.
+
+        return OptionPairResponse.builder()
+                .first(OptionsFactory.convertOption(firstMatchupOption))
+                .second(OptionsFactory.convertOption(secondMatchupOption))
+                .build();
     }
 
-    public void castVote(UUID listId, UUID userId, UUID winningOptionId, UUID losingOptionId) {
+    public OptionPairResponse castVote(UUID listId, UUID userId, UUID winningOptionId, UUID losingOptionId) {
+        Optional<UserListEntity> userList = userListsRepo.findByUserIdAndListId(userId, listId);
+        if (userList.isPresent() && userList.get().isCompleted()) {
+            return OptionPairResponse.builder().build();
+        } else if (!userList.isPresent()) {
+            throw new NotFoundException(String.format("List for userId %s and listId %s not found", userId, listId));
+        }
+
+        ListEntity list = listsRepo.getOne(listId);
+
+        Pair<OptionEntity, OptionEntity> nextOptionPair = getNextConsecutivePair(userList.get(), list);
+        if (!(isOneOf(winningOptionId.toString(), nextOptionPair.getKey().getId(), nextOptionPair.getValue().getId())
+                && isOneOf(losingOptionId, nextOptionPair.getKey().getId(), nextOptionPair.getValue().getId()))) {
+            System.out.printf("Expected options: %s and %s but instead got %s and %s%n",
+                    nextOptionPair.getKey(), nextOptionPair.getValue(),
+                    winningOptionId.toString(), losingOptionId.toString());
+            throw new BadRequestException(String.format("Passed in invalid next option ids. Expected %s and %s",
+                    nextOptionPair.getKey(), nextOptionPair.getValue()));
+        }
+
         List<ScoreEntity> scores = scoresRepo.findByListIdAndUserId(listId, userId);
         if (scores.isEmpty()) {
             scores = initializeScores(listId, userId);
@@ -80,8 +112,39 @@ public class VoteProcessor {
 
         scoresRepo.saveAll(Arrays.asList(winningOptionScore, losingOptionScore));
 
-        // update the queue;
+        // update the queue
+        List<String> matchupList = userList.get().getMatchupsList();
+        if (matchupList.size() == 1) {
+            // this was the last vote. mark as complete and return an empty pair response
+            userList.get().setCompleted(true);
+            userList.get().setMatchups(null);
+            userListsRepo.save(userList.get());
 
+            // TODO: update global list with rankings;
+
+            return OptionPairResponse.builder().build();
+        }
+
+        // there are more matchups; fetch the next pair
+        List<String> updatedMatchupList = matchupList.subList(1, matchupList.size());
+        userList.get().setMatchupsList(updatedMatchupList);
+        userListsRepo.save(userList.get());
+        return getNextPair(listId, userId);
+    }
+
+    private Pair<OptionEntity, OptionEntity> getNextConsecutivePair(UserListEntity userList, ListEntity list) {
+        String matchup = userList.getMatchupsList().get(0);
+
+        String[] matchupPair = matchup.split(":");
+        OptionEntity firstMatchupOption = list.getOptions().stream()
+                .filter((op) -> op.getId().equals(UUID.fromString(matchupPair[0])))
+                .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matchup option"));
+
+        OptionEntity secondMatchupOption = list.getOptions().stream()
+                .filter((op) -> op.getId().equals(UUID.fromString(matchupPair[1])))
+                .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matching option"));
+
+        return new Pair<>(firstMatchupOption, secondMatchupOption);
     }
 
     /**
@@ -127,6 +190,15 @@ public class VoteProcessor {
 
         scoresRepo.saveAll(scoreEntities);
         return scoreEntities;
+    }
+
+    private static <T> boolean isOneOf(T target, T... haystack) {
+        for (T elem : haystack) {
+            if (target.equals(elem)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private ScoreEntity buildBaseScoreEntity(UUID userId, OptionEntity option) {

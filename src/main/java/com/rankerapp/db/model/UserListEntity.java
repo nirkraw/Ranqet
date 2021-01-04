@@ -3,6 +3,7 @@ package com.rankerapp.db.model;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,6 +43,9 @@ public class UserListEntity {
     }
 
     public List<String> getMatchupsList() {
+        if (matchups == null || matchups.isEmpty()) {
+            return Collections.emptyList();
+        }
         return Arrays.stream(matchups.split(",")).collect(Collectors.toList());
     }
 
@@ -50,7 +54,11 @@ public class UserListEntity {
     }
 
     public void setMatchupsList(List<String> matchups) {
-        this.matchups = String.join(",", matchups);
+        if (matchups.size() == 0) {
+            this.matchups = null;
+        } else {
+            this.matchups = String.join(",", matchups);
+        }
     }
 
     public boolean isCompleted() {
