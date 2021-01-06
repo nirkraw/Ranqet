@@ -8,7 +8,7 @@ import java.util.List;
 @JsonDeserialize(builder = CreateListRequest.Builder.class)
 public class CreateListRequest {
 
-    private final String name;
+    private final String title;
 
     private final String description;
 
@@ -17,14 +17,14 @@ public class CreateListRequest {
     private final String authorId;
 
     private CreateListRequest(Builder builder) {
-        this.name = builder.name;
+        this.title = builder.title;
         this.description = builder.description;
         this.options = builder.options;
         this.authorId = builder.authorId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getDescription() {
@@ -46,7 +46,7 @@ public class CreateListRequest {
     @JsonPOJOBuilder
     public static final class Builder {
 
-        private String name;
+        private String title;
 
         private String description;
 
@@ -57,8 +57,8 @@ public class CreateListRequest {
         private Builder() {
         }
 
-        public Builder withName(String name) {
-            this.name = name;
+        public Builder withTitle(String title) {
+            this.title = title;
             return this;
         }
 

@@ -28,7 +28,7 @@ public class RankerAppResource {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/list/create")
     public ListResponse createNewList(@RequestBody CreateListRequest request) {
-        UUID persistedId = listWriter.createList(request.getName(), request.getDescription(),
+        UUID persistedId = listWriter.createList(request.getTitle(), request.getDescription(),
                 UUID.fromString(request.getAuthorId()), request.getOptions()).getId();
 
         return listFetcher.fetchListById(persistedId);
