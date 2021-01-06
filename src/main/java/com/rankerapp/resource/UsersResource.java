@@ -18,13 +18,16 @@ public class UsersResource {
         this.usersOperations = usersOperations;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/user/{userId}")
     public User getUser(@PathVariable(value = "userId") String userId) {
         return usersOperations.getUser(UUID.fromString(userId));
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/user/create")
     public User createUser(@RequestBody CreateUserRequest request) {
+        System.out.println(String.format("\n\n\n Received Create user request: %s %s\n\n\n", request.getName(), request.getAvatarUrl()));
         return usersOperations.createUser(request.getName(), request.getAvatarUrl());
     }
 

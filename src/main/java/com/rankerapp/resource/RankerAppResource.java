@@ -34,6 +34,7 @@ public class RankerAppResource {
         return listFetcher.fetchListById(persistedId);
     }
 
+    // TODO: TAKE IN USER ID AND SORT LISTS INTO COMPLETED, IN-PROGRESS, AND NEW LISTS
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/all")
     public GetAllListsResponse getAllLists() {
@@ -50,12 +51,9 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/list/{listId}/nextPair")
-    public void getNextPair(@PathVariable(value = "listId") String listId,
+    public OptionPairResponse getNextPair(@PathVariable(value = "listId") String listId,
                                   @RequestParam(value = "userId") String userId) {
-        // Implement this;
-        // TODO: work on algorithm for this
-        //Params params = new Params(listId, userId);
-
+        return voteProcessor.getNextPair(asUUID(listId), asUUID(userId));
     }
 
     // Expose vote endpoint to cast a vote on a list
@@ -66,6 +64,10 @@ public class RankerAppResource {
                 asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
 
+    // TODO: UPDATE GLOBAL RANKING UPON COMPLETING USER LIST, AND RETURN HERE
+    // TODO: Merge Git Repos
+    // TODO (nir): AWS IMAGE UPLOAD
+    // TODO (nir): cookies
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/list/{listId}/rankings")
     public RankingResponse getRankings(@PathVariable(value = "listId") String listId,

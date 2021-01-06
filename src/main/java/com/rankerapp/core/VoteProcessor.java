@@ -11,6 +11,7 @@ import javafx.util.Pair;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,9 +36,6 @@ public class VoteProcessor {
     }
 
     public OptionPairResponse getNextPair(UUID listId, UUID userId) {
-
-        // TODO: check if the list is already done; exit early if it is
-
         Optional<UserListEntity> userListMaybe = userListsRepo.findByUserIdAndListId(userId, listId);
         ListEntity list = listsRepo.getOne(listId);
 
@@ -79,13 +77,14 @@ public class VoteProcessor {
         ListEntity list = listsRepo.getOne(listId);
 
         Pair<OptionEntity, OptionEntity> nextOptionPair = getNextConsecutivePair(userList.get(), list);
-        if (!(isOneOf(winningOptionId.toString(), nextOptionPair.getKey().getId(), nextOptionPair.getValue().getId())
-                && isOneOf(losingOptionId, nextOptionPair.getKey().getId(), nextOptionPair.getValue().getId()))) {
-            System.out.printf("Expected options: %s and %s but instead got %s and %s%n",
-                    nextOptionPair.getKey(), nextOptionPair.getValue(),
+        String firstId = nextOptionPair.getKey().getId().toString();
+        String secondId = nextOptionPair.getValue().getId().toString();
+        if (!isOneOf(winningOptionId.toString(), firstId, secondId) || !isOneOf(losingOptionId.toString(), firstId, secondId)) {
+            System.out.printf("Expected options: %s and %s but instead got %s and %s\n",
+                    nextOptionPair.getKey().getId(), nextOptionPair.getValue().getId(),
                     winningOptionId.toString(), losingOptionId.toString());
             throw new BadRequestException(String.format("Passed in invalid next option ids. Expected %s and %s",
-                    nextOptionPair.getKey(), nextOptionPair.getValue()));
+                    nextOptionPair.getKey().getId(), nextOptionPair.getValue().getId()));
         }
 
         List<ScoreEntity> scores = scoresRepo.findByListIdAndUserId(listId, userId);
@@ -117,7 +116,7 @@ public class VoteProcessor {
         if (matchupList.size() == 1) {
             // this was the last vote. mark as complete and return an empty pair response
             userList.get().setCompleted(true);
-            userList.get().setMatchups(null);
+            userList.get().setMatchups("");
             userListsRepo.save(userList.get());
 
             // TODO: update global list with rankings;
@@ -152,9 +151,11 @@ public class VoteProcessor {
      */
     private UserListEntity persistNewUserListEntity(UUID userId, ListEntity list) {
         UserListEntity userListEntity = new UserListEntity();
+        userListEntity.setId(UUID.randomUUID());
         userListEntity.setCompleted(false);
         userListEntity.setUserId(userId);
         userListEntity.setListId(list.getId());
+        userListEntity.setCreatedOn(Instant.now());
         List<String> numberedMatchups = MatchupGenerator.MATCHUP_ORIENTATIONS.get(list.getOptions().size());
         Collections.shuffle(numberedMatchups);
         userListEntity.setMatchups(String.join(",", optionIdMappedQueue(numberedMatchups, list.getOptions())));

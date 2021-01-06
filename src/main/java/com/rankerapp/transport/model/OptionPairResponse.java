@@ -11,7 +11,7 @@ public class OptionPairResponse {
     private final Option second;
 
     private OptionPairResponse(Builder builder) {
-        this.isCompleted = Objects.nonNull(builder.first) && Objects.nonNull(builder.second);
+        this.isCompleted = !Objects.nonNull(builder.first) && !Objects.nonNull(builder.second);
         this.first = builder.first;
         this.second = builder.second;
     }

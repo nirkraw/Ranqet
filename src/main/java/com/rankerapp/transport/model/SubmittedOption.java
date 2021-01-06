@@ -8,19 +8,19 @@ public class SubmittedOption {
 
     public final String name;
 
-    public final String imageUrl;
+    public final String photoUrl;
 
     private SubmittedOption(Builder builder) {
         this.name = builder.name;
-        this.imageUrl = builder.imageUrl;
+        this.photoUrl = builder.photoUrl;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
 
@@ -33,15 +33,15 @@ public class SubmittedOption {
 
         public String name;
 
-        public String imageUrl;
+        public String photoUrl;
 
         public Builder withName(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder withImageUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
+        public Builder withPhotoUrl(String photoUrl) {
+            this.photoUrl = photoUrl;
             return this;
         }
 

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface UserListsRepository extends JpaRepository<UserListEntity, UUID> {
 
-    Optional<UserListEntity> findByUserIdAndListId(UUID createdByUserId, UUID listId);
+    Optional<UserListEntity> findByUserIdAndListId(UUID userId, UUID listId);
 
     List<UserListEntity> findByUserId(UUID userId);
 }
