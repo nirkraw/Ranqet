@@ -5,8 +5,10 @@ import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import UploadImage from "./UploadImage";
 import OptionInputs from "./OptionInputs";
+import { useHistory } from "react-router-dom";
 
-export default function CreateList({history, userId}) {
+export default function CreateList() {
+  const history = useHistory();
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState([
@@ -25,7 +27,7 @@ export default function CreateList({history, userId}) {
   const [imageLoading, setImageLoading] = useState(false);
   const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
   const [openModal, setOpenModal] = useState(false);
-
+ 
   const handleSubmit = async () => {
     if (!listTitle) setUserError("*List must have title");
     else if (options.length < 2) {
@@ -49,9 +51,9 @@ export default function CreateList({history, userId}) {
         title: listTitle,
         description,
         options: newOptions,
-        authorId: userId,
+        authorId: localStorage.getItem("userId"),
       };
-     debugger 
+
       try {
         await createList(data);
         setLoading(false);

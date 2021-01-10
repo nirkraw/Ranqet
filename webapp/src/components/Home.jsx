@@ -5,11 +5,11 @@ import { fetchTopLists } from "../util/Endpoints";
 import { NavLink } from "react-router-dom";
 import ErrorPage from "./Misc/ErrorPage";
 
-export default function Home({userId}) {
+export default function Home() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lists, setLists] = useState([]);
-
+   
   useEffect(() => {
     fetchLists();
   },[]);

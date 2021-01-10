@@ -7,7 +7,7 @@ import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";
 
-export default function QuizOptions({ listId, history, userId }) {
+export default function QuizOptions({ listId, history}) {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,7 +18,7 @@ export default function QuizOptions({ listId, history, userId }) {
 
   const fetchNextOptionPair = async () => {
     try {
-      const res = await fetchListOptionPair(listId, userId);
+      const res = await fetchListOptionPair(listId, localStorage.getItem("userId"));
       if (res.data.isCompleted) {
         history.push(`/${listId}/rankings`);
       }
@@ -38,7 +38,7 @@ export default function QuizOptions({ listId, history, userId }) {
       options[0].id === winningOptionId ? options[1].id : options[0].id;
     try {
       await submitOptionChoice(listId, {
-        userId: userId,
+        userId: localStorage.getItem("userId"),
         winningOptionId,
         losingOptionId,
       });

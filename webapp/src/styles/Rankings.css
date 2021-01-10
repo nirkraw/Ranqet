@@ -20,7 +20,7 @@
     border-right: 5px solid black;
 }
 
-#global-ranking-header, #personal-ranking-header {
+.ranking-header {
   font-family: sans-serif;
   font-size: 30px;
   color: rgba(200, 140, 140, 0.852);
@@ -35,7 +35,7 @@
   margin-bottom: 40px;
 }
 
-.personal-ranking-name {
+.ranking-name {
   font-family: sans-serif;
   font-size: 25px;
   color: rgba(200, 140, 140, 0.852);

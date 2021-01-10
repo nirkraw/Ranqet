@@ -3,8 +3,10 @@ import { fetchRankings} from "../util/Endpoints";
 import "../styles/Rankings.css";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import ErrorPage from "./Misc/ErrorPage";
+import { useRouteMatch } from "react-router-dom";
 
-export default function CompletedList({ match, userId }) {
+export default function CompletedList() {
+  const match = useRouteMatch();
   const [error, setError] = useState(null);
   const [personalRanking, setPersonalRanking] = useState([]);
   const [globalRanking, setGlobalRanking] = useState([]);
@@ -16,12 +18,15 @@ export default function CompletedList({ match, userId }) {
 
   const fetchCurrRankings = async () => {
       try {
-      const res = await fetchRankings(match.params.listId, userId);
-      const rankings = [];
+      const res = await fetchRankings(match.params.listId, localStorage.getItem("userId"));
+      const currPersonalRanking = [];
+      const currGlobalRanking = [];
       for (let i = 0; i < res.data.options.length; i++) {
-        rankings.push(res.data.options[i].name);
+        currPersonalRanking.push(res.data.options[i].name);
+        currGlobalRanking.push(res.data.globalOptions[i].name)
       }
-      setPersonalRanking(rankings);
+      setPersonalRanking(currPersonalRanking);
+      setGlobalRanking(currGlobalRanking);
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -32,21 +37,28 @@ export default function CompletedList({ match, userId }) {
   if (loading) return <LoadingSpinner />;
 
   const personalRankingList = personalRanking.map((personalRanking, i) => (
-    <li className="personal-ranking-name">
+    <li className="ranking-name">
       {i + 1}: {personalRanking}
     </li>
   ));
+
+   const globalRankingList = globalRanking.map((globalRanking, i) => (
+     <li className="ranking-name">
+       {i + 1}: {globalRanking}
+     </li>
+   ));
 
   return (
     <div id="completed-list-main-div">
       <h1 id="main-ranking-header">Rankings</h1>
       <div id="personal-and-global-ranking-main-div">
         <div id="personal-ranking-main-div">
-          <h2 id="personal-ranking-header">Personal Ranking</h2>
+          <h2 className="ranking-header">Personal Ranking</h2>
           <ul>{personalRankingList}</ul>
         </div>
         <div id="global-ranking-main-div">
-          <h2 id="global-ranking-header">Global Ranking</h2>
+          <h2 className="ranking-header">Global Ranking</h2>
+          <ul>{globalRankingList}</ul>
         </div>
       </div>
     </div>

@@ -4,41 +4,64 @@ import Home from "./Home";
 import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings";
 import Quiz from "./Quiz/Quiz";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Redirect,
+  BrowserRouter as Router,
+} from "react-router-dom";
 import { createBrowserHistory } from "history";
 import SessionForm from "./SessionForm";
-import React, {useState} from "react"
-import Protected from "../util/ProtectedRoute";
+import React from "react";
 
 function App() {
-  const [userId, setUserId] = useState("");
-  
   return (
     <Router history={createBrowserHistory}>
       <div className="App">
         <Navbar />
         <Switch>
+          <Route path="/create-user" component={() => <SessionForm />} />
+          <Route path="/login" component={() => <SessionForm />} />
           <Route
-            path="/create-user"
-            component={() => <SessionForm setUserId={setUserId} />}
-          />
-          <Route
-            path="/login"
-            component={() => <SessionForm setUserId={setUserId} />}
-          />
-          <Protected
             path="/create-list"
-            component={CreateList}
-            userId={userId}
-            test="test"
+            component={() =>
+              localStorage.getItem("userId") ? (
+                <CreateList  />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
           />
-          <Protected path="/:listId/quiz" component={Quiz} userId={userId} />
-          <Protected
+          <Route
+            path="/:listId/quiz"
+            component={() =>
+              localStorage.getItem("userId") ? (
+                <Quiz />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
             path="/:listId/rankings"
-            component={Rankings}
-            userId={userId}
+            component={() =>
+              localStorage.getItem("userId") ? (
+                <Rankings />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
           />
-          <Protected path="/" component={Home} userId={userId} />
+          <Route
+            path="/"
+            component={() => {
+              return localStorage.getItem("userId") ? (
+                <Home />
+              ) : (
+                <Redirect to="/login" />
+              );
+            }}
+          />
         </Switch>
       </div>
     </Router>

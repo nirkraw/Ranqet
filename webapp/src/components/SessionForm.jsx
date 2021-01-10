@@ -26,8 +26,8 @@ export default function SessionForm({history, setUserId}) {
       const endpoint = formHeader === "Sign Up" ? createUser : loginUser;
       //not using password yet but add later
       const res = await endpoint({name: username});
-      setUserId(res.data.id)
-      history.push("/");
+      localStorage.setItem("userId", res.data.id);
+      // history.push("/");
     } catch (err) {
       setError(err.message);
     }
