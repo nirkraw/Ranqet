@@ -45,8 +45,8 @@ export const createUser = (body) => {
   });
 }
 
-export const loginUser = (userId) => {
-  return axios.post(`${server}/user/${userId}`, {
+export const loginUser = (body) => {
+  return axios.post(`${server}/user/login`, body, {
     "Content-Type": "application/json",
   });
 };

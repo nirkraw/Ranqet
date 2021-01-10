@@ -26,8 +26,9 @@ export default function SessionForm() {
     }
     try {
       const endpoint = formHeader === "Sign Up" ? createUser : loginUser;
-      //not using password yet but add later
-      const res = await endpoint({name: username});
+      // TODO: name textbox input for display name
+      // TODO: avatarUrl for user
+      const res = await endpoint({name: username, username: username, password: password});
       localStorage.setItem("userId", res.data.id);
       history.push("/");
       window.location.reload();

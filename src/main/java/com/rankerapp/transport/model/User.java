@@ -8,6 +8,8 @@ public class User {
 
     private final String name;
 
+    private final String username;
+
     private final String avatarUrl;
 
     private final Instant createdOn;
@@ -15,6 +17,7 @@ public class User {
     private User(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
+        this.username = builder.username;
         this.avatarUrl = builder.avatarUrl;
         this.createdOn = builder.createdOn;
     }
@@ -25,6 +28,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getAvatarUrl() {
@@ -45,6 +52,8 @@ public class User {
 
         private String name;
 
+        private String username;
+
         private String avatarUrl;
 
         private Instant createdOn;
@@ -60,6 +69,11 @@ public class User {
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder username(String username) {
+            this.username = username;
             return this;
         }
 

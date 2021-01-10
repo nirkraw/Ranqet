@@ -26,6 +26,7 @@ public class RankerAppResource {
         this.voteProcessor = voteProcessor;
     }
 
+    // TODO: add privacy option
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/list/create")
     public ListResponse createNewList(@RequestBody CreateListRequest request) {
@@ -40,6 +41,10 @@ public class RankerAppResource {
     public GetAllListsResponse getAllLists(@RequestParam(value = "userId") String userId) {
         return listFetcher.getAllListsForUser(asUUID(userId));
     }
+
+    // TODO: Get lists created by user
+
+    // TODO: toggle privacy settings
 
     // Filter by completed, in progress and by userId
     // Return info

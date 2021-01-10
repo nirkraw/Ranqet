@@ -20,6 +20,15 @@ public class UserEntity {
     @Column(name = "created_on")
     private Instant createdOn;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password_salt")
+    private String passwordSalt;
+
+    @Column(name = "password_hash")
+    private String passwordHash;
+
     public UUID getId() {
         return id;
     }
@@ -50,6 +59,30 @@ public class UserEntity {
 
     public void setCreatedOn(Instant createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public UserEntity() {

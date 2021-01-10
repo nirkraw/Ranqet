@@ -94,6 +94,7 @@ public class ListFetcher {
         return builder.build();
     }
 
+    // TODO: limit number of lists returned
     public GetAllListsResponse getAllListsForUser(UUID userId) {
 
         List<ListEntity> lists = listsRepo.findAll();

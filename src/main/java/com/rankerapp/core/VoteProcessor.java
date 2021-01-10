@@ -36,6 +36,7 @@ public class VoteProcessor {
         this.userListsRepo = userListsRepo;
     }
 
+    // TODO: expose number of votes left
     public OptionPairResponse getNextPair(UUID listId, UUID userId) {
         Optional<UserListEntity> userListMaybe = userListsRepo.findByUserIdAndListId(userId, listId);
         ListEntity list = listsRepo.getOne(listId);
