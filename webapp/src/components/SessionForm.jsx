@@ -30,6 +30,7 @@ export default function SessionForm() {
       const res = await endpoint({name: username});
       localStorage.setItem("userId", res.data.id);
       history.push("/");
+      window.location.reload();
     } catch (err) {
       setError(err.message);
     }
