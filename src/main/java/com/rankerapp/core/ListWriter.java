@@ -51,7 +51,7 @@ public class ListWriter {
         listEntity.setTitle(title);
         listEntity.setDescription(description);
         List<OptionEntity> optionEntities = options.stream()
-                .map((submittedOption) -> new OptionEntity(submittedOption.getTitle(), listEntity, submittedOption.getPhotoUrl()))
+                .map((submittedOption) -> new OptionEntity(submittedOption.getName(), listEntity, submittedOption.getPhotoUrl()))
                 .collect(Collectors.toList());
         for (int i = 0; i < optionEntities.size(); i++) {
             optionEntities.get(i).setOptionNumber(i + 1);

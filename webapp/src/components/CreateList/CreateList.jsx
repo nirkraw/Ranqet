@@ -54,6 +54,8 @@ export default function CreateList() {
         authorId: localStorage.getItem("userId"),
       };
 
+      debugger
+
       try {
         await createList(data);
         setLoading(false);
