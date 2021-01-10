@@ -5,6 +5,7 @@ import com.rankerapp.db.UsersRepository;
 import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.OptionEntity;
 import com.rankerapp.db.model.UserEntity;
+import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.SubmittedOption;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,10 @@ public class ListWriter {
             author = usersRepository.getOne(authorId);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException("Author with provided id not found");
+        }
+
+        if (options == null || options.size() < 2) {
+            throw new BadRequestException("At least two options must be present to create a list");
         }
 
         ListEntity listEntity = new ListEntity();
