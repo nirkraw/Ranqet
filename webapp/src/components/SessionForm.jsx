@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../styles/Session.css";
 import { createUser, loginUser } from "../util/Endpoints";
 import ErrorPage from "./Misc/ErrorPage";
+import { useHistory } from "react-router-dom";
 
-export default function SessionForm({history, setUserId}) {
+export default function SessionForm() {
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
@@ -27,7 +29,7 @@ export default function SessionForm({history, setUserId}) {
       //not using password yet but add later
       const res = await endpoint({name: username});
       localStorage.setItem("userId", res.data.id);
-      // history.push("/");
+      history.push("/");
     } catch (err) {
       setError(err.message);
     }
