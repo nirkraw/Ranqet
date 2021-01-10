@@ -44,9 +44,7 @@ export default function Home() {
 
   if (error) return <ErrorPage error={error} />
   if (loading) return <LoadingSpinner />;
-
   const newListLi = newLists.map((list, i) => {
-    //add logic to switch destination to quiz if user has not taken list quiz
     return (
       <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
         {i + 1}: {list.title}
@@ -55,7 +53,6 @@ export default function Home() {
   });
 
    const completedListLi = completedLists.map((list, i) => {
-     //add logic to switch destination to quiz if user has not taken list quiz
      return (
        <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
          {i + 1}: {list.title}
@@ -64,7 +61,6 @@ export default function Home() {
    });
 
     const inProgressListLi = inProgressLists.map((list, i) => {
-      //add logic to switch destination to quiz if user has not taken list quiz
       return (
         <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
           {i + 1}: {list.title}

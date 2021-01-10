@@ -47,10 +47,10 @@ table {
 	border-spacing: 0;
 }
 
-::selection {
+/* ::selection {
     color: none;
     background: none;
-}
+} */
 
 ::-moz-selection {
     color: none;
