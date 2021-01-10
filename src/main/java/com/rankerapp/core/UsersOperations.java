@@ -34,7 +34,7 @@ public class UsersOperations {
 
     public User login(String username, String password) {
         UserEntity user = usersRepo.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("Username " + username + " not found!"));
+                .orElseThrow(() -> new ForbiddenException("Username " + username + " not found!"));
         if (hashPassword(password, user.getPasswordSalt()).equals(user.getPasswordHash())) {
             return convertUserEntity(user);
         } else {
