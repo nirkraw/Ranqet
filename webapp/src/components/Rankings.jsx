@@ -5,7 +5,7 @@ import LoadingSpinner from "./Misc/LoadingSpinner";
 import ErrorPage from "./Misc/ErrorPage";
 import { useRouteMatch } from "react-router-dom";
 
-export default function CompletedList() {
+export default function Rankings() {
   const match = useRouteMatch();
   const [error, setError] = useState(null);
   const [personalRanking, setPersonalRanking] = useState([]);
@@ -38,13 +38,13 @@ export default function CompletedList() {
   if (loading) return <LoadingSpinner />;
 
   const personalRankingList = personalRanking.map((personalRanking, i) => (
-    <li className="ranking-name">
+    <li className="ranking-name" key={i}>
       {i + 1}: {personalRanking}
     </li>
   ));
 
    const globalRankingList = globalRanking.map((globalRanking, i) => (
-     <li className="ranking-name">
+     <li className="ranking-name" key={i}>
        {i + 1}: {globalRanking}
      </li>
    ));
