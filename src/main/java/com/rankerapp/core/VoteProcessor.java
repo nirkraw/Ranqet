@@ -119,7 +119,7 @@ public class VoteProcessor {
             userList.get().setMatchups("");
             userListsRepo.save(userList.get());
 
-            // TODO: update global list with rankings;
+            updateGlobalListWithUserList(list, userList.get());
 
             return OptionPairResponse.builder().build();
         }
@@ -162,6 +162,24 @@ public class VoteProcessor {
         userListsRepo.save(userListEntity);
 
         return userListEntity;
+    }
+
+    private void updateGlobalListWithUserList(ListEntity listEntity, UserListEntity userListEntity) {
+        List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(userListEntity.getListId(), null);
+        List<ScoreEntity> userListScores = scoresRepo.findByListIdAndUserId(userListEntity.getListId(), userListEntity.getUserId());
+        int newNumCompletions = listEntity.getNumCompletions() + 1;
+        for (ScoreEntity globalScore : globalScores) {
+            ScoreEntity localScore = userListScores.stream()
+                    .filter((score) -> score.getOption().getId().equals(globalScore.getOption().getId()))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Unmatched local option with with global option!"));
+            double newScore = ((globalScore.getScore() * listEntity.getNumCompletions()) + localScore.getScore()) / newNumCompletions;
+            globalScore.setScore(newScore);
+        }
+
+        scoresRepo.saveAll(globalScores);
+        listEntity.setNumCompletions(newNumCompletions);
+        listsRepo.save(listEntity);
     }
 
     private List<String> optionIdMappedQueue(List<String> numberedOptions, List<OptionEntity> options) {

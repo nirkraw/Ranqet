@@ -8,9 +8,9 @@ export default function OptionInputs({
   setCurrModalOptionIdx,
   setOpenModal,
 }) {
-  const handleOptionNameChange = (e) => {
+  const handleOptionTitleChange = (e) => {
     const currOptionIdx = e.currentTarget.attributes.optionnum.value;
-    options[currOptionIdx].name = e.currentTarget.value;
+    options[currOptionIdx].title = e.currentTarget.value;
     setOptions(options);
   };
 
@@ -51,7 +51,7 @@ export default function OptionInputs({
           optionnum={i}
           className="option-input"
           type="text"
-          onChange={handleOptionNameChange}
+          onChange={handleOptionTitleChange}
         />
         <div
           className="option-input-add-image"
