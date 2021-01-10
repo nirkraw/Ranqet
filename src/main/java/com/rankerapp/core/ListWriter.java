@@ -31,6 +31,10 @@ public class ListWriter {
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options) {
+        if (authorId == null) {
+            throw new BadRequestException("Author ID required to create list!");
+        }
+
         UserEntity author;
         try {
             author = usersRepository.getOne(authorId);

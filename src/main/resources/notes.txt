@@ -1,6 +1,9 @@
 To flyway clean:
 flyway clean -url=jdbc:postgresql://localhost:5432/ranker -user=rankeradmin -password=rankerbaby
 
+To create role:
+CREATE USER rankeradmin WITH SUPERUSER PASSWORD 'rankerbaby';
+
 Sample User Id:
 c7681fc7-f3e0-4290-a3e4-8a2cd6549238
 
