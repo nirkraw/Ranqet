@@ -12,10 +12,10 @@ export default function Navbar() {
         <NavLink to="/create-list" id="nav-create-new-list">
           + Create List
         </NavLink>
-        <NavLink to="create-user" className="nav-session-button">
+        <NavLink to="/create-user" className="nav-session-button">
           + New User
         </NavLink>
-        <NavLink to="login" className="nav-session-button">
+        <NavLink to="/login" className="nav-session-button">
           Login
         </NavLink>
       </div>
