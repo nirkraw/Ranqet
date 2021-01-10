@@ -21,8 +21,8 @@ export const createList = (data) => {
   });
 };
 
-export const fetchTopLists = () => {
-    return axios.get(`${server}/lists/all`, {
+export const fetchTopLists = (userId) => {
+    return axios.get(`${server}/lists/all?userId=${userId}`, {
     "Content-Type": "application/json",
   });
 }
