@@ -3,6 +3,7 @@ package com.rankerapp.resource;
 import com.rankerapp.core.ListFetcher;
 import com.rankerapp.core.ListWriter;
 import com.rankerapp.core.VoteProcessor;
+import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.transport.model.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,11 +35,10 @@ public class RankerAppResource {
         return listFetcher.fetchListById(persistedId);
     }
 
-    // TODO: TAKE IN USER ID AND SORT LISTS INTO COMPLETED, IN-PROGRESS, AND NEW LISTS
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/all")
-    public GetAllListsResponse getAllLists() {
-        return listFetcher.getAllLists();
+    public GetAllListsResponse getAllLists(@RequestParam(value = "userId") String userId) {
+        return listFetcher.getAllListsForUser(asUUID(userId));
     }
 
     // Filter by completed, in progress and by userId
@@ -63,7 +63,7 @@ public class RankerAppResource {
         return voteProcessor.castVote(asUUID(listId), asUUID(request.getUserId()),
                 asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
-    
+
     // TODO (nir): AWS IMAGE UPLOAD
     // TODO (nir): cookies
     @CrossOrigin(origins = "http://localhost:3000")
@@ -75,6 +75,9 @@ public class RankerAppResource {
     }
 
     private static UUID asUUID(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new BadRequestException("Empty UUID is invalid");
+        }
         return UUID.fromString(id);
     }
 }

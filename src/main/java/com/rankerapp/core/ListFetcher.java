@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -93,10 +94,42 @@ public class ListFetcher {
         return builder.build();
     }
 
-    public GetAllListsResponse getAllLists() {
+    public GetAllListsResponse getAllListsForUser(UUID userId) {
+
         List<ListEntity> lists = listsRepo.findAll();
+        List<UserListEntity> userLists = userListsRepo.findByUserId(userId);
+        Set<UUID> completedListIds = userLists.stream()
+                .filter(UserListEntity::isCompleted)
+                .map(UserListEntity::getListId)
+                .collect(Collectors.toSet());
+
+        Set<UUID> incompleteListIds = userLists.stream()
+                .filter((userList) -> !userList.isCompleted())
+                .map(UserListEntity::getListId)
+                .collect(Collectors.toSet());
+
+        List<ListEntity> completedLists = new ArrayList<>();
+        List<ListEntity> inProgressLists = new ArrayList<>();
+        List<ListEntity> newLists = new ArrayList<>();
+
+        for (ListEntity list : lists) {
+            if (completedListIds.contains(list.getId())) {
+                completedLists.add(list);
+            } else if (incompleteListIds.contains(list.getId())) {
+                inProgressLists.add(list);
+            } else {
+                newLists.add(list);
+            }
+        }
+
         return GetAllListsResponse.builder()
-                .lists(lists.stream()
+                .newLists(newLists.stream()
+                        .map(ListFetcher::convertListToResponse)
+                        .collect(Collectors.toList()))
+                .inProgressLists(inProgressLists.stream()
+                        .map(ListFetcher::convertListToResponse)
+                        .collect(Collectors.toList()))
+                .completedLists(completedLists.stream()
                         .map(ListFetcher::convertListToResponse)
                         .collect(Collectors.toList()))
                 .build();
