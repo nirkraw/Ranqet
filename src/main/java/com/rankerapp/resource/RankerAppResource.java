@@ -63,8 +63,7 @@ public class RankerAppResource {
         return voteProcessor.castVote(asUUID(listId), asUUID(request.getUserId()),
                 asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
-
-    // TODO: UPDATE GLOBAL RANKING UPON COMPLETING USER LIST, AND RETURN HERE
+    
     // TODO (nir): AWS IMAGE UPLOAD
     // TODO (nir): cookies
     @CrossOrigin(origins = "http://localhost:3000")
