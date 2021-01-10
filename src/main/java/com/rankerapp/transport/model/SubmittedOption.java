@@ -6,17 +6,17 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder =  SubmittedOption.Builder.class)
 public class SubmittedOption {
 
-    public final String name;
+    public final String title;
 
     public final String photoUrl;
 
     private SubmittedOption(Builder builder) {
-        this.name = builder.name;
+        this.title = builder.title;
         this.photoUrl = builder.photoUrl;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getPhotoUrl() {
@@ -31,12 +31,12 @@ public class SubmittedOption {
     @JsonPOJOBuilder
     public static final class Builder {
 
-        public String name;
+        public String title;
 
         public String photoUrl;
 
-        public Builder withName(String name) {
-            this.name = name;
+        public Builder withTitle(String title) {
+            this.title = title;
             return this;
         }
 
