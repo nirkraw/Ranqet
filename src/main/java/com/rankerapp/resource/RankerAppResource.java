@@ -65,7 +65,6 @@ public class RankerAppResource {
     }
 
     // TODO: UPDATE GLOBAL RANKING UPON COMPLETING USER LIST, AND RETURN HERE
-    // TODO: Merge Git Repos
     // TODO (nir): AWS IMAGE UPLOAD
     // TODO (nir): cookies
     @CrossOrigin(origins = "http://localhost:3000")
