@@ -38,7 +38,7 @@ export default function CreateList() {
       for (let i = 0; i < options.length; i++) {
         let option = options[i];
         //allows to user to skip lines;
-        if (!option.title) continue;
+        if (!option.name) continue;
         let photoUrl = option.file ? option.file : option.photoUrl;
         // const formData = new FormData();
         // formData.append("title", option.title);
