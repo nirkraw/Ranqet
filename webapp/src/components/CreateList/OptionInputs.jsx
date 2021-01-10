@@ -10,7 +10,7 @@ export default function OptionInputs({
 }) {
   const handleOptionTitleChange = (e) => {
     const currOptionIdx = e.currentTarget.attributes.optionnum.value;
-    options[currOptionIdx].title = e.currentTarget.value;
+    options[currOptionIdx].name = e.currentTarget.value;
     setOptions(options);
   };
 

@@ -4,13 +4,13 @@ public class Option {
 
     private final String id;
 
-    private final String title;
+    private final String name;
 
     private final String photoUrl;
 
     private Option(Builder builder) {
         this.id = builder.id;
-        this.title = builder.title;
+        this.name = builder.name;
         this.photoUrl = builder.photoUrl;
     }
 
@@ -18,8 +18,8 @@ public class Option {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public String getPhotoUrl() {
@@ -34,7 +34,7 @@ public class Option {
 
         private String id;
 
-        private String title;
+        private String name;
 
         private String photoUrl;
 
@@ -47,8 +47,8 @@ public class Option {
             return this;
         }
 
-        public Builder title(String title) {
-            this.title = title;
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
 

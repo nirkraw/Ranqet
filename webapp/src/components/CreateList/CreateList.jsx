@@ -12,14 +12,14 @@ export default function CreateList() {
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState([
-    { title: "", photoUrl: "", file: null },
-    { title: "", photoUrl: "", file: null },
-    { title: "", photoUrl: "", file: null },
-    { title: "", photoUrl: "", file: null },
-    { title: "", photoUrl: "", file: null },
-    { title: "", photoUrl: "", file: null },
-    { title: "", photoUrl: "", file: null },
-    { title: "", photoUrl: "", file: null }
+    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: "", file: null }
   ]);
   const [userError, setUserError] = useState("");
   const [error, setError] = useState();
@@ -44,7 +44,7 @@ export default function CreateList() {
         // formData.append("title", option.title);
         // formData.append("photoUrl", photoUrl);
         // newOptions.push(formData);
-        newOptions.push({title: option.title, photoUrl})
+        newOptions.push({name: option.name, photoUrl})
       }
 
       const data = {

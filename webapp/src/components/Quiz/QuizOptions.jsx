@@ -59,7 +59,7 @@ export default function QuizOptions({ listId, history}) {
           onClick={submitOption}
           key={i}
         >
-          <h3 className="option-header">{option.title}</h3>
+          <h3 className="option-header">{option.name}</h3>
           {option.photoUrl ? (
             <img src={option.photoUrl} alt="option"></img>
           ) : null}

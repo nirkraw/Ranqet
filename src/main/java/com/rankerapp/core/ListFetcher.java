@@ -67,12 +67,12 @@ public class ListFetcher {
         RankingResponse.Builder builder = RankingResponse.builder()
                 .title(list.getTitle())
                 .description(list.getDescription())
-                .options(rankedOptions)
+                .personalRanking(rankedOptions)
                 .completedBy(UsersOperations.convertUserEntity(user));
 
         if (userListIsComplete) {
             List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(listId, null);
-            builder.globalOptions(convertAndSortList(globalScores));
+            builder.globalRanking(convertAndSortList(globalScores));
         }
 
         return builder.build();

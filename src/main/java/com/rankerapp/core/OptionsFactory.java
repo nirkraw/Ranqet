@@ -10,7 +10,7 @@ class OptionsFactory {
     static Option convertOption(OptionEntity option) {
         return Option.builder()
                 .id(option.getId().toString())
-                .title(option.getName())
+                .name(option.getName())
                 .photoUrl(option.getPhotoUrl())
                 .build();
     }

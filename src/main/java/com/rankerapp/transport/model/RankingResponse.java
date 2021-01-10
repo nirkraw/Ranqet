@@ -8,17 +8,17 @@ public class RankingResponse {
 
     private final String description;
 
-    private final List<RankedOption> options;
+    private final List<RankedOption> personalRanking;
 
-    private final List<RankedOption> globalOptions;
+    private final List<RankedOption> globalRanking;
 
     private final User completedBy;
 
     private RankingResponse(Builder builder) {
         this.title = builder.title;
         this.description = builder.description;
-        this.options = builder.options;
-        this.globalOptions = builder.options;
+        this.personalRanking = builder.personalRanking;
+        this.globalRanking = builder.globalRanking;
         this.completedBy = builder.completedBy;
     }
 
@@ -30,12 +30,12 @@ public class RankingResponse {
         return description;
     }
 
-    public List<RankedOption> getOptions() {
-        return options;
+    public List<RankedOption> getPersonalRanking() {
+        return personalRanking;
     }
 
-    public List<RankedOption> getGlobalOptions() {
-        return globalOptions;
+    public List<RankedOption> getGlobalRanking() {
+        return globalRanking;
     }
 
     public User getCompletedBy() {
@@ -52,9 +52,9 @@ public class RankingResponse {
 
         private String description;
 
-        private List<RankedOption> options;
+        private List<RankedOption> personalRanking;
 
-        private List<RankedOption> globalOptions;
+        private List<RankedOption> globalRanking;
 
         private User completedBy;
 
@@ -72,13 +72,13 @@ public class RankingResponse {
             return this;
         }
 
-        public Builder options(List<RankedOption> options) {
-            this.options = options;
+        public Builder personalRanking(List<RankedOption> personalRanking) {
+            this.personalRanking = personalRanking;
             return this;
         }
 
-        public Builder globalOptions(List<RankedOption> globalOptions) {
-            this.globalOptions = globalOptions;
+        public Builder globalRanking(List<RankedOption> globalRanking) {
+            this.globalRanking = globalRanking;
             return this;
         }
 
