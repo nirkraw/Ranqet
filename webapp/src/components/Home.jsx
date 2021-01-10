@@ -19,7 +19,6 @@ export default function Home() {
   const fetchLists = async () => {
       try {
       const res = await fetchTopLists(localStorage.getItem("userId"));
-      debugger
       const currNewLists = [];
       for (let i = 0; i < res.data.newLists.length; i++) {
         currNewLists.push(res.data.newLists[i]);
