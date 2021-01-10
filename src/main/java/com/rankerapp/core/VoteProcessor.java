@@ -7,7 +7,8 @@ import com.rankerapp.db.model.*;
 import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.OptionPairResponse;
-import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -143,7 +144,7 @@ public class VoteProcessor {
                 .filter((op) -> op.getId().equals(UUID.fromString(matchupPair[1])))
                 .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matching option"));
 
-        return new Pair<>(firstMatchupOption, secondMatchupOption);
+        return new MutablePair<>(firstMatchupOption, secondMatchupOption);
     }
 
     /**

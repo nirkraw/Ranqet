@@ -3,8 +3,8 @@ import "../../styles/UploadImage.css";
 import Modal from "react-modal";
 import axios from "axios";
 import Homer from "../../assets/homer-simpsons-155238_1280.png";
-import S3FileUpload from "react-s3";
-import {config} from "../../util/awsS3config"
+// import S3FileUpload from "react-s3";
+// import {config} from "../../util/awsS3config"
 Modal.setAppElement("#root");
 
 export default function UploadImage({
@@ -37,7 +37,9 @@ export default function UploadImage({
     }
   };
 
+
   const handlePhotoFile = async (e) => {
+  /*
     try {
       const file = e.currentTarget.files[0];
       const res = await S3FileUpload.uploadFile(file, config);
@@ -54,7 +56,7 @@ export default function UploadImage({
     //   setImageLoading(false);
     // };
     // if (file) fileReader.readAsDataURL(file);
-    // closeModal();
+    // closeModal();*/
   };
 
   const addUrlToOption = (idx, url) => {
