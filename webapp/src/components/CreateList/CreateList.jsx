@@ -25,7 +25,7 @@ export default function CreateList({history, userId}) {
   const [imageLoading, setImageLoading] = useState(false);
   const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
   const [openModal, setOpenModal] = useState(false);
-  
+
   const handleSubmit = async () => {
     if (!listTitle) setUserError("*List must have title");
     else if (options.length < 2) {
@@ -51,7 +51,7 @@ export default function CreateList({history, userId}) {
         options: newOptions,
         authorId: userId,
       };
-     
+     debugger 
       try {
         await createList(data);
         setLoading(false);

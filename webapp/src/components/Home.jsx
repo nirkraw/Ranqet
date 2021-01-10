@@ -5,7 +5,7 @@ import { fetchTopLists } from "../util/Endpoints";
 import { NavLink } from "react-router-dom";
 import ErrorPage from "./Misc/ErrorPage";
 
-export default function Home() {
+export default function Home({userId}) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lists, setLists] = useState([]);

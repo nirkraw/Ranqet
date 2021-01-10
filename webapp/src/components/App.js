@@ -8,11 +8,11 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import SessionForm from "./SessionForm";
 import React, {useState} from "react"
-import {Protected} from "../util/ProtectedRoute";
+import Protected from "../util/ProtectedRoute";
 
 function App() {
-  const [userId, setUserId] = useState("test");
- 
+  const [userId, setUserId] = useState("");
+  
   return (
     <Router history={createBrowserHistory}>
       <div className="App">
@@ -30,6 +30,7 @@ function App() {
             path="/create-list"
             component={CreateList}
             userId={userId}
+            test="test"
           />
           <Protected path="/:listId/quiz" component={Quiz} userId={userId} />
           <Protected

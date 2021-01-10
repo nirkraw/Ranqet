@@ -1,11 +1,12 @@
 import { Route, Redirect } from "react-router-dom";
 
-export const Protected = ({ component: Component, path, userId }) => {
+export default function Protected({ component: Component, path, userId }) {
   return (
     <Route
       path={path}
-      render={(props) =>
-        userId ? <Component {...props} /> : <Redirect to="/login" />
+      render={(props) => {
+        return (userId ? <Component {...props} userId={userId} /> : <Redirect to="/login" />)
+      }
       }
     />
   );

@@ -5,7 +5,7 @@ import QuizOptions from "./QuizOptions";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
-export default function Quiz({ match, history }) {
+export default function Quiz({ match, history, userId }) {
   const [listName, setListName] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
@@ -33,7 +33,7 @@ export default function Quiz({ match, history }) {
     <div id="quiz-main-div">
       <h1 id="main-quiz-header">{listName}</h1>
       <h2 id="main-quiz-description">{description}</h2>
-      <QuizOptions listId={match.params.listId} history={history} />
+      <QuizOptions listId={match.params.listId} history={history} userId={userId} />
     </div>
   );
 }
