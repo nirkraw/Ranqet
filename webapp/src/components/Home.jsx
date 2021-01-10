@@ -11,7 +11,7 @@ export default function Home() {
   const [lists, setLists] = useState([]);
    
   useEffect(() => {
-    fetchLists();
+    fetchLists(localStorage.getItem("userId"));
   },[]);
 
   const fetchLists = async () => {
