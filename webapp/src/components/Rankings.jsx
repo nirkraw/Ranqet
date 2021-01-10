@@ -21,9 +21,10 @@ export default function CompletedList() {
       const res = await fetchRankings(match.params.listId, localStorage.getItem("userId"));
       const currPersonalRanking = [];
       const currGlobalRanking = [];
-      for (let i = 0; i < res.data.options.length; i++) {
-        currPersonalRanking.push(res.data.options[i].name);
-        currGlobalRanking.push(res.data.globalOptions[i].name)
+
+      for (let i = 0; i < res.data.personalRanking.length; i++) {
+        currPersonalRanking.push(res.data.personalRanking[i].name);
+        currGlobalRanking.push(res.data.globalRanking[i].name)
       }
       setPersonalRanking(currPersonalRanking);
       setGlobalRanking(currGlobalRanking);

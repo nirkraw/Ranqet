@@ -12,6 +12,7 @@ import com.rankerapp.transport.model.*;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -72,6 +73,20 @@ public class ListFetcher {
 
         if (userListIsComplete) {
             List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(listId, null);
+            if (globalScores.isEmpty()) {
+                List<ScoreEntity> newGlobalScores = new ArrayList<>();
+                for (ScoreEntity score : scores) {
+                    ScoreEntity newScore = new ScoreEntity();
+                    newScore.setScore(score.getScore());
+                    newScore.setListId(score.getListId());
+                    newScore.setOption(score.getOption());
+                    newScore.setId(UUID.randomUUID());
+                    newGlobalScores.add(newScore);
+                }
+                scoresRepo.saveAll(newGlobalScores);
+                globalScores = newGlobalScores;
+            }
+
             builder.globalRanking(convertAndSortList(globalScores));
         }
 
