@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 export default function SessionForm() {
   const history = useHistory();
   const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
   const [userError, setUserError] = useState();
@@ -28,12 +29,20 @@ export default function SessionForm() {
       const endpoint = formHeader === "Sign Up" ? createUser : loginUser;
       // TODO: name textbox input for display name
       // TODO: avatarUrl for user
-      const res = await endpoint({name: username, username: username, password: password});
+      const res = await endpoint({
+        name: name,
+        username: username,
+        password: password,
+      });
       localStorage.setItem("userId", res.data.id);
       history.push("/");
       window.location.reload();
     } catch (err) {
-      setError(err.message);
+      if (err.status === 403 && formHeader === "Log In") {
+        setUserError("*Username or password not found");
+      } else {
+        setError(err.message);
+      }
     }
   };
 
@@ -50,6 +59,17 @@ export default function SessionForm() {
           onChange={(event) => setUsername(event.target.value)}
           className="login-input"
         />
+        {formHeader === "Sign Up" ? (
+          <input
+            type="text"
+            value={name}
+            placeholder="Name"
+            onChange={(event) => setName(event.target.value)}
+            className="login-input"
+          />
+        ) : (
+          <div></div>
+        )}
         <input
           type="password"
           value={password}
