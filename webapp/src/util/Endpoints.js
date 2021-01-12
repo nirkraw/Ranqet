@@ -21,7 +21,7 @@ export const createList = (data) => {
   });
 };
 
-export const fetchTopLists = (userId) => {
+export const fetchTopList = (userId) => {
     return axios.get(`${server}/lists/all?userId=${userId}`, {
     "Content-Type": "application/json",
   });
@@ -47,6 +47,19 @@ export const createUser = (body) => {
 
 export const loginUser = (body) => {
   return axios.post(`${server}/user/login`, body, {
+    "Content-Type": "application/json",
+  });
+};
+
+export const fetchUser = (userId) => {
+  return axios.post(`${server}/user/${userId}`, {
+    "Content-Type": "application/json",
+  });
+};
+
+//getUrl
+export const fetchUserLists = (userId) => {
+  return axios.post(`${server}/user/${userId}/all`, {
     "Content-Type": "application/json",
   });
 };
