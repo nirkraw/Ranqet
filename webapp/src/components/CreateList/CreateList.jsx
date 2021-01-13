@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createList} from "../../util/Endpoints";
+import { createList } from "../../util/Endpoints";
 import "../../styles/CreateList.css";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
@@ -19,7 +19,7 @@ export default function CreateList() {
     { name: "", photoUrl: "", file: null },
     { name: "", photoUrl: "", file: null },
     { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null }
+    { name: "", photoUrl: "", file: null },
   ]);
   const [userError, setUserError] = useState("");
   const [error, setError] = useState();
@@ -27,7 +27,7 @@ export default function CreateList() {
   const [imageLoading, setImageLoading] = useState(false);
   const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
   const [openModal, setOpenModal] = useState(false);
- 
+
   const handleSubmit = async () => {
     if (!listTitle) setUserError("*List must have title");
     else if (options.length < 2) {
@@ -35,16 +35,23 @@ export default function CreateList() {
     } else {
       setLoading(true);
       const newOptions = [];
+      const visitedOptions = new Set();
       for (let i = 0; i < options.length; i++) {
         let option = options[i];
         //allows to user to skip lines;
         if (!option.name) continue;
+        if (visitedOptions.has(option.name)) {
+          setUserError("All options must be unique");
+          setLoading(false);
+          return;
+        }
+        visitedOptions.add(option.name);
         let photoUrl = option.file ? option.file : option.photoUrl;
         // const formData = new FormData();
         // formData.append("title", option.title);
         // formData.append("photoUrl", photoUrl);
         // newOptions.push(formData);
-        newOptions.push({name: option.name, photoUrl})
+        newOptions.push({ name: option.name, photoUrl });
       }
 
       const data = {

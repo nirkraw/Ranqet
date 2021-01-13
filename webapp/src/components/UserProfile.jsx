@@ -8,6 +8,7 @@ export default function UserProfile() {
   const [name, setName] = useState("");
   const [completedLists, setCompletedLists] = useState([]);
   const [inProgressLists, setInProgressLists] = useState([]);
+  const [createdLists, setCreatedLists] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -30,6 +31,12 @@ export default function UserProfile() {
         currCompletedLists.push(res.data.completedLists[i]);
       }
       setCompletedLists(currCompletedLists);
+
+      const currCreatedLists = [];
+      for (let i = 0; i < res.data.createdLists.length; i++) {
+        currCreatedLists.push(res.data.createdLists[i]);
+      }
+      setCreatedLists(currCreatedLists);
     } catch (err) {
       setError(err.message);
     }
@@ -64,6 +71,14 @@ export default function UserProfile() {
     );
   });
 
+    const createdListLi = createdLists.map((list, i) => {
+      return (
+        <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
+          {i + 1}: {list.title}
+        </NavLink>
+      );
+    });
+
   return (
     <div>
       <h1>{name}</h1>
@@ -71,6 +86,8 @@ export default function UserProfile() {
       <ul id="top-list-ul">{completedListLi}</ul>
       <h3>In Progress Lists</h3>
       <ul id="top-list-ul">{inProgressListLi}</ul>
+      <h3>Created Lists</h3>
+      <ul id="top-list-ul">{createdListLi}</ul>
     </div>
   );
 }
