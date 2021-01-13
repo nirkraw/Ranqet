@@ -100,7 +100,7 @@ public class ListFetcher {
 
     public GetTopListsResponse getTopLists() {
         PageRequest pageRequest =
-                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("num_completions")));
+                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
         List<ListResponse> topLists = listsRepo.findAll(pageRequest)
                 .map(ListFetcher::convertListToResponse)
                 .getContent();
