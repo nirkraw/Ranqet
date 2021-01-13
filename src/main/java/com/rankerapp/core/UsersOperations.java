@@ -2,9 +2,12 @@ package com.rankerapp.core;
 
 import com.rankerapp.db.UsersRepository;
 import com.rankerapp.db.model.UserEntity;
+import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.User;
+import org.hibernate.exception.ConstraintViolationException;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -50,7 +53,11 @@ public class UsersOperations {
         userEntity.setPasswordHash(passwordHash);
         userEntity.setPasswordSalt(passwordSalt);
         userEntity.setUsername(username);
-        usersRepo.save(userEntity);
+        try {
+            usersRepo.save(userEntity);
+        } catch (ConstraintViolationException e) {
+            throw new BadRequestException("User " + username + " already exists!");
+        }
 
         return convertUserEntity(userEntity);
     }
