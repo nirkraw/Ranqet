@@ -125,7 +125,9 @@ public class ListFetcher {
 
         List<ListEntity> completedLists = listsRepo.findAllById(completedListIds);
         List<ListEntity> inProgressLists = listsRepo.findAllById(incompleteListIds);
-        List<ListEntity> createdLists = listsRepo.findByCreatedBy(userId);
+        UserEntity createdBy = new UserEntity();
+        createdBy.setId(userId);
+        List<ListEntity> createdLists = listsRepo.findByCreatedBy(createdBy);
 
         return GetAllUserListsResponse.builder()
                 .createdLists(createdLists.stream()

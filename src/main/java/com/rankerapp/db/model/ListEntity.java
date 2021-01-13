@@ -28,7 +28,7 @@ public class ListEntity {
     private List<OptionEntity> options;
 
     @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", referencedColumnName = "id")
     private UserEntity createdBy;
 
     @Column(name = "is_private")
