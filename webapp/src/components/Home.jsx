@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import "../styles/Home.css";
-import { fetchTopList } from "../util/Endpoints";
+import { fetchTopLists } from "../util/Endpoints";
 import { NavLink } from "react-router-dom";
 import ErrorPage from "./Misc/ErrorPage";
 
@@ -16,7 +16,7 @@ export default function Home() {
 
   const fetchList = async () => {
       try {
-      const res = await fetchTopList(localStorage.getItem("userId"));
+      const res = await fetchTopLists();
       const currNewLists = [];
       for (let i = 0; i < res.data.newLists.length; i++) {
         currNewLists.push(res.data.newLists[i]);
