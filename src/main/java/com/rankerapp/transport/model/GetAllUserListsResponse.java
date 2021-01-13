@@ -2,22 +2,22 @@ package com.rankerapp.transport.model;
 
 import java.util.List;
 
-public class GetAllListsResponse {
+public class GetAllUserListsResponse {
 
-    private final List<ListResponse> newLists;
+    private final List<ListResponse> createdLists;
 
     private final List<ListResponse> inProgressLists;
 
     private final List<ListResponse> completedLists;
 
-    private GetAllListsResponse(Builder builder) {
-        this.newLists = builder.newLists;
+    private GetAllUserListsResponse(Builder builder) {
+        this.createdLists = builder.createdLists;
         this.inProgressLists = builder.inProgressLists;
         this.completedLists = builder.completedLists;
     }
 
-    public List<ListResponse> getNewLists() {
-        return newLists;
+    public List<ListResponse> getCreatedLists() {
+        return createdLists;
     }
 
     public List<ListResponse> getInProgressLists() {
@@ -34,7 +34,7 @@ public class GetAllListsResponse {
 
     public static class Builder {
 
-        private List<ListResponse> newLists;
+        private List<ListResponse> createdLists;
 
         private List<ListResponse> inProgressLists;
 
@@ -43,8 +43,8 @@ public class GetAllListsResponse {
         private Builder() {
         }
 
-        public Builder newLists(List<ListResponse> newLists) {
-            this.newLists = newLists;
+        public Builder createdLists(List<ListResponse> createdLists) {
+            this.createdLists = createdLists;
             return this;
         }
 
@@ -58,8 +58,8 @@ public class GetAllListsResponse {
             return this;
         }
 
-        public GetAllListsResponse build() {
-            return new GetAllListsResponse(this);
+        public GetAllUserListsResponse build() {
+            return new GetAllUserListsResponse(this);
         }
 
     }

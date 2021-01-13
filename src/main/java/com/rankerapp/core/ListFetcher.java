@@ -9,6 +9,8 @@ import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.db.model.UserListEntity;
 import com.rankerapp.transport.model.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class ListFetcher {
+
+    private static final int TOP_LIST_SIZE = 10;
 
     private final ListsRepository listsRepo;
 
@@ -94,10 +98,20 @@ public class ListFetcher {
         return builder.build();
     }
 
-    // TODO: limit number of lists returned
-    public GetAllListsResponse getAllListsForUser(UUID userId) {
+    public GetTopListsResponse getTopLists() {
+        PageRequest pageRequest =
+                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("num_completions")));
+        List<ListResponse> topLists = listsRepo.findAll(pageRequest)
+                .map(ListFetcher::convertListToResponse)
+                .getContent();
+        return GetTopListsResponse.builder()
+                .topLists(topLists)
+                .build();
+    }
 
-        List<ListEntity> lists = listsRepo.findAll();
+    // TODO: limit number of lists returned
+    public GetAllUserListsResponse getAllListsForUser(UUID userId) {
+
         List<UserListEntity> userLists = userListsRepo.findByUserId(userId);
         Set<UUID> completedListIds = userLists.stream()
                 .filter(UserListEntity::isCompleted)
@@ -109,22 +123,12 @@ public class ListFetcher {
                 .map(UserListEntity::getListId)
                 .collect(Collectors.toSet());
 
-        List<ListEntity> completedLists = new ArrayList<>();
-        List<ListEntity> inProgressLists = new ArrayList<>();
-        List<ListEntity> newLists = new ArrayList<>();
+        List<ListEntity> completedLists = listsRepo.findAllById(completedListIds);
+        List<ListEntity> inProgressLists = listsRepo.findAllById(incompleteListIds);
+        List<ListEntity> createdLists = listsRepo.findByCreatedBy(userId);
 
-        for (ListEntity list : lists) {
-            if (completedListIds.contains(list.getId())) {
-                completedLists.add(list);
-            } else if (incompleteListIds.contains(list.getId())) {
-                inProgressLists.add(list);
-            } else {
-                newLists.add(list);
-            }
-        }
-
-        return GetAllListsResponse.builder()
-                .newLists(newLists.stream()
+        return GetAllUserListsResponse.builder()
+                .createdLists(createdLists.stream()
                         .map(ListFetcher::convertListToResponse)
                         .collect(Collectors.toList()))
                 .inProgressLists(inProgressLists.stream()

@@ -37,10 +37,18 @@ public class RankerAppResource {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/lists/all")
-    public GetAllListsResponse getAllLists(@RequestParam(value = "userId") String userId) {
+    @GetMapping("/lists/top")
+    public GetTopListsResponse getTopLists() {
+        return listFetcher.getTopLists();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/lists/user/{userId}/all")
+    public GetAllUserListsResponse getAllUserLists(@RequestParam(value = "userId") String userId) {
         return listFetcher.getAllListsForUser(asUUID(userId));
     }
+
+
 
     // TODO: Get lists created by user
 
