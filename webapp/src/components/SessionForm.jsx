@@ -37,12 +37,12 @@ export default function SessionForm() {
       history.push("/");
       window.location.reload();
     } catch (err) {
-      if (err.response.status === 403 && formHeader === "Log In") {
+      if (err.response.status=== 403 && formHeader === "Log In") {
         setUserError("*Username or password not found");
-      } else if (err.response.status === 400 && formHeader === "Sign Up") {
+      } else if (err.response.status=== 400 && formHeader === "Sign Up") {
         setUserError("*Username already exists")
       } else {
-        setError(err.response.status);
+        setError(err.message);
       }
     }
   };

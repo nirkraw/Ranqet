@@ -31,7 +31,7 @@ export default function UserProfile() {
       }
       setCompletedLists(currCompletedLists);
     } catch (err) {
-      setError(err.response.status);
+      setError(err.message);
     }
   };
 
@@ -41,7 +41,7 @@ export default function UserProfile() {
       setName(res.data.name);
       setLoading(false);
     } catch (err) {
-      setError(err.response.status);
+      setError(err.message);
     }
   };
 

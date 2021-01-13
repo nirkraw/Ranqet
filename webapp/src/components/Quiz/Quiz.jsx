@@ -25,7 +25,7 @@ export default function Quiz() {
       setDescription(res.data.description);
       setLoading(false);
     } catch (err) {
-      setError(err.response.status);
+      setError(err.message);
     }
   };
 

@@ -52,13 +52,13 @@ export const loginUser = (body) => {
 };
 
 export const fetchUser = (userId) => {
-  return axios.post(`${server}/user/${userId}`, {
+  return axios.get(`${server}/user/${userId}`, {
     "Content-Type": "application/json",
   });
 };
 
 export const fetchUserLists = (userId) => {
-  return axios.post(`${server}/lists/user/${userId}/all`, {
+  return axios.get(`${server}/lists/user/${userId}/all`, {
     "Content-Type": "application/json",
   });
 };

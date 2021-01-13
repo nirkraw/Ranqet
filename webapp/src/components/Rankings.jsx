@@ -30,7 +30,7 @@ export default function Rankings() {
       setGlobalRanking(currGlobalRanking);
       setLoading(false);
     } catch (err) {
-      setError(err.response.status);
+      setError(err.message);
     }
   }
 

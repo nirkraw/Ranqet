@@ -18,15 +18,13 @@ export default function Home() {
       try {
       const res = await fetchTopLists();
       const currNewLists = [];
-      for (let i = 0; i < res.data.newLists.length; i++) {
-        currNewLists.push(res.data.newLists[i]);
+      for (let i = 0; i < res.data.topLists.length; i++) {
+        currNewLists.push(res.data.topLists[i]);
       }
       setNewLists(currNewLists);
-
-
       setLoading(false);
     } catch (err) {
-      setError(err.response.status);
+      setError(err.message);
     }
   }
 
