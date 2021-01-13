@@ -31,6 +31,8 @@ public class ListWriter {
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options) {
+       // TODO: validate that two options don't have the same name
+
         if (authorId == null) {
             throw new BadRequestException("Author ID required to create list!");
         }
