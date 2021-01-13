@@ -37,7 +37,6 @@ export default function Home() {
         <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
           {list.title}
         </NavLink>
-        <p className="top-lists-item-description">{list.description}</p>
       </li>
     );
   });
