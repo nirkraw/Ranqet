@@ -44,7 +44,7 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/user/{userId}/all")
-    public GetAllUserListsResponse getAllUserLists(@RequestParam(value = "userId") String userId) {
+    public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId) {
         return listFetcher.getAllListsForUser(asUUID(userId));
     }
 
