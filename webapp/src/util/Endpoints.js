@@ -57,9 +57,8 @@ export const fetchUser = (userId) => {
   });
 };
 
-//getUrl
 export const fetchUserLists = (userId) => {
-  return axios.post(`${server}/user/${userId}/all`, {
+  return axios.post(`${server}/lists/user/${userId}/all`, {
     "Content-Type": "application/json",
   });
 };

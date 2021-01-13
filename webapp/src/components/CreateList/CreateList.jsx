@@ -59,7 +59,7 @@ export default function CreateList() {
         setLoading(false);
         history.push("/");
       } catch (err) {
-        setError(err.message);
+        setError(err.response.status);
       }
     }
   };

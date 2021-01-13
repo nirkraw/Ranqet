@@ -13,6 +13,7 @@ import {
 import { createBrowserHistory } from "history";
 import SessionForm from "./SessionForm";
 import React from "react";
+import UserProfile from "./UserProfile";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
             path="/create-list"
             component={() =>
               localStorage.getItem("userId") ? (
-                <CreateList  />
+                <CreateList />
               ) : (
                 <Redirect to="/login" />
               )
@@ -47,6 +48,16 @@ function App() {
             component={() =>
               localStorage.getItem("userId") ? (
                 <Rankings />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/profile/:userId"
+            component={() =>
+              localStorage.getItem("userId") ? (
+                <UserProfile />
               ) : (
                 <Redirect to="/login" />
               )

@@ -25,6 +25,9 @@ export default function Navbar() {
         </div>
       ) : (
         <div id="navbar-buttons-container">
+          <NavLink to={`/profile/${localStorage.getItem("userId")}`} className="nav-session-button">
+            Profile
+          </NavLink>
           <NavLink to="/create-list" id="nav-create-new-list">
             + Create List
           </NavLink>

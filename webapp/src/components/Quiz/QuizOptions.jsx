@@ -27,7 +27,7 @@ export default function QuizOptions({ listId, history}) {
       }
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      setError(err.response.status);
     }
   };
 
@@ -44,7 +44,7 @@ export default function QuizOptions({ listId, history}) {
       });
       fetchNextOptionPair();
     } catch (err) {
-      setError(err.message);
+      setError(err.response.status);
     }
   };
 

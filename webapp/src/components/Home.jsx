@@ -26,7 +26,7 @@ export default function Home() {
 
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      setError(err.response.status);
     }
   }
 
