@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <div id="nav-main">
       <NavLink to="/" id="navbar-title">
-        Ranker
+        ranker
       </NavLink>
       {!localStorage.getItem("userId") ? (
         <div id="navbar-buttons-container">
@@ -25,11 +25,14 @@ export default function Navbar() {
         </div>
       ) : (
         <div id="navbar-buttons-container">
-          <NavLink to={`/profile/${localStorage.getItem("userId")}`} className="nav-session-button">
+          <NavLink
+            to={`/profile/${localStorage.getItem("userId")}`}
+            className="nav-session-button"
+          >
             Profile
           </NavLink>
-          <NavLink to="/create-list" id="nav-create-new-list">
-            + Create List
+          <NavLink to="/create-list" className="nav-session-button">
+            + New List
           </NavLink>
           <NavLink to="/login" onClick={logout} className="nav-session-button">
             Logout
