@@ -88,7 +88,7 @@ export default function CreateList() {
       <form onSubmit={handleSubmit} id="create-list-form">
         <div id="create-list-title-and-unlisited-container">
           <div id="create-list-title-div">
-            <h2 id="title-label">List title:</h2>
+            <h2 id="title-label">List Title:</h2>
             <input
               id="title-input"
               maxLength="32"
@@ -100,7 +100,7 @@ export default function CreateList() {
             <div className="info-tag tooltip-container">
               i
               <span className="tooltiptext">
-                List will not show up on any public list and can only be shared
+                List will not show up on any public page and can only be shared
                 with a URL
               </span>
             </div>
