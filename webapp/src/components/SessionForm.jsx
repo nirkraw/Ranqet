@@ -27,7 +27,6 @@ export default function SessionForm() {
     }
     try {
       const endpoint = formHeader === "Sign Up" ? createUser : loginUser;
-      // TODO: name textbox input for display name
       // TODO: avatarUrl for user
       const res = await endpoint({
         name: name,
@@ -38,10 +37,12 @@ export default function SessionForm() {
       history.push("/");
       window.location.reload();
     } catch (err) {
-      if (err.status === 403 && formHeader === "Log In") {
+      if (err.response.status === 403 && formHeader === "Log In") {
         setUserError("*Username or password not found");
+      } else if (err.response.status === 400 && formHeader === "Sign Up") {
+        setUserError("*Username already exists")
       } else {
-        setError(err.message);
+        setError(err.response.status);
       }
     }
   };
