@@ -70,7 +70,8 @@
 
 #title-label,
 #options-label,
-#description-label {
+#description-label,
+#unlisted-label {
   font-family: sans-serif;
   font-size: 17px;
   color: rgba(200, 140, 140, 0.852);
@@ -112,4 +113,65 @@
   font-size: 15px;
   color: red;
   align-self: center;
+}
+
+#create-list-title-and-unlisited-container {
+  display:flex;
+  justify-content: space-evenly;
+}
+
+#unlisted-container {
+  display: flex;
+  justify-content: center;
+  margin-right: 5%;
+}
+
+#unlisted-input {
+  margin-top: 6px;
+}
+
+#unlisted-input:hover {
+  cursor:pointer;
+}
+
+#unlisted-label {
+  margin-right: 5px;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 280px;
+  background-color: rgb(235, 232, 232);
+  color: black;
+  font-size: 13px;
+  text-align: left;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  top: 30px;
+  left: 5px;
+  z-index: 1;
+}
+
+.tooltip-container:hover .tooltiptext {
+  visibility: visible;
+}
+
+.info-tag {
+  background-color: rgb(221, 221, 76);
+  color: rgba(0, 0, 255, 0.609);
+  font-size: 14px;
+  font-weight: 700;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
 }

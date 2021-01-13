@@ -11,6 +11,7 @@ export default function CreateList() {
   const history = useHistory();
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [unlisted, setUnlisted] = useState(false);
   const [options, setOptions] = useState([
     { name: "", photoUrl: "", file: null },
     { name: "", photoUrl: "", file: null },
@@ -85,14 +86,35 @@ export default function CreateList() {
         setOptions={setOptions}
       />
       <form onSubmit={handleSubmit} id="create-list-form">
-        <div id="create-list-title-div">
-          <h2 id="title-label">List title:</h2>
-          <input
-            id="title-input"
-            maxLength="32"
-            type="text"
-            onChange={(e) => setListTitle(e.target.value)}
-          />
+        <div id="create-list-title-and-unlisited-container">
+          <div id="create-list-title-div">
+            <h2 id="title-label">List title:</h2>
+            <input
+              id="title-input"
+              maxLength="32"
+              type="text"
+              onChange={(e) => setListTitle(e.target.value)}
+            />
+          </div>
+          <div id="unlisted-container">
+            <div className="info-tag tooltip-container">
+              i
+              <span className="tooltiptext">
+                List will not show up on any public list and can only be shared
+                with a URL
+              </span>
+            </div>
+
+            <label for="unlisted" id="unlisted-label">
+              Unlisted
+            </label>
+            <input
+              type="checkbox"
+              id="unlisted-input"
+              name="unlisted"
+              onChange={() => setUnlisted(!unlisted)}
+            />
+          </div>
         </div>
         <div id="create-list-description-div">
           <h2 id="description-label">List Description:</h2>
@@ -103,6 +125,7 @@ export default function CreateList() {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
+
         <div id="create-list-options-div">
           <h2 id="options-label">List Options (any order):</h2>
           <OptionInputs
