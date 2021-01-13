@@ -8,6 +8,7 @@ import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.User;
 import org.hibernate.exception.ConstraintViolationException;
 import org.postgresql.util.PSQLException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -55,7 +56,7 @@ public class UsersOperations {
         userEntity.setUsername(username);
         try {
             usersRepo.save(userEntity);
-        } catch (ConstraintViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new BadRequestException("User " + username + " already exists!");
         }
 
