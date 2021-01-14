@@ -26,3 +26,24 @@
     color: rgb(211, 90, 90);
 }
 
+#user-profile-header {
+    display:flex;
+    justify-content: flex-start;
+    padding: 15px;
+}
+
+
+#user-profile-image-container {
+    height: 200px;
+    width: 200px;
+    border: 1px solid rgb(211, 90, 90);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+#user-profile-image-container:hover {
+    cursor: pointer;
+}

@@ -82,7 +82,10 @@ export default function UserProfile() {
 
   return (
     <div id="user-profile-main-container">
-      <h1 id="user-profile-name">{name}</h1>
+      <div id="user-profile-header">
+        <div id="user-profile-image-container">+ Add Photo</div>
+        <h1 id="user-profile-name">{name}</h1>
+      </div>
       <div id="user-lists-container">
         <div id="user-profile-completed-lists-container">
           <h3 className="user-profile-list-category-title">Completed Lists</h3>
