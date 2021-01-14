@@ -6,6 +6,7 @@ import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.OptionEntity;
 import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.exceptions.BadRequestException;
+import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.SubmittedOption;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -31,7 +34,14 @@ public class ListWriter {
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options) {
-       // TODO: validate that two options don't have the same name
+       // validate that two options don't have the same name
+        Set<String> optionNames = new HashSet<>();
+        for (SubmittedOption option : options) {
+            if (optionNames.contains(option.getName())) {
+                throw new BadRequestException("Request has duplicate option names!");
+            }
+            optionNames.add(option.getName());
+        }
 
         if (authorId == null) {
             throw new BadRequestException("Author ID required to create list!");
@@ -64,6 +74,16 @@ public class ListWriter {
         listsRepository.save(listEntity);
 
         return listEntity;
+    }
+
+    public void toggleListPrivacy(UUID listId, UUID userId) {
+        ListEntity list = listsRepository.getOne(listId);
+
+        if (!list.getCreatedBy().getId().equals(userId)) {
+            throw new ForbiddenException("Only the author of the list can toggle the privacy");
+        }
+
+        list.setPrivate(!list.isPrivate());
     }
 
 }

@@ -37,6 +37,12 @@ public class RankerAppResource {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/lists/{listId}/privacy-toggle")
+    public void togglePrivacyForList(@PathVariable(value = "listId") String listId, @RequestBody TogglePrivacyRequest request) {
+        listWriter.toggleListPrivacy(asUUID(listId), asUUID(request.getUserId()));
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/top")
     public GetTopListsResponse getTopLists() {
         return listFetcher.getTopLists();
