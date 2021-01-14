@@ -17,16 +17,19 @@
     justify-content: flex-start;
     padding-left: 10px;
     margin-left: 20px;
+    background-color:white;
 }
 
 #other-container {
     width: 30%;
     margin-left: 20px;
+    
 }
 
 #home-title, #recomended {
     font-size: 55px;
     font-family: 'Nanum Gothic', sans-serif;
+    font-weight:900;
     color: rgb(206, 124, 124);
 }
 
@@ -42,7 +45,7 @@
     margin-bottom: 10px;
     width: 90%;
     padding: 10px;
-    background-color:white;
+    border: 1px solid rgb(248, 241, 241);
     position: relative;
 }
 
