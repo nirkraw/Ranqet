@@ -82,7 +82,7 @@ export default function UserProfile() {
 
   return (
     <div id="user-profile-main-container">
-      <h1>{name}</h1>
+      <h1 id="user-profile-name">{name}</h1>
       <div id="user-lists-container">
         <div id="user-profile-completed-lists-container">
           <h3>Completed Lists</h3>

@@ -32,32 +32,55 @@ export default function Home() {
   };
 
   const handleLink = async (listId) => {
-    if(await listIsComplete(listId)) {
-      history.push(`/${listId}/rankings`)
-
+    if (await listIsComplete(listId)) {
+      history.push(`/${listId}/rankings`);
     } else {
       history.push(`/${listId}/quiz`);
     }
-  }
+  };
 
   const listIsComplete = async (listId) => {
     try {
-      const res = await fetchListOptionPair(listId, localStorage.getItem("userId"));
-      return res.data.isCompleted; 
-    } catch(err) {
+      const res = await fetchListOptionPair(
+        listId,
+        localStorage.getItem("userId")
+      );
+      return res.data.isCompleted;
+    } catch (err) {
       return false;
     }
-  }
+  };
 
   const newListLi = newLists.map((list, i) => {
+    debugger;
     return (
       <li className="top-lists-item" key={i}>
         <div className="top-lists-image-container">No Image</div>
         <div className="top-lists-item-name-and-description-container">
-          <p className="top-lists-item-name" onClick={()=>handleLink(list.id)}>
+          <p
+            className="top-lists-item-name"
+            onClick={() => handleLink(list.id)}
+          >
             {list.title}
           </p>
           <p>{list.description}</p>
+          {list.numCompletions === 1 ? (
+            <p className="top-lists-item-num-completions">
+              Taken by:
+              <span className="num-completions-span">
+                {list.numCompletions}
+              </span>
+              person
+            </p>
+          ) : (
+            <p className="top-lists-item-num-completions">
+              Taken by:
+              <span className="num-completions-span">
+                {list.numCompletions}
+              </span>
+              people
+            </p>
+          )}
         </div>
       </li>
     );

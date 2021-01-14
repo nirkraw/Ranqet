@@ -3,9 +3,19 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: white;
 } 
 
 #user-lists-container {
     display: flex;
     justify-content: space-evenly;
+    border-top: 1px solid black;
+    padding-top: 15px;
+}
+
+#user-profile-name{
+    margin-left: 17px;
+    font-size: 45px;
+    font-family: 'Nanum Gothic', sans-serif;
+    color: rgb(206, 124, 124);
 }
