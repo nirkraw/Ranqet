@@ -101,9 +101,9 @@ public class ListFetcher {
     public GetTopListsResponse getTopLists() {
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
-        List<ListResponse> topLists = listsRepo.findAll(pageRequest)
+        List<ListResponse> topLists = listsRepo.findByIsPrivate(true, pageRequest)
                 .map(ListFetcher::convertListToResponse)
-                .getContent();
+                .collect(Collectors.toList());
         return GetTopListsResponse.builder()
                 .topLists(topLists)
                 .build();
