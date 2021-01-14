@@ -31,12 +31,26 @@
 
 .top-lists-item {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    border: 2px solid gray;
+    justify-content: flex-start;
+    height: 130px;
     margin-bottom: 10px;
     width: 90%;
     padding-left: 10px;
+}
+
+.top-lists-item-name-and-description-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.top-lists-image-container {
+    border: 2px solid black;
+    width: 20%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .top-lists-item-name {
@@ -46,7 +60,8 @@
     text-decoration: none;
 }
 
-.list-name:hover {
+.top-lists-item-name:hover {
+    text-decoration: none;
     color: rgb(153, 99, 99);
     cursor: pointer;
 }

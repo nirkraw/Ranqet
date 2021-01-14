@@ -34,9 +34,17 @@ export default function Home() {
   const newListLi = newLists.map((list, i) => {
     return (
       <li className="top-lists-item">
-        <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
-          {list.title}
-        </NavLink>
+        <div className="top-lists-image-container">No Image</div>
+        <div className="top-lists-item-name-and-description-container">
+          <NavLink
+            className="top-lists-item-name"
+            to={`/${list.id}/quiz`}
+            key={i}
+          >
+            {list.title}
+          </NavLink>
+          <p>{list.description}</p>
+        </div>
       </li>
     );
   });
