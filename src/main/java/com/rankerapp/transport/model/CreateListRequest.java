@@ -16,11 +16,14 @@ public class CreateListRequest {
 
     private final String authorId;
 
+    private final boolean isUnlisted;
+
     private CreateListRequest(Builder builder) {
         this.title = builder.title;
         this.description = builder.description;
         this.options = builder.options;
         this.authorId = builder.authorId;
+        this.isUnlisted = builder.isUnlisted;
     }
 
     public String getTitle() {
@@ -39,6 +42,10 @@ public class CreateListRequest {
         return authorId;
     }
 
+    public boolean isUnlisted() {
+        return isUnlisted;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -53,6 +60,8 @@ public class CreateListRequest {
         private List<SubmittedOption> options;
 
         private String authorId;
+
+        private boolean isUnlisted;
 
         private Builder() {
         }
@@ -74,6 +83,11 @@ public class CreateListRequest {
 
         public Builder withAuthorId(String authorId) {
             this.authorId = authorId;
+            return this;
+        }
+
+        public Builder withIsUnlisted(boolean isUnlisted) {
+            this.isUnlisted = isUnlisted;
             return this;
         }
 

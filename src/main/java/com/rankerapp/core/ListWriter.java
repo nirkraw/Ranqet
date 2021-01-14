@@ -33,7 +33,8 @@ public class ListWriter {
         this.usersRepository = usersRepository;
     }
 
-    public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options) {
+    public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options,
+                                 boolean isPrivate) {
        // validate that two options don't have the same name
         Set<String> optionNames = new HashSet<>();
         for (SubmittedOption option : options) {
@@ -71,6 +72,7 @@ public class ListWriter {
         listEntity.setOptions(optionEntities);
         listEntity.setCreatedOn(Instant.now());
         listEntity.setCreatedBy(author);
+        listEntity.setPrivate(isPrivate);
         listsRepository.save(listEntity);
 
         return listEntity;
