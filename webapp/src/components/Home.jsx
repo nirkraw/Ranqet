@@ -33,11 +33,9 @@ export default function Home() {
 
   const handleLink = async (listId) => {
     if(await listIsComplete(listId)) {
-      debugger
       history.push(`/${listId}/rankings`)
 
     } else {
-      debugger
       history.push(`/${listId}/quiz`);
     }
   }
@@ -45,7 +43,6 @@ export default function Home() {
   const listIsComplete = async (listId) => {
     try {
       const res = await fetchListOptionPair(listId, localStorage.getItem("userId"));
-      debugger
       return res.data.isCompleted; 
     } catch(err) {
       return false;
