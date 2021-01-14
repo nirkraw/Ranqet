@@ -56,7 +56,7 @@ public class ListResponse {
         return options;
     }
 
-    public boolean isUnlisted() {
+    public boolean getIsUnlisted() {
         return isUnlisted;
     }
 

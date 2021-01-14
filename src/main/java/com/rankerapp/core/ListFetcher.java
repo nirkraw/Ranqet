@@ -12,6 +12,7 @@ import com.rankerapp.transport.model.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -86,10 +87,11 @@ public class ListFetcher {
         return builder.build();
     }
 
+    @Transactional
     public GetTopListsResponse getTopLists() {
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
-        List<ListResponse> topLists = listsRepo.findByIsPrivate(true, pageRequest)
+        List<ListResponse> topLists = listsRepo.findByIsPrivate(false, pageRequest)
                 .map(ListFetcher::convertListToResponse)
                 .collect(Collectors.toList());
         return GetTopListsResponse.builder()
