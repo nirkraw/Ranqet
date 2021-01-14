@@ -58,24 +58,24 @@ export default function UserProfile() {
 
   const completedListLi = completedLists.map((list, i) => {
     return (
-      <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
-        {i + 1}: {list.title}
+      <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
+        {i + 1}. {list.title}
       </NavLink>
     );
   });
 
   const inProgressListLi = inProgressLists.map((list, i) => {
     return (
-      <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
-        {i + 1}: {list.title}
+      <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
+        {i + 1}. {list.title}
       </NavLink>
     );
   });
 
   const createdListLi = createdLists.map((list, i) => {
     return (
-      <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
-        {i + 1}: {list.title}
+      <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
+        {i + 1}. {list.title}
       </NavLink>
     );
   });
@@ -85,15 +85,17 @@ export default function UserProfile() {
       <h1 id="user-profile-name">{name}</h1>
       <div id="user-lists-container">
         <div id="user-profile-completed-lists-container">
-          <h3>Completed Lists</h3>
+          <h3 className="user-profile-list-category-title">Completed Lists</h3>
           <ul id="top-list-ul">{completedListLi}</ul>
         </div>
         <div id="user-profile-in-progress-lists-container">
-          <h3>In Progress Lists</h3>
+          <h3 className="user-profile-list-category-title">
+            In Progress Lists
+          </h3>
           <ul id="top-list-ul">{inProgressListLi}</ul>
         </div>
         <div id="user-profile-created-lists-container">
-          <h3>Created Lists</h3>
+          <h3 className="user-profile-list-category-title">Created Lists</h3>
           <ul id="top-list-ul">{createdListLi}</ul>
         </div>
       </div>
