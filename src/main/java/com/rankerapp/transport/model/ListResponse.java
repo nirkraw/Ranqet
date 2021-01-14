@@ -19,6 +19,8 @@ public class ListResponse {
 
     private final User createdBy;
 
+    private final boolean isUnlisted;
+
     private ListResponse(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
@@ -27,6 +29,7 @@ public class ListResponse {
         this.createdOn = builder.createdOn;
         this.options = builder.options;
         this.createdBy = builder.createdBy;
+        this.isUnlisted = builder.isUnlisted;
     }
 
     public String getId() {
@@ -53,6 +56,10 @@ public class ListResponse {
         return options;
     }
 
+    public boolean isUnlisted() {
+        return isUnlisted;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -72,6 +79,8 @@ public class ListResponse {
         private List<Option> options;
 
         private User createdBy;
+
+        private boolean isUnlisted;
 
         private Builder() {
 
@@ -109,6 +118,11 @@ public class ListResponse {
 
         public Builder createdBy(User createdBy) {
             this.createdBy = createdBy;
+            return this;
+        }
+
+        public Builder isUnlisted(boolean isUnlisted) {
+            this.isUnlisted = isUnlisted;
             return this;
         }
 

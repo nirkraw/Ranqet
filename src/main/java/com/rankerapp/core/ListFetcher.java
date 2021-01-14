@@ -45,19 +45,7 @@ public class ListFetcher {
     public ListResponse fetchListById(UUID id) {
         ListEntity listEntity = listsRepo.getOne(id);
 
-        List<Option> options = listEntity.getOptions().stream()
-                .map(OptionsFactory::convertOption)
-                .collect(Collectors.toList());
-
-        return ListResponse.builder()
-                .id(listEntity.getId().toString())
-                .createdOn(listEntity.getCreatedOn())
-                .description(listEntity.getDescription())
-                .numCompletions(listEntity.getNumCompletions())
-                .title(listEntity.getTitle())
-                .options(options)
-                .createdBy(UsersOperations.convertUserEntity(listEntity.getCreatedBy()))
-                .build();
+        return convertListToResponse(listEntity);
     }
 
     public RankingResponse fetchRankings(UUID listId, UUID userId) {
@@ -162,6 +150,7 @@ public class ListFetcher {
                 .title(listEntity.getTitle())
                 .options(options)
                 .createdBy(UsersOperations.convertUserEntity(listEntity.getCreatedBy()))
+                .isUnlisted(listEntity.isPrivate())
                 .build();
     }
 
