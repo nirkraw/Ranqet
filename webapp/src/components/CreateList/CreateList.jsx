@@ -105,7 +105,6 @@ export default function CreateList() {
                 with a URL
               </span>
             </div>
-
             <label for="unlisted" id="unlisted-label">
               Unlisted
             </label>
@@ -115,6 +114,12 @@ export default function CreateList() {
               name="unlisted"
               onChange={() => setUnlisted(!unlisted)}
             />
+          </div>
+        </div>
+        <div id="create-list-image-div">
+          <h2 id="image-label">List Image:</h2>
+          <div id="create-list-image-container">
+            Add Image
           </div>
         </div>
         <div id="create-list-description-div">
