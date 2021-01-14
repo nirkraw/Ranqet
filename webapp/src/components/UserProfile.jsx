@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "./Misc/ErrorPage";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import {fetchUser, fetchUserLists} from "../util/Endpoints";
+import { fetchUser, fetchUserLists } from "../util/Endpoints";
 import { NavLink } from "react-router-dom";
+import "../styles/UserProfile.css";
 
 export default function UserProfile() {
   const [name, setName] = useState("");
@@ -71,23 +72,31 @@ export default function UserProfile() {
     );
   });
 
-    const createdListLi = createdLists.map((list, i) => {
-      return (
-        <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
-          {i + 1}: {list.title}
-        </NavLink>
-      );
-    });
+  const createdListLi = createdLists.map((list, i) => {
+    return (
+      <NavLink className="list-name" to={`/${list.id}/quiz`} key={i}>
+        {i + 1}: {list.title}
+      </NavLink>
+    );
+  });
 
   return (
-    <div>
+    <div id="user-profile-main-container">
       <h1>{name}</h1>
-      <h3>Completed Lists</h3>
-      <ul id="top-list-ul">{completedListLi}</ul>
-      <h3>In Progress Lists</h3>
-      <ul id="top-list-ul">{inProgressListLi}</ul>
-      <h3>Created Lists</h3>
-      <ul id="top-list-ul">{createdListLi}</ul>
+      <div id="user-lists-container">
+        <div id="user-profile-completed-lists-container">
+          <h3>Completed Lists</h3>
+          <ul id="top-list-ul">{completedListLi}</ul>
+        </div>
+        <div id="user-profile-in-progress-lists-container">
+          <h3>In Progress Lists</h3>
+          <ul id="top-list-ul">{inProgressListLi}</ul>
+        </div>
+        <div id="user-profile-created-lists-container">
+          <h3>Created Lists</h3>
+          <ul id="top-list-ul">{createdListLi}</ul>
+        </div>
+      </div>
     </div>
   );
 }

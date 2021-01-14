@@ -1,6 +1,6 @@
 #nav-main {
   width: 100%;
-  height: 8%;
+  height: 50px;
   background-color: rgb(200, 140, 140);
   display: flex;
   justify-content: space-between;

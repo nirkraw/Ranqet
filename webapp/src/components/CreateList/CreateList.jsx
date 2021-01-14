@@ -60,6 +60,7 @@ export default function CreateList() {
         description,
         options: newOptions,
         authorId: localStorage.getItem("userId"),
+        isUnlisted: unlisted
       };
 
       try {
