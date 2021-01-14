@@ -42,7 +42,7 @@ export default function SessionForm() {
       } else if (err.response.status=== 400 && formHeader === "Sign Up") {
         setUserError("*Username already exists")
       } else {
-        setError(err.message);
+        setError(err.response.status);
       }
     }
   };
