@@ -29,13 +29,11 @@
   height: 200px;
   width: 200px;
   border: 1px solid black;
-  display: flex;
-  justify-content: center;
+  position: relative;
 }
 
-#create-list-image-container:hover {
-  cursor: pointer;
-  background-color: rgb(235, 231, 231);
+#list-photo-input {
+  margin-bottom: 10px;
 }
 
 #options-input-ul {

@@ -12,6 +12,7 @@ export default function CreateList() {
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
   const [unlisted, setUnlisted] = useState(false);
+  const [listImgUrl, setListImgUrl] = useState("");
   const [options, setOptions] = useState([
     { name: "", photoUrl: "", file: null },
     { name: "", photoUrl: "", file: null },
@@ -22,12 +23,17 @@ export default function CreateList() {
     { name: "", photoUrl: "", file: null },
     { name: "", photoUrl: "", file: null },
   ]);
+
   const [userError, setUserError] = useState("");
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
   const [openModal, setOpenModal] = useState(false);
+
+  const handleListPhotoFile = () => {
+    
+  };
 
   const handleSubmit = async () => {
     if (!listTitle) setUserError("*List must have title");
@@ -60,7 +66,7 @@ export default function CreateList() {
         description,
         options: newOptions,
         authorId: localStorage.getItem("userId"),
-        isUnlisted: unlisted
+        isUnlisted: unlisted,
       };
 
       try {
@@ -118,9 +124,12 @@ export default function CreateList() {
         </div>
         <div id="create-list-image-div">
           <h2 id="image-label">List Image:</h2>
-          <div id="create-list-image-container">
-            Add Image
-          </div>
+          <input
+            id="list-photo-input"
+            type="file"
+            onChange={handleListPhotoFile}
+          />
+          <div id="create-list-image-container"></div>
         </div>
         <div id="create-list-description-div">
           <h2 id="description-label">List Description:</h2>
@@ -131,7 +140,6 @@ export default function CreateList() {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-
         <div id="create-list-options-div">
           <h2 id="options-label">List Options (any order):</h2>
           <OptionInputs
