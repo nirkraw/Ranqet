@@ -23,7 +23,7 @@
     width: 30%;
 }
 
-#home-title, .recomended {
+#home-title, #recomended {
     font-size: 55px;
     font-family: 'Nanum Gothic', sans-serif;
     color: rgb(200, 140, 140);
