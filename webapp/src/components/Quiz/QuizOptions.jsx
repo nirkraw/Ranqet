@@ -61,7 +61,7 @@ export default function QuizOptions({ listId, history}) {
         >
           <h3 className="option-header">{option.name}</h3>
           {option.photoUrl ? (
-            <img src={option.photoUrl} alt="option"></img>
+            <img className="quiz-option-img" src={option.photoUrl} alt="option"></img>
           ) : null}
         </div>
       ))}

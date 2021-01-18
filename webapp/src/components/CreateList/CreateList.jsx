@@ -23,7 +23,6 @@ export default function CreateList() {
     { name: "", photoUrl: "", file: null },
     { name: "", photoUrl: "", file: null },
   ]);
-
   const [userError, setUserError] = useState("");
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
