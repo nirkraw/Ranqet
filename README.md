@@ -22,5 +22,11 @@ User is able to see an aggregated ranking of all items in list in order of ELO s
 **Global Ranking** - An average of all the users’ personal rankings  
 **Lists** - Rosters and Rankings (depends on completeness)  
 
+### Running The Backend
+Initialize AWS Secrets:
+```
+. ./scripts/initialize_secrets.sh
+```
+then run `./gradlew run` in that same shell
 
 
