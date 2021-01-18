@@ -21,6 +21,7 @@ public class ImageResource {
         this.awsClient = awsClient;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/images/upload")
     public ImageUploadResponse uploadImage(@RequestPart("file") MultipartFile multipartFile) {
         String imageUrl = "";
