@@ -22,7 +22,7 @@ public class ImageResource {
     }
 
     @PostMapping("/images/upload")
-    public ImageUploadResponse uploadImage(@RequestParam("file") MultipartFile multipartFile) {
+    public ImageUploadResponse uploadImage(@RequestPart("file") MultipartFile multipartFile) {
         String imageUrl = "";
         try {
             File file = convertMultiPartToFile(multipartFile);
