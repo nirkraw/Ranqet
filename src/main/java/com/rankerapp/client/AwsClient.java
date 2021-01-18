@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.util.Objects;
 
 @Service
 public class AwsClient {
@@ -28,12 +29,13 @@ public class AwsClient {
     private String secretKey;
 
     @PostConstruct
-    private AmazonS3 initializeAmazonS3Client() {
+    private void initializeAmazonS3Client() {
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
-        return new AmazonS3Client(credentials);
+        s3Client = new AmazonS3Client(credentials);
     }
 
     public String uploadFileToAWS(String fileName, File file) {
+        System.out.println("\n\n\n filename: " + fileName + " with isFilePresent: " + Objects.isNull(file));
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, file)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         return endpointUrl + "/" + bucketName + "/" + fileName;

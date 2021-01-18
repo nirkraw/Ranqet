@@ -27,7 +27,8 @@ public class ImageResource {
         String imageUrl = "";
         try {
             File file = convertMultiPartToFile(multipartFile);
-            imageUrl = awsClient.uploadFileToAWS(imageUrl, file);
+            String fileName = generateFileName(multipartFile);
+            imageUrl = awsClient.uploadFileToAWS(fileName, file);
             file.delete();
         } catch (Exception e) {
             throw new RuntimeException("Something went wrong while uploading image", e);
