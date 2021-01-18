@@ -36,29 +36,19 @@ export default function UploadImage({
     }
   };
 
-
   const handlePhotoFile = async (e) => {
-    // setImageLoading(true);
+    setImageLoading(true);
     const file = e.currentTarget.files[0];
     const formData = new FormData();
     formData.append("file", file);
     try {
       const res = await uploadImage(formData);
-      debugger 
       options[currOptionIdx].photoUrl = res.data.imageUrl;
+      setImageLoading(false);
       closeModal();
     } catch(err) {
-      console.log(err)
-      setGiphyUrl(Homer);
+
     }
-    // const fileReader = new FileReader();
-    // fileReader.onloadend = () => {
-    //   options[currOptionIdx].photoUrl = fileReader.result;
-    //   setOptions(options);
-    //   setImageLoading(false);
-    // };
-    // if (file) fileReader.readAsDataURL(file);
-    // closeModal();*/
   };
 
   const addUrlToOption = (idx, url) => {
