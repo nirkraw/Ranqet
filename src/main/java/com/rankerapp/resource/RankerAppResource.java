@@ -31,7 +31,8 @@ public class RankerAppResource {
     @PostMapping("/list/create")
     public ListResponse createNewList(@RequestBody CreateListRequest request) {
         UUID persistedId = listWriter.createList(request.getTitle(), request.getDescription(),
-                UUID.fromString(request.getAuthorId()), request.getOptions(), request.isUnlisted()).getId();
+                UUID.fromString(request.getAuthorId()), request.getOptions(), request.getImageUrl(),
+                request.isUnlisted()).getId();
 
         return listFetcher.fetchListById(persistedId);
     }

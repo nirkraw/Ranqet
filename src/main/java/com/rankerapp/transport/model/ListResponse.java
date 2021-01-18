@@ -19,6 +19,8 @@ public class ListResponse {
 
     private final User createdBy;
 
+    private final String imageUrl;
+
     private final boolean isUnlisted;
 
     private ListResponse(Builder builder) {
@@ -29,6 +31,7 @@ public class ListResponse {
         this.createdOn = builder.createdOn;
         this.options = builder.options;
         this.createdBy = builder.createdBy;
+        this.imageUrl = builder.imageUrl;
         this.isUnlisted = builder.isUnlisted;
     }
 
@@ -56,6 +59,10 @@ public class ListResponse {
         return options;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public boolean getIsUnlisted() {
         return isUnlisted;
     }
@@ -79,6 +86,8 @@ public class ListResponse {
         private List<Option> options;
 
         private User createdBy;
+
+        private String imageUrl;
 
         private boolean isUnlisted;
 
@@ -118,6 +127,11 @@ public class ListResponse {
 
         public Builder createdBy(User createdBy) {
             this.createdBy = createdBy;
+            return this;
+        }
+
+        public Builder imageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
             return this;
         }
 

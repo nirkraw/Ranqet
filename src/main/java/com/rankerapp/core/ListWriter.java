@@ -34,7 +34,7 @@ public class ListWriter {
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options,
-                                 boolean isPrivate) {
+                                 String imageUrl, boolean isPrivate) {
        // validate that two options don't have the same name
         Set<String> optionNames = new HashSet<>();
         for (SubmittedOption option : options) {
@@ -72,6 +72,7 @@ public class ListWriter {
         listEntity.setOptions(optionEntities);
         listEntity.setCreatedOn(Instant.now());
         listEntity.setCreatedBy(author);
+        listEntity.setImageUrl(imageUrl);
         listEntity.setPrivate(isPrivate);
         listsRepository.save(listEntity);
 

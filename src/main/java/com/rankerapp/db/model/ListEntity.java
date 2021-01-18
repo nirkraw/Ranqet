@@ -24,6 +24,9 @@ public class ListEntity {
     @Column(name = "created_on")
     private Instant createdOn;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @OneToMany(targetEntity = OptionEntity.class, mappedBy = "list", cascade = CascadeType.ALL)
     private List<OptionEntity> options;
 
@@ -88,6 +91,14 @@ public class ListEntity {
 
     public void setCreatedBy(UserEntity createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public boolean isPrivate() {

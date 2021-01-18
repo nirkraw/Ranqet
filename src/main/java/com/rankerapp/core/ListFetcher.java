@@ -152,6 +152,7 @@ public class ListFetcher {
                 .title(listEntity.getTitle())
                 .options(options)
                 .createdBy(UsersOperations.convertUserEntity(listEntity.getCreatedBy()))
+                .imageUrl(listEntity.getImageUrl())
                 .isUnlisted(listEntity.isPrivate())
                 .build();
     }
