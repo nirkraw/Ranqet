@@ -38,7 +38,7 @@ public class AwsClient {
         System.out.println("\n\n\n filename: " + fileName + " with isFilePresent: " + Objects.isNull(file));
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, file)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        return endpointUrl + "/" + bucketName + "/" + fileName;
+        return endpointUrl + "/" + fileName;
     }
 
     public String deleteFileFromAWS(String fileUrl) {
