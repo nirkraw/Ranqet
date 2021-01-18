@@ -63,4 +63,10 @@ export const fetchUserLists = (userId) => {
   });
 };
 
+export const uploadImage = (formData) => {
+  return axios.post(`${server}/images/upload`, formData, {
+    "Content-Type": "application/json",
+  });
+};
+
 

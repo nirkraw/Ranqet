@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createList } from "../../util/Endpoints";
+import { createList, uploadImage } from "../../util/Endpoints";
 import "../../styles/CreateList.css";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
@@ -14,14 +14,14 @@ export default function CreateList() {
   const [unlisted, setUnlisted] = useState(false);
   const [listImgUrl, setListImgUrl] = useState("");
   const [options, setOptions] = useState([
-    { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null },
-    { name: "", photoUrl: "", file: null },
+    { name: "", photoUrl: ""},
+    { name: "", photoUrl: ""},
+    { name: "", photoUrl: ""},
+    { name: "", photoUrl: ""},
+    { name: "", photoUrl: ""},
+    { name: "", photoUrl: ""},
+    { name: "", photoUrl: ""},
+    { name: "", photoUrl: ""},
   ]);
   const [userError, setUserError] = useState("");
   const [error, setError] = useState();
@@ -30,8 +30,9 @@ export default function CreateList() {
   const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
   const [openModal, setOpenModal] = useState(false);
 
-  const handleListPhotoFile = () => {
-    
+  const handleListPhotoFile = async (e) => {
+  
+
   };
 
   const handleSubmit = async () => {
@@ -52,12 +53,7 @@ export default function CreateList() {
           return;
         }
         visitedOptions.add(option.name);
-        let photoUrl = option.file ? option.file : option.photoUrl;
-        // const formData = new FormData();
-        // formData.append("title", option.title);
-        // formData.append("photoUrl", photoUrl);
-        // newOptions.push(formData);
-        newOptions.push({ name: option.name, photoUrl });
+        newOptions.push({ name: option.name, photoUrl: option.photoUrl });
       }
 
       const data = {
@@ -110,7 +106,7 @@ export default function CreateList() {
                 with a URL
               </span>
             </div>
-            <label for="unlisted" id="unlisted-label">
+            <label id="unlisted-label">
               Unlisted
             </label>
             <input
