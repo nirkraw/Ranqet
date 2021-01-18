@@ -54,7 +54,9 @@ export default function Home() {
   const newListLi = newLists.map((list, i) => {
     return (
       <li className="top-lists-item" key={i}>
-        <div className="top-lists-image-container">No Image</div>
+        <div className="top-lists-image-container">
+          <img src={list.imageUrl} alt="list" id="list-image"></img>
+        </div>
         <div className="top-lists-item-name-and-description-container">
           <p
             className="top-lists-item-name"

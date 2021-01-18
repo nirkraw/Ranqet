@@ -31,7 +31,16 @@ export default function CreateList() {
   const [openModal, setOpenModal] = useState(false);
 
   const handleListPhotoFile = async (e) => {
-  
+    const file = e.currentTarget.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await uploadImage(formData);
+      setListImgUrl(res.data.imageUrl);
+
+    } catch (err) {
+      setError(err.message);
+    }
 
   };
 
@@ -58,6 +67,7 @@ export default function CreateList() {
 
       const data = {
         title: listTitle,
+        imageUrl: listImgUrl,
         description,
         options: newOptions,
         authorId: localStorage.getItem("userId"),
@@ -106,9 +116,7 @@ export default function CreateList() {
                 with a URL
               </span>
             </div>
-            <label id="unlisted-label">
-              Unlisted
-            </label>
+            <label id="unlisted-label">Unlisted</label>
             <input
               type="checkbox"
               id="unlisted-input"
@@ -124,7 +132,9 @@ export default function CreateList() {
             type="file"
             onChange={handleListPhotoFile}
           />
-          <div id="create-list-image-container"></div>
+          <div id="create-list-image-container">
+            <img src={listImgUrl} alt="list" id="list-image"></img>
+          </div>
         </div>
         <div id="create-list-description-div">
           <h2 id="description-label">List Description:</h2>

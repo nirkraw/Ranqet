@@ -3,7 +3,7 @@ import "../../styles/UploadImage.css";
 import Modal from "react-modal";
 import axios from "axios";
 import Homer from "../../assets/homer-simpsons-155238_1280.png";
-import {uploadImage} from "../../util/Endpoints";
+import { uploadImage } from "../../util/Endpoints";
 Modal.setAppElement("#root");
 
 export default function UploadImage({
@@ -12,7 +12,7 @@ export default function UploadImage({
   currOptionIdx,
   setImageLoading,
   options,
-  setOptions
+  setOptions,
 }) {
   const [giphySearch, setGiphySearch] = useState();
   const [giphyUrl, setGiphyUrl] = useState("");
@@ -46,9 +46,7 @@ export default function UploadImage({
       options[currOptionIdx].photoUrl = res.data.imageUrl;
       setImageLoading(false);
       closeModal();
-    } catch(err) {
-
-    }
+    } catch (err) {}
   };
 
   const addUrlToOption = (idx, url) => {
