@@ -52,7 +52,6 @@ export default function Home() {
   };
 
   const newListLi = newLists.map((list, i) => {
-    debugger;
     return (
       <li className="top-lists-item" key={i}>
         <div className="top-lists-image-container">No Image</div>
