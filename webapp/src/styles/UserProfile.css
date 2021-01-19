@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     background-color: white;
+    position: relative;
 } 
 
 #user-lists-container {
@@ -29,7 +30,7 @@
 #user-profile-header {
     display:flex;
     justify-content: flex-start;
-    padding: 15px;
+    padding: 20px;
 }
 
 
@@ -68,4 +69,14 @@
     background-color: rgb(226, 223, 223);
     width: 90%;
     text-align: center;
+}
+
+#user-profile-error{
+  font-family: sans-serif;
+  font-size: 15px;
+  color: red;
+  align-self: center;
+  position:absolute;
+  top: 0px;
+  left: 7px;
 }

@@ -8,7 +8,6 @@ import {
   fetchListOptionPair,
 } from "../util/Endpoints";
 import { useHistory } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import "../styles/UserProfile.css";
 
 export default function UserProfile() {
@@ -18,6 +17,7 @@ export default function UserProfile() {
   const [inProgressLists, setInProgressLists] = useState([]);
   const [createdLists, setCreatedLists] = useState([]);
   const [error, setError] = useState(null);
+  const [userError, setUserError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
   const history = useHistory();
@@ -64,10 +64,16 @@ export default function UserProfile() {
   };
 
   const handleUserPhotoFile = async (e) => {
-    setImageLoading(true);
+    e.preventDefault();
+    setUserError("");
     const file = e.currentTarget.files[0];
+    if (file.size > 1048576) {
+      setUserError("Please upload files smaller than 1 megabyte.");
+      return;
+    }
     const formData = new FormData();
     formData.append("file", file);
+    setImageLoading(true);
     try {
       const res = await uploadImage(formData);
       setAvatarUrl(res.data.imageUrl);
@@ -164,6 +170,7 @@ export default function UserProfile() {
         </div>
         <h1 id="user-profile-name">{name}</h1>
       </div>
+      <h3 id="user-profile-error">{userError}</h3>
       <div id="user-lists-container">
         <div id="user-profile-completed-lists-container">
           <h3 className="user-profile-list-category-title">Completed Lists</h3>
