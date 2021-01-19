@@ -40,10 +40,10 @@
 }
 
 #giphy-image-container {
-  margin: 30px;
+  margin: 50px;
   border: 1px solid black;
   width: 300px;
-  height: 250px;
+  height: 200px;
   background-color: white;
 }
 
@@ -55,6 +55,7 @@
   padding: 4px;
 }
 
+
 #giphy-search-button:hover,
 #giphy-save-button:hover,
 #exit-modal-button:hover {
@@ -64,6 +65,7 @@
 
 #giphy-upload-container {
   border-right: 1px solid black;
+  margin-right: -40px;
 }
 
 #exit-modal-buttons {

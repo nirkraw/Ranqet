@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createList, uploadImage } from "../../util/Endpoints";
 import "../../styles/CreateList.css";
 import ErrorPage from "../Misc/ErrorPage";
@@ -30,6 +30,10 @@ export default function CreateList() {
   const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
   const [openModal, setOpenModal] = useState(false);
 
+  useEffect(() => {
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
+  }, [userError]);
+
   const handleListPhotoFile = async (e) => {
     e.preventDefault();
     setImageLoading(true);
@@ -43,7 +47,6 @@ export default function CreateList() {
       setUserError(
         "Image could not be uploaded. Please refresh and try again."
       );
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     }
     setImageLoading(false);
   };
@@ -56,10 +59,8 @@ export default function CreateList() {
 
     if (!listTitle) {
       setUserError("*List must have title.");
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     } else if (totalOptions < 2) {
       setUserError("Please add at least two options.");
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     } else {
       setLoading(true);
       const newOptions = [];
