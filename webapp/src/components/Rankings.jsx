@@ -39,13 +39,13 @@ export default function Rankings() {
 
   const personalRankingList = personalRanking.map((personalRanking, i) => (
     <li className="ranking-name" key={i}>
-      {i + 1}: {personalRanking}
+      {i + 1}. {personalRanking}
     </li>
   ));
 
    const globalRankingList = globalRanking.map((globalRanking, i) => (
      <li className="ranking-name" key={i}>
-       {i + 1}: {globalRanking}
+       {i + 1}. {globalRanking}
      </li>
    ));
 

@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "./Misc/ErrorPage";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import { fetchUser, fetchUserLists } from "../util/Endpoints";
+import {
+  fetchUser,
+  fetchUserLists,
+  uploadImage,
+  fetchListOptionPair,
+} from "../util/Endpoints";
+import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "../styles/UserProfile.css";
 
 export default function UserProfile() {
   const [name, setName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [completedLists, setCompletedLists] = useState([]);
   const [inProgressLists, setInProgressLists] = useState([]);
   const [createdLists, setCreatedLists] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     fetchLists();
@@ -47,9 +56,44 @@ export default function UserProfile() {
     try {
       const res = await fetchUser(localStorage.getItem("userId"));
       setName(res.data.name);
+      if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
       setLoading(false);
     } catch (err) {
       setError(err.message);
+    }
+  };
+
+  const handleUserPhotoFile = async (e) => {
+    setImageLoading(true);
+    const file = e.currentTarget.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await uploadImage(formData);
+      setAvatarUrl(res.data.imageUrl);
+      setImageLoading(false);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleLink = async (listId) => {
+    if (await listIsComplete(listId)) {
+      history.push(`/${listId}/rankings`);
+    } else {
+      history.push(`/${listId}/quiz`);
+    }
+  };
+
+  const listIsComplete = async (listId) => {
+    try {
+      const res = await fetchListOptionPair(
+        listId,
+        localStorage.getItem("userId")
+      );
+      return res.data.isCompleted;
+    } catch (err) {
+      return false;
     }
   };
 
@@ -58,32 +102,66 @@ export default function UserProfile() {
 
   const completedListLi = completedLists.map((list, i) => {
     return (
-      <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
+      <p
+        className="top-lists-item-name"
+        onClick={() => handleLink(list.id)}
+        key={i}
+      >
         {i + 1}. {list.title}
-      </NavLink>
+      </p>
     );
   });
 
   const inProgressListLi = inProgressLists.map((list, i) => {
     return (
-      <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
+      <p
+        className="top-lists-item-name"
+        onClick={() => handleLink(list.id)}
+        key={i}
+      >
         {i + 1}. {list.title}
-      </NavLink>
+      </p>
     );
   });
 
   const createdListLi = createdLists.map((list, i) => {
     return (
-      <NavLink className="top-lists-item-name" to={`/${list.id}/quiz`} key={i}>
+      <p
+        className="top-lists-item-name"
+        onClick={() => handleLink(list.id)}
+        key={i}
+      >
         {i + 1}. {list.title}
-      </NavLink>
+      </p>
     );
   });
+
+  let currentImage;
+  if (imageLoading) {
+    currentImage = <LoadingSpinner />;
+  } else if (avatarUrl) {
+    currentImage = (
+      <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
+    );
+  } else {
+    currentImage = <p id="profile-photo-text">Add User Profile</p>;
+  }
 
   return (
     <div id="user-profile-main-container">
       <div id="user-profile-header">
-        <div id="user-profile-image-container">+ Add Photo</div>
+        <input
+          id="user-photo-input"
+          type="file"
+          onChange={handleUserPhotoFile}
+          hidden
+        />
+        <div
+          id="user-profile-image-container"
+          onClick={() => document.getElementById("user-photo-input").click()}
+        >
+          {currentImage}
+        </div>
         <h1 id="user-profile-name">{name}</h1>
       </div>
       <div id="user-lists-container">

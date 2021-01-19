@@ -42,8 +42,29 @@
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    background-image: url(../assets/avatar.svg);
+    background-size: contain; /* or contain depending on what you want */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: rgb(200, 140, 140);
 }
 
 #user-profile-image-container:hover {
     cursor: pointer;
+}
+
+#user-profile-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  background-size: cover; /* or contain depending on what you want */
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+#profile-photo-text {
+    background-color: rgb(226, 223, 223);
+    width: 90%;
+    text-align: center;
 }

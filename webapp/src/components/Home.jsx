@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import "../styles/Home.css";
 import { fetchTopLists } from "../util/Endpoints";
-import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import ErrorPage from "./Misc/ErrorPage";
 import { fetchListOptionPair } from "../util/Endpoints";
