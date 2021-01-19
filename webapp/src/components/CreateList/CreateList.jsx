@@ -14,14 +14,14 @@ export default function CreateList() {
   const [unlisted, setUnlisted] = useState(false);
   const [listImgUrl, setListImgUrl] = useState("");
   const [options, setOptions] = useState([
-    { name: "", photoUrl: ""},
-    { name: "", photoUrl: ""},
-    { name: "", photoUrl: ""},
-    { name: "", photoUrl: ""},
-    { name: "", photoUrl: ""},
-    { name: "", photoUrl: ""},
-    { name: "", photoUrl: ""},
-    { name: "", photoUrl: ""},
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
   ]);
   const [userError, setUserError] = useState("");
   const [error, setError] = useState();
@@ -31,17 +31,17 @@ export default function CreateList() {
   const [openModal, setOpenModal] = useState(false);
 
   const handleListPhotoFile = async (e) => {
+    setImageLoading(true);
     const file = e.currentTarget.files[0];
     const formData = new FormData();
     formData.append("file", file);
     try {
       const res = await uploadImage(formData);
       setListImgUrl(res.data.imageUrl);
-
+      setImageLoading(false);
     } catch (err) {
       setError(err.message);
     }
-
   };
 
   const handleSubmit = async () => {
@@ -54,7 +54,6 @@ export default function CreateList() {
       const visitedOptions = new Set();
       for (let i = 0; i < options.length; i++) {
         let option = options[i];
-        //allows to user to skip lines;
         if (!option.name) continue;
         if (visitedOptions.has(option.name)) {
           setUserError("All options must be unique");
@@ -86,6 +85,22 @@ export default function CreateList() {
 
   if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
+
+  let currentImage;
+  if (imageLoading) {
+    currentImage = <LoadingSpinner />;
+  } else if (listImgUrl) {
+    currentImage = <img src={listImgUrl} alt="list" id="list-image"></img>;
+  } else {
+    currentImage = (
+      <button
+        id="upload-image-button"
+        onClick={() => document.getElementById("list-photo-input").click()}
+      >
+        Add List Image
+      </button>
+    );
+  }
 
   return (
     <div id="create-list-main-div">
@@ -131,10 +146,9 @@ export default function CreateList() {
             id="list-photo-input"
             type="file"
             onChange={handleListPhotoFile}
+            hidden
           />
-          <div id="create-list-image-container">
-            <img src={listImgUrl} alt="list" id="list-image"></img>
-          </div>
+          <div id="create-list-image-container">{currentImage}</div>
         </div>
         <div id="create-list-description-div">
           <h2 id="description-label">List Description:</h2>
