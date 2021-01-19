@@ -53,17 +53,18 @@ export default function Home() {
 
   const newListLi = newLists.map((list, i) => {
     return (
-      <li className="top-lists-item" key={i}>
+      <li
+        className="top-lists-item"
+        key={i}
+        onClick={() => handleLink(list.id)}
+      >
         <div className="top-lists-image-container">
-          <img src={list.imageUrl} alt="list" id="list-image"></img>
+          {list.imageUrl ? (
+            <img src={list.imageUrl} alt="list" id="list-image"></img>
+          ) : null}
         </div>
         <div className="top-lists-item-name-and-description-container">
-          <p
-            className="top-lists-item-name"
-            onClick={() => handleLink(list.id)}
-          >
-            {list.title}
-          </p>
+          <p className="top-lists-item-name">{list.title}</p>
           <p>{list.description}</p>
           {list.numCompletions === 1 ? (
             <p className="top-lists-item-num-completions">
@@ -98,7 +99,7 @@ export default function Home() {
         <ul id="top-list-ul">{newListLi}</ul>
       </div>
       <div id="other-container">
-        <h1 id="recomended">Recomended</h1>
+        <h1 id="recomended">Recommended</h1>
       </div>
     </div>
   );
