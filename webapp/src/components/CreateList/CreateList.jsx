@@ -36,10 +36,16 @@ export default function CreateList() {
 
   const handleListPhotoFile = async (e) => {
     e.preventDefault();
-    setImageLoading(true);
+    setUserError("");
     const file = e.currentTarget.files[0];
+    if (file.size > 1048576) {
+      setUserError("Please upload files smaller than 1 megabyte.");
+      return;
+    }
     const formData = new FormData();
     formData.append("file", file);
+    setImageLoading(true);
+    
     try {
       const res = await uploadImage(formData);
       setListImgUrl(res.data.imageUrl);
