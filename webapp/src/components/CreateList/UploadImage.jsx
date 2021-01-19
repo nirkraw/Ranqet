@@ -82,18 +82,20 @@ export default function UploadImage({
                 <img src={giphyUrl} alt="giphy" id="option-giphy-image"></img>
               ) : null}
             </div>
-            <button onClick={handleGiphySubmit} id="giphy-save-button">
-              Save
-            </button>
           </div>
           <div id="file-upload-container">
             <h3 className="gifphy-and-file-title">Upload Image File</h3>
             <input id="photo-input" type="file" onChange={handlePhotoFile} />
           </div>
         </div>
-        <button id="exit-modal-button" onClick={closeModal}>
-          Cancel
-        </button>
+        <div id="exit-modal-buttons">
+          <button id="exit-modal-button" onClick={closeModal}>
+            Cancel
+          </button>
+          <button onClick={handleGiphySubmit} id="giphy-save-button">
+            Save
+          </button>
+        </div>
       </div>
     </Modal>
   );

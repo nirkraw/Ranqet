@@ -155,7 +155,7 @@ export default function CreateList() {
           <input
             id="description-input"
             type="text"
-            maxLength="64"
+            maxLength="120"
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>

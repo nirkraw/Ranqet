@@ -59,19 +59,6 @@
   margin-left: 10px;
 }
 
-.top-lists-image-container {
-  border: 2px solid black;
-  width: 20%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(../assets/rankerLogo.png);
-  background-size: contain; /* or contain depending on what you want */
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: rgb(200, 140, 140);
-}
 
 .top-lists-item-name {
   font-size: 25px;
@@ -102,11 +89,26 @@
   align-items: flex-start;
 }
 
-#list-image {
-  height: 200px;
-  width: 250px;
+.list-image {
+  height: 100%;
+  min-width: 100%;
+  border: 2px solid black;
   object-fit: cover;
-  background-size: cover; /* or contain depending on what you want */
+  background-size: cover; 
   background-position: center center;
   background-repeat: no-repeat;
+}
+
+.top-lists-image-container {
+  border: 2px solid black;
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../assets/rankerLogo.png);
+  background-size: contain; /* or contain depending on what you want */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: rgb(200, 140, 140);
 }

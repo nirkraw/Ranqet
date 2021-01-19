@@ -59,7 +59,7 @@ export default function Home() {
       >
         <div className="top-lists-image-container">
           {list.imageUrl ? (
-            <img src={list.imageUrl} alt="list" id="list-image"></img>
+            <img src={list.imageUrl} alt="list" className="list-image"></img>
           ) : null}
         </div>
         <div className="top-lists-item-name-and-description-container">

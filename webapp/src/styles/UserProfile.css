@@ -51,6 +51,7 @@
 
 #user-profile-image-container:hover {
     cursor: pointer;
+    opacity: 70%;
 }
 
 #user-profile-image {
