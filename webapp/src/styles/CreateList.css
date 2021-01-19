@@ -72,6 +72,7 @@
   background-size: cover; /* or contain depending on what you want */
   background-position: center center;
   background-repeat: no-repeat;
+  border: 1px solid black;
 }
 
 #title-label,
@@ -129,7 +130,7 @@
 
 #unlisted-container {
   position: absolute;
-  top: 25px;
+  top: 55px;
   right: 50px;
   display: flex;
   justify-content: center;
@@ -195,6 +196,10 @@
   background-repeat: no-repeat;
 }
 
+#list-image:hover {
+  opacity: 70%;
+}
+
 #upload-image-button {
   border: 1px solid black;
   padding: 2px 5px 2px 5px;
@@ -209,4 +214,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#create-list-error-container {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

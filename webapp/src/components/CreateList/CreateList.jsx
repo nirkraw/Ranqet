@@ -31,6 +31,7 @@ export default function CreateList() {
   const [openModal, setOpenModal] = useState(false);
 
   const handleListPhotoFile = async (e) => {
+    e.preventDefault();
     setImageLoading(true);
     const file = e.currentTarget.files[0];
     const formData = new FormData();
@@ -38,16 +39,27 @@ export default function CreateList() {
     try {
       const res = await uploadImage(formData);
       setListImgUrl(res.data.imageUrl);
-      setImageLoading(false);
     } catch (err) {
-      setError(err.message);
+      setUserError(
+        "Image could not be uploaded. Please refresh and try again."
+      );
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     }
+    setImageLoading(false);
   };
 
   const handleSubmit = async () => {
-    if (!listTitle) setUserError("*List must have title");
-    else if (options.length < 2) {
-      setUserError("Please add at least two options");
+    let totalOptions = 0;
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].name) totalOptions++;
+    }
+
+    if (!listTitle) {
+      setUserError("*List must have title.");
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    } else if (totalOptions < 2) {
+      setUserError("Please add at least two options.");
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     } else {
       setLoading(true);
       const newOptions = [];
@@ -90,7 +102,14 @@ export default function CreateList() {
   if (imageLoading) {
     currentImage = <LoadingSpinner />;
   } else if (listImgUrl) {
-    currentImage = <img src={listImgUrl} alt="list" id="list-image"></img>;
+    currentImage = (
+      <img
+        src={listImgUrl}
+        alt="list"
+        id="list-image"
+        onClick={() => document.getElementById("list-photo-input").click()}
+      ></img>
+    );
   } else {
     currentImage = (
       <button
@@ -112,7 +131,10 @@ export default function CreateList() {
         options={options}
         setOptions={setOptions}
       />
-      <form onSubmit={handleSubmit} id="create-list-form">
+      <form id="create-list-form">
+        <div id="create-list-error-container">
+          <h2 id="create-list-error">{userError}</h2>
+        </div>
         <div id="create-list-title-and-unlisited-container">
           <div id="create-list-title-div">
             <h2 id="title-label">List Title:</h2>
@@ -169,9 +191,8 @@ export default function CreateList() {
             setCurrModalOptionIdx={setCurrModalOptionIdx}
             setOpenModal={setOpenModal}
           />
-          <h2 id="create-list-error">{userError}</h2>
         </div>
-        <button type="submit" id="create-list-submit">
+        <button onClick={handleSubmit} id="create-list-submit">
           Submit
         </button>
       </form>
