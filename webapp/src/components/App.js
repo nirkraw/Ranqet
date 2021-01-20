@@ -1,6 +1,6 @@
 import "../styles/App.css";
 import Navbar from "./Navbar";
-import Home from "./Home";
+import Home from "./Home/Home";
 import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings";
 import Quiz from "./Quiz/Quiz";
@@ -14,6 +14,7 @@ import { createBrowserHistory } from "history";
 import SessionForm from "./SessionForm";
 import React from "react";
 import UserProfile from "./UserProfile";
+import Category from "./Category";
 
 function App() {
   return (
@@ -28,6 +29,16 @@ function App() {
             render={() =>
               localStorage.getItem("userId") ? (
                 <CreateList />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/category/:categoryType"
+            render={() =>
+              localStorage.getItem("userId") ? (
+                <Category />
               ) : (
                 <Redirect to="/login" />
               )
@@ -65,7 +76,7 @@ function App() {
           />
           <Route
             path="/"
-            render={() => 
+            render={() =>
               localStorage.getItem("userId") ? (
                 <Home />
               ) : (

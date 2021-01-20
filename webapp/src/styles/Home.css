@@ -3,6 +3,12 @@
   width: 100%;
   margin-top: 15px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#top-list-and-recommended-container {
+  display: flex;
   justify-content: flex-start;
 }
 
@@ -49,8 +55,8 @@
 }
 
 .top-lists-item:hover {
-    cursor: pointer;
-    background-color: rgb(243, 241, 241); 
+  cursor: pointer;
+  background-color: rgb(243, 241, 241);
 }
 
 .top-lists-item-name-and-description-container {
@@ -58,7 +64,6 @@
   flex-direction: column;
   margin-left: 10px;
 }
-
 
 .top-lists-item-name {
   font-size: 25px;
@@ -94,7 +99,7 @@
   width: 225px;
   border: 2px solid black;
   object-fit: cover;
-  background-size: cover; 
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
@@ -111,4 +116,24 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-color: rgb(200, 140, 140);
+}
+
+#category-container {
+  display: flex;
+  justify-content: space-around;
+  width: 96%;
+  padding-top: 15px;
+  margin-bottom: 15px;
+  background-color: white;
+}
+
+#category-container > p {
+  font-size: 22px;
+  font-family: "Nanum Gothic", sans-serif;
+  color: rgb(200, 140, 140);
+}
+
+#category-container > p:hover {
+  cursor:pointer;
+  opacity: 80%;
 }

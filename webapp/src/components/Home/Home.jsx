@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import LoadingSpinner from "./Misc/LoadingSpinner";
-import "../styles/Home.css";
-import { fetchTopLists } from "../util/Endpoints";
+import LoadingSpinner from "../Misc/LoadingSpinner";
+import "../../styles/Home.css";
+import { fetchTopLists } from "../../util/Endpoints";
 import { useHistory } from "react-router-dom";
-import ErrorPage from "./Misc/ErrorPage";
-import { fetchListOptionPair } from "../util/Endpoints";
+import ErrorPage from "../Misc/ErrorPage";
+import { fetchListOptionPair } from "../../util/Endpoints";
+// import Categories from "./Categories";
+import { ListCategory } from "../../enums/ListCategory";
 
 export default function Home() {
   const history = useHistory();
@@ -92,13 +94,22 @@ export default function Home() {
 
   return (
     <div id="home-main">
-      <div id="top-list-container">
-        <h1 id="home-title">Today's Top Lists</h1>
-        <h1 id="all-list-error">{error}</h1>
-        <ul id="top-list-ul">{newListLi}</ul>
+      <div id="category-container">
+        {ListCategory.map((category, i) => (
+          <p key={i} onClick={() => history.push(`/category/${category}`)}>
+            {category}
+          </p>
+        ))}
       </div>
-      <div id="other-container">
-        <h1 id="recomended">Recommended</h1>
+      <div id="top-list-and-recommended-container">
+        <div id="top-list-container">
+          <h1 id="home-title">Today's Top Lists</h1>
+          <h1 id="all-list-error">{error}</h1>
+          <ul id="top-list-ul">{newListLi}</ul>
+        </div>
+        <div id="other-container">
+          <h1 id="recomended">Recommended</h1>
+        </div>
       </div>
     </div>
   );
