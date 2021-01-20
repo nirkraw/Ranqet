@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { createList, uploadImage } from "../../util/Endpoints";
+import { createList } from "../../util/Endpoints";
 import "../../styles/CreateList.css";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import UploadImage from "./UploadImage";
 import OptionInputs from "./OptionInputs";
+import ListImage from "./ListImage";
 import { useHistory } from "react-router-dom";
 
-export default function CreateList() {
+export default function CreateList({somekey}) {
   const history = useHistory();
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -34,30 +35,9 @@ export default function CreateList() {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }, [userError]);
 
-  const handleListPhotoFile = async (e) => {
-    e.preventDefault();
-    setUserError("");
-    const file = e.currentTarget.files[0];
-    if (file.size > 1048576) {
-      setUserError("Please upload files smaller than 1 megabyte.");
-      return;
-    }
-    const formData = new FormData();
-    formData.append("file", file);
-    setImageLoading(true);
-    
-    try {
-      const res = await uploadImage(formData);
-      setListImgUrl(res.data.imageUrl);
-    } catch (err) {
-      setUserError(
-        "Image could not be uploaded. Please refresh and try again."
-      );
-    }
-    setImageLoading(false);
-  };
 
-  const handleSubmit = async () => {
+  const handleListSubmit = async (e) => {
+    e.preventDefault();
     let totalOptions = 0;
     for (let i = 0; i < options.length; i++) {
       if (options[i].name) totalOptions++;
@@ -105,29 +85,6 @@ export default function CreateList() {
   if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
-  let currentImage;
-  if (imageLoading) {
-    currentImage = <LoadingSpinner />;
-  } else if (listImgUrl) {
-    currentImage = (
-      <img
-        src={listImgUrl}
-        alt="list"
-        id="list-image"
-        onClick={() => document.getElementById("list-photo-input").click()}
-      ></img>
-    );
-  } else {
-    currentImage = (
-      <button
-        id="upload-image-button"
-        onClick={() => document.getElementById("list-photo-input").click()}
-      >
-        Add List Image
-      </button>
-    );
-  }
-
   return (
     <div id="create-list-main-div">
       <UploadImage
@@ -169,16 +126,13 @@ export default function CreateList() {
             />
           </div>
         </div>
-        <div id="create-list-image-div">
-          <h2 id="image-label">List Image:</h2>
-          <input
-            id="list-photo-input"
-            type="file"
-            onChange={handleListPhotoFile}
-            hidden
-          />
-          <div id="create-list-image-container">{currentImage}</div>
-        </div>
+        <ListImage
+          setImageLoading={setImageLoading}
+          setUserError={setUserError}
+          setListImgUrl={setListImgUrl}
+          imageLoading={imageLoading}
+          listImgUrl={listImgUrl}
+        />
         <div id="create-list-description-div">
           <h2 id="description-label">List Description:</h2>
           <input
@@ -199,7 +153,7 @@ export default function CreateList() {
             setOpenModal={setOpenModal}
           />
         </div>
-        <button onClick={handleSubmit} id="create-list-submit">
+        <button onClick={handleListSubmit} id="create-list-submit">
           Submit
         </button>
       </form>

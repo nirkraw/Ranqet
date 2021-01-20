@@ -27,6 +27,11 @@
     color: rgb(211, 90, 90);
 }
 
+.top-lists-item-name:hover {
+    cursor:pointer;
+    opacity: 80%;
+}
+
 #user-profile-header {
     display:flex;
     justify-content: flex-start;

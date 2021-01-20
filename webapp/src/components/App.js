@@ -21,11 +21,11 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route path="/create-user" component={() => <SessionForm />} />
-          <Route path="/login" component={() => <SessionForm />} />
+          <Route path="/create-user" render={() => <SessionForm />} />
+          <Route path="/login" render={() => <SessionForm />} />
           <Route
             path="/create-list"
-            component={() =>
+            render={() =>
               localStorage.getItem("userId") ? (
                 <CreateList />
               ) : (
@@ -35,7 +35,7 @@ function App() {
           />
           <Route
             path="/:listId/quiz"
-            component={() =>
+            render={() =>
               localStorage.getItem("userId") ? (
                 <Quiz />
               ) : (
@@ -45,7 +45,7 @@ function App() {
           />
           <Route
             path="/:listId/rankings"
-            component={() =>
+            render={() =>
               localStorage.getItem("userId") ? (
                 <Rankings />
               ) : (
@@ -55,7 +55,7 @@ function App() {
           />
           <Route
             path="/profile/:userId"
-            component={() =>
+            render={() =>
               localStorage.getItem("userId") ? (
                 <UserProfile />
               ) : (
@@ -65,13 +65,13 @@ function App() {
           />
           <Route
             path="/"
-            component={() => {
-              return localStorage.getItem("userId") ? (
+            render={() => 
+              localStorage.getItem("userId") ? (
                 <Home />
               ) : (
                 <Redirect to="/login" />
-              );
-            }}
+              )
+            }
           />
         </Switch>
       </div>
