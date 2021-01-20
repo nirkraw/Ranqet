@@ -135,5 +135,5 @@
 
 #category-container > p:hover {
   cursor:pointer;
-  opacity: 80%;
+  color:blue;
 }

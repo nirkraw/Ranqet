@@ -5,7 +5,6 @@ import { fetchTopLists } from "../../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import ErrorPage from "../Misc/ErrorPage";
 import { fetchListOptionPair } from "../../util/Endpoints";
-// import Categories from "./Categories";
 import { ListCategory } from "../../enums/ListCategory";
 
 export default function Home() {
