@@ -91,7 +91,7 @@
 
 .list-image {
   height: 150px;
-  min-width: 225px;
+  width: 225px;
   border: 2px solid black;
   object-fit: cover;
   background-size: cover; 
@@ -102,7 +102,7 @@
 .top-lists-image-container {
   border: 2px solid black;
   height: 150px;
-  min-width: 225px;
+  width: 225px;
   display: flex;
   justify-content: center;
   align-items: center;

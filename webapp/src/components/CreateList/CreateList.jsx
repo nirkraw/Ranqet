@@ -7,13 +7,15 @@ import UploadImage from "./UploadImage";
 import OptionInputs from "./OptionInputs";
 import ListImage from "./ListImage";
 import { useHistory } from "react-router-dom";
+import { ListCategory } from "../../enums/ListCategory";
 
-export default function CreateList({somekey}) {
+export default function CreateList() {
   const history = useHistory();
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
   const [unlisted, setUnlisted] = useState(false);
   const [listImgUrl, setListImgUrl] = useState("");
+  const [category, setCategory] = useState("");
   const [options, setOptions] = useState([
     { name: "", photoUrl: "" },
     { name: "", photoUrl: "" },
@@ -35,19 +37,17 @@ export default function CreateList({somekey}) {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }, [userError]);
 
-
   const handleListSubmit = async (e) => {
     e.preventDefault();
     let totalOptions = 0;
     for (let i = 0; i < options.length; i++) {
       if (options[i].name) totalOptions++;
     }
-
-    if (!listTitle) {
-      setUserError("*List must have title.");
-    } else if (totalOptions < 2) {
-      setUserError("Please add at least two options.");
-    } else {
+    
+    if (!listTitle) setUserError("*List must have title.");
+    else if (totalOptions < 2) setUserError("Please add at least two options.");
+    else if (!category) setUserError("Please choose category.");
+    else {
       setLoading(true);
       const newOptions = [];
       const visitedOptions = new Set();
@@ -70,6 +70,7 @@ export default function CreateList({somekey}) {
         options: newOptions,
         authorId: localStorage.getItem("userId"),
         isUnlisted: unlisted,
+        category,
       };
 
       try {
@@ -133,6 +134,23 @@ export default function CreateList({somekey}) {
           imageLoading={imageLoading}
           listImgUrl={listImgUrl}
         />
+        <div id="category-selection-container">
+          <p id="category-label">Category:</p>
+          <select
+            name="categories"
+            id="categories"
+            onChange={(e) => setCategory(e.currentTarget.value)}
+          >
+            <option disabled selected value>
+              --SELECT--
+            </option>
+            {ListCategory.map((category, i) => (
+              <option key={i} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
         <div id="create-list-description-div">
           <h2 id="description-label">List Description:</h2>
           <input

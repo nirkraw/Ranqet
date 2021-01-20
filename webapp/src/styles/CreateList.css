@@ -79,11 +79,20 @@
 #options-label,
 #description-label,
 #unlisted-label,
-#image-label {
+#image-label,
+#category-label {
   font-family: sans-serif;
   font-size: 17px;
   color: rgba(200, 140, 140, 0.852);
   font-weight: 600;
+}
+
+#title-input {
+  width: 50%;
+}
+
+#category-label {
+  margin-bottom: 0px;
 }
 
 #list-input {
@@ -130,8 +139,8 @@
 
 #unlisted-container {
   position: absolute;
-  top: 55px;
-  right: 50px;
+  top: 230px;
+  right: 30px;
   display: flex;
   justify-content: center;
   margin-right: 5%;
@@ -220,5 +229,15 @@
   height: 30px;
   width: 100%;
   display: flex;
+  justify-content: center;
+}
+
+#category-selection-container {
+  position: absolute;
+  top: 55px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
