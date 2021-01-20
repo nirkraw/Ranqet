@@ -1,5 +1,9 @@
 package com.rankerapp.db.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 public enum ListCategory {
     SPORTS("SPORTS"),
     MUSIC("MUSIC"),
@@ -12,8 +16,14 @@ public enum ListCategory {
 
     private final String value;
 
+    @JsonCreator
     ListCategory(String value) {
         this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+        return value;
     }
 
     @Override

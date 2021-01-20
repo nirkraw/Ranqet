@@ -28,6 +28,7 @@ public class ListEntity {
     private String imageUrl;
 
     @Column(name = "category")
+    @Enumerated(EnumType.STRING)
     private ListCategory category;
 
     @OneToMany(targetEntity = OptionEntity.class, mappedBy = "list", cascade = CascadeType.ALL)
