@@ -154,6 +154,7 @@ public class ListFetcher {
                 .createdBy(UsersOperations.convertUserEntity(listEntity.getCreatedBy()))
                 .imageUrl(listEntity.getImageUrl())
                 .isUnlisted(listEntity.isPrivate())
+                .category(listEntity.getCategory().toTransportModel())
                 .build();
     }
 

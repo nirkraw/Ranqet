@@ -27,6 +27,9 @@ public class ListEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "category")
+    private ListCategory category;
+
     @OneToMany(targetEntity = OptionEntity.class, mappedBy = "list", cascade = CascadeType.ALL)
     private List<OptionEntity> options;
 
@@ -99,6 +102,14 @@ public class ListEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public ListCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ListCategory category) {
+        this.category = category;
     }
 
     public boolean isPrivate() {

@@ -26,13 +26,12 @@ public class RankerAppResource {
         this.voteProcessor = voteProcessor;
     }
 
-    // TODO: add privacy option
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/list/create")
     public ListResponse createNewList(@RequestBody CreateListRequest request) {
         UUID persistedId = listWriter.createList(request.getTitle(), request.getDescription(),
                 UUID.fromString(request.getAuthorId()), request.getOptions(), request.getImageUrl(),
-                request.isUnlisted()).getId();
+                request.getCategory(), request.isUnlisted()).getId();
 
         return listFetcher.fetchListById(persistedId);
     }
@@ -54,12 +53,6 @@ public class RankerAppResource {
     public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId) {
         return listFetcher.getAllListsForUser(asUUID(userId));
     }
-
-
-
-    // TODO: Get lists created by user
-
-    // TODO: toggle privacy settings
 
     // Filter by completed, in progress and by userId
     // Return info
@@ -84,8 +77,6 @@ public class RankerAppResource {
                 asUUID(request.getWinningOptionId()), asUUID(request.getLosingOptionId()));
     }
 
-    // TODO (nir): AWS IMAGE UPLOAD
-    // TODO (nir): cookies
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/list/{listId}/rankings")
     public RankingResponse getRankings(@PathVariable(value = "listId") String listId,

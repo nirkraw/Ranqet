@@ -8,6 +8,7 @@ import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.exceptions.NotFoundException;
+import com.rankerapp.transport.model.ListCategory;
 import com.rankerapp.transport.model.SubmittedOption;
 import org.springframework.stereotype.Component;
 
@@ -34,8 +35,12 @@ public class ListWriter {
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options,
-                                 String imageUrl, boolean isPrivate) {
-       // validate that two options don't have the same name
+                                 String imageUrl, ListCategory category, boolean isPrivate) {
+        if (category == null) {
+            throw new BadRequestException("List category is required!");
+        }
+
+        // validate that two options don't have the same name
         Set<String> optionNames = new HashSet<>();
         for (SubmittedOption option : options) {
             if (optionNames.contains(option.getName())) {
@@ -74,6 +79,7 @@ public class ListWriter {
         listEntity.setCreatedBy(author);
         listEntity.setImageUrl(imageUrl);
         listEntity.setPrivate(isPrivate);
+        listEntity.setCategory(com.rankerapp.db.model.ListCategory.valueOf(category.name()));
         listsRepository.save(listEntity);
 
         return listEntity;

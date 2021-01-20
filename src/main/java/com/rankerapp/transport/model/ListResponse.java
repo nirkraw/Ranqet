@@ -21,6 +21,8 @@ public class ListResponse {
 
     private final String imageUrl;
 
+    private final ListCategory category;
+
     private final boolean isUnlisted;
 
     private ListResponse(Builder builder) {
@@ -33,6 +35,7 @@ public class ListResponse {
         this.createdBy = builder.createdBy;
         this.imageUrl = builder.imageUrl;
         this.isUnlisted = builder.isUnlisted;
+        this.category = builder.category;
     }
 
     public String getId() {
@@ -67,6 +70,10 @@ public class ListResponse {
         return isUnlisted;
     }
 
+    public ListCategory getCategory() {
+        return category;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -90,6 +97,8 @@ public class ListResponse {
         private String imageUrl;
 
         private boolean isUnlisted;
+
+        private ListCategory category;
 
         private Builder() {
 
@@ -137,6 +146,11 @@ public class ListResponse {
 
         public Builder isUnlisted(boolean isUnlisted) {
             this.isUnlisted = isUnlisted;
+            return this;
+        }
+
+        public Builder category(ListCategory category) {
+            this.category = category;
             return this;
         }
 
