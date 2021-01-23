@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { uploadImage } from "../../util/Endpoints";
 import LoadingSpinner from "../Misc/LoadingSpinner";
+import "../../styles/createList/ListImage.css";
 
 export default function ListImage({
   setImageLoading,

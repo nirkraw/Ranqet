@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/UploadImage.css";
+import "../../styles/createList/UploadImage.css";
 import Modal from "react-modal";
 import axios from "axios";
 import Homer from "../../assets/homer-simpsons-155238_1280.png";

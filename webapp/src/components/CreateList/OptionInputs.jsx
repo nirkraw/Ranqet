@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import UploadImage from "./UploadImage";
+import "../../styles/createList/OptionInputs.css";
 
 export default function OptionInputs({
   imageLoading,

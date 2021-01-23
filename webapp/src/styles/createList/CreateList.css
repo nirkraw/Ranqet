@@ -33,8 +33,7 @@
 
 #create-list-options-div,
 #create-list-title-div,
-#create-list-description-div,
-#create-list-image-div {
+#create-list-description-div {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -58,59 +57,6 @@
   width: 47.5%;
 }
 
-#options-input-ul {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.option-input-li {
-  width: 100%;
-  height: 15%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.option-input-add-image {
-  border: 1px solid black;
-  text-align: center;
-  font-size: 15px;
-  padding: 3px;
-  width: 150px;
-  height: 100px;
-  margin-right: 30px;
-  background-color: white;
-}
-.option-input {
-  width: 55%;
-  height: 50%;
-  font-size: 20px;
-  color: black;
-}
-
-.option-input-add-image:hover {
-  cursor: pointer;
-  background-color: rgb(235, 231, 231);
-}
-
-.option-input-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background-size: cover; /* or contain depending on what you want */
-  background-position: center center;
-  background-repeat: no-repeat;
-  border: 1px solid black;
-}
-
-#list-input {
-  min-width: 40%;
-  font-family: sans-serif;
-  font-size: 15px;
-}
-
 #description-input {
   min-width: 94%;
   font-family: sans-serif;
@@ -122,7 +68,7 @@
   font-size: 20px;
   width: fit-content;
   align-self: center;
-  background-color: rgb(200, 140, 140);
+  background-color: var(--main-color-2);
   margin-bottom: 10px;
   color: white;
   padding: 10px;
@@ -132,33 +78,4 @@
 #create-list-submit:hover {
   cursor: pointer;
   background-color: var(main-color-2);
-}
-
-#list-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background-size: cover; /* or contain depending on what you want */
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-
-#list-image:hover {
-  opacity: 70%;
-}
-
-#upload-image-button {
-  border: 1px solid black;
-  padding: 2px 5px 2px 5px;
-}
-
-#create-list-image-container {
-  background-color: white;
-  height: 200px;
-  width: 300px;
-  border: 1px solid black;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
