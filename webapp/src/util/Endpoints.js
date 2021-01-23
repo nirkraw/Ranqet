@@ -69,4 +69,10 @@ export const uploadImage = (formData) => {
   });
 };
 
+export const fetchCategoryList = (category) => {
+  return axios.post(`${server}/images/upload`, category, {
+    "Content-Type": "application/json",
+  });
+};
+
 

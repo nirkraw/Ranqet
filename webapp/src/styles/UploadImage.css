@@ -5,7 +5,7 @@
 }
 
 #upload-image-main-title {
-  color: rgba(200, 140, 140, 0.852);
+  color: var(main-color-2);
 }
 
 #gifphy-and-file-container {
@@ -17,7 +17,7 @@
 }
 
 .gifphy-and-file-title {
-  color: rgba(200, 140, 140, 0.852);
+  color: var(main-color-2);
 }
 
 #giphy-upload-container,

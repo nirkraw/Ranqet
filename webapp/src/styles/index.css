@@ -47,10 +47,13 @@ table {
 	border-spacing: 0;
 }
 
-/* ::selection {
-    color: none;
-    background: none;
-} */
+:root {
+	--main-color-1: #FFAAAA;
+	--main-color-2: #D46A6A;
+	--main-color-3: #AA3939;
+	--main-color-4: #801515;
+	--main-color-5: #550000;
+}
 
 ::-moz-selection {
     color: none;

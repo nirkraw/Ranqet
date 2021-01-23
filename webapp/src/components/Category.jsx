@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import ErrorPage from "../Misc/ErrorPage";
-import LoadingSpinner from "../Misc/LoadingSpinner";
-import { fetchCategoryList, listIsComplete } from "../util/Endpoints";
+import ErrorPage from "./Misc/ErrorPage";
+import LoadingSpinner from "./Misc/LoadingSpinner";
+import { fetchCategoryList, fetchListOptionPair } from "../util/Endpoints";
 
 export default function Category() {
   const match = useRouteMatch();
@@ -27,7 +27,7 @@ export default function Category() {
   };
 
   const handleLink = async (listId) => {
-    if (await listIsComplete(listId)) {
+    if (await fetchListOptionPair(listId)) {
       history.push(`/${listId}/rankings`);
     } else {
       history.push(`/${listId}/quiz`);

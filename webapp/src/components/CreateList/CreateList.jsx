@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { createList } from "../../util/Endpoints";
-import "../../styles/CreateList.css";
+import "../../styles/createList/CreateList.css";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import UploadImage from "./UploadImage";
 import OptionInputs from "./OptionInputs";
 import ListImage from "./ListImage";
 import { useHistory } from "react-router-dom";
-import { ListCategory } from "../../enums/ListCategory";
+import CategoriesDropdown  from "./CategoriesDropdown";
+import UnlistedDropdown from "./UnlistedCheckbox";
 
 export default function CreateList() {
   const history = useHistory();
@@ -43,7 +44,7 @@ export default function CreateList() {
     for (let i = 0; i < options.length; i++) {
       if (options[i].name) totalOptions++;
     }
-    
+
     if (!listTitle) setUserError("*List must have title.");
     else if (totalOptions < 2) setUserError("Please add at least two options.");
     else if (!category) setUserError("Please choose category.");
@@ -100,33 +101,17 @@ export default function CreateList() {
         <div id="create-list-error-container">
           <h2 id="create-list-error">{userError}</h2>
         </div>
-        <div id="create-list-title-and-unlisited-container">
-          <div id="create-list-title-div">
-            <h2 id="title-label">List Title:</h2>
-            <input
-              id="title-input"
-              maxLength="32"
-              type="text"
-              onChange={(e) => setListTitle(e.target.value)}
-            />
-          </div>
-          <div id="unlisted-container">
-            <div className="info-tag tooltip-container">
-              i
-              <span className="tooltiptext">
-                List will not show up on any public page and can only be shared
-                with a URL
-              </span>
-            </div>
-            <label id="unlisted-label">Unlisted</label>
-            <input
-              type="checkbox"
-              id="unlisted-input"
-              name="unlisted"
-              onChange={() => setUnlisted(!unlisted)}
-            />
-          </div>
+        <div id="create-list-title-div">
+          <h2 id="title-label">List Title:</h2>
+          <input
+            id="title-input"
+            maxLength="32"
+            type="text"
+            onChange={(e) => setListTitle(e.target.value)}
+          />
         </div>
+        <CategoriesDropdown setCategory={setCategory} />
+        <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
         <ListImage
           setImageLoading={setImageLoading}
           setUserError={setUserError}
@@ -134,23 +119,6 @@ export default function CreateList() {
           imageLoading={imageLoading}
           listImgUrl={listImgUrl}
         />
-        <div id="category-selection-container">
-          <p id="category-label">Category:</p>
-          <select
-            name="categories"
-            id="categories"
-            onChange={(e) => setCategory(e.currentTarget.value)}
-          >
-            <option disabled selected value>
-              --SELECT--
-            </option>
-            {ListCategory.map((category, i) => (
-              <option key={i} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
         <div id="create-list-description-div">
           <h2 id="description-label">List Description:</h2>
           <input
