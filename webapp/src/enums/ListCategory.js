@@ -1,10 +1,10 @@
 export const ListCategory = [
-     "Sports",
-     "Music",
-     "Movies & TV",
-     "Fun",
-     "Misc",
-     "Politics",
-     "Social",
-     "Business"
+     "SPORTS",
+     "MUSIC",
+     "MOVIES/TV",
+     "FUN",
+     "MISC",
+     "POLITICS",
+     "SOCIAL",
+     "BUSINESS"
 ]

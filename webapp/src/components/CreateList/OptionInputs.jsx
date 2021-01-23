@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../Misc/LoadingSpinner";
+import UploadImage from "./UploadImage";
 
 export default function OptionInputs({
   imageLoading,
-  options,
-  setOptions,
-  setCurrModalOptionIdx,
-  setOpenModal,
+  setListOptions,
+  setImageLoading,
 }) {
+  const [options, setOptions] = useState([
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "" },
+  ]);
+  const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
+  const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    setListOptions(options);
+  }, [options]);
+
+
   const handleOptionNameChange = (e) => {
     const currOptionIdx = e.currentTarget.attributes.optionnum.value;
     options[currOptionIdx].name = e.currentTarget.value;
@@ -45,6 +62,14 @@ export default function OptionInputs({
 
     return (
       <li className="option-input-li" key={i}>
+        <UploadImage
+          isOpen={openModal}
+          closeModal={() => setOpenModal(false)}
+          setImageLoading={setImageLoading}
+          currOptionIdx={currModalOptionIdx}
+          options={options}
+          setOptions={setOptions}
+        />
         <input
           placeholder={`Option ${i + 1}`}
           maxLength="32"

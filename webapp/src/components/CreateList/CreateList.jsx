@@ -3,7 +3,6 @@ import { createList } from "../../util/Endpoints";
 import "../../styles/createList/CreateList.css";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import UploadImage from "./UploadImage";
 import OptionInputs from "./OptionInputs";
 import ListImage from "./ListImage";
 import { useHistory } from "react-router-dom";
@@ -17,22 +16,12 @@ export default function CreateList() {
   const [unlisted, setUnlisted] = useState(false);
   const [listImgUrl, setListImgUrl] = useState("");
   const [category, setCategory] = useState("");
-  const [options, setOptions] = useState([
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
-  ]);
+  const [listOptions, setListOptions] = useState([]);
   const [userError, setUserError] = useState("");
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
-  const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
-  const [openModal, setOpenModal] = useState(false);
+
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -41,8 +30,8 @@ export default function CreateList() {
   const handleListSubmit = async (e) => {
     e.preventDefault();
     let totalOptions = 0;
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].name) totalOptions++;
+    for (let i = 0; i < listOptions.length; i++) {
+      if (listOptions[i].name) totalOptions++;
     }
 
     if (!listTitle) setUserError("*List must have title.");
@@ -52,8 +41,8 @@ export default function CreateList() {
       setLoading(true);
       const newOptions = [];
       const visitedOptions = new Set();
-      for (let i = 0; i < options.length; i++) {
-        let option = options[i];
+      for (let i = 0; i < listOptions.length; i++) {
+        let option = listOptions[i];
         if (!option.name) continue;
         if (visitedOptions.has(option.name)) {
           setUserError("All options must be unique");
@@ -89,14 +78,6 @@ export default function CreateList() {
 
   return (
     <div id="create-list-main-div">
-      <UploadImage
-        isOpen={openModal}
-        closeModal={() => setOpenModal(false)}
-        setImageLoading={setImageLoading}
-        currOptionIdx={currModalOptionIdx}
-        options={options}
-        setOptions={setOptions}
-      />
       <form id="create-list-form">
         <div id="create-list-error-container">
           <h2 id="create-list-error">{userError}</h2>
@@ -131,12 +112,10 @@ export default function CreateList() {
         <div id="create-list-options-div">
           <h2 id="options-label">List Options (any order):</h2>
           <OptionInputs
-            options={options}
+            listOptions={listOptions}
             imageLoading={imageLoading}
-            setOptions={setOptions}
+            setListOptions={setListOptions}
             setImageLoading={setImageLoading}
-            setCurrModalOptionIdx={setCurrModalOptionIdx}
-            setOpenModal={setOpenModal}
           />
         </div>
         <button onClick={handleListSubmit} id="create-list-submit">
