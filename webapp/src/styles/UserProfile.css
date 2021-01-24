@@ -7,10 +7,23 @@
     position: relative;
 } 
 
+
+#tabs-container {
+    margin-left: 25px;
+    border: 2px solid gold;
+}
+
+.tab-container {
+    padding: 5px;
+    font: var(--font-1);
+    color: var(--pink-2);
+    font-size: 30px;
+}
+
+
 #user-lists-container {
     display: flex;
     justify-content: space-evenly;
-    border-top: 1px solid black;
     padding-top: 15px;
 }
 
@@ -37,7 +50,6 @@
     justify-content: flex-start;
     padding: 20px;
 }
-
 
 #user-profile-image-container {
     height: 200px;

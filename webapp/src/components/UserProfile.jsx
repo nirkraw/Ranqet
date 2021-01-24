@@ -9,6 +9,9 @@ import {
 } from "../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import "../styles/UserProfile.css";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import ListIndex from "./ListIndex";
 
 export default function UserProfile() {
   const [name, setName] = useState("");
@@ -92,42 +95,6 @@ export default function UserProfile() {
   if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
-  const completedListLi = completedLists.map((list, i) => {
-    return (
-      <p
-        className="top-lists-item-name"
-        onClick={() => handleLink(list.id)}
-        key={i}
-      >
-        {i + 1}. {list.title}
-      </p>
-    );
-  });
-
-  const inProgressListLi = inProgressLists.map((list, i) => {
-    return (
-      <p
-        className="top-lists-item-name"
-        onClick={() => handleLink(list.id)}
-        key={i}
-      >
-        {i + 1}. {list.title}
-      </p>
-    );
-  });
-
-  const createdListLi = createdLists.map((list, i) => {
-    return (
-      <p
-        className="top-lists-item-name"
-        onClick={() => handleLink(list.id)}
-        key={i}
-      >
-        {i + 1}. {list.title}
-      </p>
-    );
-  });
-
   let currentImage;
   if (imageLoading) {
     currentImage = <LoadingSpinner />;
@@ -157,22 +124,25 @@ export default function UserProfile() {
         <h1 id="user-profile-name">{name}</h1>
       </div>
       <h3 id="user-profile-error">{userError}</h3>
-      <div id="user-lists-container">
-        <div id="user-profile-completed-lists-container">
-          <h3 className="user-profile-list-category-title">Completed Lists</h3>
-          <ul id="top-list-ul">{completedListLi}</ul>
-        </div>
-        <div id="user-profile-in-progress-lists-container">
-          <h3 className="user-profile-list-category-title">
-            In Progress Lists
-          </h3>
-          <ul id="top-list-ul">{inProgressListLi}</ul>
-        </div>
-        <div id="user-profile-created-lists-container">
-          <h3 className="user-profile-list-category-title">Created Lists</h3>
-          <ul id="top-list-ul">{createdListLi}</ul>
-        </div>
-      </div>
+      <Tabs defaultActiveKey="completed" id="tabs-container">
+        <Tab
+          eventKey="completed"
+          title="Completed"
+          tabClassName="tab-container"
+        >
+          <ListIndex passedList={completedLists} />
+        </Tab>
+        <Tab eventKey="created" title="Created" tabClassName="tab-container">
+          <ListIndex passedList={createdLists} />
+        </Tab>
+        <Tab
+          eventKey="inProgress"
+          title="In Progress"
+          tabClassName="tab-container"
+        >
+          <ListIndex passedList={inProgressLists} />
+        </Tab>
+      </Tabs>
     </div>
   );
 }
