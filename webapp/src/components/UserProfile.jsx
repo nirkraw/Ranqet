@@ -30,23 +30,9 @@ export default function UserProfile() {
   const fetchLists = async () => {
     try {
       const res = await fetchUserLists(localStorage.getItem("userId"));
-      const currInProgressLists = [];
-      for (let i = 0; i < res.data.inProgressLists.length; i++) {
-        currInProgressLists.push(res.data.inProgressLists[i]);
-      }
-      setInProgressLists(currInProgressLists);
-
-      const currCompletedLists = [];
-      for (let i = 0; i < res.data.completedLists.length; i++) {
-        currCompletedLists.push(res.data.completedLists[i]);
-      }
-      setCompletedLists(currCompletedLists);
-
-      const currCreatedLists = [];
-      for (let i = 0; i < res.data.createdLists.length; i++) {
-        currCreatedLists.push(res.data.createdLists[i]);
-      }
-      setCreatedLists(currCreatedLists);
+      setInProgressLists(res.data.inProgressLists);
+      setCompletedLists(res.data.completedLists);
+      setCreatedLists(res.data.createdLists);
     } catch (err) {
       setError(err.message);
     }

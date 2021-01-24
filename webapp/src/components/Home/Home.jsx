@@ -107,7 +107,7 @@ export default function Home() {
           <ul id="top-list-ul">{newListLi}</ul>
         </div>
         <div id="other-container">
-          <h1 id="recomended">Recommended</h1>
+          <h1 id="recomended">Recommended For You</h1>
         </div>
       </div>
     </div>
