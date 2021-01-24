@@ -3,38 +3,45 @@
   height: fit-content;
   display: flex;
   justify-content: center;
-  margin-top: 2%;
 }
 
 #create-list-form {
   padding-top: 2%;
   display: flex;
   flex-direction: column;
-  width: 50%;
-  border: 2px solid var(--main-color-2);
+  width: 65%;
+  border: 1px 0px 1px 0px solid grey;
   position: relative;
   background-color: white;
 }
 
 #create-list-error-container {
   height: 30px;
-  width: 100%;
+  width: contain;
   display: flex;
+  align-self: center;
   justify-content: center;
   margin-top: -20px;
+  background-color: var(--yellow-1);
 }
 
 #create-list-error {
   font-family: sans-serif;
-  font-size: 18px;
-  color: var(--main-color-3);
+  font-size: 23px;
+  font-weight: 900;
+  color: var(--pink-3);
   align-self: center;
+}
+
+#create-list-title-categories-unlisted-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 #create-list-options-div,
 #create-list-title-div,
 #create-list-description-div {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -46,21 +53,28 @@
 #options-label,
 #description-label,
 #unlisted-label,
-#image-label {
-  font-family: sans-serif;
-  font-size: 17px;
-  color: var(--main-color-2);
-  font-weight: 600;
+#image-label, #category-label {
+  font-family: var(--font-1);
+  font-size: 25px;
+  color: var(--pink-2);
+  font-weight: 900;
+}
+
+#title-input, #description-input, .option-input, #category-input {
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 3%;
+  font-size: 25px;
+  font-family: var(--font-1);
+  color: var(--pink-4);
 }
 
 #title-input {
-  width: 47.5%;
+  width: 450px;
 }
 
 #description-input {
-  min-width: 94%;
-  font-family: sans-serif;
-  font-size: 15px;
+  width: 96.5%;
 }
 
 #create-list-submit {
@@ -68,7 +82,7 @@
   font-size: 20px;
   width: fit-content;
   align-self: center;
-  background-color: var(--main-color-2);
+  background-color: var(--pink-3);
   margin-bottom: 10px;
   color: white;
   padding: 10px;
@@ -77,5 +91,5 @@
 
 #create-list-submit:hover {
   cursor: pointer;
-  background-color: var(main-color-2);
+  background-color: var(--pink-2);
 }

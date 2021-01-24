@@ -8,14 +8,13 @@
 }
 
 #create-list-image-container {
-  background-color: white;
-  height: 200px;
-  width: 300px;
-  border: 1px solid black;
+  height: 300px;
+  width: 450px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid gray;
 }
 
 #list-image {
@@ -32,6 +31,15 @@
 }
 
 #upload-image-button {
+  font-family: var(--font-1);
+  font-size: 18px;
   border: 1px solid black;
   padding: 2px 5px 2px 5px;
+  height: 40px;
+  width: 150px;
 }
+
+#upload-image-button:hover {
+  opacity: 60%;
+}
+

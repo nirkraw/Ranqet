@@ -48,11 +48,25 @@ table {
 }
 
 :root {
-	--main-color-1: #FFAAAA;
-	--main-color-2: #D46A6A;
-	--main-color-3: #AA3939;
-	--main-color-4: #801515;
-	--main-color-5: #550000;
+	--pink-1: #FFE0D8;
+	--pink-2: #FF8A6B;
+	--pink-3: #FF5326;
+	--pink-4: #B02602;
+	--tan-1: #FFFDD8;
+	--tan-2: #FFCE6B;
+	--tan-3: #FFB726;
+	--tan-4: #B07602;
+	--blue-1: #DAE4FC;
+	--blue-2: #6586D2;
+	--blue-3: #2A52B0;
+	--blue-4: #0D2D76;
+	--yellow-1: #FFFDD8;
+	--yellow-2: #FFF66B;
+	--yellow-3: #FFF226;
+	--yellow-4: #B0A502;
+	--font-1: 'Open Sans', sans-serif;
+	--font-2: 'Potta One', cursive;
+	--font-3: 'Nanum Gothic', sans-serif;
 }
 
 ::-moz-selection {

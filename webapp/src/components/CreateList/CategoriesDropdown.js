@@ -8,14 +8,14 @@ export default function Categories({setCategory}) {
         <p id="category-label">Category:</p>
         <select
           name="categories"
-          id="categories"
+          id="category-input"
           onChange={(e) => setCategory(e.currentTarget.value)}
         >
           <option disabled selected value>
             --SELECT--
           </option>
           {ListCategory.map((category, i) => (
-            <option key={i} value={category}>
+            <option key={i} value={category} className="category-option">
               {category}
             </option>
           ))}

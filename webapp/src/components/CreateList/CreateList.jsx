@@ -82,17 +82,19 @@ export default function CreateList() {
         <div id="create-list-error-container">
           <h2 id="create-list-error">{userError}</h2>
         </div>
-        <div id="create-list-title-div">
-          <h2 id="title-label">List Title:</h2>
-          <input
-            id="title-input"
-            maxLength="32"
-            type="text"
-            onChange={(e) => setListTitle(e.target.value)}
-          />
+        <div id="create-list-title-categories-unlisted-container">
+          <div id="create-list-title-div">
+            <h2 id="title-label">List Title:</h2>
+            <input
+              id="title-input"
+              maxLength="32"
+              type="text"
+              onChange={(e) => setListTitle(e.target.value)}
+            />
+          </div>
+          <CategoriesDropdown setCategory={setCategory} />
+          <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
         </div>
-        <CategoriesDropdown setCategory={setCategory} />
-        <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
         <ListImage
           setImageLoading={setImageLoading}
           setUserError={setUserError}
