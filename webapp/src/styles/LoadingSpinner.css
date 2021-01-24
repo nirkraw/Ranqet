@@ -2,14 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 100vh;
+  height: 100vh;
 }
 
 .red-spinner-border {
-  color: rgb(153, 99, 99);
+  color: var(--pink-3);
 }
 
 .red-spinner-fill {
-  color: rgb(153, 99, 99);
+  color: var(--pink-3);
 }

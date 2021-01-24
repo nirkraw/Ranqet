@@ -18,14 +18,16 @@
 
 #navbar-title:hover {
   cursor: pointer;
-  color: rgb(234, 232, 232);
+  color: var(--yellow-2);
 }
 
 .nav-session-button {
   font-size: 21px;
-  font-family: var(--font-3);
+  font-family: var(--font-1);
+  font-weight: 900;
   text-decoration: none;
-  width: 110px;
+  width: fit-content;
+  margin-right: 20px;
   color: white;
   text-align: center;
   vertical-align: center;
@@ -34,6 +36,7 @@
 .nav-session-button:hover {
   cursor: pointer;
   text-decoration: none;
+  color: var(--yellow-2);
 }
 
 #navbar-buttons-container {
