@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "./Misc/ErrorPage";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import {
-  fetchUser,
-  fetchUserLists,
-  uploadImage,
-  fetchListOptionPair,
-} from "../util/Endpoints";
-import { useHistory } from "react-router-dom";
+import { fetchUser, fetchUserLists, uploadImage } from "../util/Endpoints";
 import "../styles/UserProfile.css";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
@@ -15,6 +9,7 @@ import ListIndex from "./ListIndex";
 
 export default function UserProfile() {
   const [name, setName] = useState("");
+  const [date, setDate] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [completedLists, setCompletedLists] = useState([]);
   const [inProgressLists, setInProgressLists] = useState([]);
@@ -23,7 +18,6 @@ export default function UserProfile() {
   const [userError, setUserError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     fetchLists();
@@ -44,6 +38,8 @@ export default function UserProfile() {
   const fetchUserInfo = async () => {
     try {
       const res = await fetchUser(localStorage.getItem("userId"));
+      const date = new Date(res.data.createdOn).getFullYear();
+      setDate(date);
       setName(res.data.name);
       if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
       setLoading(false);
@@ -69,26 +65,6 @@ export default function UserProfile() {
       setImageLoading(false);
     } catch (err) {
       setError(err.message);
-    }
-  };
-
-  const handleLink = async (listId) => {
-    if (await listIsComplete(listId)) {
-      history.push(`/${listId}/rankings`);
-    } else {
-      history.push(`/${listId}/quiz`);
-    }
-  };
-
-  const listIsComplete = async (listId) => {
-    try {
-      const res = await fetchListOptionPair(
-        listId,
-        localStorage.getItem("userId")
-      );
-      return res.data.isCompleted;
-    } catch (err) {
-      return false;
     }
   };
 
@@ -122,27 +98,40 @@ export default function UserProfile() {
           {currentImage}
         </div>
         <h1 id="user-profile-name">{name}</h1>
+        <div id="user-stats">
+          <h1>
+            Active since <span>{date}</span>
+          </h1>
+          <h1>
+            <span>{createdLists.length}</span> lists created
+          </h1>
+          <h1>
+            <span>{completedLists.length}</span> lists completed
+          </h1>
+        </div>
       </div>
       <h3 id="user-profile-error">{userError}</h3>
-      <Tabs defaultActiveKey="completed" id="tabs-container">
-        <Tab
-          eventKey="completed"
-          title="Completed"
-          tabClassName="tab-container"
-        >
-          <ListIndex passedList={completedLists} />
-        </Tab>
-        <Tab eventKey="created" title="Created" tabClassName="tab-container">
-          <ListIndex passedList={createdLists} />
-        </Tab>
-        <Tab
-          eventKey="inProgress"
-          title="In Progress"
-          tabClassName="tab-container"
-        >
-          <ListIndex passedList={inProgressLists} />
-        </Tab>
-      </Tabs>
+      <div id="tabs-container-div">
+        <Tabs defaultActiveKey="completed" id="tabs-container">
+          <Tab
+            eventKey="completed"
+            title="Completed"
+            tabClassName="tab-container"
+          >
+            <ListIndex passedList={completedLists} />
+          </Tab>
+          <Tab eventKey="created" title="Created" tabClassName="tab-container">
+            <ListIndex passedList={createdLists} />
+          </Tab>
+          <Tab
+            eventKey="inProgress"
+            title="In Progress"
+            tabClassName="tab-container"
+          >
+            <ListIndex passedList={inProgressLists} />
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   );
 }
