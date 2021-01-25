@@ -65,6 +65,7 @@ export default function QuizOptions({ listId, history}) {
           ) : null}
         </div>
       ))}
+      <div id="versus-container"><h3>VS</h3></div>
     </div>
   );
 }
