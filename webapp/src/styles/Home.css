@@ -23,6 +23,7 @@
   padding-left: 10px;
   margin-left: 20px;
   background-color: white;
+  box-shadow: 10px 7px 7px 1px rgba(0, 0, 0, 0.3);
 }
 
 #other-container {
@@ -30,6 +31,7 @@
   height: 350px;
   margin-left: 20px;
   background-color: white;
+  box-shadow: 10px 7px 10px 1px rgba(0, 0, 0, 0.3);
 }
 
 #home-title,
@@ -40,12 +42,19 @@
   color: var(--pink-3);
   margin-bottom: 20px;
   margin-top: 10px;
+  width: fit-content;
 }
 
 #recomended {
   font-size: 40px;
   text-align: center;
   color: var(--pink-2);
+}
+
+#home-title {
+  background-color: rgb(255, 249, 249);
+  /* background-color: var(--tan-1); */
+  align-self: center;
 }
 
 .top-lists-item {
@@ -131,6 +140,7 @@
   margin-bottom: 15px;
   background-color: white;
   border: 1px solid var(--tan-2);
+  box-shadow: 12px 12px 12px 1px rgba(0, 0, 0, 0.3);
 }
 
 #category-container > p {

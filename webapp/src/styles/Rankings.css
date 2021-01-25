@@ -4,7 +4,6 @@
     align-items: center;
     height: 100vh;
     width: 100%;
-    background-color: white;
     width: 80%;
 }
 
@@ -18,30 +17,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(245, 245, 245);
-    width: 45%;
+    background-color: white;
+    width: 400px;
+    box-shadow: 20px 20px 20px 1px rgba(0, 0, 0, 0.3);
 }
 
 #main-ranking-header {
   font-size: 55px;
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: var(--font-3);
   font-weight: 900;
-  color: rgb(206, 124, 124);
+  color: var(--pink-3);
   margin-bottom: 40px;
 }
 
 .ranking-header {
   font-size: 40px;
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: var(--font-3);
   font-weight: 700;
-  color: rgb(206, 124, 124);
+  color: var(--pink-3);
   padding: 15px;
 }
 
 .ranking-name {
   font-size: 30px;
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: var(--font-3);
   font-weight: 800;
-  color: rgba(156, 6, 6, 0.453);
+  color: var(--pink-4);
   margin-bottom: 10px;
 }
