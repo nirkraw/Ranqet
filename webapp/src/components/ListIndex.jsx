@@ -1,6 +1,7 @@
 import React from "react";
 import { fetchListOptionPair } from "../util/Endpoints";
 import { useHistory } from "react-router-dom";
+import "../styles/listIndex.css";
 
 export default function ListIndex({ passedList }) {
   const history = useHistory();
@@ -24,15 +25,15 @@ export default function ListIndex({ passedList }) {
     }
   };
   return (
-    <ul id="top-list-ul">
+    <ul id="list-index-ul">
       {passedList.map((list, i) => {
         return (
           <li
-            className="top-lists-item"
+            className="list-index-item"
             key={i}
             onClick={() => handleLink(list.id)}
           >
-            <div className="top-lists-image-container">
+            <div className="list-index-image-container">
               {list.imageUrl ? (
                 <img
                   src={list.imageUrl}
@@ -41,11 +42,11 @@ export default function ListIndex({ passedList }) {
                 ></img>
               ) : null}
             </div>
-            <div className="top-lists-item-name-and-description-container">
-              <p className="top-lists-item-name">{list.title}</p>
+            <div className="list-index-item-name-and-description-container">
+              <p className="list-index-item-name">{list.title}</p>
               <p>{list.description}</p>
               {list.numCompletions === 1 ? (
-                <p className="top-lists-item-num-completions">
+                <p className="list-index-item-num-completions">
                   Taken by:
                   <span className="num-completions-span">
                     {list.numCompletions}
@@ -53,7 +54,7 @@ export default function ListIndex({ passedList }) {
                   person
                 </p>
               ) : (
-                <p className="top-lists-item-num-completions">
+                <p className="list-index-item-num-completions">
                   Taken by:
                   <span className="num-completions-span">
                     {list.numCompletions}
