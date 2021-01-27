@@ -4,6 +4,7 @@ import ErrorPage from "./Misc/ErrorPage";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import { fetchCategoryList } from "../util/Endpoints";
 import ListIndex from "./ListIndex";
+import "../styles/Category.css";
 
 export default function Category() {
   const match = useRouteMatch();
@@ -19,7 +20,7 @@ export default function Category() {
     try {
       setLoading(true);
       const res = await fetchCategoryList(match.params.categoryType);
-      setCategoryList(res.data.categoryList);
+      setCategoryList(res.data.topLists);
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -30,8 +31,8 @@ export default function Category() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div>
-      <h1>Welcome to {match.params.categoryType}</h1>
+    <div id="category-main-container">
+      <h1 id="sport-header">Welcome to {match.params.categoryType}</h1>
       <ListIndex passedList={categoryList} />
     </div>
   );

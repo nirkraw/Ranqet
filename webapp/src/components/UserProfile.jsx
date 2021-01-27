@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "./Misc/ErrorPage";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import { fetchUser, fetchUserLists, uploadImage } from "../util/Endpoints";
+import {
+  fetchUser,
+  fetchUserLists,
+  uploadImage,
+  updateUserAvatar,
+} from "../util/Endpoints";
 import "../styles/UserProfile.css";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
@@ -62,6 +67,7 @@ export default function UserProfile() {
     try {
       const res = await uploadImage(formData);
       setAvatarUrl(res.data.imageUrl);
+      await updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
       setImageLoading(false);
     } catch (err) {
       setError(err.message);

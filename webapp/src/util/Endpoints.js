@@ -75,4 +75,10 @@ export const fetchCategoryList = (category) => {
   });
 };
 
+export const updateUserAvatar = (userId, url) => {
+  return axios.put(`${server}/user/${userId}/avatarUrl`, {avatarUrl: url}, {
+    "Content-Type": "application/json",
+  });
+};
+
 
