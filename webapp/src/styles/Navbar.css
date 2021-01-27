@@ -1,16 +1,17 @@
 #nav-main {
   width: 100%;
   height: 60px;
-  background-color: var(--pink-3);
+  /* background-color: var(--pink-3); */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 #navbar-title {
-  font-size: 45px;
+  font-size: 48px;
   font-family: var(--font-2);
   color: white;
+  color: var(--pink-3);
   margin-left: 20px;
   margin-bottom: 3px;
   text-decoration: none;
@@ -18,25 +19,26 @@
 
 #navbar-title:hover {
   cursor: pointer;
-  color: var(--yellow-2);
+  color: var(--blue-2);
 }
 
 .nav-session-button {
-  font-size: 21px;
-  font-family: var(--font-1);
+  font-size: 22px;
+  font-family: var(--font-3);
   font-weight: 900;
   text-decoration: none;
-  width: fit-content;
+  width: 100px;
   margin-right: 20px;
   color: white;
   text-align: center;
   vertical-align: center;
+  color: var(--pink-3);
 }
 
 .nav-session-button:hover {
   cursor: pointer;
   text-decoration: none;
-  color: var(--yellow-2);
+  color: var(--blue-2);
 }
 
 #navbar-buttons-container {

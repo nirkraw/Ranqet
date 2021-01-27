@@ -1,4 +1,5 @@
 #create-list-main-div {
+  margin-top: 30px;
   width: 100%;
   height: fit-content;
   display: flex;
@@ -12,6 +13,7 @@
   width: 65%;
   border: 1px 0px 1px 0px solid grey;
   position: relative;
+  border: 1px solid var(--pink-3);
   background-color: white;
 }
 

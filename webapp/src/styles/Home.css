@@ -14,7 +14,7 @@
 }
 
 #top-list-container {
-  width: 70%;
+  width: 68%;
   height: fit-content;
   border-right: 1px solid gray;
   display: flex;
@@ -54,7 +54,7 @@
 #category-container > p {
   font-size: 22px;
   font-family: var(--font-3);
-  color: var(--pink-2);
+  color: var(--tan-3);
 }
 
 #category-container > p:hover {

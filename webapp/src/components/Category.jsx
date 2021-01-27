@@ -32,7 +32,7 @@ export default function Category() {
 
   return (
     <div id="category-main-container">
-      <h1 id="category-header">Welcome to {match.params.categoryType}</h1>
+      <h1 id="category-header">{match.params.categoryType}</h1>
       <ListIndex passedList={categoryList} />
     </div>
   );

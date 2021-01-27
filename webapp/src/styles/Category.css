@@ -1,4 +1,5 @@
 #category-main-container {
+  margin-top: 20px;
   height: 100vh;
   width: 70%;
   background-color: white;
@@ -6,6 +7,7 @@
   flex-direction: column;
   align-items: flex-start;
   box-shadow: 12px 12px 12px 1px rgba(0, 0, 0, 0.3);
+  padding: 15px;
 }
 
 #category-header {

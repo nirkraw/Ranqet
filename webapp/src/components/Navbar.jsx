@@ -32,7 +32,7 @@ export default function Navbar() {
             Profile
           </NavLink>
           <NavLink to="/create-list" className="nav-session-button">
-            + New List
+            New List
           </NavLink>
           <NavLink to="/login" onClick={logout} className="nav-session-button">
             Logout
