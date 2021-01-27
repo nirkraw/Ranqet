@@ -99,6 +99,19 @@ public class ListFetcher {
                 .build();
     }
 
+    @Transactional
+    public GetTopListsResponse getTopListsByCategory(ListCategory listCategory) {
+        PageRequest pageRequest =
+                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
+        com.rankerapp.db.model.ListCategory category = com.rankerapp.db.model.ListCategory.valueOf(listCategory.name());
+        List<ListResponse> topLists = listsRepo.findByCategoryAndIsPrivate(category, false, pageRequest)
+                .map(ListFetcher::convertListToResponse)
+                .collect(Collectors.toList());
+        return GetTopListsResponse.builder()
+                .topLists(topLists)
+                .build();
+    }
+
     // TODO: limit number of lists returned
     public GetAllUserListsResponse getAllListsForUser(UUID userId) {
 

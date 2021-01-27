@@ -8,6 +8,7 @@ import com.rankerapp.transport.model.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -44,8 +45,11 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/top")
-    public GetTopListsResponse getTopLists() {
-        return listFetcher.getTopLists();
+    public GetTopListsResponse getTopLists(@RequestParam(value = "category") ListCategory listCategory) {
+        if (Objects.isNull(listCategory)) {
+            return listFetcher.getTopLists();
+        }
+        return listFetcher.getTopListsByCategory(listCategory);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
