@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <div id="nav-main">
       <NavLink to="/" id="navbar-title">
-        ranker
+        rankit
       </NavLink>
       {!localStorage.getItem("userId") ? (
         <div id="navbar-buttons-container">

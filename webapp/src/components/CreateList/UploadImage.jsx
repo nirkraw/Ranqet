@@ -100,26 +100,3 @@ export default function UploadImage({
     </Modal>
   );
 }
-
-// {
-//     "Version": "2012-10-17",
-//     "Statement": [
-//         {
-//             "Sid": "AddCannedAcl",
-//             "Effect": "Allow",
-//             "Principal": {
-//                 "AWS": "arn:aws:iam::010330551133:user/ranker-master"
-//             },
-//             "Action": [
-//                 "s3:PutObject",
-//                 "s3:PutObjectAcl"
-//             ],
-//             "Resource": "arn:aws:s3:::ranker-dev/*",
-//             "Condition": {
-//                 "StringEquals": {
-//                     "s3:x-amz-acl": "public-read"
-//                 }
-//             }
-//         }
-//     ]
-// }
