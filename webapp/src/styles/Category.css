@@ -17,4 +17,5 @@
   margin-top: 10px;
   width: fit-content;
   align-self: center;
+  text-shadow: 5px 5px var(--pink-1);
 }
