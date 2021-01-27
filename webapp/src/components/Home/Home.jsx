@@ -6,12 +6,14 @@ import { useHistory } from "react-router-dom";
 import ErrorPage from "../Misc/ErrorPage";
 import ListIndex from "../ListIndex";
 import { ListCategory } from "../../enums/ListCategory";
+import NewLists from "./NewLists";
 
 export default function Home() {
   const history = useHistory();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [topLists, settopLists] = useState([]);
+  const [topLists, setTopLists] = useState([]);
+  const [newLists, setNewLists] = useState([]);
 
   useEffect(() => {
     fetchList();
@@ -20,7 +22,8 @@ export default function Home() {
   const fetchList = async () => {
     try {
       const res = await fetchTopLists();
-      settopLists(res.data.topLists);
+      setTopLists(res.data.topLists);
+      setNewLists(res.data.topLists)
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -40,15 +43,13 @@ export default function Home() {
           </p>
         ))}
       </div>
-      <div id="top-list-and-recommended-container">
+      <div id="top-and-new-lists-container">
         <div id="top-list-container">
           <h1 id="home-title">Today's Top Lists</h1>
           <h1 id="all-list-error">{error}</h1>
           <ListIndex passedList={topLists}/>
         </div>
-        <div id="other-container">
-          <h1 id="recomended">Recommended For You</h1>
-        </div>
+        <NewLists newLists={newLists} />
       </div>
     </div>
   );

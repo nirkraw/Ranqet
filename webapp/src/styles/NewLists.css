@@ -1,0 +1,59 @@
+#new-lists-container {
+  min-width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+  background-color: white;
+  box-shadow: 10px 7px 10px 1px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  height: 600px;
+}
+
+#new-lists-ul {
+  border-top: 2px solid var(--pink-2);
+}
+
+#new-lists-header {
+  margin-top: 10px;
+  font-size: 30px;
+  text-align: center;
+  color: var(--pink-3);
+  text-shadow: 5px 5px var(--pink-1);
+}
+
+.new-lists-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--pink-1);
+  padding: 10px;
+}
+
+.new-lists-item:hover {
+  background-color: var(--tan-2);
+  cursor: pointer;
+}
+
+.new-lists-image-container {
+  border: 2px solid black;
+  height: 150px;
+  width: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../assets/rankerLogo.png);
+  background-size: contain; /* or contain depending on what you want */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: var(--pink-3);
+}
+
+.new-lists-item-name {
+  font-size: 20px;
+  font-family: var(--font-3);
+  color: var(--pink-2);
+  text-decoration: none;
+  margin-bottom: 0px;
+}
