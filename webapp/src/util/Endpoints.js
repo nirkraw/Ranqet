@@ -70,7 +70,7 @@ export const uploadImage = (formData) => {
 };
 
 export const fetchCategoryList = (category) => {
-  return axios.post(`${server}/images/upload`, category, {
+  return axios.get(`${server}/lists/top?category=${category}`, {
     "Content-Type": "application/json",
   });
 };
