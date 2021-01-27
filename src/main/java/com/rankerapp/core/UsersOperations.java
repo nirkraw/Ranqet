@@ -6,10 +6,9 @@ import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.User;
-import org.hibernate.exception.ConstraintViolationException;
-import org.postgresql.util.PSQLException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
@@ -44,6 +43,15 @@ public class UsersOperations {
         } else {
             throw new ForbiddenException("Incorrect username and password for user: " + username);
         }
+    }
+
+    @Transactional
+    public User updateAvatarUrl(UUID userId, String avatarUrl) {
+        UserEntity user = usersRepo.getOne(userId);
+        user.setAvatarUrl(avatarUrl);
+
+        usersRepo.save(user);
+        return convertUserEntity(user);
     }
 
     public User createUser(String name, String avatarUrl, String username, String password) {

@@ -1,9 +1,12 @@
 package com.rankerapp.resource;
 
 import com.rankerapp.core.UsersOperations;
+import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.transport.model.CreateUserRequest;
 import com.rankerapp.transport.model.LoginRequest;
+import com.rankerapp.transport.model.UpdateAvatarUrlRequest;
 import com.rankerapp.transport.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -29,6 +32,16 @@ public class UsersResource {
     @GetMapping("/user/{userId}")
     public User getUser(@PathVariable(value = "userId") String userId) {
         return usersOperations.getUser(UUID.fromString(userId));
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/user/{userId}/avatarUrl")
+    public User updateAvatarUrl(@PathVariable(value = "userId") String userId, @RequestBody UpdateAvatarUrlRequest request) {
+        if (request == null || StringUtils.isEmpty(request.getAvatarUrl())) {
+            throw new BadRequestException("Avatar Url cannot be blank");
+        }
+
+        return usersOperations.updateAvatarUrl(UUID.fromString(userId), request.getAvatarUrl());
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
