@@ -34,7 +34,7 @@ function App() {
               )
             }
           />
-          {/* <Route
+          <Route
             path="/category/:categoryType"
             render={() =>
               localStorage.getItem("userId") ? (
@@ -43,7 +43,7 @@ function App() {
                 <Redirect to="/login" />
               )
             }
-          /> */}
+          />
           <Route
             path="/:listId/quiz"
             render={() =>
