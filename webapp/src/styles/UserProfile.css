@@ -28,13 +28,13 @@
 }
 
 #user-stats > h1 {
-  font: var(--font-1);
+  font-family: var(--font-1);
   color: black;
   font-size: 25px;
 }
 
 #user-stats > h1 > span {
-  font: var(--font-1);
+  font-family: var(--font-1);
   color: var(--blue-2);
   font-size: 25px;
 }
@@ -52,7 +52,7 @@
 .tab-container {
   display: flex;
   padding: 5px;
-  font: var(--font-1);
+  font-family: var(--font-3);
   color: var(--pink-2);
   font-size: 30px;
 }
