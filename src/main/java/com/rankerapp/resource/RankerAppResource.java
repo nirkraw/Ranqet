@@ -45,7 +45,7 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/top")
-    public GetTopListsResponse getTopLists(@RequestParam(value = "category") ListCategory listCategory) {
+    public GetTopListsResponse getTopLists(@RequestParam(value = "category", required = false) ListCategory listCategory) {
         if (Objects.isNull(listCategory)) {
             return listFetcher.getTopLists();
         }
