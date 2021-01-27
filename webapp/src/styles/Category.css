@@ -1,14 +1,14 @@
 #category-main-container {
-    height: 100vh;
-    width: 70%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-     box-shadow: 12px 12px 12px 1px rgba(0, 0, 0, 0.3);
+  height: 100vh;
+  width: 70%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 12px 12px 12px 1px rgba(0, 0, 0, 0.3);
 }
 
-#sport-header {
+#category-header {
   font-size: 55px;
   font-family: var(--font-4);
   font-weight: 900;
@@ -16,4 +16,5 @@
   margin-bottom: 20px;
   margin-top: 10px;
   width: fit-content;
+  align-self: center;
 }
