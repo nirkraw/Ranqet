@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Home.css";
-import { fetchTopLists } from "../../util/Endpoints";
+import { fetchTopLists, fetchNewLists } from "../../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import ErrorPage from "../Misc/ErrorPage";
 import ListIndex from "../ListIndex";
@@ -21,9 +21,10 @@ export default function Home() {
 
   const fetchList = async () => {
     try {
-      const res = await fetchTopLists();
-      setTopLists(res.data.topLists);
-      setNewLists(res.data.topLists)
+      const topListsRes = await fetchTopLists();
+      setTopLists(topListsRes.data.topLists);
+      const newListsRes = await fetchNewLists();
+      setNewLists(newListsRes.data.topLists);
       setLoading(false);
     } catch (err) {
       setError(err.message);

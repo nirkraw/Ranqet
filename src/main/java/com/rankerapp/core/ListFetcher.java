@@ -112,6 +112,18 @@ public class ListFetcher {
                 .build();
     }
 
+    @Transactional
+    public GetTopListsResponse getNewLists() {
+        PageRequest pageRequest =
+                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("createdOn")));
+        List<ListResponse> topLists = listsRepo.findByIsPrivate(false, pageRequest)
+                .map(ListFetcher::convertListToResponse)
+                .collect(Collectors.toList());
+        return GetTopListsResponse.builder()
+                .topLists(topLists)
+                .build();
+    }
+
     // TODO: limit number of lists returned
     public GetAllUserListsResponse getAllListsForUser(UUID userId) {
 

@@ -52,6 +52,11 @@ public class RankerAppResource {
         return listFetcher.getTopListsByCategory(listCategory);
     }
 
+    @GetMapping("/lists/new")
+    public GetTopListsResponse getNewLists() {
+        return listFetcher.getNewLists();
+    }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/user/{userId}/all")
     public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId) {

@@ -27,6 +27,12 @@ export const fetchTopLists = () => {
   });
 }
 
+export const fetchNewLists = () => {
+    return axios.get(`${server}/lists/new`, {
+    "Content-Type": "application/json",
+  });
+}
+
 export const submitOptionChoice = (listId, body) => {
   return axios.post(`${server}/list/${listId}/vote`, body, {
     "Content-Type": "application/json",

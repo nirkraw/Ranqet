@@ -19,5 +19,4 @@ public interface ListsRepository extends JpaRepository<ListEntity, UUID> {
     Stream<ListEntity> findByIsPrivate(boolean isPrivate, Pageable pageable);
 
     Stream<ListEntity> findByCategoryAndIsPrivate(ListCategory category, boolean isPrivate, Pageable pageable);
-
 }
