@@ -1,11 +1,28 @@
 plugins {
 	id "application"
-    id 'org.springframework.boot' version '2.3.4.RELEASE'
+	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id "com.github.node-gradle.node" version "3.0.0-rc7"
 	id 'java'
 }
 
 apply plugin : "java"
+apply plugin: 'com.github.node-gradle.node'
+
+/*
+node {
+	version = '14.15.0'
+	npmVersion = '6.14.9'
+	download = true
+	workDir = file("${project.projectDir}/.gradle/nodejs")
+	nodeProjectDir = file("${project.projectDir}/webapp")
+}
+
+task buildFrontend(type: NpmTask, dependsOn: 'npmInstall') {
+	args = ['run', 'start']
+}
+
+processResources.dependsOn(buildFrontend)*/
 
 ext {
     javaMainClass = "com.rankerapp.RankerappApplication"
@@ -33,12 +50,22 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3:3.11'
 	implementation 'com.amazonaws:aws-java-sdk-core:1.11.133'
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.11.133'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	runtimeOnly project(':webapp')
 }
 
-test {
-	useJUnitPlatform()
+task copyWebApp(type: Copy) {
+	from "$rootDir/webapp/build"
+	into "$rootDir/build/resources/main/static/."
 }
+
+bootJar.dependsOn(copyWebApp)
+compileJava.dependsOn ":webapp:build"
+
+clean.delete << file("${project.projectDir}/webapp/node_modules")
+
 

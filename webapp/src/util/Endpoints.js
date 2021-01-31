@@ -1,5 +1,5 @@
 import axios from "axios";
-const server = "http://localhost:8080";
+const server = "https://ranket.herokuapp.com";
 
 
 export const fetchList = (listId) => {
