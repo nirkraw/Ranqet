@@ -27,7 +27,7 @@ export default function UploadImage({
     if (!giphySearch) return;
     try {
       const res = await axios.get(
-        `http://api.giphy.com/v1/gifs/search?api_key=2uYQaIZXL9LEfcul0RgyOCfJYI1o0fjr&limit=40&q=${giphySearch}`
+        `https://api.giphy.com/v1/gifs/search?api_key=2uYQaIZXL9LEfcul0RgyOCfJYI1o0fjr&limit=40&q=${giphySearch}`
       );
       const randNum = Math.floor(Math.random() * (40 - 1) + 1);
       setGiphyUrl(res.data.data[randNum].images.fixed_height.url);
