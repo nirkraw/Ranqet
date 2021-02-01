@@ -63,8 +63,10 @@ task copyWebApp(type: Copy) {
 	into "$rootDir/build/resources/main/static/."
 }
 
-bootJar.dependsOn(copyWebApp)
-compileJava.dependsOn ":webapp:build"
+if (!project.hasProperty("skipFrontend")) {
+	bootJar.dependsOn(copyWebApp)
+	compileJava.dependsOn ":webapp:build"
+}
 
 clean.delete << file("${project.projectDir}/webapp/node_modules")
 

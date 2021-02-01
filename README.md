@@ -27,6 +27,6 @@ Initialize AWS Secrets:
 ```
 . ./scripts/initialize_secrets.sh
 ```
-then run `./gradlew run` in that same shell
+then run `./gradlew run -PskipFrontend=true` in that same shell
 
 

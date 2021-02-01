@@ -1,6 +1,5 @@
 import axios from "axios";
-const server = "https://ranket.herokuapp.com";
-
+const server = window.location.origin.includes("localhost") ? "http://localhost:8080" : window.location.origin;
 
 export const fetchList = (listId) => {
   return axios.get(`${server}/list/${listId}`, {

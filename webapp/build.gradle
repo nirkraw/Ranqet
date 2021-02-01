@@ -9,13 +9,13 @@ node {
     nodeProjectDir = file("${project.projectDir}/webapp")
 }
 
-task appNpmInstallReactScripts(type: NpmTask) {
-    args = ["install", "react-scripts"]
+task appNpmInstall(type: NpmTask) {
+    args = ["install"]
 }
 
 task appNpmBuild(type: NpmTask) {
     args = ["run", "build"]
 }
 
-appNpmBuild.dependsOn(appNpmInstallReactScripts)
+appNpmBuild.dependsOn(appNpmInstall)
 assemble.dependsOn(appNpmBuild)

@@ -52,6 +52,7 @@ public class RankerAppResource {
         return listFetcher.getTopListsByCategory(listCategory);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/new")
     public GetTopListsResponse getNewLists() {
         return listFetcher.getNewLists();
