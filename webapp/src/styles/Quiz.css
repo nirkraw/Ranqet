@@ -1,3 +1,8 @@
+@keyframes fadein {
+  from {opacity: 0%}
+  to {opacity: 100%}
+}
+
 #quiz-main-div {
   padding: 15px;
   display: flex;
@@ -49,11 +54,6 @@
   box-shadow: 20px 20px 20px 1px rgba(0, 0, 0, 0.3);
   animation-name: fadein;
   animation-duration: 2.5s;
-}
-
-@keyframes fadein {
-  from {opacity: 0%}
-  to {opacity: 100%}
 }
 
 #option-div:hover {
