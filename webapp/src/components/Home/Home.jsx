@@ -39,7 +39,7 @@ export default function Home() {
     <div id="home-main">
       <div id="category-container">
         {ListCategory.map((category, i) => (
-          <p key={i} onClick={() => history.push(`/category/${category}`)}>
+          <p className="category-container-item"key={i} onClick={() => history.push(`/category/${category}`)}>
             {category}
           </p>
         ))}

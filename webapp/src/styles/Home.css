@@ -43,21 +43,23 @@
 
 
 #category-container {
+  height: 50px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   align-self: center;
   width: 96%;
-  padding-top: 15px;
   margin-bottom: 15px;
   background-color: white;
   border: 1px solid var(--tan-2);
   box-shadow: 12px 12px 12px 1px rgba(0, 0, 0, 0.3);
 }
 
-#category-container > p {
+.category-container-item {
   font-size: 22px;
   font-family: var(--font-3);
   color: var(--tan-3);
+  margin: 0;
 }
 
 #category-container > p:hover {
