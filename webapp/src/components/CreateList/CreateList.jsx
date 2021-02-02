@@ -6,7 +6,7 @@ import LoadingSpinner from "../Misc/LoadingSpinner";
 import OptionInputs from "./OptionInputs";
 import ListImage from "./ListImage";
 import { useHistory } from "react-router-dom";
-import CategoriesDropdown  from "./CategoriesDropdown";
+import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 
 export default function CreateList() {
@@ -21,7 +21,6 @@ export default function CreateList() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
-
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -82,33 +81,38 @@ export default function CreateList() {
         <div id="create-list-error-container">
           <h2 id="create-list-error">{userError}</h2>
         </div>
-        <div id="create-list-title-categories-unlisted-container">
-          <div id="create-list-title-div">
-            <h2 id="title-label">List Title:</h2>
-            <input
-              id="title-input"
-              maxLength="32"
-              type="text"
-              onChange={(e) => setListTitle(e.target.value)}
-            />
+        <div id="create-list-info-and-image-container">
+          <div id="list-info-container">
+            <div id="create-list-title-div">
+              <h2 id="title-label">List Title:</h2>
+              <input
+                id="title-input"
+                maxLength="32"
+                type="text"
+                onChange={(e) => setListTitle(e.target.value)}
+              />
+            </div>
+            <div id="create-list-description-div">
+              <h2 id="description-label">List Description:</h2>
+              <textarea
+                id="description-input"
+                rows="3"
+                
+                maxLength="190"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div id="categories-unlisted-container">
+              <CategoriesDropdown setCategory={setCategory} />
+              <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
+            </div>
           </div>
-          <CategoriesDropdown setCategory={setCategory} />
-          <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
-        </div>
-        <ListImage
-          setImageLoading={setImageLoading}
-          setUserError={setUserError}
-          setListImgUrl={setListImgUrl}
-          imageLoading={imageLoading}
-          listImgUrl={listImgUrl}
-        />
-        <div id="create-list-description-div">
-          <h2 id="description-label">List Description:</h2>
-          <input
-            id="description-input"
-            type="text"
-            maxLength="120"
-            onChange={(e) => setDescription(e.target.value)}
+          <ListImage
+            setImageLoading={setImageLoading}
+            setUserError={setUserError}
+            setListImgUrl={setListImgUrl}
+            imageLoading={imageLoading}
+            listImgUrl={listImgUrl}
           />
         </div>
         <div id="create-list-options-div">

@@ -11,7 +11,7 @@ export default function Unlisted({setUnlisted, unlisted}) {
             a URL
           </span>
         </div>
-        <label id="unlisted-label">Unlisted</label>
+        <label id="unlisted-label">Unlisted:</label>
         <input
           type="checkbox"
           id="unlisted-input"

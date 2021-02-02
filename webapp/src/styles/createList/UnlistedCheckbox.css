@@ -1,9 +1,11 @@
 #unlisted-container {
-  margin-left: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-left: 15px;
+  margin-bottom: 2%;
+  /* margin-left: 30%; */
 }
 
 .info-tag {
