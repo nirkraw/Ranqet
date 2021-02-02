@@ -12,7 +12,7 @@ export default function UploadImage({
   currOptionIdx,
   setImageLoading,
   options,
-  setOptions,
+  setOptions
 }) {
   const [giphySearch, setGiphySearch] = useState();
   const [giphyUrl, setGiphyUrl] = useState("");

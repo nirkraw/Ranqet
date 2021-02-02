@@ -1,0 +1,39 @@
+#confirmation-modal-container {
+    height: 500px;
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#confirmation-modal-container > h1 {
+    font-family: var(--font-1);
+    font-size: 50px;
+    color: var(--blue-2);
+}
+
+#confirmation-modal-button-container {
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+#confirmation-modal-button-container > button {
+    font-family: var(--font-1);
+    font-size: 30px;
+    color: var(--blue-2);
+    border: 1px solid var(--pink-2);
+    width: 120px;
+    text-align:center;
+    border-radius: 5%;
+    background-color: white;
+}
+
+#confirmation-modal-button-container > button:hover {
+    cursor:pointer;
+    background-color: rgb(231, 230, 230);
+}
+

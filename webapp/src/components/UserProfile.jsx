@@ -127,7 +127,7 @@ export default function UserProfile() {
             <ListIndex passedList={completedLists} />
           </Tab>
           <Tab eventKey="created" title="Created" tabClassName="tab-container">
-            <ListIndex passedList={createdLists} />
+            <ListIndex passedList={createdLists} trash={true} />
           </Tab>
           <Tab
             eventKey="inProgress"

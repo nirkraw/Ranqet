@@ -5,7 +5,7 @@
 }
 
 #upload-image-main-title {
-  color: var(main-color-2);
+  color: var(--pink-2);
 }
 
 #gifphy-and-file-container {
@@ -17,7 +17,7 @@
 }
 
 .gifphy-and-file-title {
-  color: var(main-color-2);
+  color: var(--pink-2);
 }
 
 #giphy-upload-container,
@@ -53,6 +53,12 @@
   border: 1px solid black;
   margin-left: 10px;
   padding: 4px;
+  width: 100px;
+  font-family: var(--font-1);
+  color: var(--pink-3);
+  background-color: white;
+  border-radius: 3%;
+  font-size: 20px;
 }
 
 
@@ -60,7 +66,7 @@
 #giphy-save-button:hover,
 #exit-modal-button:hover {
   cursor: pointer;
-  background-color: rgb(180, 177, 177);
+  background-color: rgb(209, 208, 208);
 }
 
 #giphy-upload-container {
@@ -89,4 +95,12 @@
 #photo-input {
   width: 38%;
   margin-top: 30%;
+}
+
+#giphy-search {
+  font-size: 20px;
+  font-family: var(--font-1);
+  color: var(--pink-4);
+  font-weight: 900;
+  width: 200px;
 }

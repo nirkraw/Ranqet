@@ -6,6 +6,13 @@
 }
 
 .list-index-item {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.list-index-item-li {
   display: flex;
   justify-content: flex-start;
   height: 175px;
@@ -13,10 +20,9 @@
   width: 90%;
   padding: 10px;
   border: 1px solid rgb(248, 241, 241);
-  position: relative;
 }
 
-.list-index-item:hover {
+.list-index-item-li:hover {
   cursor: pointer;
   background-color: var(--tan-2);
 }
@@ -46,6 +52,22 @@
   background-repeat: no-repeat;
 }
 
+.delete-list-button {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 3%;
+  top: 4%;
+}
+
+.delete-list-button:hover {
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  
+}
+
+
 .list-index-item-name-and-description-container {
   display: flex;
   flex-direction: column;
@@ -61,8 +83,8 @@
 
 .list-index-item-num-completions {
   position: absolute;
-  right: 10px;
-  bottom: -10px;
+  right: 12%;
+  bottom: 0px;
   font-size: 15px;
   font-family: var(--font-1);
   color: black;
