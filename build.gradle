@@ -60,7 +60,7 @@ dependencies {
 
 task copyWebApp(type: Copy) {
 	from "$rootDir/webapp/build"
-	into "$rootDir/build/resources/main/."
+	into "$rootDir/build/resources/main/static/."
 }
 
 if (!project.hasProperty("skipFrontend")) {
