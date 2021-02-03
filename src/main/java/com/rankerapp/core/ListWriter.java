@@ -94,7 +94,8 @@ public class ListWriter {
             throw new BadRequestException("Invalid session token! Please log in again");
         }
 
-        listsRepository.deleteById(listId);
+        ListEntity listToDelete = listsRepository.getOne(listId);
+        listsRepository.delete(listToDelete);
     }
 
     public void toggleListPrivacy(UUID listId, UUID userId) {
