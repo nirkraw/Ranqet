@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { fetchListOptionPair } from "../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import TrashImage from "../assets/trash-icon.png";
 import ConfirmationModal from "./ConfirmModal";
 
-export default function ListIndex({ passedList, trash, isOpen, setIsOpen, fetchLists }) {
+export default function ListIndex({ passedList, trash, fetchLists }) {
+  const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
   const handleLink = async (listId) => {
     if (await listIsComplete(listId)) {
@@ -46,7 +47,9 @@ export default function ListIndex({ passedList, trash, isOpen, setIsOpen, fetchL
               </div>
               <div className="list-index-item-name-and-description-container">
                 <p className="list-index-item-name">{list.title}</p>
-                <p className="list-index-item-description">{list.description}</p>
+                <p className="list-index-item-description">
+                  {list.description}
+                </p>
                 {list.numCompletions === 1 ? (
                   <p className="list-index-item-num-completions">
                     Taken by:
