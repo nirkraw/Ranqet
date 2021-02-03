@@ -13,5 +13,5 @@ public interface UserListsRepository extends JpaRepository<UserListEntity, UUID>
 
     List<UserListEntity> findByUserId(UUID userId);
 
-    Long deleteByUserIdAndListId(UUID userId, UUID listId);
+    Long deleteByListId(UUID listId);
 }

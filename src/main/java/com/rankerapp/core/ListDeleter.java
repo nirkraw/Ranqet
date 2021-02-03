@@ -44,7 +44,7 @@ public class ListDeleter {
         }
 
         scoresRepository.deleteByListId(listId);
-        userListsRepository.deleteByUserIdAndListId(userId, listId);
+        userListsRepository.deleteByListId(listId);
         ListEntity listToDelete = listsRepository.getOne(listId);
         listsRepository.delete(listToDelete);
     }
