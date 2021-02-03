@@ -6,6 +6,7 @@ export default function Navbar() {
   const logout = (e) => {
     e.preventDefault();
     localStorage.clear("userId");
+    localStorage.clear("sessionToken");
     window.location.reload();
   };
 

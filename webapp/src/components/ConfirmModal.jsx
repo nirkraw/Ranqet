@@ -1,13 +1,22 @@
 import React from "react";
 import Modal from "react-modal";
 import "../styles/ConfirmationModal.css";
+import {deleteList} from "../util/Endpoints";
 
 Modal.setAppElement("#root");
 
 export default function ConfirmModal({isOpen, setIsOpen, listId}) {
 
   const confirmDeleteList = async () => {
-    // await deleteList(listId);
+    try {
+      await deleteList(
+      window.localStorage.getItem("userId"),
+      listId,
+      window.localStorage.getItem("sessionToken")
+    );
+    } catch (err) {
+      alert(JSON.stringify(err))
+    }
     setIsOpen(false);
   }  
   return (

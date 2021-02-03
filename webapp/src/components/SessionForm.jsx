@@ -27,13 +27,13 @@ export default function SessionForm() {
     }
     try {
       const endpoint = formHeader === "Sign Up" ? createUser : loginUser;
-      // TODO: avatarUrl for user
       const res = await endpoint({
         name: name,
         username: username,
         password: password,
       });
       localStorage.setItem("userId", res.data.id);
+      localStorage.setItem("sessionToken", res.data.sessionToken);
       history.push("/");
       window.location.reload();
     } catch (err) {

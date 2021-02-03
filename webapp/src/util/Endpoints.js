@@ -86,4 +86,8 @@ export const updateUserAvatar = (userId, url) => {
   });
 };
 
-
+export const deleteList = (userId, listId, sessionToken) => {
+  return axios.delete(`${server}/list/${listId}?userId=${userId}&sessionToken=${sessionToken}`, {
+    "Content-Type": "application/json",
+  });
+};

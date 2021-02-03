@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import SessionForm from "./SessionForm";
-import React from "react";
+import React, {useState} from "react";
 import UserProfile from "./UserProfile";
 import Category from "./Category";
 
@@ -27,7 +27,7 @@ function App() {
           <Route
             path="/create-list"
             render={() =>
-              localStorage.getItem("userId") ? (
+              localStorage.getItem("sessionToken") ? (
                 <CreateList />
               ) : (
                 <Redirect to="/login" />
@@ -37,7 +37,7 @@ function App() {
           <Route
             path="/category/:categoryType"
             render={() =>
-              localStorage.getItem("userId") ? (
+              localStorage.getItem("sessionToken") ? (
                 <Category />
               ) : (
                 <Redirect to="/login" />
@@ -47,7 +47,7 @@ function App() {
           <Route
             path="/:listId/quiz"
             render={() =>
-              localStorage.getItem("userId") ? (
+              localStorage.getItem("sessionToken") ? (
                 <Quiz />
               ) : (
                 <Redirect to="/login" />
@@ -57,7 +57,7 @@ function App() {
           <Route
             path="/:listId/rankings"
             render={() =>
-              localStorage.getItem("userId") ? (
+              localStorage.getItem("sessionToken") ? (
                 <Rankings />
               ) : (
                 <Redirect to="/login" />
@@ -67,7 +67,7 @@ function App() {
           <Route
             path="/profile/:userId"
             render={() =>
-              localStorage.getItem("userId") ? (
+              localStorage.getItem("sessionToken") ? (
                 <UserProfile />
               ) : (
                 <Redirect to="/login" />
@@ -77,7 +77,7 @@ function App() {
           <Route
             path="/"
             render={() =>
-              localStorage.getItem("userId") ? (
+              localStorage.getItem("sessionToken") ? (
                 <Home />
               ) : (
                 <Redirect to="/login" />
