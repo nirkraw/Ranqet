@@ -11,7 +11,6 @@ import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.ListCategory;
 import com.rankerapp.transport.model.SubmittedOption;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
@@ -84,18 +83,6 @@ public class ListWriter {
         listsRepository.save(listEntity);
 
         return listEntity;
-    }
-
-    @Transactional
-    public void deleteList(UUID listId, UUID userId, String sessionToken) {
-        UserEntity userEntity = usersRepository.getOne(userId);
-
-        if (!userEntity.getSessionToken().equals(sessionToken)) {
-            throw new BadRequestException("Invalid session token! Please log in again");
-        }
-
-        ListEntity listToDelete = listsRepository.getOne(listId);
-        listsRepository.delete(listToDelete);
     }
 
     public void toggleListPrivacy(UUID listId, UUID userId) {

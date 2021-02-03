@@ -10,4 +10,6 @@ public interface ScoresRepository extends JpaRepository<ScoreEntity, UUID> {
 
     List<ScoreEntity> findByListIdAndUserId(UUID listId, UUID userId);
 
+    Long deleteByListId(UUID listId);
+
 }

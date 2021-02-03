@@ -1,5 +1,6 @@
 package com.rankerapp.resource;
 
+import com.rankerapp.core.ListDeleter;
 import com.rankerapp.core.ListFetcher;
 import com.rankerapp.core.ListWriter;
 import com.rankerapp.core.VoteProcessor;
@@ -18,12 +19,16 @@ public class RankerAppResource {
 
     private final ListFetcher listFetcher;
 
+    private final ListDeleter listDeleter;
+
     private final VoteProcessor voteProcessor;
 
     @Inject
-    public RankerAppResource(ListWriter listWriter, ListFetcher listFetcher, VoteProcessor voteProcessor) {
+    public RankerAppResource(ListWriter listWriter, ListFetcher listFetcher,
+                             ListDeleter listDeleter, VoteProcessor voteProcessor) {
         this.listWriter = listWriter;
         this.listFetcher = listFetcher;
+        this.listDeleter = listDeleter;
         this.voteProcessor = voteProcessor;
     }
 
@@ -41,7 +46,7 @@ public class RankerAppResource {
     @DeleteMapping("/list/{listId}")
     public void deleteList(@PathVariable(value = "listId") String listId, @RequestParam(value = "userId") String userId,
                            @RequestParam(value = "sessionToken") String sessionToken) {
-        listWriter.deleteList(UUID.fromString(listId), UUID.fromString(userId), sessionToken);
+        listDeleter.deleteList(UUID.fromString(listId), UUID.fromString(userId), sessionToken);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
