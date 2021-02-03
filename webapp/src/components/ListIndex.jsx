@@ -33,7 +33,10 @@ export default function ListIndex({ passedList, trash }) {
       {passedList.map((list, i) => {
         return (
           <div className="list-index-item" key={i}>
-            <li className="list-index-item-li" onClick={() => handleLink(list.id)}>
+            <li
+              className="list-index-item-li"
+              onClick={() => handleLink(list.id)}
+            >
               <div className="list-index-image-container">
                 {list.imageUrl ? (
                   <img
@@ -45,7 +48,7 @@ export default function ListIndex({ passedList, trash }) {
               </div>
               <div className="list-index-item-name-and-description-container">
                 <p className="list-index-item-name">{list.title}</p>
-                <p>{list.description}</p>
+                <p className="list-index-item-description">{list.description}</p>
                 {list.numCompletions === 1 ? (
                   <p className="list-index-item-num-completions">
                     Taken by:
@@ -65,7 +68,11 @@ export default function ListIndex({ passedList, trash }) {
                 )}
               </div>
             </li>
-            <ConfirmationModal isOpen={isOpen} setIsOpen={setIsOpen} listId={list.id} />
+            <ConfirmationModal
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              listId={list.id}
+            />
             {trash ? (
               <img
                 className="delete-list-button"

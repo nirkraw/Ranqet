@@ -81,6 +81,14 @@
   text-decoration: none;
 }
 
+.list-index-item-description {
+  font-size: 20px;
+  font-family: var(--font-1);
+  font-weight:bolder;
+  color: var(--tan-3);
+  text-decoration: none;
+}
+
 .list-index-item-num-completions {
   position: absolute;
   right: 12%;
