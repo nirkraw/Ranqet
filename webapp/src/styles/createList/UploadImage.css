@@ -34,7 +34,7 @@
   height: 100%;
   border: 1px solid black;
   object-fit: cover;
-  background-size: cover; 
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
@@ -46,6 +46,7 @@
   height: 200px;
   background-color: white;
 }
+
 
 #giphy-search-button,
 #giphy-save-button,
@@ -60,7 +61,6 @@
   border-radius: 3%;
   font-size: 20px;
 }
-
 
 #giphy-search-button:hover,
 #giphy-save-button:hover,
