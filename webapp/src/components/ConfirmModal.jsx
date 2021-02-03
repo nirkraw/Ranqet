@@ -5,7 +5,7 @@ import {deleteList} from "../util/Endpoints";
 
 Modal.setAppElement("#root");
 
-export default function ConfirmModal({isOpen, setIsOpen, listId}) {
+export default function ConfirmModal({isOpen, setIsOpen, listId, fetchLists}) {
 
   const confirmDeleteList = async () => {
     try {
@@ -18,6 +18,7 @@ export default function ConfirmModal({isOpen, setIsOpen, listId}) {
       alert(JSON.stringify(err))
     }
     setIsOpen(false);
+    fetchLists();
   }  
   return (
     <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" } }}>

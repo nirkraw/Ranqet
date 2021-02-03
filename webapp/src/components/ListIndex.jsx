@@ -1,14 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { fetchListOptionPair } from "../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import TrashImage from "../assets/trash-icon.png";
 import ConfirmationModal from "./ConfirmModal";
 
-export default function ListIndex({ passedList, trash }) {
+export default function ListIndex({ passedList, trash, isOpen, setIsOpen, fetchLists }) {
   const history = useHistory();
-  const [isOpen, setIsOpen] = useState(false);
-
   const handleLink = async (listId) => {
     if (await listIsComplete(listId)) {
       history.push(`/${listId}/rankings`);
@@ -72,6 +70,7 @@ export default function ListIndex({ passedList, trash }) {
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               listId={list.id}
+              fetchLists={fetchLists}
             />
             {trash ? (
               <img

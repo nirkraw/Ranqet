@@ -23,6 +23,7 @@ export default function UserProfile() {
   const [userError, setUserError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetchLists();
@@ -127,7 +128,13 @@ export default function UserProfile() {
             <ListIndex passedList={completedLists} />
           </Tab>
           <Tab eventKey="created" title="Created" tabClassName="tab-container">
-            <ListIndex passedList={createdLists} trash={true} />
+            <ListIndex
+              passedList={createdLists}
+              trash={true}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              fetchLists={fetchLists}
+            />
           </Tab>
           <Tab
             eventKey="inProgress"
