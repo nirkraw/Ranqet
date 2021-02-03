@@ -23,6 +23,9 @@ public class UserEntity {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "session_token")
+    private String sessionToken;
+
     @Column(name = "password_salt")
     private String passwordSalt;
 
@@ -69,6 +72,14 @@ public class UserEntity {
         this.username = username;
     }
 
+    public String getSessionToken() {
+        return this.sessionToken;
+    }
+
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
+    }
+
     public String getPasswordSalt() {
         return passwordSalt;
     }
@@ -94,5 +105,6 @@ public class UserEntity {
         this.name = name;
         this.avatarUrl = avatarUrl;
         this.createdOn = Instant.now();
+        this.sessionToken = UUID.randomUUID().toString();
     }
 }

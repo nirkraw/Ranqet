@@ -54,6 +54,13 @@ public class UsersOperations {
         return convertUserEntity(user);
     }
 
+    @Transactional
+    public void resetSessionToken(UUID userId) {
+        UserEntity user = usersRepo.getOne(userId);
+        user.setSessionToken(UUID.randomUUID().toString());
+        usersRepo.save(user);
+    }
+
     public User createUser(String name, String avatarUrl, String username, String password) {
         UserEntity userEntity = new UserEntity(name, avatarUrl);
         String passwordSalt = UUID.randomUUID().toString();
@@ -86,6 +93,7 @@ public class UsersOperations {
                 .name(userEntity.getName())
                 .username(userEntity.getUsername())
                 .avatarUrl(userEntity.getAvatarUrl())
+                .sessionToken(userEntity.getSessionToken())
                 .createdOn(userEntity.getCreatedOn())
                 .build();
     }

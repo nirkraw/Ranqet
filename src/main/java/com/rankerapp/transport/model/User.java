@@ -12,6 +12,8 @@ public class User {
 
     private final String avatarUrl;
 
+    private final String sessionToken;
+
     private final Instant createdOn;
 
     private User(Builder builder) {
@@ -19,6 +21,7 @@ public class User {
         this.name = builder.name;
         this.username = builder.username;
         this.avatarUrl = builder.avatarUrl;
+        this.sessionToken = builder.sessionToken;
         this.createdOn = builder.createdOn;
     }
 
@@ -38,6 +41,10 @@ public class User {
         return avatarUrl;
     }
 
+    public String getSessionToken() {
+        return sessionToken;
+    }
+
     public Instant getCreatedOn() {
         return createdOn;
     }
@@ -55,6 +62,8 @@ public class User {
         private String username;
 
         private String avatarUrl;
+
+        private String sessionToken;
 
         private Instant createdOn;
 
@@ -79,6 +88,11 @@ public class User {
 
         public Builder avatarUrl(String avatarUrl) {
             this.avatarUrl = avatarUrl;
+            return this;
+        }
+
+        public Builder sessionToken(String sessionToken) {
+            this.sessionToken = sessionToken;
             return this;
         }
 

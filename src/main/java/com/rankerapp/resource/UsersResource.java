@@ -52,4 +52,11 @@ public class UsersResource {
                 request.getUsername(), request.getPassword());
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/user/{userId}/logout")
+    public void logout(@PathVariable(value = "userId") String userId) {
+        // Reset session token
+        usersOperations.resetSessionToken(UUID.fromString(userId));
+    }
+
 }
