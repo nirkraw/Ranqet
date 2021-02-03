@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { fetchListOptionPair } from "../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
