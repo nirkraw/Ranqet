@@ -20,8 +20,8 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route path="/create-user" render={() => <SessionForm />} />
-          <Route path="/login" render={() => <SessionForm />} />
+          <Route exact path="/login" render={() => <SessionForm />} />
+          <Route exact path="/create-user" render={() => <SessionForm />} />
           <Route
             path="/create-list"
             render={() =>

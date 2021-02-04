@@ -15,12 +15,12 @@ export default function Navbar() {
       <NavLink to="/" id="navbar-title">
         rankit
       </NavLink>
-      {!localStorage.getItem("userId") ? (
+      {!localStorage.getItem("sessionToken") ? (
         <div id="navbar-buttons-container">
           <NavLink to="/create-user" className="nav-session-button">
             + New User
           </NavLink>
-          <NavLink to="/login" className="nav-session-button">
+          <NavLink to="/login" className="nav-session-button" >
             Login
           </NavLink>
         </div>
