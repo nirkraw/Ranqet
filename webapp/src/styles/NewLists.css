@@ -6,29 +6,29 @@
   margin-left: 2%;
   background-color: white;
   box-shadow: 10px 7px 10px 1px rgba(0, 0, 0, 0.3);
-  overflow-y: auto;
   height: 600px;
 }
 
 #new-lists-ul {
-  border-top: 2px solid var(--pink-2);
+  overflow-y: auto;
 }
 
 #new-lists-header {
   margin-top: 10px;
-  font-size: 30px;
+  font-size: 35px;
   text-align: center;
   color: var(--pink-3);
-  text-shadow: 5px 5px var(--pink-1);
+  text-shadow: 2px 2px var(--pink-1);
 }
 
 .new-lists-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid var(--pink-1);
-  padding: 10px;
+  border: 1px solid rgb(243, 242, 242);
+  padding: 2%;
 }
 
 .new-lists-item:hover {
@@ -56,4 +56,5 @@
   color: var(--tan-3);
   text-decoration: none;
   margin-bottom: 0px;
+  text-align:center;
 }

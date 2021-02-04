@@ -1,6 +1,6 @@
 #category-main-container {
   margin-top: 20px;
-  height: 100vh;
+  height: fit-content;
   width: 70%;
   background-color: white;
   display: flex;

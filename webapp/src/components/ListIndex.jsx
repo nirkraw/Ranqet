@@ -11,7 +11,7 @@ export default function ListIndex({
   setIsOpen,
 }) {
   const history = useHistory();
-  
+
   const handleLink = async (listId) => {
     if (await listIsComplete(listId)) {
       history.push(`/${listId}/rankings`);
@@ -40,7 +40,6 @@ export default function ListIndex({
   return (
     <ul id="list-index-ul">
       {passedList.map((list, i) => {
-        console.log(list.title + "==>" + list.id);
         return (
           <div className="list-index-item" key={i}>
             <li
