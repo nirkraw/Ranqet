@@ -10,7 +10,6 @@ import {
   Redirect,
   BrowserRouter as Router,
 } from "react-router-dom";
-import { createBrowserHistory } from "history";
 import SessionForm from "./SessionForm";
 import React from "react";
 import UserProfile from "./UserProfile";
@@ -18,7 +17,6 @@ import Category from "./Category";
 
 function App() {
   return (
-    // <Router history={createBrowserHistory}>
       <div className="App">
         <Navbar />
         <Switch>
@@ -86,7 +84,6 @@ function App() {
           />
         </Switch>
       </div>
-    // </Router>
   );
 }
 

@@ -10,10 +10,9 @@ export default function Categories({setCategory}) {
           name="categories"
           id="category-input"
           onChange={(e) => setCategory(e.currentTarget.value)}
+          value="-- SELECT --"
         >
-          <option disabled selected value>
-            -- SELECT --
-          </option>
+          <option disabled>-- SELECT --</option>
           {ListCategory.map((category, i) => (
             <option key={i} value={category} className="category-option">
               {category}
