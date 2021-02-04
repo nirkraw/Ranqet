@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { fetchListOptionPair } from "../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import TrashImage from "../assets/trash-icon.png";
-import ConfirmationModal from "./ConfirmModal";
 
-export default function ListIndex({ passedList, trash, fetchLists }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function ListIndex({
+  passedList,
+  trash,
+  setCurrListId,
+  setIsOpen,
+}) {
   const history = useHistory();
+  
   const handleLink = async (listId) => {
     if (await listIsComplete(listId)) {
       history.push(`/${listId}/rankings`);
@@ -27,9 +31,16 @@ export default function ListIndex({ passedList, trash, fetchLists }) {
       return false;
     }
   };
+
+  const deleteList = (listId) => {
+    setCurrListId(listId);
+    setIsOpen(true);
+  };
+
   return (
     <ul id="list-index-ul">
       {passedList.map((list, i) => {
+        console.log(list.title + "==>" + list.id);
         return (
           <div className="list-index-item" key={i}>
             <li
@@ -69,18 +80,12 @@ export default function ListIndex({ passedList, trash, fetchLists }) {
                 )}
               </div>
             </li>
-            <ConfirmationModal
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              listId={list.id}
-              fetchLists={fetchLists}
-            />
             {trash ? (
               <img
                 className="delete-list-button"
                 src={TrashImage}
                 alt="trash"
-                onClick={() => setIsOpen(true)}
+                onClick={() => deleteList(list.id)}
               ></img>
             ) : null}
           </div>

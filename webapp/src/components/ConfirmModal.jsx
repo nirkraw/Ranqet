@@ -6,9 +6,7 @@ import {deleteList} from "../util/Endpoints";
 Modal.setAppElement("#root");
 
 export default function ConfirmModal({isOpen, setIsOpen, listId, fetchLists}) {
-
   const confirmDeleteList = async () => {
-    debugger
     try {
       await deleteList(
       window.localStorage.getItem("userId"),

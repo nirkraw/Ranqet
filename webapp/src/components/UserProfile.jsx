@@ -11,6 +11,7 @@ import "../styles/UserProfile.css";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ListIndex from "./ListIndex";
+import ConfirmationModal from "./ConfirmModal";
 
 export default function UserProfile() {
   const [name, setName] = useState("");
@@ -23,6 +24,8 @@ export default function UserProfile() {
   const [userError, setUserError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
+  const [currListId, setCurrListId] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetchLists();
@@ -130,7 +133,8 @@ export default function UserProfile() {
             <ListIndex
               passedList={createdLists}
               trash={true}
-              fetchLists={fetchLists}
+              setCurrListId={setCurrListId}
+              setIsOpen={setIsOpen}
             />
           </Tab>
           <Tab
@@ -142,6 +146,12 @@ export default function UserProfile() {
           </Tab>
         </Tabs>
       </div>
+      <ConfirmationModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        listId={currListId}
+        fetchLists={fetchLists}
+      />
     </div>
   );
 }
