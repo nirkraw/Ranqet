@@ -29,7 +29,7 @@ export default function Comments({ listId }) {
     },
   ];
   const [comments, setComments] = useState(sampleComments);
-  const [newComment, setNewComment] = useState(sampleComments);
+  const [newComment, setNewComment] = useState("");
   const [error, setError] = useState(null);
   //   const [loading, setLoading] = useState(true); ERASE NEXT LINE WHEN ENDPOINT WORKING
   const [loading, setLoading] = useState(false);
