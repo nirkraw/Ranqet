@@ -12,6 +12,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ListIndex from "./ListIndex";
 import ConfirmationModal from "./ConfirmModal";
+import { formatUploadTime } from "../util/DateCalc";
 
 export default function UserProfile() {
   const [name, setName] = useState("");
@@ -46,8 +47,7 @@ export default function UserProfile() {
   const fetchUserInfo = async () => {
     try {
       const res = await fetchUser(localStorage.getItem("userId"));
-      const date = new Date(res.data.createdOn).getFullYear();
-      setDate(date);
+      setDate(formatUploadTime(res.data.createdOn));
       setName(res.data.name);
       if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
       setLoading(false);

@@ -4,6 +4,7 @@ import "../styles/Rankings.css";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import ErrorPage from "./Misc/ErrorPage";
 import { useRouteMatch } from "react-router-dom";
+import Comments from "./Comments";
 
 export default function Rankings() {
   const match = useRouteMatch();
@@ -62,6 +63,7 @@ export default function Rankings() {
           <ul>{globalRankingList}</ul>
         </div>
       </div>
+      <Comments />
     </div>
   );
 }

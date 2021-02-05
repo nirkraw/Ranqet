@@ -116,6 +116,7 @@
   color: white;
   padding: 10px;
   border-radius: 13%;
+  border: none;
 }
 
 #create-list-submit:hover {

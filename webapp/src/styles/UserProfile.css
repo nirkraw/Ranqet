@@ -1,5 +1,5 @@
 #user-profile-main-container {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: flex-start;
   width: 20%;
-  height: 90vh;
+  height: 90%;
   padding: 20px;
   margin-left: 40px;
   background-color: white;
@@ -31,12 +31,14 @@
   font-family: var(--font-1);
   color: black;
   font-size: 25px;
+  text-align:center;
 }
 
 #user-stats > h1 > span {
   font-family: var(--font-1);
   color: var(--blue-2);
   font-size: 25px;
+  text-align:center;
 }
 
 #tabs-container-div {
@@ -46,7 +48,7 @@
   justify-content: flex-start;
   background-color: white;
   margin-left: 40px;
-  height: 90vh;
+  height: 90%;
 }
 
 .tab-container {

@@ -1,0 +1,125 @@
+#main-comments-container {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+
+#main-comments-ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment-item-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2%;
+}
+
+.comments-image-container,
+#add-comment-image-container {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+}
+
+.comments-image,
+#comments-user-avatar-image {
+  object-fit: cover;
+  background-size: cover; /* or contain depending on what you want */
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  border: 2px solid var(--pink-2);
+}
+
+.comments-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+}
+
+.comment-author-created-container {
+  width: 98%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-created {
+  font-family: var(--font-1);
+  color: var(--blue-2);
+  font-size: 17px;
+  margin-top: 3%;
+}
+
+.comment-author {
+  font-family: var(--font-1);
+  color: var(--tan-2);
+  font-size: 40px;
+}
+
+.comment-author:hover,
+.comments-image:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.comment-content {
+  font-family: var(--font-1);
+  color: var(--pink-3);
+  font-size: 25px;
+}
+
+#add-comment-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  height: fit-content;
+  margin-bottom: 4%;
+  margin-top: 8%;
+}
+
+#add-comment-input-and-submit {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+#add-comment-input-and-submit > textarea {
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+  font-family: var(--font-1);
+  color: var(--pink-3);
+  font-size: 25px;
+  background-color: transparent;
+  resize: none;
+  height: 50px;
+  overflow:auto;
+}
+
+#add-comment-input-and-submit > button {
+  align-self: flex-end;
+  margin-top: 2%;
+  font-family: var(--font-1);
+  font-size: 20px;
+  width: fit-content;
+  background-color: var(--pink-3);
+  color: white;
+  padding: 7px 7px 7px 4px;
+  border-radius: 5%;
+  border: none;
+}
+
+#add-comment-input-and-submit > button:hover {
+  cursor:pointer;
+  opacity: .7;
+}

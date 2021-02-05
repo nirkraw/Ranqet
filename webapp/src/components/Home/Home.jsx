@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../Misc/LoadingSpinner";
+import ErrorPage from "../Misc/ErrorPage";
 import "../../styles/Home.css";
 import { fetchTopLists, fetchNewLists } from "../../util/Endpoints";
 import { useHistory } from "react-router-dom";
-import ErrorPage from "../Misc/ErrorPage";
 import ListIndex from "../ListIndex";
 import { ListCategory } from "../../enums/ListCategory";
 import NewLists from "./NewLists";
