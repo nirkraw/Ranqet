@@ -83,7 +83,7 @@
   display: flex;
   justify-content: flex-start;
   height: fit-content;
-  margin-bottom: 4%;
+  margin-bottom: 3%;
   margin-top: 8%;
 }
 
@@ -110,7 +110,7 @@
   align-self: flex-end;
   margin-top: 2%;
   font-family: var(--font-1);
-  font-size: 20px;
+  font-size: 17px;
   width: fit-content;
   background-color: var(--pink-3);
   color: white;
