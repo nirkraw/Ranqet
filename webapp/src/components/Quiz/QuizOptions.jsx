@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  fetchListOptionPair,
-  submitOptionChoice
-} from "../../util/Endpoints";
+import { fetchListOptionPair, submitOptionChoice } from "../../util/Endpoints";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";
 
-export default function QuizOptions({ listId, history}) {
+export default function QuizOptions({ listId, history }) {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,11 +15,13 @@ export default function QuizOptions({ listId, history}) {
 
   const fetchNextOptionPair = async () => {
     try {
-      const res = await fetchListOptionPair(listId, localStorage.getItem("userId"));
+      const res = await fetchListOptionPair(
+        listId,
+        localStorage.getItem("userId")
+      );
       if (res.data.isCompleted) {
         history.push(`/${listId}/rankings`);
-      }
-      else {
+      } else {
         setOptions([res.data.first, res.data.second]);
       }
       setLoading(false);
@@ -52,20 +51,35 @@ export default function QuizOptions({ listId, history}) {
   if (loading) return <LoadingSpinner />;
   return (
     <div id="main-options-div">
-      {options.map((option, i) => (
-        <div
-          id="option-div"
-          optionid={option.id}
-          onClick={submitOption}
-          key={i}
-        >
-          <h3 className="option-header">{option.name}</h3>
-          {option.photoUrl ? (
-            <img className="quiz-option-img" src={option.photoUrl} alt="option"></img>
-          ) : null}
-        </div>
-      ))}
-      <div id="versus-container"><h3>VS</h3></div>
+      {options.map((option, i) => {
+        if (option.photoUrl)
+          return (
+            <div
+              id="option-div"
+              optionid={option.id}
+              onClick={submitOption}
+              key={i}
+            >
+              <h3 className="option-header">{option.name}</h3>
+              <img
+                className="quiz-option-img"
+                src={option.photoUrl}
+                alt="option"
+              ></img>
+            </div>
+          );
+        else
+          return (
+            <div
+              id="option-div-no-image"
+              optionid={option.id}
+              onClick={submitOption}
+              key={i}
+            >
+              <h3 className="option-header-no-image">{option.name}</h3>
+            </div>
+          );
+      })}
     </div>
   );
 }

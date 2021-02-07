@@ -37,6 +37,9 @@ export default function Quiz() {
       <h1 id="main-quiz-header">{listName}</h1>
       <h2 id="main-quiz-description">{description}</h2>
       <QuizOptions listId={match.params.listId} history={history} />
+      <div id="versus-container">
+        <h3>VS</h3>
+      </div>
     </div>
   );
 }

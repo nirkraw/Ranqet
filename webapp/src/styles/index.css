@@ -71,6 +71,7 @@ blockquote, q {
 	--font-2: 'Potta One', cursive;
 	--font-3: 'Nanum Gothic', sans-serif;
 	--font-4: 'Josefin Sans', sans-serif;
+	--font-5: 'Teko', sans-serif;
 }
 
 ::-moz-selection {
