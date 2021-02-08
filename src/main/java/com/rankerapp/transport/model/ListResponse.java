@@ -66,6 +66,10 @@ public class ListResponse {
         return imageUrl;
     }
 
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
     public boolean getIsUnlisted() {
         return isUnlisted;
     }
