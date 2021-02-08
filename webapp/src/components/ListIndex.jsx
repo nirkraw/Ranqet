@@ -57,6 +57,17 @@ export default function ListIndex({
               </div>
               <div className="list-index-item-name-and-description-container">
                 <p className="list-index-item-name">{list.title}</p>
+                <p
+                  className="list-index-author"
+                  onClick={(e) => {
+                    debugger
+                    e.stopPropagation();
+                    history.push((`/profile/${list.createdBy.id}`))
+                  }}
+                >
+                  <span>By: </span>
+                  {list.createdBy.name}
+                </p>
                 <p className="list-index-item-description">
                   {list.description}
                 </p>

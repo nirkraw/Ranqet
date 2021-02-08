@@ -13,6 +13,7 @@
 }
 
 .list-index-item-li {
+  z-index: 0;
   display: flex;
   justify-content: flex-start;
   height: 175px;
@@ -20,11 +21,7 @@
   width: 90%;
   padding: 10px;
   border: 1px solid rgb(248, 241, 241);
-}
-
-.list-index-item-li:hover {
-  cursor: pointer;
-  background-color: var(--tan-2);
+   
 }
 
 .list-index-image-container {
@@ -40,7 +37,6 @@
   background-repeat: no-repeat;
   background-color: var(--pink-3);
 }
-
 
 .list-image {
   height: 150px;
@@ -64,9 +60,7 @@
   width: 45px;
   height: 45px;
   cursor: pointer;
-  
 }
-
 
 .list-index-item-name-and-description-container {
   display: flex;
@@ -81,10 +75,37 @@
   text-decoration: none;
 }
 
+.list-index-author {
+  font-size: 15px;
+  font-family: var(--font-3);
+  color: var(--blue-2);
+  margin-top: -15px;
+  width: fit-content;
+  z-index: 1;
+}
+
+.list-index-item-name:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.list-index-item-li:hover  {
+  cursor: pointer;
+}
+
+.list-index-author:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.list-index-author > span {
+  color: black;
+}
+
 .list-index-item-description {
   font-size: 20px;
   font-family: var(--font-1);
-  font-weight:bolder;
+  font-weight: bolder;
   color: var(--tan-3);
   text-decoration: none;
 }
