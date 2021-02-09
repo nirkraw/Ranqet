@@ -5,7 +5,7 @@ import { fetchUser, uploadImage, updateUserAvatar } from "../../util/Endpoints";
 import { useRouteMatch } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
-export default function UserInfo({numCreated, numCompleted}) {
+export default function UserInfo({numCreated, numCompleted, setPublicFacing, publicFacing}) {
   const match = useRouteMatch();
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -62,7 +62,20 @@ export default function UserInfo({numCreated, numCompleted}) {
     currentImage = <p id="profile-photo-text">Add User Profile</p>;
   }
 
-  if (loading) return <LoadingSpinner />;
+  let button;
+  if (!publicFacing && localStorage.getItem("userId") === match.params.userId) {
+    button = (
+      <button onClick={() => setPublicFacing(!publicFacing)}>
+        View Public Profile
+      </button>
+    );
+  } else if(publicFacing && localStorage.getItem("userId") === match.params.userId) {
+   button = <button onClick={() => setPublicFacing(!publicFacing)}>
+      Back to Full Profile
+    </button>;
+  }
+
+    if (loading) return <LoadingSpinner />;
 
   return (
     <div id="user-profile-header">
@@ -73,7 +86,7 @@ export default function UserInfo({numCreated, numCompleted}) {
         onChange={handleUserPhotoFile}
         hidden
       />
-      {localStorage.getItem("userId") === match.params.userId ? (
+      {localStorage.getItem("userId") === match.params.userId && !publicFacing ? (
         <div
           id="user-profile-image-container"
           onClick={() => document.getElementById("user-photo-input").click()}
@@ -81,7 +94,7 @@ export default function UserInfo({numCreated, numCompleted}) {
           {currentImage}
         </div>
       ) : (
-        <div id="user-profile-image-container-no-hover"></div>
+        <div id="user-profile-image-container-no-hover">{currentImage}</div>
       )}
       <h1 id="user-profile-name">{name}</h1>
       <div id="user-stats">
@@ -91,6 +104,7 @@ export default function UserInfo({numCreated, numCompleted}) {
         <h1><span>{numCreated}</span> lists created</h1>
         <h1><span>{numCompleted}</span> lists completed</h1>
       </div>
+     {button}
     </div>
   );
 }

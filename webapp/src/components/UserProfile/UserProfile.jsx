@@ -6,7 +6,7 @@ import "../../styles/UserProfile.css";
 import ConfirmationModal from "../ConfirmModal";
 import UserInfo from "./UserInfo";
 import { useRouteMatch } from "react-router-dom";
-import UserTabs from "./UserTabs"
+import UserTabs from "./UserTabs";
 import ListIndex from "../ListIndex";
 
 export default function UserProfile() {
@@ -18,6 +18,7 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [currListId, setCurrListId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [publicFacing, setPublicFacing] = useState(false);
 
   useEffect(() => {
     fetchLists();
@@ -40,8 +41,14 @@ export default function UserProfile() {
 
   return (
     <div id="user-profile-main-container">
-      <UserInfo numCompleted={completedLists.length} numCreated={createdLists.length}/>
-      {localStorage.getItem("userId") === match.params.userId ? (
+      <UserInfo
+        numCompleted={completedLists.length}
+        numCreated={createdLists.length}
+        publicFacing={publicFacing}
+        setPublicFacing={setPublicFacing}
+      />
+      {localStorage.getItem("userId") === match.params.userId &&
+      !publicFacing ? (
         <UserTabs
           inProgressLists={inProgressLists}
           completedLists={completedLists}
@@ -50,7 +57,7 @@ export default function UserProfile() {
           setCurrListId={setCurrListId}
         />
       ) : (
-        <ListIndex passedList={createdLists}/>
+        <ListIndex passedList={createdLists} />
       )}
       <ConfirmationModal
         isOpen={isOpen}
