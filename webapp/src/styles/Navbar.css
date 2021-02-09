@@ -27,7 +27,7 @@
   font-family: var(--font-3);
   font-weight: 900;
   text-decoration: none;
-  width: 100px;
+  width: fit-content;
   margin-right: 20px;
   color: white;
   text-align: center;

@@ -13,10 +13,13 @@ export default function ListIndex({
   const history = useHistory();
 
   const handleLink = async (listId) => {
-    if (await listIsComplete(listId)) {
-      history.push(`/${listId}/rankings`);
-    } else {
-      history.push(`/${listId}/quiz`);
+    if (!localStorage.getItem("userId")) history.push(`/${listId}/rankings`);
+    else {
+      if (await listIsComplete(listId)) {
+        history.push(`/${listId}/rankings`);
+      } else {
+        history.push(`/${listId}/quiz`);
+      }
     }
   };
 
@@ -60,7 +63,6 @@ export default function ListIndex({
                 <p
                   className="list-index-author"
                   onClick={(e) => {
-                    debugger
                     e.stopPropagation();
                     history.push((`/profile/${list.createdBy.id}`))
                   }}

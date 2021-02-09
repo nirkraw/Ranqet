@@ -18,7 +18,7 @@ export default function Navbar() {
       {!localStorage.getItem("sessionToken") ? (
         <div id="navbar-buttons-container">
           <NavLink to="/create-user" className="nav-session-button">
-            + New User
+            Sign-Up
           </NavLink>
           <NavLink to="/login" className="nav-session-button" >
             Login

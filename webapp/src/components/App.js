@@ -4,86 +4,45 @@ import Home from "./Home/Home";
 import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings";
 import Quiz from "./Quiz/Quiz";
-import {
-  Switch,
-  Route,
-  Redirect,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import SessionForm from "./SessionForm";
 import React from "react";
-import UserProfile from "./UserProfile";
+import UserProfile from "./UserProfile/UserProfile";
 import Category from "./Category";
 
 function App() {
   return (
-      <div className="App">
-        <Navbar />
-        <Switch>
-          <Route exact path="/login" render={() => <SessionForm />} />
-          <Route exact path="/create-user" render={() => <SessionForm />} />
-          <Route
-            path="/create-list"
-            render={() =>
-              localStorage.getItem("sessionToken") ? (
-                <CreateList />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/category/:categoryType"
-            render={() =>
-              localStorage.getItem("sessionToken") ? (
-                <Category />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/:listId/quiz"
-            render={() =>
-              localStorage.getItem("sessionToken") ? (
-                <Quiz />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/:listId/rankings"
-            render={() =>
-              localStorage.getItem("sessionToken") ? (
-                <Rankings />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/profile/:userId"
-            render={() =>
-              localStorage.getItem("sessionToken") ? (
-                <UserProfile />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/"
-            render={() =>
-              localStorage.getItem("sessionToken") ? (
-                <Home />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-        </Switch>
-      </div>
+    <div className="App">
+      <Navbar />
+      <Switch>
+        <Route exact path="/login" render={() => <SessionForm />} />
+        <Route exact path="/create-user" render={() => <SessionForm />} />
+        <Route
+          path="/create-list"
+          render={() =>
+            localStorage.getItem("sessionToken") ? (
+              <CreateList />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+        <Route path="/category/:categoryType" render={() => <Category />} />
+        <Route
+          path="/:listId/quiz"
+          render={() =>
+            localStorage.getItem("sessionToken") ? (
+              <Quiz />
+            ) : (
+              <Redirect to="/:listId/rankings" />
+            )
+          }
+        />
+        <Route path="/:listId/rankings" render={() => <Rankings />} />
+        <Route path="/profile/:userId" render={() => <UserProfile />} />
+        <Route path="/" render={() => <Home />} />
+      </Switch>
+    </div>
   );
 }
 

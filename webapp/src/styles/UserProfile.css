@@ -67,7 +67,7 @@
   margin-top: 170px;
 }
 
-#user-profile-image-container {
+#user-profile-image-container, #user-profile-image-container-no-hover {
   height: 200px;
   width: 200px;
   border: 1px solid var(--pink-2);
