@@ -5,25 +5,26 @@ import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings";
 import Quiz from "./Quiz/Quiz";
 import { Switch, Route, Redirect } from "react-router-dom";
-import SessionForm from "./SessionForm";
-import React from "react";
+import React, { useState } from "react";
 import UserProfile from "./UserProfile/UserProfile";
 import Category from "./Category";
+import Modal from "./Modal";
 
 function App() {
+  const [formType, openModal] = useState(null);
+
   return (
     <div className="App">
-      <Navbar />
+      <Navbar openModal={openModal} />
+      <Modal formType={formType} openModal={openModal} />
       <Switch>
-        <Route exact path="/login" render={() => <SessionForm />} />
-        <Route exact path="/create-user" render={() => <SessionForm />} />
         <Route
           path="/create-list"
           render={() =>
             localStorage.getItem("sessionToken") ? (
               <CreateList />
             ) : (
-              <Redirect to="/login" />
+              <Redirect to="/" />
             )
           }
         />

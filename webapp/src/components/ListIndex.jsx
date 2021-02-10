@@ -8,7 +8,7 @@ export default function ListIndex({
   passedList,
   trash,
   setCurrListId,
-  setIsOpen,
+  setIsOpen
 }) {
   const history = useHistory();
 

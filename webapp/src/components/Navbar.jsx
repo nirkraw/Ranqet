@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Navbar.css";
 import { NavLink } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({openModal}) {
   const logout = (e) => {
     e.preventDefault();
     localStorage.clear("userId");
@@ -17,12 +17,18 @@ export default function Navbar() {
       </NavLink>
       {!localStorage.getItem("sessionToken") ? (
         <div id="navbar-buttons-container">
-          <NavLink to="/create-user" className="nav-session-button">
-            Sign-Up
-          </NavLink>
-          <NavLink to="/login" className="nav-session-button" >
+          <div
+            className="nav-session-button"
+            onClick={() => openModal("login")}
+          >
             Login
-          </NavLink>
+          </div>
+          <div
+            className="nav-session-button"
+            onClick={() => openModal("signup")}
+          >
+            Sign Up
+          </div>
         </div>
       ) : (
         <div id="navbar-buttons-container">

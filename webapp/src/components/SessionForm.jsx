@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../styles/Session.css";
 import { createUser, loginUser } from "../util/Endpoints";
 import ErrorPage from "./Misc/ErrorPage";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-export default function SessionForm() {
+export default function SessionForm({formType}) {
   const history = useHistory();
-  const location = useLocation();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -16,9 +15,9 @@ export default function SessionForm() {
 
   useEffect(() => {
     setUserError("");
-    if (location.pathname === "/login") setFormHeader("Log In");
+    if (formType === "login") setFormHeader("Log In");
     else setFormHeader("Sign Up");
-  }, [location.pathname]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
