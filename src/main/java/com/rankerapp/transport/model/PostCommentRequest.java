@@ -1,9 +1,11 @@
 package com.rankerapp.transport.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.util.Objects;
 
+@JsonDeserialize(builder = PostCommentRequest.Builder.class)
 public class PostCommentRequest {
 
     private final String userId;
