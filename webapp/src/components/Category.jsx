@@ -5,6 +5,7 @@ import LoadingSpinner from "./Misc/LoadingSpinner";
 import { fetchCategoryList } from "../util/Endpoints";
 import ListIndex from "./ListIndex";
 import "../styles/Category.css";
+import { ListCategoryToTitle } from "../enums/ListCategory";
 
 export default function Category() {
   const match = useRouteMatch();
@@ -32,7 +33,7 @@ export default function Category() {
 
   return (
     <div id="category-main-container">
-      <h1 id="category-header">{match.params.categoryType}</h1>
+      <h1 id="category-header">{ ListCategoryToTitle[match.params.categoryType]}</h1>
       <ListIndex passedList={categoryList} />
     </div>
   );

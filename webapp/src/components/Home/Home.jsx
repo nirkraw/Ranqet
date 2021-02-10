@@ -5,7 +5,7 @@ import "../../styles/Home.css";
 import { fetchTopLists, fetchNewLists } from "../../util/Endpoints";
 import { useHistory } from "react-router-dom";
 import ListIndex from "../ListIndex";
-import { ListCategory } from "../../enums/ListCategory";
+import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
 import NewLists from "./NewLists";
 
 export default function Home() {
@@ -40,7 +40,7 @@ export default function Home() {
       <div id="category-container">
         {ListCategory.map((category, i) => (
           <p className="category-container-item"key={i} onClick={() => history.push(`/category/${category}`)}>
-            {category}
+            {ListCategoryToTitle[category]}
           </p>
         ))}
       </div>
