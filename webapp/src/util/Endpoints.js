@@ -101,18 +101,16 @@ export const deleteList = (userId, listId, sessionToken) => {
   );
 };
 
-//* HOLDER FOR ENDPOINT GET REAL THING
-export const fetchListComments = (listId) => {
+export const fetchListComments = (listId, pageNum) => {
   return axios.get(
-    `${server}/list/${listId}/comments`,
+    `${server}/list/${listId}/comments?pageNumber=${pageNum}`,
     {
       "Content-Type": "application/json",
     }
   );
 };
 
-//* HOLDER FOR ENDPOINT GET REAL THING
-export const createComment = (body, listId) => {
+export const createComment = (listId, body) => {
   return axios.post(
     `${server}/list/${listId}/comment`, body, 
     {
