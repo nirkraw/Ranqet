@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/Comments.css";
 import { formatUploadTime } from "../util/DateCalc";
 import { useHistory, useRouteMatch } from "react-router-dom";
@@ -10,26 +10,7 @@ import EmptyAvatar from "../assets/avatar.svg";
 export default function Comments() {
   const history = useHistory();
   const match = useRouteMatch();
-
-  // const sampleComments = [
-  //   {
-  //     author: "James",
-  //     authorAvatarUrl:
-  //       "https://ranker-dev.s3.amazonaws.com/1611009362343-sax.jpeg",
-  //     createdOn: "2021-05-19T04:03:05.087Z",
-  //     content: "BRON IS SO OVERRATED UGH",
-  //     authorId: "1f5b4fbb-b6e9-4aaa-bf7c-565f858b870a",
-  //   },
-  //   {
-  //     author: "Burt",
-  //     authorAvatarUrl:
-  //       "https://ranker-dev.s3.amazonaws.com/1611009482913-longpianoshot.jpeg",
-  //     createdOn: "2021-01-19T04:03:05.087Z",
-  //     content:
-  //       "Hell no bro are you out of your mind?? He's the best player all time",
-  //     authorId: "1f5b4fbb-b6e9-4aaa-bf7c-565f858b870a",
-  //   },
-  // ];
+  const addCommentInput = useRef(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [error, setError] = useState(null);
@@ -69,7 +50,8 @@ export default function Comments() {
         userId: localStorage.getItem("userId"),
         sessionToken: localStorage.getItem("sessionToken"),
       });
-      setNewComment("");
+      debugger 
+      addCommentInput.current.value = "";
       fetchComments();
     } catch (err) {
       setError(err.message);
@@ -92,9 +74,10 @@ export default function Comments() {
         <div id="add-comment-input-and-submit">
           <textarea
             rows="2"
-            maxlength="150"
+            maxLength="150"
             placeholder="Add comment"
             onChange={(e) => setNewComment(e.target.value)}
+            ref={addCommentInput}
           />
           <button onClick={addComment}>Comment</button>
         </div>
