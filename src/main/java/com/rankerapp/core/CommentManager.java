@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -46,6 +47,7 @@ public class CommentManager {
         comment.setPostedBy(userId);
         comment.setListId(listId);
         comment.setContents(contents);
+        comment.setCreatedOn(Instant.now());
         commentsRepository.save(comment);
     }
 
