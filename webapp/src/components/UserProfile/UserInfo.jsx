@@ -58,7 +58,7 @@ export default function UserInfo({numCreated, numCompleted, setPublicFacing, pub
     currentImage = (
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
-  } else if (localStorage.getItem("userId") === match.params.userId) {
+  } else if(localStorage.getItem("userId") === match.params.userId) {
     currentImage = <p id="profile-photo-text">Add User Profile</p>;
   }
 
