@@ -10,13 +10,19 @@ public class Comment {
 
     private final String comment;
 
-    private final UUID postedBy;
+    private final UUID authorId;
+
+    private final String authorName;
+
+    private final String authorAvatarUrl;
 
     private final Instant createdOn;
 
     private Comment(Builder builder) {
         this.comment = builder.comment;
-        this.postedBy = builder.postedBy;
+        this.authorId = builder.postedBy;
+        this.authorName = builder.authorName;
+        this.authorAvatarUrl = builder.authorAvatarUrl;
         this.createdOn = builder.createdOn;
     }
 
@@ -24,8 +30,16 @@ public class Comment {
         return this.comment;
     }
 
-    public UUID getPostedBy() {
-        return this.postedBy;
+    public UUID getAuthorId() {
+        return this.authorId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public String getAuthorAvatarUrl() {
+        return authorAvatarUrl;
     }
 
     public Instant getCreatedOn() {
@@ -43,6 +57,10 @@ public class Comment {
 
         private UUID postedBy;
 
+        private String authorName;
+
+        private String authorAvatarUrl;
+
         private Instant createdOn;
 
         public Builder withComment(String comment) {
@@ -52,6 +70,16 @@ public class Comment {
 
         public Builder withPostedBy(UUID postedBy) {
             this.postedBy = postedBy;
+            return this;
+        }
+
+        public Builder withAuthorName(String authorName) {
+            this.authorName = authorName;
+            return this;
+        }
+
+        public Builder withAuthorAvatarUrl(String authorAvatarUrl) {
+            this.authorAvatarUrl = authorAvatarUrl;
             return this;
         }
 
@@ -74,13 +102,15 @@ public class Comment {
         }
         Comment that = (Comment) o;
         return Objects.equals(comment, that.getComment())
-                && Objects.equals(postedBy, that.getPostedBy())
-                && Objects.equals(createdOn, that.getCreatedOn());
+                && Objects.equals(authorId, that.getAuthorId())
+                && Objects.equals(createdOn, that.getCreatedOn())
+                && Objects.equals(authorName, that.getAuthorName())
+                && Objects.equals(authorAvatarUrl, that.getAuthorAvatarUrl());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(comment, postedBy, createdOn);
+        return Objects.hash(comment, authorId, authorName, authorAvatarUrl, createdOn);
     }
 
 }

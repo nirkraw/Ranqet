@@ -4,6 +4,7 @@ import com.rankerapp.db.CommentsRepository;
 import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.UsersRepository;
 import com.rankerapp.db.model.CommentEntity;
+import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.Comment;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,16 +61,28 @@ public class CommentManager {
 
         PageRequest pageRequest =
                 PageRequest.of(pageNumber, MAX_PAGE_SIZE, Sort.by(Sort.Order.desc("createdOn")));
-        return commentsRepository.findByListId(listId, pageRequest)
-                .map(CommentManager::convertToTransportModel)
+        List<CommentEntity> comments = commentsRepository.findByListId(listId, pageRequest)
+                .collect(Collectors.toList());
+
+        Map<UUID, UserEntity> users = usersRepository.findAllById(comments.stream()
+                .map((comment) -> comment.getPostedBy())
+                .collect(Collectors.toList()))
+                .stream()
+                .collect(Collectors.toMap((user) -> user.getId(), (user) -> user));
+
+        return comments.stream()
+                .map((comment) -> convertToTransportModel(comment, users))
                 .collect(Collectors.toList());
     }
 
-    private static Comment convertToTransportModel(CommentEntity entity) {
+    private static Comment convertToTransportModel(CommentEntity entity, Map<UUID, UserEntity> users) {
+        UserEntity user = users.get(entity.getPostedBy());
         return Comment.builder()
                 .withComment(entity.getContents())
                 .withCreatedOn(entity.getCreatedOn())
                 .withPostedBy(entity.getPostedBy())
+                .withAuthorName(user.getName())
+                .withAuthorAvatarUrl(user.getAvatarUrl())
                 .build();
     }
 }
