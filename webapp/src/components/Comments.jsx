@@ -62,7 +62,10 @@ export default function Comments({ listId }) {
 
   const addComment = async () => {
        try {
-         await createComment(listId, localStorage.getItem("userId"), newComment);
+         await createComment(listId, {
+           comment: newComment,
+           userId: localStorage.getItem("userId"),
+           sessionToken: localStorage.getItem("sessionToken")});
          fetchComments();
        } catch (err) {
          setError(err.message);

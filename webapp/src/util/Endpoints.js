@@ -112,9 +112,9 @@ export const fetchListComments = (listId) => {
 };
 
 //* HOLDER FOR ENDPOINT GET REAL THING
-export const createComment = (body, userId, listId) => {
+export const createComment = (body, listId) => {
   return axios.post(
-    `${server}/list/${listId}/comment/userId?=${userId}`, body, 
+    `${server}/list/${listId}/comment`, body, 
     {
       "Content-Type": "application/json",
     }
