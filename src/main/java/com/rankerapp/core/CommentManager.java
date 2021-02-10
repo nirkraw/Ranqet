@@ -42,6 +42,7 @@ public class CommentManager {
         }
 
         CommentEntity comment = new CommentEntity();
+        comment.setId(UUID.randomUUID());
         comment.setPostedBy(userId);
         comment.setListId(listId);
         comment.setContents(contents);
