@@ -1,0 +1,3 @@
+comment String
+postedBy UUID
+createdOn Instant
