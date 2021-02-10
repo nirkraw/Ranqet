@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../styles/Navbar.css";
 import { NavLink } from "react-router-dom";
-import { fetchUser } from "../util/Endpoints";
-import LoadingSpinner from "./Misc/LoadingSpinner";
 
-export default function Navbar({ openModal }) {
-  const [name, setName] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
+export default function Navbar({openModal}) {
+  
   const logout = (e) => {
     e.preventDefault();
     localStorage.clear("userId");
     localStorage.clear("sessionToken");
     window.location.reload();
-  };
-
-  const fetchUserInfo = async () => {
-    try {
-      const res = await fetchUser(localStorage.getItem("userId"));
-      setName(res.data.name);
-      if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
-      setLoading(false);
-    } catch (err) {
-      alert("No User Info Found");
-    }
   };
 
   return (
@@ -53,25 +33,14 @@ export default function Navbar({ openModal }) {
         </div>
       ) : (
         <div id="navbar-buttons-container">
-          {loading ? (
-            <LoadingSpinner />
-          ) : (
-            <div id="navbar-image-and-name-container">
-              <img
-                src={avatarUrl}
-                alt="user-profile"
-                id="user-profile-image-navbar"
-              ></img>
-              <NavLink
-                to={`/profile/${localStorage.getItem("userId")}`}
-                className="nav-session-button"
-              >
-                Profile
-              </NavLink>
-            </div>
-          )}
           <NavLink to="/create-list" className="nav-session-button">
             New List
+          </NavLink>
+          <NavLink
+            to={`/profile/${localStorage.getItem("userId")}`}
+            className="nav-session-button"
+          >
+            Profile
           </NavLink>
           <NavLink to="/login" onClick={logout} className="nav-session-button">
             Logout

@@ -70,6 +70,7 @@
 
 .list-index-item-name {
   font-size: 25px;
+  margin: 0;
   font-family: var(--font-3);
   color: var(--pink-2);
   text-decoration: none;
@@ -79,7 +80,6 @@
   font-size: 15px;
   font-family: var(--font-3);
   color: var(--blue-2);
-  margin-top: -15px;
   width: fit-content;
   z-index: 1;
 }

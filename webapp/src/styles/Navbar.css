@@ -42,21 +42,11 @@
 }
 
 #navbar-buttons-container {
-  margin-right: 5px;
+  margin-right: 2%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
 
-#navbar-image-and-name-container {}
 
-#user-profile-image-navbar {
-    height: 40px;
-  width: 40px;
-  object-fit: cover;
-  background-size: cover; /* or contain depending on what you want */
-  background-position: center center;
-  background-repeat: no-repeat;
-  border-radius: 50%;
-}
