@@ -39,7 +39,7 @@ function App() {
             )
           }
         />
-        <Route path="/:listId/rankings" render={() => <Rankings />} />
+        <Route path="/:listId/rankings" render={() => <Rankings openModal={openModal} />} />
         <Route path="/profile/:userId" render={() => <UserProfile />} />
         <Route path="/" render={() => <Home />} />
       </Switch>

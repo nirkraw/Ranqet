@@ -7,7 +7,7 @@ import { useRouteMatch } from "react-router-dom";
 import Comments from "./Comments";
 import RankingsList from "./RankingsList";
 
-export default function Rankings() {
+export default function Rankings({openModal}) {
   const match = useRouteMatch();
   const [error, setError] = useState(null);
   const [personalRanking, setPersonalRanking] = useState([]);
@@ -15,7 +15,8 @@ export default function Rankings() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchCurrRankings();
+    // fetchCurrRankings();
+    setLoading(false);
   }, []);
 
   const fetchCurrRankings = async () => {
@@ -48,7 +49,7 @@ export default function Rankings() {
           rankingName="Global Rankings"
         />
       </div>
-      <Comments />
+      <Comments openModal={openModal} />
     </div>
   );
 }

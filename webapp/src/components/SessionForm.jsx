@@ -34,7 +34,6 @@ export default function SessionForm({formType}) {
       });
       localStorage.setItem("userId", res.data.id);
       localStorage.setItem("sessionToken", res.data.sessionToken);
-      history.push("/");
       window.location.reload();
     } catch (err) {
       if (err.response.status=== 403 && formHeader === "Log In") {

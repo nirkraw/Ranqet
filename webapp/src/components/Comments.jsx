@@ -7,7 +7,7 @@ import ErrorPage from "./Misc/ErrorPage";
 import { fetchListComments, fetchUser, createComment } from "../util/Endpoints";
 import EmptyAvatar from "../assets/avatar.svg";
 
-export default function Comments() {
+export default function Comments({ openModal }) {
   const history = useHistory();
   const match = useRouteMatch();
   const addCommentInput = useRef(null);
@@ -20,7 +20,7 @@ export default function Comments() {
 
   useEffect(() => {
     fetchComments();
-    fetchUserInfo();
+    if (localStorage.getItem("userId")) fetchUserInfo();
   }, []);
 
   const fetchComments = async () => {
@@ -44,19 +44,24 @@ export default function Comments() {
   };
 
   const addComment = async () => {
-    try {
-      await createComment(match.params.listId, {
-        comment: newComment,
-        userId: localStorage.getItem("userId"),
-        sessionToken: localStorage.getItem("sessionToken"),
-      });
-      debugger 
-      addCommentInput.current.value = "";
-      fetchComments();
-    } catch (err) {
-      setError(err.message);
-    }
+    if (!newComment) return;
+      try {
+        await createComment(match.params.listId, {
+          comment: newComment,
+          userId: localStorage.getItem("userId"),
+          sessionToken: localStorage.getItem("sessionToken"),
+        });
+        addCommentInput.current.value = "";
+        fetchComments();
+      } catch (err) {
+        setError(err.message);
+      }
   };
+
+  const handleCommentChange = (e) => {
+    if (localStorage.getItem("userId")) setNewComment(e.target.value);
+    else openModal("login");
+  }
 
   if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
@@ -76,7 +81,7 @@ export default function Comments() {
             rows="2"
             maxLength="150"
             placeholder="Add comment"
-            onChange={(e) => setNewComment(e.target.value)}
+            onChange={handleCommentChange}
             ref={addCommentInput}
           />
           <button onClick={addComment}>Comment</button>
