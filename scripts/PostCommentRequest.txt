@@ -1,0 +1,3 @@
+userId String
+sessionToken String
+comment String
