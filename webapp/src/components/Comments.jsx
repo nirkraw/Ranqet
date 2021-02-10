@@ -14,7 +14,7 @@ export default function Comments() {
   // const sampleComments = [
   //   {
   //     author: "James",
-  //     authorImageUrl:
+  //     authorAvatarUrl:
   //       "https://ranker-dev.s3.amazonaws.com/1611009362343-sax.jpeg",
   //     createdOn: "2021-05-19T04:03:05.087Z",
   //     content: "BRON IS SO OVERRATED UGH",
@@ -22,7 +22,7 @@ export default function Comments() {
   //   },
   //   {
   //     author: "Burt",
-  //     authorImageUrl:
+  //     authorAvatarUrl:
   //       "https://ranker-dev.s3.amazonaws.com/1611009482913-longpianoshot.jpeg",
   //     createdOn: "2021-01-19T04:03:05.087Z",
   //     content:
@@ -69,6 +69,7 @@ export default function Comments() {
         userId: localStorage.getItem("userId"),
         sessionToken: localStorage.getItem("sessionToken"),
       });
+      setNewComment("");
       fetchComments();
     } catch (err) {
       setError(err.message);
@@ -100,8 +101,8 @@ export default function Comments() {
       </div>
       <ul id="main-comments-ul">
         {comments.map((comment, i) => {
-          const avatar = comment.authorImageUrl
-            ? comment.authorImageUrl
+          const avatar = comment.authorAvatarUrl
+            ? comment.authorAvatarUrl
             : EmptyAvatar;
           return (
             <li className="comment-item-container" key={i}>
@@ -119,13 +120,13 @@ export default function Comments() {
                     className="comment-author"
                     onClick={() => history.push(`/profile/${comment.authorId}`)}
                   >
-                    {comment.author}
+                    {comment.authorName}
                   </h2>
                   <h3 className="comment-created">
                     {formatUploadTime(comment.createdOn)}
                   </h3>
                 </div>
-                <p className="comment-content">{comment.content}</p>
+                <p className="comment-content">{comment.comment}</p>
               </div>
             </li>
           );
