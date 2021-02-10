@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../styles/Session.css";
 import { createUser, loginUser } from "../util/Endpoints";
 import ErrorPage from "./Misc/ErrorPage";
-import { useHistory } from "react-router-dom";
 
-export default function SessionForm({formType}) {
-  const history = useHistory();
+export default function SessionForm({formType, openModal}) {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +32,7 @@ export default function SessionForm({formType}) {
       });
       localStorage.setItem("userId", res.data.id);
       localStorage.setItem("sessionToken", res.data.sessionToken);
-      window.location.reload();
+      openModal(null);
     } catch (err) {
       if (err.response.status=== 403 && formHeader === "Log In") {
         setUserError("*Username or password not found");

@@ -8,7 +8,7 @@ export default function Modal({formType, openModal}) {
     return (
         <div className="modal-background" onClick={() => openModal(null)}>
             <div className="modal-child" onClick={e => e.stopPropagation()}>
-                <SessionForm formType={formType}/>
+                <SessionForm formType={formType} openModal={openModal}/>
             </div>
         </div>
     );
