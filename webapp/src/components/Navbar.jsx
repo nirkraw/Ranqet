@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Navbar.css";
 import { NavLink } from "react-router-dom";
+import SearchInput from "./SearchBar/SearchInput";
 
 export default function Navbar({openModal}) {
   
@@ -16,6 +17,7 @@ export default function Navbar({openModal}) {
       <NavLink to="/" id="navbar-title">
         rankit
       </NavLink>
+      <SearchInput />
       {!localStorage.getItem("sessionToken") ? (
         <div id="navbar-buttons-container">
           <div
