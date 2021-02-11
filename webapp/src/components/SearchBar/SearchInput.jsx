@@ -29,7 +29,6 @@ export default function SearchInput() {
   const [results, setResults] = useState([]);
   const [searchVal, setSearchVal] = useState("");
 
-
   const search = async (lookupKey) => {
     setSearchVal(lookupKey);
     try {
@@ -41,8 +40,13 @@ export default function SearchInput() {
     }
   };
 
+  const handleSubmit = () => {
+    setResults([]);
+    history.push(`/search/${searchVal}`);
+  }
+
   const handleKeyDown = (e) => {
-    if(e.keyCode === 13) history.push(`/search/${searchVal}`);
+    if(e.keyCode === 13) handleSubmit();
   }
 
   return (
@@ -57,7 +61,7 @@ export default function SearchInput() {
           onChange={(e) => search(e.target.value)}
         />
         <img
-          onClick={() => history.push(`/search/${searchVal}`)}
+          onClick={handleSubmit}
           id="search-icon"
           src={SearchIcon}
           alt="search"

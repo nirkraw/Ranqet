@@ -3,6 +3,7 @@ import { useRouteMatch } from "react-router-dom";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import ListIndex from "../ListIndex";
+import "../../styles/SearchPage.css";
 // import {fetchResults} from "../../util/Endpoints";
 
 export default function SearchPage() {
@@ -30,7 +31,6 @@ export default function SearchPage() {
 
   return (
     <div id="search-page-container">
-      <h1> Results for {match.params.searchVal} </h1>
       <ListIndex passedList={results} />
     </div>
   );
