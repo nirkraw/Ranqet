@@ -29,7 +29,7 @@ export default function SearchPage() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div>
+    <div id="search-page-container">
       <h1> Results for {match.params.searchVal} </h1>
       <ListIndex passedList={results} />
     </div>
