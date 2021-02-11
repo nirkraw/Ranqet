@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import UserProfile from "./UserProfile/UserProfile";
 import Category from "./Category";
 import Modal from "./Modal";
+import SearchPage from "./SearchBar/SearchPage";
 
 function App() {
   const [formType, openModal] = useState(null);
@@ -39,8 +40,12 @@ function App() {
             )
           }
         />
-        <Route path="/:listId/rankings" render={() => <Rankings openModal={openModal} />} />
+        <Route
+          path="/:listId/rankings"
+          render={() => <Rankings openModal={openModal} />}
+        />
         <Route path="/profile/:userId" render={() => <UserProfile />} />
+        <Route path="/search/:searchVal" render={() => <SearchPage />} />
         <Route path="/" render={() => <Home />} />
       </Switch>
     </div>

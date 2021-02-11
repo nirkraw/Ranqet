@@ -2,9 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "../../styles/SearchBar.css";
 
-export default function SearchResults({ results}) {
-    const history = useHistory();
-    if(results.length === 0) return <div></div>;
+export default function SearchResults({ results }) {
+  const history = useHistory();
+  if (results.length === 0) return null;
   const handleLink = async (listId) => {
     if (!localStorage.getItem("userId")) history.push(`/${listId}/rankings`);
     else {
