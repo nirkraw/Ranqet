@@ -1,6 +1,5 @@
 package com.rankerapp.core;
 
-import com.rankerapp.client.ElasticsearchClient;
 import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.UsersRepository;
 import com.rankerapp.db.model.ListEntity;
@@ -11,13 +10,10 @@ import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.ListCategory;
 import com.rankerapp.transport.model.SubmittedOption;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
-import java.io.IOException;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
@@ -28,20 +24,14 @@ import java.util.stream.Collectors;
 @Component
 public class ListWriter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ListWriter.class);
-
     private final ListsRepository listsRepository;
 
     private final UsersRepository usersRepository;
 
-    private final ElasticsearchClient elasticClient;
-
     @Inject
-    public ListWriter(ListsRepository listsRepository, UsersRepository usersRepository,
-                      ElasticsearchClient elasticClient) {
+    public ListWriter(ListsRepository listsRepository, UsersRepository usersRepository) {
         this.listsRepository = listsRepository;
         this.usersRepository = usersRepository;
-        this.elasticClient = elasticClient;
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options,
@@ -91,12 +81,6 @@ public class ListWriter {
         listEntity.setPrivate(isPrivate);
         listEntity.setCategory(com.rankerapp.db.model.ListCategory.valueOf(category.name()));
         listsRepository.save(listEntity);
-
-        try {
-            elasticClient.indexList(listEntity);
-        } catch (IOException e) {
-            LOG.error("Indexing new list failed!", e);
-        }
 
         return listEntity;
     }

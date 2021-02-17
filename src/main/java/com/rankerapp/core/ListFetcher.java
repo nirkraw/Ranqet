@@ -1,6 +1,5 @@
 package com.rankerapp.core;
 
-import com.rankerapp.client.ElasticsearchClient;
 import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.ScoresRepository;
 import com.rankerapp.db.UserListsRepository;
@@ -9,6 +8,7 @@ import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.db.model.UserListEntity;
+import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.transport.model.*;
 import org.springframework.data.domain.PageRequest;
@@ -33,36 +33,19 @@ public class ListFetcher {
 
     private final UsersRepository usersRepo;
 
-    private final ElasticsearchClient elasticClient;
-
     @Inject
     public ListFetcher(ListsRepository listsRepo, ScoresRepository scoresRepo, UsersRepository usersRepo,
-                       UserListsRepository userListsRepo, ElasticsearchClient elasticClient) {
+                       UserListsRepository userListsRepo) {
         this.listsRepo = listsRepo;
         this.scoresRepo = scoresRepo;
         this.usersRepo = usersRepo;
         this.userListsRepo = userListsRepo;
-        this.elasticClient = elasticClient;
     }
 
     public ListResponse fetchListById(UUID id) {
         ListEntity listEntity = listsRepo.getOne(id);
 
         return convertListToResponse(listEntity);
-    }
-
-    public SearchResultsResponse searchListsByTitle(String query) {
-        List<UUID> searchResultIds = elasticClient.searchForList(query);
-        List<ListResponse> searchResults = listsRepo.findAllById(searchResultIds)
-                .stream()
-                .filter((listEntity) -> !listEntity.isPrivate())
-                .map(ListFetcher::convertListToResponse)
-                .collect(Collectors.toList());
-
-        return SearchResultsResponse.builder()
-                .withResults(searchResults)
-                .withSearchQuery(query)
-                .build();
     }
 
     public RankingResponse fetchPersonalRankings(UUID listId, UUID userId) {
