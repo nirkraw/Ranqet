@@ -18,6 +18,8 @@ import java.net.URI;
 @Configuration
 public class ElasticsearchConfig {
 
+    public static final String LIST_INDEX = "lists";
+
     private static final String LOCAL_ELASTIC_URL = "http://elastic:changeme@localhost:9200";
 
     @Value("${bonsai.url:}")

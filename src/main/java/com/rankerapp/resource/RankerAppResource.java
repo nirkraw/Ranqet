@@ -114,6 +114,13 @@ public class RankerAppResource {
         return listFetcher.fetchGlobalRankings(asUUID(listId));
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/lists/search")
+    public SearchResultsResponse searchListsByName(@RequestParam(value = "query") String query) {
+        // Return global ranking if list has been completed at least once. Otherwise return empty list
+        return listFetcher.searchListsByTitle(query);
+    }
+
     private static UUID asUUID(String id) {
         if (id == null || id.isEmpty()) {
             throw new BadRequestException("Empty UUID is invalid");
