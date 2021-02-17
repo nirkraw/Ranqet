@@ -100,11 +100,18 @@ public class RankerAppResource {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/list/{listId}/rankings")
-    public RankingResponse getRankings(@PathVariable(value = "listId") String listId,
+    @GetMapping("/list/{listId}/rankings/personal")
+    public RankingResponse getPersonalRankings(@PathVariable(value = "listId") String listId,
                                        @RequestParam(value = "userId") String userId) {
-        // Implement this; Return personal ranking and global ranking if user has completed list. Otherwise 403 FORBIDDEN
-        return listFetcher.fetchRankings(asUUID(listId), asUUID(userId));
+        // Return personal ranking if user has completed list. Otherwise 403 FORBIDDEN
+        return listFetcher.fetchPersonalRankings(asUUID(listId), asUUID(userId));
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/list/{listId}/rankings/global")
+    public RankingResponse getGlobalRankings(@PathVariable(value = "listId") String listId) {
+        // Return global ranking if list has been completed at least once. Otherwise return empty list
+        return listFetcher.fetchGlobalRankings(asUUID(listId));
     }
 
     private static UUID asUUID(String id) {

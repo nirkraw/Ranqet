@@ -8,17 +8,14 @@ public class RankingResponse {
 
     private final String description;
 
-    private final List<RankedOption> personalRanking;
-
-    private final List<RankedOption> globalRanking;
+    private final List<RankedOption> ranking;
 
     private final User completedBy;
 
     private RankingResponse(Builder builder) {
         this.title = builder.title;
         this.description = builder.description;
-        this.personalRanking = builder.personalRanking;
-        this.globalRanking = builder.globalRanking;
+        this.ranking = builder.ranking;
         this.completedBy = builder.completedBy;
     }
 
@@ -30,12 +27,8 @@ public class RankingResponse {
         return description;
     }
 
-    public List<RankedOption> getPersonalRanking() {
-        return personalRanking;
-    }
-
-    public List<RankedOption> getGlobalRanking() {
-        return globalRanking;
+    public List<RankedOption> getRanking() {
+        return ranking;
     }
 
     public User getCompletedBy() {
@@ -52,9 +45,7 @@ public class RankingResponse {
 
         private String description;
 
-        private List<RankedOption> personalRanking;
-
-        private List<RankedOption> globalRanking;
+        private List<RankedOption> ranking;
 
         private User completedBy;
 
@@ -72,13 +63,8 @@ public class RankingResponse {
             return this;
         }
 
-        public Builder personalRanking(List<RankedOption> personalRanking) {
-            this.personalRanking = personalRanking;
-            return this;
-        }
-
-        public Builder globalRanking(List<RankedOption> globalRanking) {
-            this.globalRanking = globalRanking;
+        public Builder ranking(List<RankedOption> ranking) {
+            this.ranking = ranking;
             return this;
         }
 

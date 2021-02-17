@@ -8,6 +8,8 @@ import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.db.model.UserListEntity;
+import com.rankerapp.exceptions.BadRequestException;
+import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.transport.model.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,10 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -49,7 +48,7 @@ public class ListFetcher {
         return convertListToResponse(listEntity);
     }
 
-    public RankingResponse fetchRankings(UUID listId, UUID userId) {
+    public RankingResponse fetchPersonalRankings(UUID listId, UUID userId) {
         List<ScoreEntity> scores = scoresRepo.findByListIdAndUserId(listId, userId);
         ListEntity list = listsRepo.getOne(listId);
         UserEntity user = usersRepo.getOne(userId);
@@ -57,34 +56,55 @@ public class ListFetcher {
                 .map(UserListEntity::isCompleted)
                 .orElse(false);
 
-        List<RankedOption> rankedOptions = convertAndSortList(scores);
-
-        RankingResponse.Builder builder = RankingResponse.builder()
-                .title(list.getTitle())
-                .description(list.getDescription())
-                .personalRanking(rankedOptions)
-                .completedBy(UsersOperations.convertUserEntity(user));
-
-        if (userListIsComplete) {
-            List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(listId, null);
-            if (globalScores.isEmpty()) {
-                List<ScoreEntity> newGlobalScores = new ArrayList<>();
-                for (ScoreEntity score : scores) {
-                    ScoreEntity newScore = new ScoreEntity();
-                    newScore.setScore(score.getScore());
-                    newScore.setListId(score.getListId());
-                    newScore.setOption(score.getOption());
-                    newScore.setId(UUID.randomUUID());
-                    newGlobalScores.add(newScore);
-                }
-                scoresRepo.saveAll(newGlobalScores);
-                globalScores = newGlobalScores;
-            }
-
-            builder.globalRanking(convertAndSortList(globalScores));
+        if (!userListIsComplete) {
+            throw new ForbiddenException("Cannot fetch personal rankings for a list that is incomplete");
         }
 
-        return builder.build();
+        List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(listId, null);
+        if (globalScores.isEmpty()) {
+            List<ScoreEntity> newGlobalScores = new ArrayList<>();
+            for (ScoreEntity score : scores) {
+                ScoreEntity newScore = new ScoreEntity();
+                newScore.setScore(score.getScore());
+                newScore.setListId(score.getListId());
+                newScore.setOption(score.getOption());
+                newScore.setId(UUID.randomUUID());
+                newGlobalScores.add(newScore);
+            }
+            scoresRepo.saveAll(newGlobalScores);
+        }
+
+        List<RankedOption> rankedOptions = convertAndSortList(scores);
+
+        return RankingResponse.builder()
+                .title(list.getTitle())
+                .description(list.getDescription())
+                .ranking(rankedOptions)
+                .completedBy(UsersOperations.convertUserEntity(user))
+                .build();
+    }
+
+    public RankingResponse fetchGlobalRankings(UUID listId) {
+        List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(listId, null);
+        ListEntity list = listsRepo.getOne(listId);
+
+        if (globalScores.isEmpty()) {
+            // no global scores exist yet
+            return RankingResponse.builder()
+                    .ranking(Collections.emptyList())
+                    .completedBy(null)
+                    .title(list.getTitle())
+                    .description(list.getDescription())
+                    .build();
+        }
+
+
+        return RankingResponse.builder()
+                .title(list.getTitle())
+                .description(list.getDescription())
+                .ranking(convertAndSortList(globalScores))
+                .completedBy(null)
+                .build();
     }
 
     @Transactional
