@@ -5,4 +5,3 @@ build/
 webapp/node_modules
 webapp/.eslintcache
 src/main/resources/secrets.txt
-scripts/elasticsearch-7.11.0*
