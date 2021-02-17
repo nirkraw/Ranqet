@@ -60,7 +60,7 @@ export default function Comments({ openModal }) {
 
   const handleCommentChange = (e) => {
     if (localStorage.getItem("userId")) setNewComment(e.target.value);
-    else openModal("login");
+    else openModal(["login"]);
   }
 
   if (error) return <ErrorPage error={error} />;

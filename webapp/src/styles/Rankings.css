@@ -1,27 +1,31 @@
 #completed-list-main-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 80%;
 }
 
 #personal-and-global-ranking-main-div {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+
+#space-div {
+  width: 10%;
 }
 
 #ranking-main-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    width: 400px;
-    box-shadow: 20px 20px 20px 1px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  width: 400px;
+  box-shadow: 20px 20px 20px 1px rgba(0, 0, 0, 0.3);
 }
 
-#ranking-main-div  > ul {
+#ranking-main-div > ul {
   width: 100%;
 }
 
@@ -62,4 +66,21 @@
 
 .ranking-name > h2 {
   width: 85%;
+}
+
+#rankings-quiz-button {
+  margin-top: 10%;
+  font-family: var(--font-2);
+  font-size: 23px;
+  width: 200px;
+  color: var(--pink-4);
+  padding: 7px 7px 7px 4px;
+  border-radius: 5%;
+  border: none;
+  box-shadow: inset 60px 0 120px var(--tan-2), inset -60px 0 120px var(--pink-2);
+}
+
+#rankings-quiz-button:hover {
+  box-shadow: inset 60px 0 120px var(--tan-3),
+    /* left magenta */ inset -60px 0 120px var(--pink-3); /* right cyan */
 }

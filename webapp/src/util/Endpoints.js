@@ -9,11 +9,19 @@ export const fetchList = (listId) => {
   });
 };
 
-export const fetchRankings = (listId, userId) => {
-  return axios.get(`${server}/list/${listId}/rankings?userId=${userId}`, {
+export const fetchPersonalRankings = (listId, userId) => {
+  return axios.get(`${server}/list/${listId}/rankings/personal?userId=${userId}`, {
     "Content-Type": "application/json",
   });
 };
+
+export const fetchGlobalRankings = (listId) => {
+  return axios.get(`${server}/list/${listId}/rankings/global`, {
+    "Content-Type": "application/json",
+  });
+};
+
+
 
 export const createList = (data) => {
   return axios.post(`${server}/list/create`, data, {

@@ -14,8 +14,12 @@ export default function Quiz() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
+  if(!localStorage.getItem("userId")) {
+    history.push(`/${match.params.listId}/rankings`);
+  }
+
   useEffect(() => {
-    fetchCurrList();
+   fetchCurrList();
   },[]);
 
   const fetchCurrList = async () => {

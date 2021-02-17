@@ -16,7 +16,7 @@
 }
 
 #top-list-container {
-  width: 70%;
+  width: 75%;
   height: fit-content;
   border-right: 1px solid gray;
   display: flex;
@@ -27,6 +27,7 @@
   margin-left: 20px;
   background-color: white;
   box-shadow: 10px 7px 7px 1px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--tan-2);
 }
 
 #home-title {
@@ -37,7 +38,7 @@
   margin-bottom: 20px;
   margin-top: 10px;
   width: fit-content;
-  text-shadow: 5px 5px var(--pink-1);
+  text-shadow: 2px 2px var(--pink-1);
   align-self: center;
 }
 
@@ -51,7 +52,7 @@
   width: 96%;
   margin-bottom: 15px;
   background-color: white;
-  border: 1px solid var(--tan-2);
+  border: 2px solid var(--tan-2);
   box-shadow: 12px 12px 12px 1px rgba(0, 0, 0, 0.3);
 }
 

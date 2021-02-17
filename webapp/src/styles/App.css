@@ -1,9 +1,18 @@
+#root {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(250, 248, 248);
+}
+
 .App {
   min-height: 100vh;
   height: fit-content;
   width: 100vw;
+  /* width: 1500px; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self:center;
   background-color: rgb(250, 248, 248);
 }

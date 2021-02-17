@@ -22,7 +22,7 @@ export default function Navbar({openModal}) {
         <div id="navbar-buttons-container">
           <div
             className="nav-session-button"
-            onClick={() => openModal("login")}
+            onClick={() => openModal(["login"])}
           >
             Login
           </div>

@@ -12,7 +12,7 @@ import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
 
 function App() {
-  const [formType, openModal] = useState(null);
+  const [formType, openModal] = useState([]);
 
   return (
     <div className="App">
@@ -30,16 +30,7 @@ function App() {
           }
         />
         <Route path="/category/:categoryType" render={() => <Category />} />
-        <Route
-          path="/:listId/quiz"
-          render={() =>
-            localStorage.getItem("sessionToken") ? (
-              <Quiz />
-            ) : (
-              <Redirect to="/:listId/rankings" />
-            )
-          }
-        />
+        <Route path="/:listId/quiz" render={() => <Quiz />} />
         <Route
           path="/:listId/rankings"
           render={() => <Rankings openModal={openModal} />}

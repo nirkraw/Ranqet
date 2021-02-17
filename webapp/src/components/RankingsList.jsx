@@ -1,7 +1,22 @@
 import React from 'react'
 import "../styles/Rankings.css";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
-export default function RankingsList({rankings, rankingName}) {
+export default function RankingsList({rankings, rankingName, openModal}) {
+  const history = useHistory();
+  const match = useRouteMatch();
+  
+  const handleTakeQuiz = () => {
+       if (localStorage.getItem("userId")) history.push(`/${match.params.listId}/quiz`);
+       else openModal(["login", `/${match.params.listId}/quiz`]);
+  }
+
+  if(rankings.length === 0) return (
+    <div id="ranking-main-div">
+      <h2 className="ranking-header">{rankingName}</h2>
+      <button id="rankings-quiz-button" onClick={handleTakeQuiz}>Login To Take the Quiz!</button>
+    </div>
+  );
     return (
       <div id="ranking-main-div">
         <h2 className="ranking-header">{rankingName}</h2>
