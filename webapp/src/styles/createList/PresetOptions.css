@@ -1,0 +1,60 @@
+#preset-options-main-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#preset-options-sub-container {
+  margin-top: 15px;
+  height: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#options-tabs-container {
+  border: 1px solid black;
+  width: 30%;
+}
+
+#preset-options-display-container {
+  border: 1px solid black;
+  width: 60%;
+}
+
+#preset-options-button-container {
+  margin-top: 15px;
+  height: 9%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#preset-options-button-container > button {
+  margin-left: 15px;
+}
+
+#public-tag {
+  color: purple;
+}
+
+.Modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color: white;
+  border: 2px solid black;
+  padding: 15px;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(231, 227, 227, 0.8);
+}

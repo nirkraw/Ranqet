@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import UploadImage from "./UploadImage";
 import "../../styles/createList/OptionInputs.css";
+import PresetOptions from "./PresetOptions/PresetOptions";
 
 export default function OptionInputs({
   imageLoading,
   setListOptions,
   setImageLoading,
+  presetModalOpen,
+  setPresetModalOpen,
 }) {
   const [options, setOptions] = useState([
     { name: "", photoUrl: "" },
@@ -25,11 +28,11 @@ export default function OptionInputs({
     setListOptions(options);
   }, [options]);
 
-
   const handleOptionNameChange = (e) => {
     const currOptionIdx = e.currentTarget.attributes.optionnum.value;
-    options[currOptionIdx].name = e.currentTarget.value;
-    setOptions(options);
+    const optionsCopy = [...options]
+    optionsCopy[currOptionIdx].name = e.currentTarget.value;
+    setOptions(optionsCopy);
   };
 
   const openImageModal = (e) => {
@@ -45,9 +48,11 @@ export default function OptionInputs({
 
   const optionInputs = arrIdxs.map((i) => {
     let currImg;
-    if (imageLoading && options[i].photoUrl) {
+    if (!options[i] || !options[i].photoUrl) {
+      currImg = "Add Image";
+    } else if (imageLoading) {
       currImg = <LoadingSpinner />;
-    } else if (!imageLoading && options[i].photoUrl) {
+    } else {
       currImg = (
         <img
           onClick={openImageModal}
@@ -57,9 +62,7 @@ export default function OptionInputs({
           alt="option-preview"
         ></img>
       );
-    } else {
-      currImg = "Add Image";
-    }
+    } 
 
     return (
       <li className="option-input-li" key={i}>
@@ -71,8 +74,15 @@ export default function OptionInputs({
           options={options}
           setOptions={setOptions}
         />
+        <PresetOptions
+          isOpen={presetModalOpen}
+          setPresetModalOpen={setPresetModalOpen}
+          setOptions={setOptions}
+          options={options}
+        />
         <input
           placeholder={`Option ${i + 1}`}
+          value={options[i].name}
           maxLength="32"
           optionnum={i}
           className="option-input"

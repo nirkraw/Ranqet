@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 
+
 export default function CreateList() {
   const history = useHistory();
   const [listTitle, setListTitle] = useState("");
@@ -21,6 +22,8 @@ export default function CreateList() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
+  const [presetModalOpen, setPresetModalOpen] = useState(false);
+ 
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -97,7 +100,6 @@ export default function CreateList() {
               <textarea
                 id="description-input"
                 rows="3"
-                
                 maxLength="190"
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -117,11 +119,19 @@ export default function CreateList() {
         </div>
         <div id="create-list-options-div">
           <h2 id="options-label">List Options (any order):</h2>
+          <button
+            id="option-preset-button"
+            onClick={() => setPresetModalOpen(true)}
+          >
+            Use Preset Options
+          </button>
           <OptionInputs
             listOptions={listOptions}
             imageLoading={imageLoading}
             setListOptions={setListOptions}
             setImageLoading={setImageLoading}
+            presetModalOpen={presetModalOpen}
+            setPresetModalOpen={setPresetModalOpen}
           />
         </div>
         <button onClick={handleListSubmit} id="create-list-submit">
