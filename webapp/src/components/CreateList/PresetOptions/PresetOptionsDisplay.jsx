@@ -5,7 +5,7 @@ export default function PresetOptionsDisplay({ options }) {
   return (
     <ul id="preset-options-display-container">
       {options.map((option, i) => (
-        <li key={i}>
+        <li id="preset-options-display-item" key={i}>
           <h1>{option.name}</h1>
           <img src={option.photoUrl} alt="option" />
         </li>
