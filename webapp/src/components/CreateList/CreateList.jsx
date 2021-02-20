@@ -142,12 +142,20 @@ export default function CreateList() {
             presetModalOpen={presetModalOpen}
             setPresetModalOpen={setPresetModalOpen}
           />
-          <button
-            id="option-preset-button"
-            onClick={() => setSavePresetModalOpen(true)}
-          >
-            Save Options As Preset
-          </button>
+          <div id="infotag-and-preset-button-container">
+            <button
+              id="option-preset-button"
+              onClick={() => setSavePresetModalOpen(true)}
+            >
+              Save Options As Preset
+            </button>
+            <div className="info-tag tooltip-container">
+              <h1>?</h1>
+              <span className="tooltiptext">
+                Save your options as a preset for future use
+              </span>
+            </div>
+          </div>
           <SavePresetOptions
             isOpen={savePresetModalOpen}
             setSavePresetModalOpen={setSavePresetModalOpen}
