@@ -61,10 +61,11 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 #preset-options-button-container > button {
-  margin-left: 15px;
+  margin: 15px;
   border: 1px solid black;
   padding: 4px;
   width: fit-content;
@@ -131,5 +132,36 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(225, 225, 225, 0.2);
+  background-color: rgba(225, 225, 225, 0.8);
+}
+
+#save-preset-container {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+#preset-privacy-input {
+  margin-bottom: 10px;
+}
+
+.preset-input-label {
+  font-family: var(--font-1);
+  font-size: 25px;
+  color: var(--pink-2);
+  font-weight: 900;
+}
+
+.Modal-Save {
+  position: absolute;
+  top: 200px;
+  left: 400px;
+  right: 400px;
+  bottom: 200px;
+  background-color: white;
 }

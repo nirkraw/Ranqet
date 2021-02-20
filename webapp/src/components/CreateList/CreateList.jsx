@@ -8,7 +8,7 @@ import ListImage from "./ListImage";
 import { useHistory } from "react-router-dom";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
-
+import SavePresetOptions from "./PresetOptions/SavePresetOptions";
 
 export default function CreateList() {
   const history = useHistory();
@@ -23,7 +23,7 @@ export default function CreateList() {
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [presetModalOpen, setPresetModalOpen] = useState(false);
- 
+  const [savePresetModalOpen, setSavePresetModalOpen] = useState(false);
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -119,12 +119,21 @@ export default function CreateList() {
         </div>
         <div id="create-list-options-div">
           <h2 id="options-label">List Options (any order):</h2>
-          <button
-            id="option-preset-button"
-            onClick={() => setPresetModalOpen(true)}
-          >
-            Use Preset Options
-          </button>
+          <div id="infotag-and-preset-button-container">
+            <button
+              id="option-preset-button"
+              onClick={() => setPresetModalOpen(true)}
+            >
+              Use Preset Options
+            </button>
+            <div className="info-tag tooltip-container">
+              <h1>?</h1>
+              <span className="tooltiptext">
+                Prefill your options with previously made public or personal
+                options
+              </span>
+            </div>
+          </div>
           <OptionInputs
             listOptions={listOptions}
             imageLoading={imageLoading}
@@ -133,9 +142,20 @@ export default function CreateList() {
             presetModalOpen={presetModalOpen}
             setPresetModalOpen={setPresetModalOpen}
           />
+          <button
+            id="option-preset-button"
+            onClick={() => setSavePresetModalOpen(true)}
+          >
+            Save Options As Preset
+          </button>
+          <SavePresetOptions
+            isOpen={savePresetModalOpen}
+            setSavePresetModalOpen={setSavePresetModalOpen}
+            options={listOptions}
+          />
         </div>
         <button onClick={handleListSubmit} id="create-list-submit">
-          Submit
+          Create List
         </button>
       </form>
     </div>
