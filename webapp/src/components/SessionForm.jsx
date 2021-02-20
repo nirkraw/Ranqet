@@ -4,8 +4,8 @@ import { createUser, loginUser } from "../util/Endpoints";
 import ErrorPage from "./Misc/ErrorPage";
 import { useHistory } from "react-router-dom";
 
-export default function SessionForm({formType, openModal, route}) {
-   const history = useHistory();
+export default function SessionForm({ formType, openModal, route }) {
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +17,7 @@ export default function SessionForm({formType, openModal, route}) {
     setUserError("");
     if (formType === "login") setFormHeader("Log In");
     else setFormHeader("Sign Up");
-  }, []);
+  }, [formType]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,15 +34,15 @@ export default function SessionForm({formType, openModal, route}) {
       });
       localStorage.setItem("userId", res.data.id);
       localStorage.setItem("sessionToken", res.data.sessionToken);
-      if(route) {
+      if (route) {
         history.push(route);
       }
-        openModal([]);
+      openModal([]);
     } catch (err) {
-      if (err.response.status=== 403 && formHeader === "Log In") {
+      if (err.response.status === 403 && formHeader === "Log In") {
         setUserError("*Username or password not found");
-      } else if (err.response.status=== 400 && formHeader === "Sign Up") {
-        setUserError("*Username already exists")
+      } else if (err.response.status === 400 && formHeader === "Sign Up") {
+        setUserError("*Username already exists");
       } else {
         setError(err.response.status);
       }
@@ -76,13 +76,30 @@ export default function SessionForm({formType, openModal, route}) {
         <input
           type="password"
           value={password}
-          placeholder="Your Password"
+          placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
           className="login-input"
         />
-        <button id="session-submit" onClick={handleSubmit}>
-          Continue
-        </button>
+        <div className="session-buttons-container">
+          {formType === "login" ? (
+            <button
+              className="switch-session-button"
+              onClick={() => openModal(["signup", route])}
+            >
+              Sign Up
+            </button>
+          ) : (
+            <button
+              className="switch-session-button"
+              onClick={() => openModal(["login", route])}
+            >
+              Log In
+            </button>
+          )}
+          <button id="session-submit" onClick={handleSubmit}>
+            Continue
+          </button>
+        </div>
         <h2 className="session-errors">{userError}</h2>
       </form>
     </div>

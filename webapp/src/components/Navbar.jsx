@@ -28,7 +28,7 @@ export default function Navbar({openModal}) {
           </div>
           <div
             className="nav-session-button"
-            onClick={() => openModal("signup")}
+            onClick={() => openModal(["signup"])}
           >
             Sign Up
           </div>

@@ -37,9 +37,15 @@
   font-size: 20px;
 }
 
-#session-submit {
+.session-buttons-container {
+  width: 93%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#session-submit{
   background-color: var(--pink-3);
-  width: 90%;
+  width: 50%;
   height: 50px;
   margin: 5px;
   border: 1px solid rgb(190, 190, 190);
@@ -48,6 +54,22 @@
   font-family: 'Overpass', sans-serif;
   box-shadow: 10px 7px 7px 1px rgba(0, 0, 0, 0.3);
   font-size: 17px;
+}
+
+.switch-session-button  {
+  width: 30%;
+  height: 50px;
+  margin: 5px;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 4px;
+  color: var(--pink-3);
+  font-family: 'Overpass', sans-serif;
+  box-shadow: 10px 7px 7px 1px rgba(0, 0, 0, 0.3);
+  font-size: 17px;
+}
+
+.switch-session-button:hover {
+  background-color: rgb(186, 185, 185);
 }
 
 #session-submit:hover {

@@ -7,7 +7,6 @@
   background-color: white;
   box-shadow: 10px 7px 10px 1px rgba(0, 0, 0, 0.3);
   height: 600px;
-  border: 2px solid var(--tan-2);
 }
 
 #new-lists-ul {
@@ -17,8 +16,8 @@
 
 #new-lists-header {
   margin-top: 10px;
-  font-family: var(--font-4);
-  font-weight: 900;
+  font-family: var(--main-page-header);
+  font-weight: 600;
   font-size: 35px;
   text-align: center;
   color: var(--pink-3);
@@ -58,7 +57,7 @@
 .new-lists-item-name {
   font-size: 20px;
   font-family: var(--font-3);
-  color: var(--tan-3);
+  color: var(--pink-2);
   text-decoration: none;
   margin-bottom: 0px;
   text-align:center;
