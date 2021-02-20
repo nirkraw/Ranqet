@@ -8,8 +8,9 @@
 }
 
 .login-form {
-  height: 40%;
+  position: relative;
   width: 30%;
+  min-height: 370px;
   padding: 15px;
   display: flex;
   align-items: center;
@@ -21,8 +22,9 @@
 
 .login-form > h3 {
   margin: 10px;
-  font-size: 40px;
-  font-family: 'Overpass', sans-serif;
+  font-size: 45px;
+  font-family: var(--font-3);
+  font-weight: 400;
   color: var(--pink-3);
 }
 
@@ -82,6 +84,9 @@
   font-size: 17px;
   color: rgb(245, 7, 7);
   text-align: center;
+  position: absolute;
+  top: 30px;
+  left: 12%;
 }
 
 

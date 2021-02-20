@@ -17,9 +17,11 @@ export default function RankingsList({ rankings, rankingName, openModal }) {
       return (
         <div id="ranking-main-div">
           <h2 className="ranking-header">{rankingName}</h2>
-          <button id="rankings-quiz-button" onClick={handleTakeQuiz}>
-            Login To Take the Quiz!
-          </button>
+          <div className="ranking-quiz-button-container">
+            <button id="rankings-quiz-button" onClick={handleTakeQuiz}>
+              Take the Quiz!
+            </button>
+          </div>
         </div>
       );
     } else {
