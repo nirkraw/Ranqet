@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import "../styles/ConfirmationModal.css";
-import {deleteList} from "../util/Endpoints";
+import {deleteList} from "../util/Endpoints/ListEP";
 
 Modal.setAppElement("#root");
 

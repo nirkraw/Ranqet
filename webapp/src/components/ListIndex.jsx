@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchListOptionPair } from "../util/Endpoints";
+import { fetchListOptionPair } from "../util/Endpoints/OptionEP";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import TrashImage from "../assets/trash-icon.png";

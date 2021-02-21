@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchPersonalRankings, fetchGlobalRankings } from "../util/Endpoints";
+import { fetchPersonalRankings, fetchGlobalRankings } from "../util/Endpoints/RankingEP";
 import "../styles/Rankings.css";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import ErrorPage from "./Misc/ErrorPage";

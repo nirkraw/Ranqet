@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchListOptionPair, submitOptionChoice } from "../../util/Endpoints";
+import { fetchListOptionPair, submitOptionChoice } from "../../util/Endpoints/OptionEP";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";

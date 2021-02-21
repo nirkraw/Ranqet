@@ -4,7 +4,8 @@ import { formatUploadTime } from "../util/DateCalc";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import ErrorPage from "./Misc/ErrorPage";
-import { fetchListComments, fetchUser, createComment } from "../util/Endpoints";
+import { fetchListComments, createComment } from "../util/Endpoints/CommentEP";
+import {fetchUser} from "../util/Endpoints/UserEP";
 import EmptyAvatar from "../assets/avatar.svg";
 
 export default function Comments({ openModal }) {

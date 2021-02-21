@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import { fetchUserLists } from "../../util/Endpoints";
+import { fetchUserLists } from "../../util/Endpoints/UserEP";
 import "../../styles/UserProfile.css";
 import ConfirmationModal from "../ConfirmModal";
 import UserInfo from "./UserInfo";

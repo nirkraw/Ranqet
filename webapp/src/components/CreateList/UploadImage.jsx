@@ -3,7 +3,7 @@ import "../../styles/createList/UploadImage.css";
 import Modal from "react-modal";
 import axios from "axios";
 import Homer from "../../assets/homer-simpsons-155238_1280.png";
-import { uploadImage } from "../../util/Endpoints";
+import { uploadImage } from "../../util/Endpoints/ListEP";
 Modal.setAppElement("#root");
 
 export default function UploadImage({

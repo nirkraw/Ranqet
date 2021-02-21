@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { createList } from "../../util/Endpoints";
+import { createList } from "../../util/Endpoints/ListEP";
 import "../../styles/createList/CreateList.css";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import ErrorPage from "../Misc/ErrorPage";
 import "../../styles/Home.css";
-import { fetchTopLists, fetchNewLists } from "../../util/Endpoints";
+import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
 import { useHistory } from "react-router-dom";
 import ListIndex from "../ListIndex";
 import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";

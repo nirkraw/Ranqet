@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/UserProfile.css";
 import { formatUploadTime } from "../../util/DateCalc";
-import { fetchUser, uploadImage, updateUserAvatar } from "../../util/Endpoints";
+import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
+import { uploadImage} from "../../util/Endpoints/ListEP";
 import { useRouteMatch } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 

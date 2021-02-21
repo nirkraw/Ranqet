@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
 import ErrorPage from "./Misc/ErrorPage";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import { fetchCategoryList } from "../util/Endpoints";
+import { fetchCategoryList } from "../util/Endpoints/ListEP";
 import ListIndex from "./ListIndex";
 import "../styles/Category.css";
 import { ListCategoryToTitle } from "../enums/ListCategory";

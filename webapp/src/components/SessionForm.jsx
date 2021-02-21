@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Session.css";
-import { createUser, loginUser } from "../util/Endpoints";
+import { createUser, loginUser } from "../util/Endpoints/UserEP";
 import ErrorPage from "./Misc/ErrorPage";
 import { useHistory } from "react-router-dom";
 

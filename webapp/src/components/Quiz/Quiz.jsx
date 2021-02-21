@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchList } from "../../util/Endpoints";
+import { fetchList } from "../../util/Endpoints/ListEP";
 import "../../styles/Quiz.css";
 import QuizOptions from "./QuizOptions";
 import ErrorPage from "../Misc/ErrorPage";

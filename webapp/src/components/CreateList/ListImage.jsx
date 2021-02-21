@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { uploadImage } from "../../util/Endpoints";
+import { uploadImage } from "../../util/Endpoints/ListEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/createList/ListImage.css";
 
