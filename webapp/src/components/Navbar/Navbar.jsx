@@ -4,9 +4,8 @@ import SearchInput from "../SearchBar/SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ openModal }) {
+export default function Navbar({ openModal, useOutsideAlerter, setTabType }) {
   const history = useHistory();
-  
 
   return (
     <div id="nav-main">
@@ -37,7 +36,16 @@ export default function Navbar({ openModal }) {
           >
             Create List
           </h3>
-          <ProfileDropdown />
+          <h3
+            onClick={() => history.push("/")}
+            className="nav-session-button"
+          >
+            Home
+          </h3>
+          <ProfileDropdown
+            useOutsideAlerter={useOutsideAlerter}
+            setTabType={setTabType}
+          />
         </div>
       )}
     </div>

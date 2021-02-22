@@ -41,7 +41,6 @@
 }
 
 .nav-session-button:last-child {
-  margin-right: 0px;
   position: relative;
 }
 
@@ -52,7 +51,6 @@
 }
 
 #navbar-buttons-container {
-  margin-right: 2%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,12 +62,12 @@
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  bottom: -250px;
   visibility: hidden;
   border: 1px solid black;
   width: 200px;
   background-color: white;
   right: 50px;
+  z-index: 100;
 }
 
 .active {
@@ -83,12 +81,17 @@
   align-items: center;
 }
 
+.profile-dropdown-item-container:hover {
+  background-color: rgb(216, 215, 215);
+  cursor: pointer;
+}
+
 .profile-dropdown-item-container > p {
   margin: 0;
   font-family: var(--font-1);
   font-weight: 900;
   font-size: 20px;
-  color: rgb(83, 83, 83);
+  color: rgb(12, 12, 12);
   padding: 10px;
 }
 
