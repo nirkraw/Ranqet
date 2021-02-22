@@ -31,7 +31,7 @@ export default function Navbar({ openModal, useOutsideAlerter, setTabType }) {
       ) : (
         <div id="navbar-buttons-container">
           <h3
-            onClick={() => history.push("./create-list")}
+            onClick={() => history.push("/create-list")}
             className="nav-session-button"
           >
             Create List

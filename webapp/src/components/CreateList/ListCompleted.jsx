@@ -1,34 +1,55 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
-import { fetchList } from "../../util/Endpoints/ListEP";
-import ErrorPage from "../Misc/ErrorPage";
-import LoadingSpinner from "../Misc/LoadingSpinner";
+import React, { useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 
-export default function ListCompleted() {
+export default function ListCompleted({
+  listId,
+  title,
+  imageUrl,
+  description,
+}) {
   const history = useHistory();
-  const match = useRouteMatch();
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const linkRef = useRef(null);
+  const [active, setActive] = useState(false);
 
-  useEffect(() => {
-    fetchCurrList();
-  }, []);
-
-  const fetchCurrList = () => {
-    try {
-      fetchList();
-      setLoading(false);
-    } catch (err) {}
+  const copyToClipboard = (e) => {
+    navigator.clipboard.writeText(linkRef.current.value);
+    setActive(true);
   };
 
-  if (error) return <ErrorPage error={error} />;
-  if (loading) return <LoadingSpinner />;
-
-  return <div>
-      <div>
-          
+  return (
+    <div id="list-completed-main">
+      <div id="list-completed-sub">
+        <div
+          id="list-completed-info-and-image"
+          onClick={() => history.push(`/${listId}/quiz`)}
+        >
+          <img className="list-image" src={imageUrl} alt="list"></img>
+          <div id="list-completed-info">
+            <p>{title}</p>
+            <p>{description}</p>
+          </div>
+        </div>
+        <div id="list-completed-buttons">
+          <input
+            ref={linkRef}
+            id="share-url-input"
+            disabled
+            value={`${window.location.origin}/#/${listId}/quiz`}
+          />
+          <button className="site-button" onClick={copyToClipboard}>
+            Copy Link
+          </button>
+          <p
+            className={
+              !active
+                ? "copied-message"
+                : "copied-message copied-message-active"
+            }
+          >
+            Copied!
+          </p>
+        </div>
       </div>
-  </div>;
+    </div>
+  );
 }

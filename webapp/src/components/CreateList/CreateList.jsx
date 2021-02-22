@@ -9,8 +9,17 @@ import { useHistory } from "react-router-dom";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 import SavePresetOptions from "./PresetOptions/SavePresetOptions";
+import ListCompleted from "./ListCompleted";
 
 export default function CreateList() {
+  // return (
+  //   <ListCompleted
+  //     listId="beb0903a-fdeb-46b6-861f-dfd8972fa8a3"
+  //     title="Best TV SHOWS"
+  //     imageUrl="https://ranker-dev.s3.amazonaws.com/1611009260172-Rush-Hour-2-a.jpg"
+  //     description="What have been the best TV shows so far this year?"
+  //   />
+  // );
   const history = useHistory();
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -66,9 +75,16 @@ export default function CreateList() {
       };
 
       try {
-        await createList(data);
+        const res = await createList(data);
         setLoading(false);
-        history.push("/");
+        return (
+          <ListCompleted
+            listId={res.data.listId}
+            title={res.data.description}
+            imageUrl={res.data.imageUrl}
+            description={res.data.description}
+          />
+        );
       } catch (err) {
         setError(err.message);
       }

@@ -150,3 +150,8 @@ q {
   border: none;
   box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.3);
 }
+
+.site-button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
