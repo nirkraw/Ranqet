@@ -2,6 +2,7 @@ import React from "react";
 import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 import { useHistory } from "react-router-dom";
 import "../../styles/NewLists.css";
+import Star from "../../assets/star.ico";
 
 export default function NewLists({ newLists }) {
   const history = useHistory();
@@ -31,7 +32,10 @@ export default function NewLists({ newLists }) {
 
   return (
     <div id="new-lists-container">
-      <h3 id="new-lists-header">New</h3>
+      <div id="new-list-title-and-icon">
+        <h3 id="new-lists-header">New</h3>
+        <img src={Star} alt="star" id="top-lists-icon"></img>
+      </div>
       <ul id="new-lists-ul">
         {newLists.map((list, i) => {
           return (

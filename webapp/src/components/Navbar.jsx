@@ -36,7 +36,7 @@ export default function Navbar({openModal}) {
       ) : (
         <div id="navbar-buttons-container">
           <NavLink to="/create-list" className="nav-session-button">
-            New List
+            Create List
           </NavLink>
           <NavLink
             to={`/profile/${localStorage.getItem("userId")}`}

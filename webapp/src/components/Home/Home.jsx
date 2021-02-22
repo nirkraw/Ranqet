@@ -54,7 +54,10 @@ export default function Home() {
           <h1 id="all-list-error">{error}</h1>
           <ListIndex passedList={topLists}/>
         </div>
+        <div id="create-button-and-new-list-container">
+          <div id="home-create-list-container"><button>Create List</button></div>
         <NewLists newLists={newLists} />
+        </div>
       </div>
     </div>
   );
