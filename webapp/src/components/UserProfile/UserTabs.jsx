@@ -14,20 +14,20 @@ export default function UserTabs({completedLists, createdLists, inProgressLists,
           >
             <ListIndex passedList={completedLists} />
           </Tab>
-          <Tab eventKey="created" title="Created" tabClassName="tab-container">
-            <ListIndex
-              passedList={createdLists}
-              trash={true}
-              setCurrListId={setCurrListId}
-              setIsOpen={setIsOpen}
-            />
-          </Tab>
           <Tab
             eventKey="inProgress"
             title="In Progress"
             tabClassName="tab-container"
           >
             <ListIndex passedList={inProgressLists} />
+          </Tab>
+          <Tab eventKey="created" title="My Lists" tabClassName="tab-container">
+            <ListIndex
+              passedList={createdLists}
+              trash={true}
+              setCurrListId={setCurrListId}
+              setIsOpen={setIsOpen}
+            />
           </Tab>
         </Tabs>
       </div>

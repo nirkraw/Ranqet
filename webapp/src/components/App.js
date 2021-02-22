@@ -1,5 +1,5 @@
 import "../styles/App.css";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import Home from "./Home/Home";
 import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings";
@@ -37,7 +37,7 @@ function App() {
         />
         <Route path="/profile/:userId" render={() => <UserProfile />} />
         <Route path="/search/:searchVal" render={() => <SearchPage />} />
-        <Route path="/" render={() => <Home />} />
+        <Route path="/" render={() => <Home openModal={openModal} />} />
       </Switch>
     </div>
   );
