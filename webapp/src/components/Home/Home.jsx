@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import ListIndex from "../ListIndex";
 import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
 import NewLists from "./NewLists";
+import Flame from "../../assets/flame.png"
 
 export default function Home() {
   const history = useHistory();
@@ -46,7 +47,10 @@ export default function Home() {
       </div>
       <div id="top-and-new-lists-container">
         <div id="top-list-container">
-          <h1 id="home-title">Today's Top Lists</h1>
+          <div id="top-list-title-and-icon">
+          <h3 id="home-title">Most Popular</h3>
+          <img src={Flame} alt="flame" id="top-lists-icon"></img>
+          </div>
           <h1 id="all-list-error">{error}</h1>
           <ListIndex passedList={topLists}/>
         </div>

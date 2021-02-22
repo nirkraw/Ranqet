@@ -31,7 +31,7 @@ export default function NewLists({ newLists }) {
 
   return (
     <div id="new-lists-container">
-      <h1 id="new-lists-header">New Lists</h1>
+      <h3 id="new-lists-header">New</h3>
       <ul id="new-lists-ul">
         {newLists.map((list, i) => {
           return (
@@ -40,7 +40,6 @@ export default function NewLists({ newLists }) {
               key={i}
               onClick={() => handleLink(list.id)}
             >
-              <p className="new-lists-item-name">{list.title}</p>
               <div className="new-lists-image-container">
                 {list.imageUrl ? (
                   <img
@@ -50,6 +49,7 @@ export default function NewLists({ newLists }) {
                   ></img>
                 ) : null}
               </div>
+              <p className="new-lists-item-name">{list.title}</p>
             </li>
           );
         })}
