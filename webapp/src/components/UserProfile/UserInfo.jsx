@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import "../../styles/UserProfile.css";
 import { formatUploadTime } from "../../util/DateCalc";
 import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
-import { uploadImage} from "../../util/Endpoints/ListEP";
+import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
-export default function UserInfo({numCreated, numCompleted, setPublicFacing, publicFacing}) {
+export default function UserInfo({
+  numCreated,
+  numCompleted,
+  setPublicFacing,
+  publicFacing,
+}) {
   const match = useRouteMatch();
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -59,24 +64,32 @@ export default function UserInfo({numCreated, numCompleted, setPublicFacing, pub
     currentImage = (
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
-  } else if(localStorage.getItem("userId") === match.params.userId) {
+  } else if (localStorage.getItem("userId") === match.params.userId) {
     currentImage = <p id="profile-photo-text">Add User Profile</p>;
   }
 
   let button;
   if (!publicFacing && localStorage.getItem("userId") === match.params.userId) {
     button = (
-      <button onClick={() => setPublicFacing(!publicFacing)}>
+      <button className="site-button" onClick={() => setPublicFacing(!publicFacing)}>
         View Public Profile
       </button>
     );
-  } else if(publicFacing && localStorage.getItem("userId") === match.params.userId) {
-   button = <button onClick={() => setPublicFacing(!publicFacing)}>
-      Back to Full Profile
-    </button>;
+  } else if (
+    publicFacing &&
+    localStorage.getItem("userId") === match.params.userId
+  ) {
+    button = (
+      <button
+        className="site-button"
+        onClick={() => setPublicFacing(!publicFacing)}
+      >
+        Back to Full Profile
+      </button>
+    );
   }
 
-    if (loading) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div id="user-profile-header">
@@ -87,7 +100,8 @@ export default function UserInfo({numCreated, numCompleted, setPublicFacing, pub
         onChange={handleUserPhotoFile}
         hidden
       />
-      {localStorage.getItem("userId") === match.params.userId && !publicFacing ? (
+      {localStorage.getItem("userId") === match.params.userId &&
+      !publicFacing ? (
         <div
           id="user-profile-image-container"
           onClick={() => document.getElementById("user-photo-input").click()}
@@ -102,10 +116,14 @@ export default function UserInfo({numCreated, numCompleted, setPublicFacing, pub
         <h1>
           Active since <span>{date}</span>
         </h1>
-        <h1><span>{numCreated}</span> lists created</h1>
-        <h1><span>{numCompleted}</span> lists completed</h1>
+        <h1>
+          <span>{numCreated}</span> lists created
+        </h1>
+        <h1>
+          <span>{numCompleted}</span> lists completed
+        </h1>
+        {button}
       </div>
-     {button}
     </div>
   );
 }

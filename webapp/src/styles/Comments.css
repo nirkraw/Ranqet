@@ -109,14 +109,11 @@
 #add-comment-input-and-submit > button {
   align-self: flex-end;
   margin-top: 2%;
-  font-family: var(--font-1);
   font-size: 17px;
   width: fit-content;
   background-color: var(--pink-3);
   color: white;
-  padding: 7px 7px 7px 4px;
-  border-radius: 5%;
-  border: none;
+
 }
 
 #add-comment-input-and-submit > button:hover {

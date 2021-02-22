@@ -59,7 +59,7 @@ export default function Home({ openModal }) {
         </div>
         <div id="create-button-and-new-list-container">
           <div id="home-create-list-container">
-            <button
+            <button className="site-button"
               onClick={() =>
                 localStorage.getItem("sessionToken")
                   ? history.push("/create-list")

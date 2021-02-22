@@ -85,7 +85,7 @@ export default function Comments({ openModal }) {
             onChange={handleCommentChange}
             ref={addCommentInput}
           />
-          <button onClick={addComment}>Comment</button>
+          <button className="site-button" onClick={addComment}>Comment</button>
         </div>
       </div>
       <ul id="main-comments-ul">

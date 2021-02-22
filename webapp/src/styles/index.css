@@ -3,84 +3,150 @@
    License: none (public domain)
 */
 
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-	margin: 0;
-	margin-top: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-	margin-right:0px;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-weight: inherit;
-	font-style: inherit;
-	font-size: 100%;
-	font-family: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
 }
 /* remember to define focus styles! */
 :focus {
-	outline: 0;
+  outline: 0;
 }
 body {
-	line-height: 1;
-	color: black;
-	background: white;
+  line-height: 1;
+  color: black;
+  background: white;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
 /* tables still need 'cellspacing="0"' in the markup */
 table {
-	border-collapse: separate;
-	border-spacing: 0;
+  border-collapse: separate;
+  border-spacing: 0;
 }
-caption, th, td {
-	text-align: left;
-	font-weight: normal;
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: "";
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
 }
-blockquote, q {
-	quotes: "" "";
+blockquote,
+q {
+  quotes: "" "";
 }
 
 :root {
-	--pink-1: #FFE0D8;
-	--pink-2: #FF8A6B;
-	--pink-3: #FF5326;
-	--pink-4: #B02602;
-	--tan-1: #FFFDD8;
-	--tan-2: #FFCE6B;
-	--tan-3: #FFB726;
-	--tan-4: #B07602;
-	--blue-1: #DAE4FC;
-	--blue-2: #6586D2;
-	--blue-3: #2A52B0;
-	--blue-4: #0D2D76;
-	--yellow-1: #FFFDD8;
-	--yellow-2: #FFF66B;
-	--yellow-3: #FFF226;
-	--yellow-4: #B0A502;
-	--font-1: 'Open Sans', sans-serif;
-	--font-2: 'Potta One', cursive;
-	--font-3: 'Nanum Gothic', sans-serif;
-	--font-4: 'Josefin Sans', sans-serif;
-	--font-5: 'Teko', sans-serif;
-	--main-page-header: 'Montserrat', sans-serif;
+  --pink-1: #ffe0d8;
+  --pink-2: #ff8a6b;
+  --pink-3: #ff5326;
+  --pink-4: #b02602;
+  --tan-1: #fffdd8;
+  --tan-2: #ffce6b;
+  --tan-3: #ffb726;
+  --tan-4: #b07602;
+  --blue-1: #dae4fc;
+  --blue-2: #6586d2;
+  --blue-3: #2a52b0;
+  --blue-4: #0d2d76;
+  --yellow-1: #fffdd8;
+  --yellow-2: #fff66b;
+  --yellow-3: #fff226;
+  --yellow-4: #b0a502;
+  --font-1: "Open Sans", sans-serif;
+  --font-2: "Potta One", cursive;
+  --font-3: "Nanum Gothic", sans-serif;
+  --font-4: "Josefin Sans", sans-serif;
+  --font-5: "Teko", sans-serif;
+  --main-page-header: "Montserrat", sans-serif;
 }
 
 ::-moz-selection {
-    color: none;
-    background: none;
+  color: none;
+  background: none;
+}
+
+.site-button {
+  font-family: var(--font-1);
+  width: fit-content;
+  background-color: var(--pink-3);
+  color: white;
+  padding: 4px 8px 4px 8px;
+  border-radius: 5%;
+  border: none;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.3);
 }
