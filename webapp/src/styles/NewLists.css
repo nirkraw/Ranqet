@@ -75,9 +75,9 @@
 }
 
 .new-lists-item-name {
-  font-size: 18px;
+  font-size: 20px;
   font-family: var(--font-3);
-  color: var(--pink-2);
+  color: var(--pink-3);
   text-decoration: none;
   margin-bottom: 0px;
   text-align: center;

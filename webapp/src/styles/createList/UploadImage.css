@@ -5,7 +5,7 @@
 }
 
 #upload-image-main-title {
-  color: var(--pink-2);
+  color: var(--pink-3);
 }
 
 #gifphy-and-file-container {
@@ -17,7 +17,7 @@
 }
 
 .gifphy-and-file-title {
-  color: var(--pink-2);
+  color: var(--pink-2); 
 }
 
 #giphy-upload-container,
@@ -100,7 +100,7 @@
 #giphy-search {
   font-size: 20px;
   font-family: var(--font-1);
-  color: var(--pink-4);
+  color: var(--pink-3);
   font-weight: 900;
   width: 200px;
 }
