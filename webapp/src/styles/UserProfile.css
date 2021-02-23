@@ -31,14 +31,14 @@
   font-family: var(--font-1);
   color: black;
   font-size: 25px;
-  text-align:center;
+  text-align: center;
 }
 
 #user-stats > h1 > span {
   font-family: var(--font-1);
   color: var(--blue-2);
   font-size: 25px;
-  text-align:center;
+  text-align: center;
 }
 
 #user-stats > button {
@@ -53,7 +53,6 @@
   background-color: white;
   margin-left: 40px;
   height: 90%;
-
 }
 
 .tab-container {
@@ -64,6 +63,11 @@
   font-size: 30px;
 }
 
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: var(--blue-3) !important;
+}
+
+
 #user-profile-name {
   margin-left: 17px;
   font-size: 45px;
@@ -72,7 +76,8 @@
   margin-top: 170px;
 }
 
-#user-profile-image-container, #user-profile-image-container-no-hover {
+#user-profile-image-container,
+#user-profile-image-container-no-hover {
   height: 200px;
   width: 200px;
   border: 1px solid var(--pink-2);
@@ -93,7 +98,7 @@
 
 #user-profile-image-container:hover {
   cursor: pointer;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 #user-profile-image {

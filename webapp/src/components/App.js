@@ -38,7 +38,8 @@ function App() {
       <Modal formType={formType} openModal={openModal} />
       <Switch>
         <Route
-          exact path="/create-list"
+          exact
+          path="/create-list"
           render={() =>
             localStorage.getItem("sessionToken") ? (
               <CreateList />
@@ -47,15 +48,23 @@ function App() {
             )
           }
         />
-        <Route exact path="/category/:categoryType" render={() => <Category />} />
+        <Route
+          exact
+          path="/category/:categoryType"
+          render={() => <Category />}
+        />
         <Route exact path="/:listId/quiz" render={() => <Quiz />} />
         <Route
-          exact path="/:listId/rankings"
+          exact
+          path="/:listId/rankings"
           render={() => <Rankings openModal={openModal} />}
         />
         <Route
-          exact path="/profile/:userId"
-          render={() => <UserProfile tabType={tabType} />}
+          exact
+          path="/profile/:userId"
+          render={() => (
+            <UserProfile tabType={tabType} setTabType={setTabType} />
+          )}
         />
         <Route exact path="/search/:searchVal" render={() => <SearchPage />} />
         <Route exact path="/" render={() => <Home openModal={openModal} />} />

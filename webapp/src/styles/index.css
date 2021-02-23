@@ -146,7 +146,7 @@ q {
   background-color: var(--pink-3);
   color: white;
   padding: 4px 8px 4px 8px;
-  border-radius: 5%;
+  border-radius: 5px;
   border: none;
   box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.3);
 }

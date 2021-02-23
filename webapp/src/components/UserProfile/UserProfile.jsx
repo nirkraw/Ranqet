@@ -9,7 +9,7 @@ import { useRouteMatch } from "react-router-dom";
 import UserTabs from "./UserTabs";
 import ListIndex from "../ListIndex";
 
-export default function UserProfile({ tabType }) {
+export default function UserProfile({ tabType, setTabType }) {
   const match = useRouteMatch();
   const [completedLists, setCompletedLists] = useState([]);
   const [inProgressLists, setInProgressLists] = useState([]);
@@ -56,6 +56,7 @@ export default function UserProfile({ tabType }) {
           setIsOpen={setIsOpen}
           setCurrListId={setCurrListId}
           tabType={tabType}
+          setTabType={setTabType}
         />
       ) : (
         <ListIndex passedList={createdLists} />
