@@ -39,7 +39,7 @@ export default function UserProfile({ tabType, setTabType }) {
         match.params.userId,
         localStorage.getItem("sessionToken")
       );
-      setInProgressLists(res.data.inProgressRessLists);
+      setInProgressLists(res.data.inProgressLists);
       setCompletedLists(res.data.completedLists);
       setCreatedLists(res.data.createdLists);
       setLoading(false);
