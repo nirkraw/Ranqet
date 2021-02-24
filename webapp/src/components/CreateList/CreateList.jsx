@@ -138,7 +138,10 @@ export default function CreateList() {
           <div id="infotag-and-preset-button-container">
             <button
               id="option-preset-button"
-              onClick={() => setPresetModalOpen(true)}
+              onClick={(e) => {
+                e.preventDefault();
+                setPresetModalOpen(true);
+              }}
             >
               Use Preset Options
             </button>
@@ -161,7 +164,10 @@ export default function CreateList() {
           <div id="infotag-and-preset-button-container">
             <button
               id="option-preset-button"
-              onClick={() => setSavePresetModalOpen(true)}
+              onClick={(e) => {
+                e.preventDefault();
+                setSavePresetModalOpen(true);
+              }}
             >
               Save Options As Preset
             </button>

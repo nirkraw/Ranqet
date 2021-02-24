@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import "../../../styles/createList/PresetOptions.css";
 import PresetOptionsDisplay from "./PresetOptionsDisplay";
@@ -11,6 +11,7 @@ export default function PresetOptions({
   setOptions,
   options
 }) {
+  debugger 
   const [currOptions, setCurrOptions] = useState(null);
   const basketballPlayers = [
     {
