@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import { fetchUserLists, fetchUserPublicList } from "../../util/Endpoints/UserEP";
+import {
+  fetchUserLists,
+  fetchUserPublicList,
+} from "../../util/Endpoints/UserEP";
 import "../../styles/UserProfile.css";
 import ConfirmationModal from "../ConfirmModal";
 import UserInfo from "./UserInfo";
@@ -26,8 +29,9 @@ export default function UserProfile({ tabType, setTabType }) {
   }, [match.params.userId]);
 
   useEffect(() => {
-    fetchPublicLists()
-  }, [publicFacing])
+    setLoading(true);
+    fetchPublicLists();
+  }, [publicFacing]);
 
   const fetchLists = async () => {
     try {
@@ -47,7 +51,7 @@ export default function UserProfile({ tabType, setTabType }) {
   const fetchPublicLists = async () => {
     try {
       const res = await fetchUserPublicList(match.params.userId);
-      setPublicLists(res.data.lists)
+      setPublicLists(res.data.lists);
       setLoading(false);
     } catch (err) {
       setError(err.message);
