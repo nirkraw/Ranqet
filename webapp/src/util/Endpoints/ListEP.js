@@ -48,3 +48,9 @@ export const uploadImage = (formData) => {
     "Content-Type": "application/json",
   });
 };
+
+export const searchForLists = (searchString) => {
+  return axios.get(`${server}/lists/search?query=${searchString}`, {
+    "Content-Type": "application/json",
+  });
+};

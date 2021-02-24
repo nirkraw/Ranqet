@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import SearchResults from "./SearchResults";
 import { useHistory } from "react-router-dom";
-// import {fetchSearchResults} from "../../util/Endpoints";
 import "../../styles/SearchBar.css";
-import SearchIcon from "../../assets/searchIcon.png"
+import SearchIcon from "../../assets/searchIcon.png";
+import { searchForLists } from "../../util/Endpoints/ListEP";
 
 export default function SearchInput() {
   const history = useHistory();
@@ -31,23 +31,26 @@ export default function SearchInput() {
 
   const search = async (lookupKey) => {
     setSearchVal(lookupKey);
-    try {
-      // const res = await fetchSearchResults(lookupKey);
-      // setResults(res.data.results);
-      setResults(sampleResults);
-    } catch (err) {
-      alert("Unable to search");
+    if (!lookupKey) setResults([]);
+    else {
+      try {
+        const res = await searchForLists(lookupKey);
+        setResults(res.data.lists);
+        // setResults(sampleResults);
+      } catch (err) {
+        alert(JSON.stringify(err));
+      }
     }
   };
 
   const handleSubmit = () => {
     setResults([]);
     history.push(`/search/${searchVal}`);
-  }
+  };
 
   const handleKeyDown = (e) => {
-    if(e.keyCode === 13) handleSubmit();
-  }
+    if (e.keyCode === 13) handleSubmit();
+  };
 
   return (
     <div id="search-bar-container">
