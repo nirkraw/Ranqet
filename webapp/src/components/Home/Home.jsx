@@ -23,9 +23,9 @@ export default function Home({ openModal }) {
   const fetchList = async () => {
     try {
       const topListsRes = await fetchTopLists();
-      setTopLists(topListsRes.data.topLists);
+      setTopLists(topListsRes.data.lists);
       const newListsRes = await fetchNewLists();
-      setNewLists(newListsRes.data.topLists);
+      setNewLists(newListsRes.data.lists);
       setLoading(false);
     } catch (err) {
       setError(err.message);
