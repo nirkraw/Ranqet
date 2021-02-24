@@ -78,7 +78,7 @@ export default function CreateList() {
         setLoading(false);
         setSubmited(
           <ListCompleted
-            listId={res.data.listId}
+            listId={res.data.id}
             title={res.data.description}
             imageUrl={res.data.imageUrl}
             description={res.data.description}
