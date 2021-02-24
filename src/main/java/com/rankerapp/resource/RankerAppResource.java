@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -76,7 +77,9 @@ public class RankerAppResource {
     @GetMapping("/lists/search")
     public GenericListsResponse searchForListsByName(@RequestParam(value = "query") String query) {
         if (StringUtils.isEmpty(query)) {
-            throw new BadRequestException("query required to search for list");
+            return GenericListsResponse.builder()
+                    .lists(Collections.emptyList())
+                    .build();
         }
 
         List<ListResponse> searchResults = listFetcher.searchForListsByName(query);
