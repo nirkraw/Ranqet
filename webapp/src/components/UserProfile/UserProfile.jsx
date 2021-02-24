@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import { fetchUserLists } from "../../util/Endpoints/UserEP";
+import { fetchUserLists, fetchUserPublicList } from "../../util/Endpoints/UserEP";
 import "../../styles/UserProfile.css";
 import ConfirmationModal from "../ConfirmModal";
 import UserInfo from "./UserInfo";
@@ -14,6 +14,7 @@ export default function UserProfile({ tabType, setTabType }) {
   const [completedLists, setCompletedLists] = useState([]);
   const [inProgressLists, setInProgressLists] = useState([]);
   const [createdLists, setCreatedLists] = useState([]);
+  const [publicLists, setPublicLists] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currListId, setCurrListId] = useState("");
@@ -26,10 +27,12 @@ export default function UserProfile({ tabType, setTabType }) {
 
   const fetchLists = async () => {
     try {
-      const res = await fetchUserLists(match.params.userId);
-      setInProgressLists(res.data.inProgressLists);
-      setCompletedLists(res.data.completedLists);
-      setCreatedLists(res.data.createdLists);
+      const privRes = await fetchUserLists(match.params.userId, localStorage.getItem("sessionToken"));
+      setInProgressLists(privRes.data.inProgressRessLists);
+      setCompletedLists(privRes.data.completedLists);
+      setCreatedLists(privRes.data.createdLists);
+      const pubRes = await fetchUserPublicList(match.params.userId);
+      setPublicLists(pubRes.data.lists)
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -59,7 +62,7 @@ export default function UserProfile({ tabType, setTabType }) {
           setTabType={setTabType}
         />
       ) : (
-        <ListIndex passedList={createdLists} />
+        <ListIndex passedList={publicLists} />
       )}
       <ConfirmationModal
         isOpen={isOpen}

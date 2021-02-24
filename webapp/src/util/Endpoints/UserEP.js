@@ -23,8 +23,14 @@ export const fetchUser = (userId) => {
   });
 };
 
-export const fetchUserLists = (userId) => {
-  return axios.get(`${server}/lists/user/${userId}/all`, {
+export const fetchUserLists = (userId, sessionToken) => {
+  return axios.get(`${server}/lists/user/${userId}/all?sessionToken=${sessionToken}`, {
+    "Content-Type": "application/json",
+  });
+};
+
+export const fetchUserPublicList = (userId) => {
+  return axios.get(`${server}/lists/user/${userId}/public`, {
     "Content-Type": "application/json",
   });
 };
