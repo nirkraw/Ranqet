@@ -10,6 +10,7 @@ import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.db.model.UserListEntity;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.transport.model.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
@@ -188,6 +189,12 @@ public class ListFetcher {
                 .stream()
                 .map(ListFetcher::convertListToResponse)
                 .sorted((a, b) -> Integer.compare(a.getNumCompletions(), b.getNumCompletions()))
+                .collect(Collectors.toList());
+    }
+
+    public List<ListResponse> searchForListsByName(String query) {
+        return listsRepo.searchByNameContaining(StringUtils.strip(query)).stream()
+                .map(ListFetcher::convertListToResponse)
                 .collect(Collectors.toList());
     }
 

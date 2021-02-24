@@ -5,6 +5,7 @@ import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.UserEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface ListsRepository extends JpaRepository<ListEntity, UUID> {
     Stream<ListEntity> findByIsPrivate(boolean isPrivate, Pageable pageable);
 
     Stream<ListEntity> findByCategoryAndIsPrivate(ListCategory category, boolean isPrivate, Pageable pageable);
+
+    @Query("SELECT list FROM ListEntity list WHERE list.isPrivate = false AND LOWER(list.title) " +
+            "LIKE LOWER(concat('%', concat(:substr, '%')))")
+    List<ListEntity> searchByNameContaining(String substr);
 }

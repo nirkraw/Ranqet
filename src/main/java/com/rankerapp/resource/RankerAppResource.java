@@ -73,6 +73,19 @@ public class RankerAppResource {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/lists/search")
+    public GenericListsResponse searchForListsByName(@RequestParam(value = "query") String query) {
+        if (StringUtils.isEmpty(query)) {
+            throw new BadRequestException("query required to search for list");
+        }
+
+        List<ListResponse> searchResults = listFetcher.searchForListsByName(query);
+        return GenericListsResponse.builder()
+                .lists(searchResults)
+                .build();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/user/{userId}/all")
     public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId,
             @RequestParam(value = "sessionToken") String sessionToken) {
