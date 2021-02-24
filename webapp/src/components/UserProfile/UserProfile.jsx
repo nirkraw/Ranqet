@@ -25,14 +25,29 @@ export default function UserProfile({ tabType, setTabType }) {
     fetchLists();
   }, [match.params.userId]);
 
+  useEffect(() => {
+    fetchPublicLists()
+  }, [publicFacing])
+
   const fetchLists = async () => {
     try {
-      const privRes = await fetchUserLists(match.params.userId, localStorage.getItem("sessionToken"));
-      setInProgressLists(privRes.data.inProgressRessLists);
-      setCompletedLists(privRes.data.completedLists);
-      setCreatedLists(privRes.data.createdLists);
-      const pubRes = await fetchUserPublicList(match.params.userId);
-      setPublicLists(pubRes.data.lists)
+      const res = await fetchUserLists(
+        match.params.userId,
+        localStorage.getItem("sessionToken")
+      );
+      setInProgressLists(res.data.inProgressRessLists);
+      setCompletedLists(res.data.completedLists);
+      setCreatedLists(res.data.createdLists);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const fetchPublicLists = async () => {
+    try {
+      const res = await fetchUserPublicList(match.params.userId);
+      setPublicLists(res.data.lists)
       setLoading(false);
     } catch (err) {
       setError(err.message);
