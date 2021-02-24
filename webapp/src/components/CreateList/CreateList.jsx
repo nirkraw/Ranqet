@@ -5,7 +5,6 @@ import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import OptionInputs from "./OptionInputs";
 import ListImage from "./ListImage";
-import { useHistory } from "react-router-dom";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 import SavePresetOptions from "./PresetOptions/SavePresetOptions";
@@ -20,7 +19,6 @@ export default function CreateList() {
   //     description="What have been the best TV shows so far this year?"
   //   />
   // );
-  const history = useHistory();
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
   const [unlisted, setUnlisted] = useState(false);
@@ -33,6 +31,7 @@ export default function CreateList() {
   const [imageLoading, setImageLoading] = useState(false);
   const [presetModalOpen, setPresetModalOpen] = useState(false);
   const [savePresetModalOpen, setSavePresetModalOpen] = useState(false);
+  const [submited, setSubmited] = useState(null);
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -77,7 +76,7 @@ export default function CreateList() {
       try {
         const res = await createList(data);
         setLoading(false);
-        return (
+        setSubmited(
           <ListCompleted
             listId={res.data.listId}
             title={res.data.description}
@@ -93,6 +92,7 @@ export default function CreateList() {
 
   if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
+  if (submited) return submited;
 
   return (
     <div id="create-list-main-div">

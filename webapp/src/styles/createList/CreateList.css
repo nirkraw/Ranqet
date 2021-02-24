@@ -186,19 +186,20 @@
 }
 
 #list-completed-info  > p:last-child {
-  color: var(--tan-3);
+  color: black;
   font-size: 22px;
 }
 
 #share-url-input {
   width: 500px;
+  margin-right: 5px;
 }
 
 #list-completed-buttons {
   width: 100%;
   display: flex;
   margin-top: 15px;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   position: relative;
 }
