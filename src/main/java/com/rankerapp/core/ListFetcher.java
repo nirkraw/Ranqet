@@ -8,7 +8,6 @@ import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
 import com.rankerapp.db.model.UserListEntity;
-import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.transport.model.*;
 import org.springframework.data.domain.PageRequest;
@@ -33,13 +32,16 @@ public class ListFetcher {
 
     private final UsersRepository usersRepo;
 
+    private final SessionTokenAuthenticator sessionTokenAuthenticator;
+
     @Inject
     public ListFetcher(ListsRepository listsRepo, ScoresRepository scoresRepo, UsersRepository usersRepo,
-                       UserListsRepository userListsRepo) {
+                       UserListsRepository userListsRepo, SessionTokenAuthenticator sessionTokenAuthenticator) {
         this.listsRepo = listsRepo;
         this.scoresRepo = scoresRepo;
         this.usersRepo = usersRepo;
         this.userListsRepo = userListsRepo;
+        this.sessionTokenAuthenticator = sessionTokenAuthenticator;
     }
 
     public ListResponse fetchListById(UUID id) {
@@ -108,44 +110,46 @@ public class ListFetcher {
     }
 
     @Transactional
-    public GetTopListsResponse getTopLists() {
+    public GenericListsResponse getTopLists() {
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
         List<ListResponse> topLists = listsRepo.findByIsPrivate(false, pageRequest)
                 .map(ListFetcher::convertListToResponse)
                 .collect(Collectors.toList());
-        return GetTopListsResponse.builder()
-                .topLists(topLists)
+        return GenericListsResponse.builder()
+                .lists(topLists)
                 .build();
     }
 
     @Transactional
-    public GetTopListsResponse getTopListsByCategory(ListCategory listCategory) {
+    public GenericListsResponse getTopListsByCategory(ListCategory listCategory) {
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
         com.rankerapp.db.model.ListCategory category = com.rankerapp.db.model.ListCategory.valueOf(listCategory.name());
         List<ListResponse> topLists = listsRepo.findByCategoryAndIsPrivate(category, false, pageRequest)
                 .map(ListFetcher::convertListToResponse)
                 .collect(Collectors.toList());
-        return GetTopListsResponse.builder()
-                .topLists(topLists)
+        return GenericListsResponse.builder()
+                .lists(topLists)
                 .build();
     }
 
     @Transactional
-    public GetTopListsResponse getNewLists() {
+    public GenericListsResponse getNewLists() {
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("createdOn")));
         List<ListResponse> topLists = listsRepo.findByIsPrivate(false, pageRequest)
                 .map(ListFetcher::convertListToResponse)
                 .collect(Collectors.toList());
-        return GetTopListsResponse.builder()
-                .topLists(topLists)
+        return GenericListsResponse.builder()
+                .lists(topLists)
                 .build();
     }
 
     // TODO: limit number of lists returned
-    public GetAllUserListsResponse getAllListsForUser(UUID userId) {
+    public GetAllUserListsResponse getAllListsForUser(UUID userId, String sessionToken) {
+
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
 
         List<UserListEntity> userLists = userListsRepo.findByUserId(userId);
         Set<UUID> completedListIds = userLists.stream()
@@ -175,6 +179,16 @@ public class ListFetcher {
                         .map(ListFetcher::convertListToResponse)
                         .collect(Collectors.toList()))
                 .build();
+    }
+
+    public List<ListResponse> getAllPublicListsForUser(UUID userId) {
+        UserEntity createdBy = new UserEntity();
+        createdBy.setId(userId);
+        return listsRepo.findByCreatedByAndIsPrivate(createdBy, false)
+                .stream()
+                .map(ListFetcher::convertListToResponse)
+                .sorted((a, b) -> Integer.compare(a.getNumCompletions(), b.getNumCompletions()))
+                .collect(Collectors.toList());
     }
 
     private static List<RankedOption> convertAndSortList(List<ScoreEntity> scores) {

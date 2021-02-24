@@ -6,9 +6,11 @@ import com.rankerapp.core.ListWriter;
 import com.rankerapp.core.VoteProcessor;
 import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.transport.model.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -57,7 +59,7 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/top")
-    public GetTopListsResponse getTopLists(@RequestParam(value = "category", required = false) ListCategory listCategory) {
+    public GenericListsResponse getTopLists(@RequestParam(value = "category", required = false) ListCategory listCategory) {
         if (Objects.isNull(listCategory)) {
             return listFetcher.getTopLists();
         }
@@ -66,14 +68,28 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/new")
-    public GetTopListsResponse getNewLists() {
+    public GenericListsResponse getNewLists() {
         return listFetcher.getNewLists();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/user/{userId}/all")
-    public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId) {
-        return listFetcher.getAllListsForUser(asUUID(userId));
+    public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId,
+            @RequestParam(value = "sessionToken") String sessionToken) {
+        if (StringUtils.isEmpty(sessionToken)) {
+            throw new BadRequestException("Getting lists for a user requires a user session token");
+        }
+
+        return listFetcher.getAllListsForUser(asUUID(userId), sessionToken);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/lists/user/{userId}/public")
+    public GenericListsResponse getAllPublicListsForUser(@PathVariable(value = "userId") String userId) {
+        List<ListResponse> publicLists = listFetcher.getAllPublicListsForUser(asUUID(userId));
+        return GenericListsResponse.builder()
+                .lists(publicLists)
+                .build();
     }
 
     // Filter by completed, in progress and by userId
