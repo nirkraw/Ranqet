@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Session.css";
 import { createUser, loginUser } from "../util/Endpoints/UserEP";
-import ErrorPage from "./Misc/ErrorPage";
 import { useHistory } from "react-router-dom";
 
 export default function SessionForm({ formType, openModal, route }) {
@@ -9,7 +8,6 @@ export default function SessionForm({ formType, openModal, route }) {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState();
   const [userError, setUserError] = useState();
   const [formHeader, setFormHeader] = useState();
 
@@ -44,12 +42,10 @@ export default function SessionForm({ formType, openModal, route }) {
       } else if (err.response.status === 400 && formHeader === "Sign Up") {
         setUserError("*Username already exists");
       } else {
-        setError(err.response.status);
+        history.push(`/error/${err.message}`);
       }
     }
   };
-
-  if (error) return <ErrorPage error={error} />;
 
   return (
     <div className="session-form-container">

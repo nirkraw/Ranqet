@@ -10,6 +10,7 @@ import UserProfile from "./UserProfile/UserProfile";
 import Category from "./Category";
 import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
+import ErrorPage from "./Misc/ErrorPage";
 
 function App() {
   const [formType, openModal] = useState([]);
@@ -19,12 +20,13 @@ function App() {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          setActive(false)
+          setActive(false);
         }
       }
 
       document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }, [ref]);
   }
 
@@ -37,6 +39,11 @@ function App() {
       />
       <Modal formType={formType} openModal={openModal} />
       <Switch>
+        <Route
+          exact
+          path="/error/:errorMessage"
+          render={() => <ErrorPage  />}
+        />
         <Route
           exact
           path="/create-list"
@@ -67,7 +74,11 @@ function App() {
           )}
         />
         <Route exact path="/search/:searchVal" render={() => <SearchPage />} />
-        <Route exact path="/" render={() => <Home openModal={openModal} />} />
+        <Route
+          exact
+          path="/"
+          render={() => <Home openModal={openModal} />}
+        />
       </Switch>
     </div>
   );

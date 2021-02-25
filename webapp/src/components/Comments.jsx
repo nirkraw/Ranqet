@@ -3,7 +3,6 @@ import "../styles/Comments.css";
 import { formatUploadTime } from "../util/DateCalc";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import ErrorPage from "./Misc/ErrorPage";
 import { fetchListComments, createComment } from "../util/Endpoints/CommentEP";
 import {fetchUser} from "../util/Endpoints/UserEP";
 import EmptyAvatar from "../assets/avatar.svg";
@@ -14,7 +13,6 @@ export default function Comments({ openModal }) {
   const addCommentInput = useRef(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState(EmptyAvatar);
   const [pageNum, setPageNum] = useState(0);
@@ -30,7 +28,7 @@ export default function Comments({ openModal }) {
       setComments(res.data.comments);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
@@ -40,7 +38,7 @@ export default function Comments({ openModal }) {
       if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
@@ -55,7 +53,7 @@ export default function Comments({ openModal }) {
         addCommentInput.current.value = "";
         fetchComments();
       } catch (err) {
-        setError(err.message);
+        history.push(`/error/${err.message}`);
       }
   };
 
@@ -64,7 +62,6 @@ export default function Comments({ openModal }) {
     else openModal(["login"]);
   }
 
-  if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
   return (

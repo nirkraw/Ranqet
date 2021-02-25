@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { fetchList } from "../../util/Endpoints/ListEP";
 import "../../styles/Quiz.css";
 import QuizOptions from "./QuizOptions";
-import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
@@ -12,7 +11,6 @@ export default function Quiz() {
   const [listName, setListName] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   if (!localStorage.getItem("userId")) {
     history.push(`/${match.params.listId}/rankings`);
@@ -29,11 +27,10 @@ export default function Quiz() {
       setDescription(res.data.description);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
-  if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
   return (

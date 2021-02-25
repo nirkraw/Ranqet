@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { fetchPersonalRankings, fetchGlobalRankings } from "../util/Endpoints/RankingEP";
 import "../styles/Rankings.css";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import ErrorPage from "./Misc/ErrorPage";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import Comments from "./Comments";
 import RankingsList from "./RankingsList";
 
 export default function Rankings({ openModal }) {
   const match = useRouteMatch();
-  const [error, setError] = useState(null);
+  const history = useHistory();
   const [personalRanking, setPersonalRanking] = useState([]);
   const [globalRanking, setGlobalRanking] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +25,7 @@ export default function Rankings({ openModal }) {
       );
       setPersonalRanking(personal.data.ranking);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
@@ -37,11 +36,10 @@ export default function Rankings({ openModal }) {
       setGlobalRanking(global.data.ranking);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
-  if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
   return (

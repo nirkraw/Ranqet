@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { fetchListOptionPair, submitOptionChoice } from "../../util/Endpoints/OptionEP";
-import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";
 
 export default function QuizOptions({ listId, history }) {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchNextOptionPair();
@@ -26,7 +24,7 @@ export default function QuizOptions({ listId, history }) {
       }
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
@@ -43,12 +41,12 @@ export default function QuizOptions({ listId, history }) {
       });
       fetchNextOptionPair();
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
-  if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
+
   return (
     <div id="main-options-div">
       {options.map((option, i) => {

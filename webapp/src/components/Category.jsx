@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
-import ErrorPage from "./Misc/ErrorPage";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import { fetchCategoryList } from "../util/Endpoints/ListEP";
 import ListIndex from "./ListIndex";
@@ -9,8 +8,8 @@ import { ListCategoryToTitle } from "../enums/ListCategory";
 
 export default function Category() {
   const match = useRouteMatch();
+  const history = useHistory();
   const [categoryList, setCategoryList] = useState([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,11 +23,11 @@ export default function Category() {
       setCategoryList(res.data.topLists);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
-  if (error) return <ErrorPage error={error} />;
+
   if (loading) return <LoadingSpinner />;
 
   return (

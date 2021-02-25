@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ErrorPage from "../Misc/ErrorPage";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import {
   fetchUserLists,
@@ -8,17 +7,17 @@ import {
 import "../../styles/UserProfile.css";
 import ConfirmationModal from "../ConfirmModal";
 import UserInfo from "./UserInfo";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import UserTabs from "./UserTabs";
 import ListIndex from "../ListIndex";
 
 export default function UserProfile({ tabType, setTabType }) {
   const match = useRouteMatch();
+  const history = useHistory()
   const [completedLists, setCompletedLists] = useState([]);
   const [inProgressLists, setInProgressLists] = useState([]);
   const [createdLists, setCreatedLists] = useState([]);
   const [publicLists, setPublicLists] = useState([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currListId, setCurrListId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +43,7 @@ export default function UserProfile({ tabType, setTabType }) {
       setCreatedLists(res.data.createdLists);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
@@ -54,11 +53,10 @@ export default function UserProfile({ tabType, setTabType }) {
       setPublicLists(res.data.lists);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
-  if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
   return (

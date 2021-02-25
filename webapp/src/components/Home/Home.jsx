@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import ErrorPage from "../Misc/ErrorPage";
 import "../../styles/Home.css";
 import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
 import { useHistory } from "react-router-dom";
@@ -9,9 +8,8 @@ import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
 import NewLists from "./NewLists";
 import Flame from "../../assets/flame.png";
 
-export default function Home({ openModal }) {
+export default function Home({ openModal}) {
   const history = useHistory();
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [topLists, setTopLists] = useState([]);
   const [newLists, setNewLists] = useState([]);
@@ -28,11 +26,10 @@ export default function Home({ openModal }) {
       setNewLists(newListsRes.data.lists);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
-  if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
   return (
@@ -54,12 +51,12 @@ export default function Home({ openModal }) {
             <h3 id="home-title">Most Popular</h3>
             <img src={Flame} alt="flame" id="top-lists-icon"></img>
           </div>
-          <h1 id="all-list-error">{error}</h1>
           <ListIndex passedList={topLists} />
         </div>
         <div id="create-button-and-new-list-container">
           <div id="home-create-list-container">
-            <button className="site-button"
+            <button
+              className="site-button"
               onClick={() =>
                 localStorage.getItem("sessionToken")
                   ? history.push("/create-list")

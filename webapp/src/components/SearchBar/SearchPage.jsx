@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
-import ErrorPage from "../Misc/ErrorPage";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import ListIndex from "../ListIndex";
 import "../../styles/SearchPage.css";
@@ -8,8 +7,8 @@ import "../../styles/SearchPage.css";
 
 export default function SearchPage() {
   const match = useRouteMatch();
+  const history = useHistory()
   const [results, setResults] = useState([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,11 +21,10 @@ export default function SearchPage() {
     //   setResults(res.data.results);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      history.push(`/error/${err.message}`);
     }
   };
 
-  if (error) return <ErrorPage error={error} />;
   if (loading) return <LoadingSpinner />;
 
   return (
