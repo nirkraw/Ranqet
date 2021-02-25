@@ -81,7 +81,9 @@ export default function UserProfile({ tabType, setTabType }) {
           setTabType={setTabType}
         />
       ) : (
-        <ListIndex passedList={publicLists} />
+        <div id="tabs-container-div">
+          <ListIndex passedList={publicLists} />
+        </div>
       )}
       <ConfirmationModal
         isOpen={isOpen}
