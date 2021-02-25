@@ -13,7 +13,6 @@ export default function RankingsList({ rankings, rankingName, openModal }) {
   };
 
   if (rankings.length === 0) {
-    if (rankingName !== "Global Rankings") {
       return (
         <div id="ranking-main-div-container">
           <div id="ranking-main-div-with-blur">
@@ -27,13 +26,6 @@ export default function RankingsList({ rankings, rankingName, openModal }) {
           <div id="ranking-main-div-no-background"></div>
         </div>
       );
-    } else {
-      return (
-        <div id="ranking-main-div">
-          <h2 className="ranking-header">No {rankingName} Yet</h2>
-        </div>
-      );
-    }
   }
   return (
     <div id="ranking-main-div">
