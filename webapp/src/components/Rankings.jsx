@@ -12,6 +12,7 @@ export default function Rankings({ openModal }) {
   const [personalRanking, setPersonalRanking] = useState([]);
   const [globalRanking, setGlobalRanking] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     getGlobalRankings();
@@ -28,11 +29,12 @@ export default function Rankings({ openModal }) {
       history.push(`/error/${err.message}`);
     }
   };
-
+  
   const getGlobalRankings = async () => {
     try {
       if (localStorage.getItem("userId")) getPersonalRankings();
       const global = await fetchGlobalRankings(match.params.listId);
+      setTitle(global.data.title)
       setGlobalRanking(global.data.ranking);
       setLoading(false);
     } catch (err) {
@@ -44,7 +46,7 @@ export default function Rankings({ openModal }) {
 
   return (
     <div id="completed-list-main-div">
-      <h1 id="main-ranking-header">Rankings</h1>
+      <h1 id="main-ranking-header">{title}</h1>
       <div id="personal-and-global-ranking-main-div">
         <RankingsList
           rankings={personalRanking}

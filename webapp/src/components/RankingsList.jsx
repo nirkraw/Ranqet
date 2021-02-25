@@ -15,13 +15,16 @@ export default function RankingsList({ rankings, rankingName, openModal }) {
   if (rankings.length === 0) {
     if (rankingName !== "Global Rankings") {
       return (
-        <div id="ranking-main-div">
-          <h2 className="ranking-header">{rankingName}</h2>
-          <div className="ranking-quiz-button-container">
-            <button id="rankings-quiz-button" onClick={handleTakeQuiz}>
-              Take the Quiz!
-            </button>
+        <div id="ranking-main-div-container">
+          <div id="ranking-main-div-with-blur">
+            <h2 className="ranking-header-absolute">{rankingName}</h2>
+            <div className="ranking-quiz-button-container">
+              <button id="rankings-quiz-button" onClick={handleTakeQuiz}>
+                Rank This List
+              </button>
+            </div>
           </div>
+          <div id="ranking-main-div-no-background"></div>
         </div>
       );
     } else {

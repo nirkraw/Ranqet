@@ -12,12 +12,10 @@
 
 #category-header {
   font-size: 55px;
-  font-family: var(--main-page-header);
-  font-weight: 600;
+  font-family: var(--font-1);
   color: var(--pink-3);
   margin-bottom: 20px;
   margin-top: 10px;
   width: fit-content;
   align-self: center;
-  text-shadow: 5px 5px var(--pink-1);
 }

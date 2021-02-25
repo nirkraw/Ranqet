@@ -18,7 +18,7 @@
 
 #main-quiz-header {
   font-size: 4em;
-  font-family: var(--font-1);
+  font-family: var(--font-6);
   color: var(--pink-3);
   text-align: center;
   word-wrap: break-word;
@@ -59,7 +59,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border: 2px solid var(--pink-4);
+  border: 2px solid black;
   border-radius: 3%;
   z-index: 10;
   background-color: rgb(245, 236, 236);
@@ -116,8 +116,7 @@
 .option-header,
 .option-header-no-image {
   margin-top: 30px;
-  font-family: var(--font-1);
-  color: rgb(19, 18, 18);
+  font-family: var(--font-5);
   font-size: 42px;
   word-wrap: break-word;
   font-weight: bold;
