@@ -32,10 +32,12 @@ export default function SessionForm({ formType, openModal, route }) {
       });
       localStorage.setItem("userId", res.data.id);
       localStorage.setItem("sessionToken", res.data.sessionToken);
+      openModal([]);
       if (route) {
         history.push(route);
+      } else {
+        window.location.reload();
       }
-      openModal([]);
     } catch (err) {
       if (err.response.status === 403 && formHeader === "Log In") {
         setUserError("*Username or password not found");
@@ -49,7 +51,7 @@ export default function SessionForm({ formType, openModal, route }) {
 
   return (
     <div className="session-form-container">
-      <form className="login-form">
+      <form id="login-form" onSubmit={handleSubmit}>
         <h3>{formHeader}</h3>
         <input
           type="text"
@@ -78,21 +80,27 @@ export default function SessionForm({ formType, openModal, route }) {
         />
         <div className="session-buttons-container">
           {formType === "login" ? (
-            <button
+            <div
               className="switch-session-button"
-              onClick={() => openModal(["signup", route])}
+              onClick={(e) => {
+                e.preventDefault();
+                openModal(["signup", route]);
+              }}
             >
               Sign Up
-            </button>
+            </div>
           ) : (
-            <button
+            <div
               className="switch-session-button"
-              onClick={() => openModal(["login", route])}
+              onClick={(e) => {
+                e.preventDefault();
+                openModal(["login", route]);
+              }}
             >
               Log In
-            </button>
+            </div>
           )}
-          <button id="session-submit" onClick={handleSubmit}>
+          <button id="session-submit" type="submit">
             Continue
           </button>
         </div>
