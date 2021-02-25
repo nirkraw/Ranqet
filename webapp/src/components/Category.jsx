@@ -20,7 +20,7 @@ export default function Category() {
     try {
       setLoading(true);
       const res = await fetchCategoryList(match.params.categoryType);
-      setCategoryList(res.data.topLists);
+      setCategoryList(res.data.lists);
       setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
