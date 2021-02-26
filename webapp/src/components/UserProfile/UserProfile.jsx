@@ -13,7 +13,7 @@ import ListIndex from "../ListIndex";
 
 export default function UserProfile({ tabType, setTabType }) {
   const match = useRouteMatch();
-  const history = useHistory()
+  const history = useHistory();
   const [completedLists, setCompletedLists] = useState([]);
   const [inProgressLists, setInProgressLists] = useState([]);
   const [createdLists, setCreatedLists] = useState([]);
@@ -24,7 +24,7 @@ export default function UserProfile({ tabType, setTabType }) {
   const [publicFacing, setPublicFacing] = useState(false);
 
   useEffect(() => {
-    fetchLists();
+    if (localStorage.getItem("userId") === match.params.userId) fetchLists();
   }, [match.params.userId]);
 
   useEffect(() => {

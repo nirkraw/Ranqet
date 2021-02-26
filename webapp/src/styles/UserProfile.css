@@ -111,6 +111,16 @@
   align-self: center;
 }
 
+.update-picture {
+  position: absolute;
+  bottom: 10px;
+  visibility: hidden;
+}
+
+#user-profile-image-container:hover .update-picture{
+  visibility: visible;
+}
+
 #user-profile-image-container:hover {
   cursor: pointer;
   opacity: 0.8;

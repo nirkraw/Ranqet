@@ -107,6 +107,7 @@ export default function UserInfo({
           onClick={() => document.getElementById("user-photo-input").click()}
         >
           {currentImage}
+          <button className="update-picture site-button">Update</button>
         </div>
       ) : (
         <div id="user-profile-image-container-no-hover">{currentImage}</div>
