@@ -5,6 +5,7 @@ import "../../styles/SearchBar.css";
 export default function SearchResults({ results, searchWrapper, active }) {
   const history = useHistory();
   if (results.length === 0) return null;
+
   const handleLink = async (listId) => {
     if (!localStorage.getItem("userId")) history.push(`/${listId}/rankings`);
     else {

@@ -2,10 +2,12 @@ import React from "react";
 import Modal from "react-modal";
 import "../styles/ConfirmationModal.css";
 import {deleteList} from "../util/Endpoints/ListEP";
+import {useHistory} from "react-router-dom"
 
 Modal.setAppElement("#root");
 
 export default function ConfirmModal({isOpen, setIsOpen, listId, fetchLists}) {
+  const history = useHistory();
   const confirmDeleteList = async () => {
     try {
       await deleteList(
@@ -14,7 +16,7 @@ export default function ConfirmModal({isOpen, setIsOpen, listId, fetchLists}) {
       window.localStorage.getItem("sessionToken")
     );
     } catch (err) {
-      alert(JSON.stringify(err))
+      history.push(`/error/${err.message}`);
     }
     setIsOpen(false);
     fetchLists();

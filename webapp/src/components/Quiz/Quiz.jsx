@@ -12,7 +12,7 @@ export default function Quiz() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
-  if (!localStorage.getItem("userId")) {
+  if (!localStorage.getItem("sessionToken")) {
     history.push(`/${match.params.listId}/rankings`);
   }
 

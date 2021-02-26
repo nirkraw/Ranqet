@@ -3,7 +3,7 @@ import "../../styles/UserProfile.css";
 import { formatUploadTime } from "../../util/DateCalc";
 import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
 import { uploadImage } from "../../util/Endpoints/ListEP";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
 export default function UserInfo({
@@ -12,6 +12,7 @@ export default function UserInfo({
   setPublicFacing,
   publicFacing,
 }) {
+  const history = useHistory();
   const match = useRouteMatch();
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -33,7 +34,7 @@ export default function UserInfo({
       if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
       setLoading(false);
     } catch (err) {
-      alert("No User Info Found");
+      history.push(`/error/${err.message}`);
     }
   };
 
@@ -54,7 +55,7 @@ export default function UserInfo({
       await updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
       setImageLoading(false);
     } catch (err) {
-      alert("Unable to upload image");
+      history.push(`/error/${err.message}`);
     }
   };
 

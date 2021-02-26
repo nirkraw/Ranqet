@@ -11,7 +11,6 @@ export default function PresetOptions({
   setOptions,
   options
 }) {
-  debugger 
   const [currOptions, setCurrOptions] = useState(null);
   const basketballPlayers = [
     {

@@ -1,28 +1,38 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import SearchResults from "./SearchResults";
 import { useHistory } from "react-router-dom";
 import "../../styles/SearchBar.css";
 import SearchIcon from "../../assets/searchIcon.png";
 import { searchForLists } from "../../util/Endpoints/ListEP";
+import debounce from "lodash.debounce";
 
 export default function SearchInput({ useOutsideAlerter }) {
-  const history = useHistory();
   const [active, setActive] = useState(false);
   const [results, setResults] = useState([]);
   const [searchVal, setSearchVal] = useState("");
+  const debounceSave = useCallback(
+    debounce((lookupKey) => search(lookupKey), 500),
+    []
+  );
+  const history = useHistory();
   const searchWrapper = useRef(null);
   useOutsideAlerter(searchWrapper, setActive);
-  
-  const search = async (lookupKey) => {
+
+  const handleChange = (e) => {
+    const lookupKey = e.target.value;
     setSearchVal(lookupKey);
+    debounceSave(lookupKey);
+  };
+
+  const search = async (lookupKey) => {
     if (!lookupKey) setResults([]);
     else {
       try {
         const res = await searchForLists(lookupKey);
         setResults(res.data.lists);
-        // setResults(sampleResults);
+        console.log("Why are we searching");
       } catch (err) {
-        alert(JSON.stringify(err));
+        history.push(`/error/${err.message}`);
       }
     }
   };
@@ -45,7 +55,7 @@ export default function SearchInput({ useOutsideAlerter }) {
           maxLength="32"
           type="text"
           onKeyDown={handleKeyDown}
-          onChange={(e) => search(e.target.value)}
+          onChange={(e) => handleChange(e)}
           onClick={() => setActive(true)}
         />
         <img
@@ -55,7 +65,11 @@ export default function SearchInput({ useOutsideAlerter }) {
           alt="search"
         />
       </div>
-      <SearchResults searchWrapper={searchWrapper}results={results} active={active} />
+      <SearchResults
+        searchWrapper={searchWrapper}
+        results={results}
+        active={active}
+      />
     </div>
   );
 }
