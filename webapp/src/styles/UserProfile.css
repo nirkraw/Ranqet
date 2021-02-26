@@ -63,6 +63,21 @@
   font-size: 30px;
 }
 
+#empty-list-container {
+  height: 415px;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;;
+}
+
+#empty-list-container > h1 {
+  font-family: var(--font-1);
+  color: var(--blue-2);
+  font-size: 35px;
+}
+
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     color: var(--blue-3) !important;
 }

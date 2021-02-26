@@ -10,12 +10,11 @@ export default function UserTabs({
   setCurrListId,
   setIsOpen,
   tabType,
-  setTabType
+  setTabType,
 }) {
-
   const handleSelect = (key) => {
     setTabType(key);
-  }
+  };
 
   return (
     <div id="tabs-container-div">
@@ -30,26 +29,40 @@ export default function UserTabs({
           title="Completed"
           tabClassName="tab-container"
         >
-          <ListIndex passedList={completedLists} />
+          {completedLists.length ? (
+            <ListIndex passedList={completedLists} />
+          ) : (
+            <div id="empty-list-container">
+              <h1>No Lists</h1>
+            </div>
+          )}
         </Tab>
         <Tab
           eventKey="inProgress"
           title="In Progress"
           tabClassName="tab-container"
         >
-          <ListIndex passedList={inProgressLists} />
+          {inProgressLists.length ? (
+            <ListIndex passedList={inProgressLists} />
+          ) : (
+            <div id="empty-list-container">
+              <h1>No Lists</h1>
+            </div>
+          )}
         </Tab>
-        <Tab
-          eventKey="created"
-          title="My Lists"
-          tabClassName="tab-container"
-        >
-          <ListIndex
-            passedList={createdLists}
-            trash={true}
-            setCurrListId={setCurrListId}
-            setIsOpen={setIsOpen}
-          />
+        <Tab eventKey="created" title="My Lists" tabClassName="tab-container">
+          {createdLists.length ? (
+            <ListIndex
+              passedList={createdLists}
+              trash={true}
+              setCurrListId={setCurrListId}
+              setIsOpen={setIsOpen}
+            />
+          ) : (
+            <div id="empty-list-container">
+              <h1>No Lists</h1>
+            </div>
+          )}
         </Tab>
       </Tabs>
     </div>
