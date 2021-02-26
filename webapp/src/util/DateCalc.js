@@ -9,7 +9,7 @@ export const formatUploadTime = (created_at) => {
   };
   let days = currentTime.getDate() - timeCreatedAt.getDate();;
   if (days < 0) {
-    days = 12 - (timeCreatedAt.getDay() - currentTime.getDay());
+    days = 12 - (timeCreatedAt.getDate() - currentTime.getDate());
     months--;
   }
 
