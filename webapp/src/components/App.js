@@ -58,7 +58,7 @@ function App() {
         <Route
           exact
           path="/category/:categoryType"
-          render={() => <Category />}
+          render={() => <Category openModal={openModal} />}
         />
         <Route exact path="/:listId/quiz" render={() => <Quiz />} />
         <Route

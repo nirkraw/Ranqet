@@ -6,7 +6,7 @@ import ListIndex from "./ListIndex";
 import "../styles/Category.css";
 import { ListCategoryToTitle } from "../enums/ListCategory";
 
-export default function Category() {
+export default function Category({openModal}) {
   const match = useRouteMatch();
   const history = useHistory();
   const [categoryList, setCategoryList] = useState([]);
@@ -32,8 +32,27 @@ export default function Category() {
 
   return (
     <div id="category-main-container">
-      <h1 id="category-header">{ ListCategoryToTitle[match.params.categoryType]}</h1>
-      <ListIndex passedList={categoryList} />
+      <h1 id="category-header">
+        {ListCategoryToTitle[match.params.categoryType]}
+      </h1>
+      {categoryList.length ? (
+        <ListIndex passedList={categoryList} />
+      ) : (
+        <div id="empty-list-container">
+          <button
+            className="site-button"
+            onClick={() =>
+              localStorage.getItem("sessionToken")
+                ? history.push("/create-list")
+                : openModal(["login", "/create-list"])
+            }
+          >
+            <h1>
+              Create a {ListCategoryToTitle[match.params.categoryType]} List
+            </h1>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
