@@ -3,10 +3,10 @@ export const ListCategory = [
   "MUSIC",
   "MOVIES_TV",
   "FUN",
-  "MISC",
   "POLITICS",
   "SOCIAL",
   "BUSINESS",
+  "MISC",
 ];
 
 export const ListCategoryToTitle = {
@@ -14,8 +14,8 @@ export const ListCategoryToTitle = {
   MUSIC: "Music",
   MOVIES_TV: "Movies & TV",
   FUN: "Fun",
-  MISC: "Misc",
   POLITICS: "Politics",
   SOCIAL: "Social",
   BUSINESS: "Business",
+  MISC: "Misc",
 };

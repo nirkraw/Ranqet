@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "../../styles/SearchBar.css";
 
-export default function SearchResults({ results }) {
+export default function SearchResults({ results, searchWrapper, active }) {
   const history = useHistory();
   if (results.length === 0) return null;
   const handleLink = async (listId) => {
@@ -29,7 +29,10 @@ export default function SearchResults({ results }) {
   };
 
   return (
-    <ul id="search-result-ul">
+    <ul
+      className={active ? "search-result-ul active" : "search-result-ul"}
+      ref={searchWrapper}
+    >
       {results.map((result, i) => {
         return (
           <li

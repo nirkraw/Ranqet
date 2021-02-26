@@ -7,9 +7,10 @@ import "../../styles/SearchPage.css";
 
 export default function SearchPage() {
   const match = useRouteMatch();
-  const history = useHistory()
+  const history = useHistory();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     fetchFullResults();
@@ -17,8 +18,8 @@ export default function SearchPage() {
 
   const fetchFullResults = async () => {
     try {
-    //   const res = fetchResults(match.params.searchVal);
-    //   setResults(res.data.results);
+      //   const res = fetchResults(match.params.searchVal);
+      //   setResults(res.data.results);
       setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);

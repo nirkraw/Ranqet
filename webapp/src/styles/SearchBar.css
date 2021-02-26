@@ -38,10 +38,9 @@
     opacity:.7;
 }
 
-#search-result-ul {
+.search-result-ul {
     width: 100%;
     border: 1px solid black;
-    max-height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,6 +48,7 @@
     z-index: 10;
     background-color: rgb(250, 248, 248);
     padding-top: 2%;
+    visibility: hidden;
 }
 
 .search-result-item {

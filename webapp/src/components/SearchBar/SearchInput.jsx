@@ -1,34 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import SearchResults from "./SearchResults";
 import { useHistory } from "react-router-dom";
 import "../../styles/SearchBar.css";
 import SearchIcon from "../../assets/searchIcon.png";
 import { searchForLists } from "../../util/Endpoints/ListEP";
 
-export default function SearchInput() {
+export default function SearchInput({ useOutsideAlerter }) {
   const history = useHistory();
-  const sampleResults = [
-    {
-      id: "beb0903a-fdeb-46b6-861f-dfd8972fa8a3",
-      title: "Best TV Shows of 2020",
-      imageUrl:
-        "https://ranker-dev.s3.us-east-1.amazonaws.com/1611028699671-tv.jpeg",
-    },
-    {
-      id: "655201c5-7884-4843-9c44-6002dbd65109",
-      title: "some list",
-      imageUrl: null,
-    },
-    {
-      id: "e81acbea-39d0-4691-908b-99527699153e",
-      title: "Best TV Shows",
-      imageUrl:
-        "https://ranker-dev.s3.us-east-1.amazonaws.com/1611109364794-tv.jpeg",
-    },
-  ];
+  const [active, setActive] = useState(false);
   const [results, setResults] = useState([]);
   const [searchVal, setSearchVal] = useState("");
-
+  const searchWrapper = useRef(null);
+  useOutsideAlerter(searchWrapper, setActive);
+  
   const search = async (lookupKey) => {
     setSearchVal(lookupKey);
     if (!lookupKey) setResults([]);
@@ -62,6 +46,7 @@ export default function SearchInput() {
           type="text"
           onKeyDown={handleKeyDown}
           onChange={(e) => search(e.target.value)}
+          onClick={() => setActive(true)}
         />
         <img
           onClick={handleSubmit}
@@ -70,7 +55,7 @@ export default function SearchInput() {
           alt="search"
         />
       </div>
-      <SearchResults results={results} />
+      <SearchResults searchWrapper={searchWrapper}results={results} active={active} />
     </div>
   );
 }

@@ -12,7 +12,7 @@ export default function Navbar({ openModal, useOutsideAlerter, setTabType }) {
       <h3 onClick={() => history.push(`/`)} id="navbar-title">
         ranqet
       </h3>
-      <SearchInput />
+      <SearchInput useOutsideAlerter={useOutsideAlerter} />
       {!localStorage.getItem("sessionToken") ? (
         <div id="navbar-buttons-container">
           <div
@@ -36,10 +36,7 @@ export default function Navbar({ openModal, useOutsideAlerter, setTabType }) {
           >
             Create List
           </h3>
-          <h3
-            onClick={() => history.push("/")}
-            className="nav-session-button"
-          >
+          <h3 onClick={() => history.push("/")} className="nav-session-button">
             Home
           </h3>
           <ProfileDropdown

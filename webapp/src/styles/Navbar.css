@@ -71,7 +71,7 @@
 }
 
 .active {
-   visibility: visible;
+   visibility: visible !important;
 }
 
 .profile-dropdown-item-container {
