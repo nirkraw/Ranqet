@@ -65,13 +65,16 @@ export default function UserInfo({
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
   } else if (localStorage.getItem("userId") === match.params.userId) {
-    currentImage = <p id="profile-photo-text">Add User Profile</p>;
+    currentImage = <p className="site-button">Add Avatar</p>;
   }
 
   let button;
   if (!publicFacing && localStorage.getItem("userId") === match.params.userId) {
     button = (
-      <button className="site-button" onClick={() => setPublicFacing(!publicFacing)}>
+      <button
+        className="site-button"
+        onClick={() => setPublicFacing(!publicFacing)}
+      >
         View Public Profile
       </button>
     );
@@ -107,7 +110,9 @@ export default function UserInfo({
           onClick={() => document.getElementById("user-photo-input").click()}
         >
           {currentImage}
-          <button className="update-picture site-button">Update</button>
+          {avatarUrl ? (
+            <button className="update-picture site-button">Update</button>
+          ) : null}
         </div>
       ) : (
         <div id="user-profile-image-container-no-hover">{currentImage}</div>

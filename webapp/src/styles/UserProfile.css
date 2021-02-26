@@ -136,12 +136,6 @@
   border-radius: 50%;
 }
 
-#profile-photo-text {
-  background-color: rgb(226, 223, 223);
-  width: 90%;
-  text-align: center;
-}
-
 #user-profile-error {
   font-family: sans-serif;
   font-size: 15px;

@@ -80,7 +80,13 @@ export default function UserProfile({ tabType, setTabType }) {
         />
       ) : (
         <div id="tabs-container-div">
-          <ListIndex passedList={publicLists} />
+          {publicLists.length ? (
+            <ListIndex passedList={publicLists} />
+          ) : (
+            <div id="empty-list-container">
+              <h1>No Lists</h1>
+            </div>
+          )}
         </div>
       )}
       <ConfirmationModal
