@@ -36,13 +36,13 @@ export default function Home({ openModal}) {
     <div id="home-main">
       <div id="category-container">
         {ListCategory.map((category, i) => (
-          <p
+          <div
+            onClick={() => history.push(`/category/${category}`)}
             className="category-container-item"
             key={i}
-            onClick={() => history.push(`/category/${category}`)}
           >
-            {ListCategoryToTitle[category]}
-          </p>
+            <p>{ListCategoryToTitle[category]}</p>
+          </div>
         ))}
       </div>
       <div id="top-and-new-lists-container">
