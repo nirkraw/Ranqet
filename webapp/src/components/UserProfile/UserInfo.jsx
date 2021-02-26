@@ -27,6 +27,7 @@ export default function UserInfo({
   const fetchUserInfo = async () => {
     try {
       const res = await fetchUser(match.params.userId);
+      console.log(res.data.createdOn)
       setDate(formatUploadTime(res.data.createdOn));
       setName(res.data.name);
       if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
@@ -64,7 +65,7 @@ export default function UserInfo({
     currentImage = (
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
-  } else if (localStorage.getItem("userId") === match.params.userId) {
+  } else if (localStorage.getItem("userId") === match.params.userId && !publicFacing) {
     currentImage = <p className="site-button">Add Avatar</p>;
   }
 
@@ -120,7 +121,7 @@ export default function UserInfo({
       <h1 id="user-profile-name">{name}</h1>
       <div id="user-stats">
         <h1>
-          Active since <span>{date}</span>
+          Joined <span>{date}</span>
         </h1>
         <h1>
           <span>{numCreated}</span> lists created

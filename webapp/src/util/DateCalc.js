@@ -1,11 +1,17 @@
 export const formatUploadTime = (created_at) => {
-  let timeCreatedAt = new Date(created_at);
-  let currentTime = new Date(Date.now());
-  let years = currentTime.getFullYear() - timeCreatedAt.getFullYear();
+  const timeCreatedAt = new Date(created_at);
+  const currentTime = new Date(Date.now());
+  let years = currentTime.getFullYear() - timeCreatedAt.getFullYear();;
   let months = currentTime.getMonth() - timeCreatedAt.getMonth();
-  let days = currentTime.getDay() - timeCreatedAt.getDay();
-  let hours = currentTime.getHours() - timeCreatedAt.getHours();
-  let minutes = currentTime.getMinutes() - timeCreatedAt.getMinutes();
+  if (months < 0) {
+    months = 12 - (timeCreatedAt.getMonth() - currentTime.getMonth());
+    years--;
+  };
+  let days = currentTime.getDate() - timeCreatedAt.getDate();;
+  if (days < 0) {
+    days = 12 - (timeCreatedAt.getDay() - currentTime.getDay());
+    months--;
+  }
 
   if (years > 1) return `${years} years ago`;
   else if (years === 1) return "1 year ago";
@@ -13,8 +19,6 @@ export const formatUploadTime = (created_at) => {
   else if (months === 1) return "1 month ago";
   else if (days > 1) return `${days} days ago`;
   else if (days === 1) return "1 day ago";
-  else if (hours > 1) return `${hours} hours ago`;
-  else if (hours === 1) return "1 hour ago";
-  else if (minutes > 1) return `${minutes} minutes ago`;
-  else return "1 minute ago";
+  else return "Today";
 };
+
