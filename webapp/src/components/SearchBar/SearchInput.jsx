@@ -30,7 +30,6 @@ export default function SearchInput({ useOutsideAlerter }) {
       try {
         const res = await searchForLists(lookupKey);
         setResults(res.data.lists);
-        console.log("Why are we searching");
       } catch (err) {
         history.push(`/error/${err.message}`);
       }
