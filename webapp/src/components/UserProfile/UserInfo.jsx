@@ -106,13 +106,17 @@ export default function UserInfo({
       />
       {localStorage.getItem("userId") === match.params.userId &&
       !publicFacing ? (
-        <div
-          id="user-profile-image-container"
-          onClick={() => document.getElementById("user-photo-input").click()}
-        >
+        <div id="user-profile-image-container">
           {currentImage}
           {avatarUrl ? (
-            <button className="update-picture site-button">Update</button>
+            <button
+              className="update-picture site-button"
+              onClick={() =>
+                document.getElementById("user-photo-input").click()
+              }
+            >
+              Update
+            </button>
           ) : null}
         </div>
       ) : (

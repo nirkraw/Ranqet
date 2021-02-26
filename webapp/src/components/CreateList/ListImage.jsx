@@ -54,7 +54,7 @@ export default function ListImage({
     );
   } else {
     currentImage = (
-      <button id="upload-image-button" onClick={triggerInput}>
+      <button className="site-button active" onClick={triggerInput}>
         Add List Image
       </button>
     );
@@ -70,7 +70,14 @@ export default function ListImage({
         hidden
         ref={inputFileRef}
       />
-      <div id="create-list-image-container">{currentImage}</div>
+      <div id="create-list-image-container">
+        {currentImage}
+        {listImgUrl ?
+        <button className="site-button" onClick={triggerInput}>
+          Update Image
+        </button>
+        : null }
+      </div>
     </div>
   );
 }

@@ -113,17 +113,14 @@
 
 .update-picture {
   position: absolute;
-  bottom: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   visibility: hidden;
 }
 
 #user-profile-image-container:hover .update-picture{
   visibility: visible;
-}
-
-#user-profile-image-container:hover {
-  cursor: pointer;
-  opacity: 0.8;
 }
 
 #user-profile-image {
