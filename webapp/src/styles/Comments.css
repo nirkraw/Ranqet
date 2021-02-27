@@ -74,9 +74,14 @@
 }
 
 .comment-content {
+  width: 100%;
+  word-wrap: break-word;
+}
+.comment-content > p {
   font-family: var(--font-1);
   color: var(--pink-3);
   font-size: 25px;
+  width: 100%;
 }
 
 #add-comment-container {

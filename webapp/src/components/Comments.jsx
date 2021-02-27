@@ -6,7 +6,6 @@ import LoadingSpinner from "./Misc/LoadingSpinner";
 import { fetchListComments, createComment } from "../util/Endpoints/CommentEP";
 import { fetchUser } from "../util/Endpoints/UserEP";
 import EmptyAvatar from "../assets/avatar.svg";
-import ResizableTextarea from "./ResizableTextarea";
 
 export default function Comments({ openModal }) {
   const history = useHistory();
@@ -122,7 +121,9 @@ export default function Comments({ openModal }) {
                     {formatUploadTime(comment.createdOn)}
                   </h3>
                 </div>
-                <p className="comment-content">{comment.comment}</p>
+                <div className="comment-content">
+                  <p>{comment.comment}</p>
+                </div>
               </div>
             </li>
           );
