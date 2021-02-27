@@ -4,8 +4,9 @@ import { formatUploadTime } from "../util/DateCalc";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import { fetchListComments, createComment } from "../util/Endpoints/CommentEP";
-import {fetchUser} from "../util/Endpoints/UserEP";
+import { fetchUser } from "../util/Endpoints/UserEP";
 import EmptyAvatar from "../assets/avatar.svg";
+import ResizableTextarea from "./ResizableTextarea";
 
 export default function Comments({ openModal }) {
   const history = useHistory();
@@ -16,6 +17,7 @@ export default function Comments({ openModal }) {
   const [loading, setLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState(EmptyAvatar);
   const [pageNum, setPageNum] = useState(0);
+  const [currRows, setCurrRows] = useState(1);
 
   useEffect(() => {
     fetchComments();
@@ -44,23 +46,28 @@ export default function Comments({ openModal }) {
 
   const addComment = async () => {
     if (!newComment) return;
-      try {
-        await createComment(match.params.listId, {
-          comment: newComment,
-          userId: localStorage.getItem("userId"),
-          sessionToken: localStorage.getItem("sessionToken"),
-        });
-        addCommentInput.current.value = "";
-        fetchComments();
-      } catch (err) {
-        history.push(`/error/${err.message}`);
-      }
+    try {
+      await createComment(match.params.listId, {
+        comment: newComment,
+        userId: localStorage.getItem("userId"),
+        sessionToken: localStorage.getItem("sessionToken"),
+      });
+      addCommentInput.current.value = "";
+      setNewComment("");
+      fetchComments();
+      setCurrRows(1);
+    } catch (err) {
+      history.push(`/error/${err.message}`);
+    }
   };
 
   const handleCommentChange = (e) => {
-    if (localStorage.getItem("userId")) setNewComment(e.target.value);
-    else openModal(["login"]);
-  }
+    if (localStorage.getItem("userId")) {
+      const currentRows = ~~(e.target.scrollHeight / 24);
+      setCurrRows(currentRows);
+      setNewComment(e.target.value);
+    } else openModal(["login"]);
+  };
 
   if (loading) return <LoadingSpinner />;
 
@@ -76,13 +83,16 @@ export default function Comments({ openModal }) {
         </div>
         <div id="add-comment-input-and-submit">
           <textarea
-            rows="2"
+            className="textarea"
             maxLength="150"
+            rows={currRows}
             placeholder="Add comment"
             onChange={handleCommentChange}
             ref={addCommentInput}
           />
-          <button className="site-button" onClick={addComment}>Comment</button>
+          <button className="site-button" onClick={addComment}>
+            Comment
+          </button>
         </div>
       </div>
       <ul id="main-comments-ul">
