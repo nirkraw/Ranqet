@@ -62,7 +62,15 @@ export default function Comments({ openModal }) {
 
   const handleCommentChange = (e) => {
     if (localStorage.getItem("userId")) {
-      const currentRows = ~~(e.target.scrollHeight / 24);
+      const textareaLineHeight = 24;
+      const previousRows = e.target.rows;
+      e.target.rows = 1;
+      const currentRows = ~~(e.target.scrollHeight / textareaLineHeight);
+
+      if (currentRows === previousRows) {
+        e.target.rows = currentRows;
+      }
+
       setCurrRows(currentRows);
       setNewComment(e.target.value);
     } else openModal(["login"]);
