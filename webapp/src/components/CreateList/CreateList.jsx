@@ -42,9 +42,16 @@ export default function CreateList() {
     else {
       setLoading(true);
       const newOptions = [];
+      let optionError;
       const visitedOptions = new Set();
       for (let i = 0; i < listOptions.length; i++) {
         let option = listOptions[i];
+        if (option.name === "" && option.photUrl !== "") {
+          setUserError("All options need titles");
+          setLoading(false);
+          optionError = true;
+          break;
+        }
         if (!option.name) continue;
         if (visitedOptions.has(option.name)) {
           setUserError("All options must be unique");
@@ -54,6 +61,7 @@ export default function CreateList() {
         visitedOptions.add(option.name);
         newOptions.push({ name: option.name, photoUrl: option.photoUrl });
       }
+      if(optionError) return;
 
       const data = {
         title: listTitle,
@@ -71,7 +79,7 @@ export default function CreateList() {
         setSubmited(
           <ListCompleted
             listId={res.data.id}
-            title={res.data.description}
+            title={res.data.title}
             imageUrl={res.data.imageUrl}
             description={res.data.description}
           />

@@ -19,10 +19,7 @@ export default function ListCompleted({
   return (
     <div id="list-completed-main">
       <div id="list-completed-sub">
-        <div
-          id="list-completed-info-and-image"
-          onClick={() => history.push(`/${listId}/quiz`)}
-        >
+        <div id="list-completed-info-and-image">
           <img className="list-image" src={imageUrl} alt="list"></img>
           <div id="list-completed-info">
             <p>{title}</p>
@@ -38,6 +35,12 @@ export default function ListCompleted({
           />
           <button className="site-button" onClick={copyToClipboard}>
             Copy Link
+          </button>
+          <button
+            className="site-button"
+            onClick={() => history.push(`/${listId}/quiz`)}
+          >
+            Rank it!
           </button>
           <p
             className={
