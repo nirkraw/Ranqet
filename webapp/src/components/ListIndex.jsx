@@ -47,10 +47,7 @@ export default function ListIndex({
       {passedList.map((list, i) => {
         return (
           <div className="list-index-item" key={i}>
-            <li
-              className="list-index-item-li"
-              onClick={() => handleLink(list.id)}
-            >
+            <li className="list-index-item-li">
               <div className="list-index-image-container">
                 {list.imageUrl ? (
                   <img
@@ -61,7 +58,12 @@ export default function ListIndex({
                 ) : null}
               </div>
               <div className="list-index-item-name-and-description-container">
-                <p className="list-index-item-name">{list.title}</p>
+                <p
+                  className="list-index-item-name"
+                  onClick={() => handleLink(list.id)}
+                >
+                  {list.title}
+                </p>
                 <p
                   className="list-index-author"
                   onClick={(e) => {
@@ -72,7 +74,15 @@ export default function ListIndex({
                   <span>By: </span>
                   {list.createdBy.name}
                 </p>
-                <p>{list.category}</p>
+                <p
+                  className="list-index-category"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    history.push(`/category/${list.category}`);
+                  }}
+                >
+                  {list.category}
+                </p>
                 <p>Created {formatUploadTime(list.createdOn)}</p>
                 <p className="list-index-item-description">
                   {list.description}

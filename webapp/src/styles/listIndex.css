@@ -17,7 +17,7 @@
   z-index: 0;
   display: flex;
   justify-content: flex-start;
-  height: 200px;
+  /* height: 200px; */
   margin-bottom: 10px;
   width: 90%;
   padding: 10px;
@@ -83,6 +83,17 @@
   color: var(--blue-2);
   width: fit-content;
   z-index: 1;
+}
+
+.list-index-category {
+  font-size: 15px;
+  font-family: var(--font-3);
+  color: var(--pink-2);
+}
+
+.list-index-category:hover {
+  cursor: pointer;
+  color: var(--blue-3);
 }
 
 .list-index-item-name:hover {
