@@ -46,7 +46,7 @@ export default function CreateList() {
       const visitedOptions = new Set();
       for (let i = 0; i < listOptions.length; i++) {
         let option = listOptions[i];
-        if (option.name === "" && option.photUrl !== "") {
+        if (!option.name === "" && option.photUrl !== "") {
           setUserError("All options need titles");
           setLoading(false);
           optionError = true;

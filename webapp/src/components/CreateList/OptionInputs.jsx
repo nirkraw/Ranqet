@@ -28,17 +28,23 @@ export default function OptionInputs({
     setListOptions(options);
   }, [options]);
 
-  const handleOptionNameChange = (e) => {
-    const currOptionIdx = e.currentTarget.attributes.optionnum.value;
+  const handleOptionNameChange = (e, index) => {
     const optionsCopy = [...options]
-    optionsCopy[currOptionIdx].name = e.currentTarget.value;
+    optionsCopy[index].name = e.currentTarget.value;
     setOptions(optionsCopy);
   };
 
-  const openImageModal = (e) => {
-    const currOptionIdx = e.currentTarget.attributes.optionnum.value;
-    setCurrModalOptionIdx(currOptionIdx);
+  const openImageModal = (index) => {
+    setCurrModalOptionIdx(index);
     setOpenModal(true);
+  };
+
+  const deleteOptionImage = (e, index) => {
+    e.preventDefault();
+    const optionsCopy = [...options];
+    optionsCopy[index].photoUrl = "";
+    console.log(optionsCopy)
+    setOptions(optionsCopy);
   };
 
   const arrIdxs = [];
@@ -55,9 +61,8 @@ export default function OptionInputs({
     } else {
       currImg = (
         <img
-          onClick={openImageModal}
+          onClick={() => openImageModal(i)}
           className="option-input-image"
-          optionnum={i}
           src={options[i].photoUrl}
           alt="option-preview"
         ></img>
@@ -84,15 +89,14 @@ export default function OptionInputs({
           placeholder={`Option ${i + 1}`}
           value={options[i].name}
           maxLength="32"
-          optionnum={i}
           className="option-input"
           type="text"
-          onChange={handleOptionNameChange}
+          onChange={(e) => handleOptionNameChange(e, i)}
         />
+        <button onClick={(e) => deleteOptionImage(e, i)} className="site-button">Delete Option Image</button>
         <div
           className="option-input-add-image"
-          optionnum={i}
-          onClick={openImageModal}
+          onClick={() => openImageModal(i)}
         >
           {currImg}
         </div>
