@@ -1,5 +1,6 @@
 import React from "react";
 import { fetchListOptionPair } from "../util/Endpoints/OptionEP";
+import {formatUploadTime} from "../util/DateCalc";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import TrashImage from "../assets/trash-icon.png";
@@ -65,12 +66,14 @@ export default function ListIndex({
                   className="list-index-author"
                   onClick={(e) => {
                     e.stopPropagation();
-                    history.push((`/profile/${list.createdBy.id}`))
+                    history.push(`/profile/${list.createdBy.id}`);
                   }}
                 >
                   <span>By: </span>
                   {list.createdBy.name}
                 </p>
+                <p>{list.category}</p>
+                <p>Created {formatUploadTime(list.createdOn)}</p>
                 <p className="list-index-item-description">
                   {list.description}
                 </p>

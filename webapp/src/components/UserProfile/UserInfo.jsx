@@ -28,7 +28,6 @@ export default function UserInfo({
   const fetchUserInfo = async () => {
     try {
       const res = await fetchUser(match.params.userId);
-      console.log(res.data.createdOn)
       setDate(formatUploadTime(res.data.createdOn));
       setName(res.data.name);
       if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
