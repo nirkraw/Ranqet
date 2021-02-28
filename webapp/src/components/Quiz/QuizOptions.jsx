@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchListOptionPair, submitOptionChoice } from "../../util/Endpoints/OptionEP";
+import {
+  fetchListOptionPair,
+  submitOptionChoice,
+} from "../../util/Endpoints/OptionEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";
 
@@ -34,11 +37,12 @@ export default function QuizOptions({ listId, history }) {
     const losingOptionId =
       options[0].id === winningOptionId ? options[1].id : options[0].id;
     try {
-      await submitOptionChoice(listId, {
-        userId: localStorage.getItem("userId"),
+      await submitOptionChoice(
+        listId,
+        localStorage.getItem("userId"),
         winningOptionId,
-        losingOptionId,
-      });
+        losingOptionId
+      );
       fetchNextOptionPair();
     } catch (err) {
       history.push(`/error/${err.message}`);

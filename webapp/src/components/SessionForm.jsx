@@ -25,11 +25,7 @@ export default function SessionForm({ formType, openModal, route }) {
     }
     try {
       const endpoint = formHeader === "Sign Up" ? createUser : loginUser;
-      const res = await endpoint({
-        name: name,
-        username: username,
-        password: password,
-      });
+      const res = await endpoint(name, username, password);
       localStorage.setItem("userId", res.data.id);
       localStorage.setItem("sessionToken", res.data.sessionToken);
       openModal([]);

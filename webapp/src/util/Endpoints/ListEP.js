@@ -9,11 +9,23 @@ export const fetchList = (listId) => {
   });
 };
 
-export const createList = (data) => {
-  return axios.post(`${server}/list/create`, data, {
-    "Content-Type": "false",
-    ProcessData: "false",
-  });
+export const createList = (
+  title,
+  imageUrl,
+  description,
+  options,
+  authorId,
+  isUnlisted,
+  category
+) => {
+  return axios.post(
+    `${server}/list/create`,
+    { title, imageUrl, description, options, authorId, isUnlisted, category },
+    {
+      "Content-Type": "false",
+      ProcessData: "false",
+    }
+  );
 };
 
 export const fetchTopLists = () => {

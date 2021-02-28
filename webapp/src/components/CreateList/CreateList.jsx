@@ -8,7 +8,7 @@ import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 import SavePresetOptions from "./PresetOptions/SavePresetOptions";
 import ListCompleted from "./ListCompleted";
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
 export default function CreateList() {
   const history = useHistory();
@@ -61,20 +61,18 @@ export default function CreateList() {
         visitedOptions.add(option.name);
         newOptions.push({ name: option.name, photoUrl: option.photoUrl });
       }
-      if(optionError) return;
-
-      const data = {
-        title: listTitle,
-        imageUrl: listImgUrl,
-        description,
-        options: newOptions,
-        authorId: localStorage.getItem("userId"),
-        isUnlisted: unlisted,
-        category,
-      };
+      if (optionError) return;
 
       try {
-        const res = await createList(data);
+        const res = await createList(
+          listTitle,
+          listImgUrl,
+          description,
+          newOptions,
+          localStorage.getItem("userId"),
+          unlisted,
+          category
+        );
         setLoading(false);
         setSubmited(
           <ListCompleted

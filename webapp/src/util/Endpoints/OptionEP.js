@@ -3,10 +3,23 @@ const server = window.location.origin.includes("localhost")
   ? "http://localhost:8080"
   : window.location.origin;
 
-export const submitOptionChoice = (listId, body) => {
-  return axios.post(`${server}/list/${listId}/vote`, body, {
-    "Content-Type": "application/json",
-  });
+export const submitOptionChoice = (
+  listId,
+  userId,
+  winningOptionId,
+  losingOptionId
+) => {
+  return axios.post(
+    `${server}/list/${listId}/vote`,
+    {
+      userId,
+      winningOptionId,
+      losingOptionId,
+    },
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
 
 export const fetchListOptionPair = (listId, userId) => {

@@ -3,18 +3,24 @@ const server = window.location.origin.includes("localhost")
   ? "http://localhost:8080"
   : window.location.origin;
 
-
-
-export const createUser = (body) => {
-  return axios.post(`${server}/user/create`, body, {
-    "Content-Type": "application/json",
-  });
+export const createUser = (name, username, password) => {
+  return axios.post(
+    `${server}/user/create`,
+    { name, username, password },
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
 
-export const loginUser = (body) => {
-  return axios.post(`${server}/user/login`, body, {
-    "Content-Type": "application/json",
-  });
+export const loginUser = (name, username, password) => {
+  return axios.post(
+    `${server}/user/login`,
+    { name, username, password },
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
 
 export const fetchUser = (userId) => {
@@ -24,9 +30,12 @@ export const fetchUser = (userId) => {
 };
 
 export const fetchUserLists = (userId, sessionToken) => {
-  return axios.get(`${server}/lists/user/${userId}/all?sessionToken=${sessionToken}`, {
-    "Content-Type": "application/json",
-  });
+  return axios.get(
+    `${server}/lists/user/${userId}/all?sessionToken=${sessionToken}`,
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
 
 export const fetchUserPublicList = (userId) => {

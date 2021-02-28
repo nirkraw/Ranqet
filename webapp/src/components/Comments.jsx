@@ -46,11 +46,12 @@ export default function Comments({ openModal }) {
   const addComment = async () => {
     if (!newComment) return;
     try {
-      await createComment(match.params.listId, {
-        comment: newComment,
-        userId: localStorage.getItem("userId"),
-        sessionToken: localStorage.getItem("sessionToken"),
-      });
+      await createComment(
+        match.params.listId,
+        newComment,
+        localStorage.getItem("userId"),
+        localStorage.getItem("sessionToken")
+      );
       addCommentInput.current.value = "";
       setNewComment("");
       fetchComments();

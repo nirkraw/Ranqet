@@ -9,8 +9,16 @@ export const fetchListComments = (listId, pageNum) => {
   });
 };
 
-export const createComment = (listId, body) => {
-  return axios.post(`${server}/list/${listId}/comment`, body, {
-    "Content-Type": "application/json",
-  });
+export const createComment = (listId, comment, userId, sessionToken) => {
+  return axios.post(
+    `${server}/list/${listId}/comment`,
+    {
+      comment,
+      userId,
+      sessionToken,
+    },
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
