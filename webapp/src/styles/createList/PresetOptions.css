@@ -21,12 +21,21 @@
 }
 
 #preset-options-display-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: 1px solid black;
   border-radius: 10px;
   width: 40%;
   overflow-y: auto;
   margin-left: 50px;
   height: 475px;
+  padding-top: 10px;
+}
+
+#preset-options-display-container > button {
+  align-self: center;
+  margin-bottom: 10px
 }
 
 #preset-options-display-item {
@@ -36,13 +45,28 @@
   width: 100%;
   border-bottom: 1px solid black;
   height: 90px;
+  padding: 15px;
 }
 
-#preset-options-display-item > h1 {
-  font-family: var(--font-1);
-  font-size: 27px;
-  padding-left: 10px;
+.preset-options-checkbox-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
+
+.preset-checkbox-input {
+  margin: 0;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.preset-checkbox-label {
+  margin: 0;
+  font-family: var(--font-1);
+  font-size: 25px;
+}
+
 
 #preset-options-display-item > img {
   width: 100px;
@@ -53,6 +77,7 @@
   background-repeat: no-repeat;
   border: 1px solid black;
   margin-right: 10px;
+  
 }
 
 #preset-options-button-container {
