@@ -127,8 +127,8 @@ q {
   --yellow-2: #fff66b;
   --yellow-3: #fff226;
   --yellow-4: #b0a502;
-  --orange-1: #FD5F1B;
-  --gray-1: #A7A7A7;
+  --orange-1: #fd5f1b;
+  --gray-1: #a7a7a7;
 
   --font-1: "Open Sans", sans-serif;
   --font-2: "Potta One", cursive;
@@ -144,7 +144,7 @@ q {
   background: none;
 }
 
-.site-button{
+.site-button {
   font-family: var(--font-1);
   width: fit-content;
   background-color: var(--pink-3);
@@ -160,3 +160,37 @@ q {
   opacity: 0.8;
 }
 
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.justify-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column-start {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.column-center-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

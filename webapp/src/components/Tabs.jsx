@@ -1,10 +1,14 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import ListIndex from "./ListIndex";
 import "../styles/Tabs.css"
 
 export default function Tabs({ tabs }) {
-  const [currTab, setCurrTab] = useState(tabs.length ? tabs[0].list : []);
+  const [currTab, setCurrTab] = useState([]);
   const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+     if(!currTab.length && tabs.length) setCurrTab(tabs[0].list)
+  }, [tabs])
 
   const setTab = (i, tabList) => {
     setCurrTab(tabList);
@@ -12,8 +16,8 @@ export default function Tabs({ tabs }) {
   };
 
   return (
-    <div id="tabs-container-div">
-      <ul id="tab-names-ul">
+    <div id="tabs-container-div" className="column-start">
+      <ul id="tab-names-ul" className="justify-start">
         {tabs.map((tab, i) => (
           <li
             className={
