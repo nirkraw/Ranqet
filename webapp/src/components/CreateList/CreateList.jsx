@@ -7,7 +7,6 @@ import ListImage from "./ListImage";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 import SavePresetOptions from "./PresetOptions/SavePresetOptions";
-import ListCompleted from "./ListCompleted";
 import { useHistory } from "react-router-dom";
 import Tooltip from "../Tooltip";
 
@@ -24,7 +23,6 @@ export default function CreateList() {
   const [imageLoading, setImageLoading] = useState(false);
   const [presetModalOpen, setPresetModalOpen] = useState(false);
   const [savePresetModalOpen, setSavePresetModalOpen] = useState(false);
-  const [submited, setSubmited] = useState(null);
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -43,15 +41,13 @@ export default function CreateList() {
     else {
       setLoading(true);
       const newOptions = [];
-      let optionError;
       const visitedOptions = new Set();
       for (let i = 0; i < listOptions.length; i++) {
         let option = listOptions[i];
-        if (!option.name === "" && option.photUrl !== "") {
+        if (option.name === "" && option.photoUrl !== "") {
           setUserError("All options need titles");
           setLoading(false);
-          optionError = true;
-          break;
+          return;
         }
         if (!option.name) continue;
         if (visitedOptions.has(option.name)) {
@@ -62,7 +58,6 @@ export default function CreateList() {
         visitedOptions.add(option.name);
         newOptions.push({ name: option.name, photoUrl: option.photoUrl });
       }
-      if (optionError) return;
 
       try {
         const res = await createList(
@@ -75,14 +70,7 @@ export default function CreateList() {
           category
         );
         setLoading(false);
-        setSubmited(
-          <ListCompleted
-            listId={res.data.id}
-            title={res.data.title}
-            imageUrl={res.data.imageUrl}
-            description={res.data.description}
-          />
-        );
+        history.push(`/list/new/${res.data.id}`);
       } catch (err) {
         history.push(`/error/${err.message}`);
       }
@@ -90,7 +78,6 @@ export default function CreateList() {
   };
 
   if (loading) return <LoadingSpinner />;
-  if (submited) return submited;
 
   return (
     <div id="create-list-main-div">

@@ -8,7 +8,6 @@ import "../../styles/UserProfile.css";
 import ConfirmationModal from "../ConfirmModal";
 import UserInfo from "./UserInfo";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import UserTabs from "./UserTabs";
 import ListIndex from "../ListIndex";
 import Tabs from "../Tabs";
 
