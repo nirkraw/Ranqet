@@ -124,9 +124,11 @@ export default function OptionInputs({
   return (
     <div id="options-input-main-container">
       <ul id="options-input-ul">{optionInputs}</ul>
-      <button className="site-button" onClick={addOption}>
-        Add Option
-      </button>
+      {options.length < 8 ? (
+        <button className="site-button" onClick={addOption}>
+          Add Option
+        </button>
+      ) : null}
     </div>
   );
 }
