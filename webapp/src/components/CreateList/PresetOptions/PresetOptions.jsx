@@ -55,17 +55,15 @@ export default function PresetOptions({
 
   const setPresetOptions = () => {
     let optionsIdx = 0;
+    const newOptions = [];
     for (let i = 0; i < currOptions.length; i++) {
       if (currOptions[i] && currOptions[i].selected) {
-        options[optionsIdx] = currOptions[i];
+        newOptions[optionsIdx] = currOptions[i];
         optionsIdx++;
       } 
     }
-    for (let i = optionsIdx; i < options.length; i++) {
-      options[i] = {name: "", photoUrl: ""};
-      
-    }
-    setOptions(options);
+
+    setOptions(newOptions);
     setPresetModalOpen(false);
   };
 

@@ -1,3 +1,20 @@
+#options-input-main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3%;
+}
+
+#options-input-main-container > button {
+  font-size: 20px;
+}
+
+.remove-option {
+  position:absolute;
+  top: 25%;
+}
+
 #options-input-ul {
   width: 100%;
   display: flex;
@@ -7,10 +24,12 @@
 
 .option-input-li {
   width: 100%;
-  height: 15%;
+  height: 300px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 35px;
+  border-bottom: 1px solid var(--gray-1);
+  position: relative;
 }
 
 .option-input {
@@ -44,4 +63,10 @@
   background-position: center center;
   background-repeat: no-repeat;
   border: 1px solid black;
+}
+
+.delete-option-image {
+  position: absolute;
+  bottom: 20%;
+  right: 3%;
 }

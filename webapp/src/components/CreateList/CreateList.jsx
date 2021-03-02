@@ -30,41 +30,31 @@ export default function CreateList() {
 
   const handleListSubmit = async (e) => {
     e.preventDefault();
-    let totalOptions = 0;
-    for (let i = 0; i < listOptions.length; i++) {
-      if (listOptions[i].name) totalOptions++;
-    }
 
     if (!listTitle) setUserError("*List must have title.");
-    else if (totalOptions < 2) setUserError("Please add at least two options.");
+    else if (listOptions.length < 2) setUserError("Please add at least two options.");
     else if (!category) setUserError("Please choose category.");
     else {
-      setLoading(true);
-      const newOptions = [];
       const visitedOptions = new Set();
       for (let i = 0; i < listOptions.length; i++) {
         let option = listOptions[i];
-        if (option.name === "" && option.photoUrl !== "") {
+        if (!option.name) {
           setUserError("All options need titles");
-          setLoading(false);
           return;
         }
-        if (!option.name) continue;
         if (visitedOptions.has(option.name)) {
           setUserError("All options must be unique");
-          setLoading(false);
           return;
         }
         visitedOptions.add(option.name);
-        newOptions.push({ name: option.name, photoUrl: option.photoUrl });
       }
-
       try {
+        setLoading(true);
         const res = await createList(
           listTitle,
           listImgUrl,
           description,
-          newOptions,
+          listOptions,
           localStorage.getItem("userId"),
           unlisted,
           category
@@ -171,3 +161,52 @@ export default function CreateList() {
     </div>
   );
 }
+
+// const handleListSubmit = async (e) => {
+//   e.preventDefault();
+//   let totalOptions = 0;
+//   for (let i = 0; i < listOptions.length; i++) {
+//     if (listOptions[i].name) totalOptions++;
+//   }
+
+//   if (!listTitle) setUserError("*List must have title.");
+//   else if (totalOptions < 2) setUserError("Please add at least two options.");
+//   else if (!category) setUserError("Please choose category.");
+//   else {
+//     setLoading(true);
+//     const newOptions = [];
+//     const visitedOptions = new Set();
+//     for (let i = 0; i < listOptions.length; i++) {
+//       let option = listOptions[i];
+//       if (option.name === "" && option.photoUrl !== "") {
+//         setUserError("All options need titles");
+//         setLoading(false);
+//         return;
+//       }
+//       if (!option.name) continue;
+//       if (visitedOptions.has(option.name)) {
+//         setUserError("All options must be unique");
+//         setLoading(false);
+//         return;
+//       }
+//       visitedOptions.add(option.name);
+//       newOptions.push({ name: option.name, photoUrl: option.photoUrl });
+//     }
+
+//     try {
+//       const res = await createList(
+//         listTitle,
+//         listImgUrl,
+//         description,
+//         newOptions,
+//         localStorage.getItem("userId"),
+//         unlisted,
+//         category
+//       );
+//       setLoading(false);
+//       history.push(`/list/new/${res.data.id}`);
+//     } catch (err) {
+//       history.push(`/error/${err.message}`);
+//     }
+//   }
+// };
