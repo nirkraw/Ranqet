@@ -9,6 +9,7 @@ import UnlistedDropdown from "./UnlistedCheckbox";
 import SavePresetOptions from "./PresetOptions/SavePresetOptions";
 import ListCompleted from "./ListCompleted";
 import { useHistory } from "react-router-dom";
+import Tooltip from "../Tooltip";
 
 export default function CreateList() {
   const history = useHistory();
@@ -142,13 +143,11 @@ export default function CreateList() {
             >
               Use Preset Options
             </button>
-            <div className="info-tag tooltip-container">
-              <h1>?</h1>
-              <span className="tooltiptext">
-                Prefill your options with previously made public or personal
-                options
-              </span>
-            </div>
+            <Tooltip
+              helpText={
+                "Prefill your options with previously made public or personal options"
+              }
+            />
           </div>
           <OptionInputs
             listOptions={listOptions}
@@ -168,12 +167,9 @@ export default function CreateList() {
             >
               Save Options As Preset
             </button>
-            <div className="info-tag tooltip-container">
-              <h1>?</h1>
-              <span className="tooltiptext">
-                Save your options as a preset for future use
-              </span>
-            </div>
+            <Tooltip
+              helpText={"Save your options as a preset for future use"}
+            />
           </div>
           <SavePresetOptions
             isOpen={savePresetModalOpen}

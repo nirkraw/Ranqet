@@ -7,46 +7,6 @@
   margin-left: 20%;
 }
 
-.info-tag {
-  position: relative;
-  margin:0;
-  background-color: gray;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  margin-left: 5px;
-}
-
-.info-tag > h1 {
-  color: white;
-  font-size: 18px;
-  font-family: var(--font-1);
-  font-weight: 700;
-  position: absolute;
-  top: -.5px;
-  right: 6px;
-}
-
-.tooltiptext {
-  margin:0;
-  visibility: hidden;
-  width: 280px;
-  background-color: rgb(235, 232, 232);
-  color: black;
-  font-size: 13px;
-  text-align: left;
-  padding: 5px;
-  border-radius: 6px;
-  position: absolute;
-  bottom: 35px;
-  left: 0px;
-  z-index: 1;
-}
-
-.tooltip-container:hover .tooltiptext {
-  visibility: visible;
-}
-
 #unlisted-input {
   height: 25px;
   width: 25px;
