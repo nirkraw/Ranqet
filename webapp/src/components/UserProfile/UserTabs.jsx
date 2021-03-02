@@ -29,40 +29,22 @@ export default function UserTabs({
           title="Completed"
           tabClassName="tab-container"
         >
-          {completedLists.length ? (
-            <ListIndex passedList={completedLists} />
-          ) : (
-            <div id="empty-list-container">
-              <h1>No Lists</h1>
-            </div>
-          )}
+          <ListIndex passedList={completedLists} />
         </Tab>
         <Tab
           eventKey="inProgress"
           title="In Progress"
           tabClassName="tab-container"
         >
-          {inProgressLists.length ? (
-            <ListIndex passedList={inProgressLists} />
-          ) : (
-            <div id="empty-list-container">
-              <h1>No Lists</h1>
-            </div>
-          )}
+          <ListIndex passedList={inProgressLists} />
         </Tab>
         <Tab eventKey="created" title="My Lists" tabClassName="tab-container">
-          {createdLists.length ? (
-            <ListIndex
-              passedList={createdLists}
-              trash={true}
-              setCurrListId={setCurrListId}
-              setIsOpen={setIsOpen}
-            />
-          ) : (
-            <div id="empty-list-container">
-              <h1>No Lists</h1>
-            </div>
-          )}
+          <ListIndex
+            passedList={createdLists}
+            trash={true}
+            setCurrListId={setCurrListId}
+            setIsOpen={setIsOpen}
+          />
         </Tab>
       </Tabs>
     </div>

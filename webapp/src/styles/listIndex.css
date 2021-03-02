@@ -2,8 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 400px;
+}
+
+#no-lists {
+  font-family: var(--font-1);
+  color: var(--blue-2);
+  font-size: 35px;
 }
 
 .list-index-item {

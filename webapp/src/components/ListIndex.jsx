@@ -12,7 +12,11 @@ export default function ListIndex({
   setIsOpen
 }) {
   const history = useHistory();
-  if(!passedList) return null;
+  if(!passedList || !passedList.length) return (
+    <div id="list-index-ul">
+      <h1 id="no-lists">No Lists</h1>
+    </div>
+  );
 
   const handleLink = async (listId) => {
     if (!localStorage.getItem("userId")) history.push(`/${listId}/rankings`);

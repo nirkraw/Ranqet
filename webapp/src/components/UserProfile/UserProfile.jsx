@@ -10,6 +10,7 @@ import UserInfo from "./UserInfo";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import UserTabs from "./UserTabs";
 import ListIndex from "../ListIndex";
+import Tabs from "../Tabs";
 
 export default function UserProfile({ tabType, setTabType }) {
   const match = useRouteMatch();
@@ -69,14 +70,21 @@ export default function UserProfile({ tabType, setTabType }) {
       />
       {localStorage.getItem("userId") === match.params.userId &&
       !publicFacing ? (
-        <UserTabs
-          inProgressLists={inProgressLists}
-          completedLists={completedLists}
-          createdLists={createdLists}
-          setIsOpen={setIsOpen}
-          setCurrListId={setCurrListId}
-          tabType={tabType}
-          setTabType={setTabType}
+        // <UserTabs
+        //   inProgressLists={inProgressLists}
+        //   completedLists={completedLists}
+        //   createdLists={createdLists}
+        //   setIsOpen={setIsOpen}
+        //   setCurrListId={setCurrListId}
+        //   tabType={tabType}
+        //   setTabType={setTabType}
+        // />
+        <Tabs
+          tabs={[
+            { name: "Completed", list: completedLists },
+            { name: "In Progress", list: inProgressLists },
+            { name: "My Lists", list: createdLists },
+          ]}
         />
       ) : (
         <div id="tabs-container-div">

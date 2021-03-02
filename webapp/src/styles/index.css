@@ -127,11 +127,15 @@ q {
   --yellow-2: #fff66b;
   --yellow-3: #fff226;
   --yellow-4: #b0a502;
+  --orange-1: #FD5F1B;
+  --gray-1: #A7A7A7;
+
   --font-1: "Open Sans", sans-serif;
   --font-2: "Potta One", cursive;
   --font-3: "Nanum Gothic", sans-serif;
   --font-4: "Josefin Sans", sans-serif;
   --font-5: "Teko", sans-serif;
+  --font-6: "font-family: 'Lato', sans-serif";
   --main-page-header: "Montserrat", sans-serif;
 }
 
