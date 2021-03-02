@@ -30,7 +30,18 @@
   margin-bottom: 35px;
   border-bottom: 1px solid var(--gray-1);
   position: relative;
+  animation-name: open;
+  animation-duration: 0.4s;
 }
+@keyframes open {
+  from {
+    height: 0px;
+  }
+  to {
+      height: 300px;
+  }
+}
+  
 
 .option-input {
   width: 55%;
