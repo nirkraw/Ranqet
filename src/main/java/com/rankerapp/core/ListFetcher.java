@@ -62,21 +62,7 @@ public class ListFetcher {
         if (!userListIsComplete) {
             throw new ForbiddenException("Cannot fetch personal rankings for a list that is incomplete");
         }
-
-        List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(listId, null);
-        if (globalScores.isEmpty()) {
-            List<ScoreEntity> newGlobalScores = new ArrayList<>();
-            for (ScoreEntity score : scores) {
-                ScoreEntity newScore = new ScoreEntity();
-                newScore.setScore(score.getScore());
-                newScore.setListId(score.getListId());
-                newScore.setOption(score.getOption());
-                newScore.setId(UUID.randomUUID());
-                newGlobalScores.add(newScore);
-            }
-            scoresRepo.saveAll(newGlobalScores);
-        }
-
+        
         List<RankedOption> rankedOptions = convertAndSortList(scores);
 
         return RankingResponse.builder()
@@ -100,7 +86,6 @@ public class ListFetcher {
                     .description(list.getDescription())
                     .build();
         }
-
 
         return RankingResponse.builder()
                 .title(list.getTitle())

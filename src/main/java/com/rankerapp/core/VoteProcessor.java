@@ -169,14 +169,32 @@ public class VoteProcessor {
     private void updateGlobalListWithUserList(ListEntity listEntity, UserListEntity userListEntity) {
         List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(userListEntity.getListId(), null);
         List<ScoreEntity> userListScores = scoresRepo.findByListIdAndUserId(userListEntity.getListId(), userListEntity.getUserId());
+
+        // this is the first time the list has been completed
+        // initialize global list values
         int newNumCompletions = listEntity.getNumCompletions() + 1;
-        for (ScoreEntity globalScore : globalScores) {
-            ScoreEntity localScore = userListScores.stream()
-                    .filter((score) -> score.getOption().getId().equals(globalScore.getOption().getId()))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Unmatched local option with with global option!"));
-            double newScore = ((globalScore.getScore() * listEntity.getNumCompletions()) + localScore.getScore()) / newNumCompletions;
-            globalScore.setScore(newScore);
+
+        if (globalScores.isEmpty()) {
+            List<ScoreEntity> newGlobalScores = new ArrayList<>();
+            for (ScoreEntity score : userListScores) {
+                ScoreEntity newScore = new ScoreEntity();
+                newScore.setScore(score.getScore());
+                newScore.setListId(score.getListId());
+                newScore.setOption(score.getOption());
+                newScore.setId(UUID.randomUUID());
+                newGlobalScores.add(newScore);
+            }
+            scoresRepo.saveAll(newGlobalScores);
+        } else {
+            // Update the existing global scores with these personal ranking values
+            for (ScoreEntity globalScore : globalScores) {
+                ScoreEntity localScore = userListScores.stream()
+                        .filter((score) -> score.getOption().getId().equals(globalScore.getOption().getId()))
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Unmatched local option with with global option!"));
+                double newScore = ((globalScore.getScore() * listEntity.getNumCompletions()) + localScore.getScore()) / newNumCompletions;
+                globalScore.setScore(newScore);
+            }
         }
 
         scoresRepo.saveAll(globalScores);
