@@ -81,7 +81,7 @@ public class CommentManager {
             throw new NotFoundException("Comment with commentId: " + commentId.toString() + " does not exist!");
         }
 
-        long deleted = commentsRepository.deleteByListIdAndCommentId(listId, commentId);
+        long deleted = commentsRepository.deleteByIdAndListId(commentId, listId);
         if (deleted == 0) {
             throw new NotFoundException(String.format("Comment with listId %s and commentId %s not found!", listId, commentId));
         }

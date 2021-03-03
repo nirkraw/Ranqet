@@ -11,6 +11,6 @@ public interface CommentsRepository extends JpaRepository<CommentEntity, UUID> {
 
     Stream<CommentEntity> findByListId(UUID listId, Pageable pageable);
 
-    Long deleteByListIdAndCommentId(UUID listId, UUID commentId);
+    Long deleteByIdAndListId(UUID commentId, UUID listId);
 
 }
