@@ -12,14 +12,14 @@ public class OptionPairResponse {
 
     private final int numVotesCompleted;
 
-    private final int numVotesRemaining;
+    private final int totalVoteCount;
 
     private OptionPairResponse(Builder builder) {
         this.isCompleted = !Objects.nonNull(builder.first) && !Objects.nonNull(builder.second);
         this.first = builder.first;
         this.second = builder.second;
         this.numVotesCompleted = builder.numVotesCompleted;
-        this.numVotesRemaining = builder.numVotesRemaining;
+        this.totalVoteCount = builder.totalVoteCount;
     }
 
     public boolean getIsCompleted() {
@@ -38,8 +38,8 @@ public class OptionPairResponse {
         return numVotesCompleted;
     }
 
-    public int getNumVotesRemaining() {
-        return numVotesRemaining;
+    public int getTotalVoteCount() {
+        return totalVoteCount;
     }
 
     public static Builder builder() {
@@ -54,7 +54,7 @@ public class OptionPairResponse {
 
         private int numVotesCompleted;
 
-        private int numVotesRemaining;
+        private int totalVoteCount;
 
         public Builder first(Option first) {
             this.first = first;
@@ -71,8 +71,8 @@ public class OptionPairResponse {
             return this;
         }
 
-        public Builder numVotesRemaining(int numVotesRemaining) {
-            this.numVotesRemaining = numVotesRemaining;
+        public Builder totalVoteCount(int totalVoteCount) {
+            this.totalVoteCount = totalVoteCount;
             return this;
         }
 

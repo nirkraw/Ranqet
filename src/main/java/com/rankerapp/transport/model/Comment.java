@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public class Comment {
 
+    private final String commentId;
+
     private final String comment;
 
     private final UUID authorId;
@@ -19,11 +21,16 @@ public class Comment {
     private final Instant createdOn;
 
     private Comment(Builder builder) {
+        this.commentId = builder.commentId;
         this.comment = builder.comment;
         this.authorId = builder.postedBy;
         this.authorName = builder.authorName;
         this.authorAvatarUrl = builder.authorAvatarUrl;
         this.createdOn = builder.createdOn;
+    }
+
+    public String getCommentId() {
+        return this.commentId;
     }
 
     public String getComment() {
@@ -53,6 +60,8 @@ public class Comment {
     @JsonPOJOBuilder
     public static final class Builder {
 
+        private String commentId;
+
         private String comment;
 
         private UUID postedBy;
@@ -62,6 +71,11 @@ public class Comment {
         private String authorAvatarUrl;
 
         private Instant createdOn;
+
+        public Builder withCommentId(String commentId) {
+            this.commentId = commentId;
+            return this;
+        }
 
         public Builder withComment(String comment) {
             this.comment = comment;
@@ -105,12 +119,13 @@ public class Comment {
                 && Objects.equals(authorId, that.getAuthorId())
                 && Objects.equals(createdOn, that.getCreatedOn())
                 && Objects.equals(authorName, that.getAuthorName())
-                && Objects.equals(authorAvatarUrl, that.getAuthorAvatarUrl());
+                && Objects.equals(authorAvatarUrl, that.getAuthorAvatarUrl())
+                && Objects.equals(commentId, that.getCommentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(comment, authorId, authorName, authorAvatarUrl, createdOn);
+        return Objects.hash(commentId, comment, authorId, authorName, authorAvatarUrl, createdOn);
     }
 
 }

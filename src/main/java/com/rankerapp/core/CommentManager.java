@@ -75,6 +75,18 @@ public class CommentManager {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public void deleteComment(UUID listId, UUID commentId) {
+        if (!commentsRepository.existsById(commentId)) {
+            throw new NotFoundException("Comment with commentId: " + commentId.toString() + " does not exist!");
+        }
+
+        long deleted = commentsRepository.deleteByListIdAndCommentId(listId, commentId);
+        if (deleted == 0) {
+            throw new NotFoundException(String.format("Comment with listId %s and commentId %s not found!", listId, commentId));
+        }
+    }
+
     private static Comment convertToTransportModel(CommentEntity entity, Map<UUID, UserEntity> users) {
         UserEntity user = users.get(entity.getPostedBy());
         return Comment.builder()

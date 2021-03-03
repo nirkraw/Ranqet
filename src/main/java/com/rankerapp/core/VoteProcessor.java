@@ -68,7 +68,7 @@ public class VoteProcessor {
                 .first(OptionsFactory.convertOption(firstMatchupOption))
                 .second(OptionsFactory.convertOption(secondMatchupOption))
                 .numVotesCompleted(totalVoteCount - numVotesRemaining)
-                .numVotesRemaining(numVotesRemaining)
+                .totalVoteCount(totalVoteCount)
                 .build();
     }
 
