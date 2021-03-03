@@ -34,14 +34,21 @@ export default function Quiz() {
   };
 
   if (loading) return <LoadingSpinner />;
-
+  const percentFinished = (votesCompleted/totalVoteCount) * 100;
+  const divStyle = {
+    width: `${percentFinished}%`,
+    height: "100%",
+    backgroundColor: "var(--pink-3)",
+    borderTopLeftRadius: "30px",
+    borderBottomLeftRadius: "30px"
+  };
   return (
     <div id="quiz-main-div">
       <h1 id="main-quiz-header">{listName}</h1>
       <h2 id="main-quiz-description">{description}</h2>
-      <h2>
-        {votesCompleted}/{totalVoteCount}
-      </h2>
+      <div id="progress-bar-container">
+        <div className="progress-bar-progress" style={divStyle}></div>
+      </div>
       <div id="options-and-versus-container">
         <QuizOptions
           listId={match.params.listId}
