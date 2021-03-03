@@ -90,6 +90,7 @@ public class CommentManager {
     private static Comment convertToTransportModel(CommentEntity entity, Map<UUID, UserEntity> users) {
         UserEntity user = users.get(entity.getPostedBy());
         return Comment.builder()
+                .withCommentId(entity.getId().toString())
                 .withComment(entity.getContents())
                 .withCreatedOn(entity.getCreatedOn())
                 .withPostedBy(entity.getPostedBy())
