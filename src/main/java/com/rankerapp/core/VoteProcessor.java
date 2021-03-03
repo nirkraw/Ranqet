@@ -62,9 +62,13 @@ public class VoteProcessor {
 
         // TODO: Fetch next matchup pair if the scores for these two don't satisfy criteria.
 
+        int numVotesRemaining = userList.getMatchupsList().size();
+        int totalVoteCount = MatchupGenerator.MATCHUP_ORIENTATIONS.get(list.getOptions().size()).size();
         return OptionPairResponse.builder()
                 .first(OptionsFactory.convertOption(firstMatchupOption))
                 .second(OptionsFactory.convertOption(secondMatchupOption))
+                .numVotesCompleted(totalVoteCount - numVotesRemaining)
+                .numVotesRemaining(numVotesRemaining)
                 .build();
     }
 
