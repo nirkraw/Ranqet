@@ -3,7 +3,11 @@ import "../styles/Comments.css";
 import { formatUploadTime } from "../util/DateCalc";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import LoadingSpinner from "./Misc/LoadingSpinner";
-import { fetchListComments, createComment } from "../util/Endpoints/CommentEP";
+import {
+  fetchListComments,
+  createComment,
+  deleteComment,
+} from "../util/Endpoints/CommentEP";
 import { fetchUser } from "../util/Endpoints/UserEP";
 import EmptyAvatar from "../assets/avatar.svg";
 
@@ -77,9 +81,14 @@ export default function Comments({ openModal }) {
     } else openModal(["login"]);
   };
 
-  const deleteComment = async (e ,commentId) => {
-    e.preventDefault();
-    await deleteComment(commentId, localStorage.getItem("sessionToken"));
+  const deleteCurrComment = async (e , commentId) => {
+    e.preventDefault()
+    await deleteComment(
+      commentId,
+      match.params.listId,
+      localStorage.getItem("userId"),
+      localStorage.getItem("sessionToken")
+    );
     fetchComments();
   }
 
@@ -140,7 +149,7 @@ export default function Comments({ openModal }) {
                   <p>{comment.comment}</p>
                 </div>
                 {comment.authorId === localStorage.getItem("userId") ? (
-                  <button onClick={(e) => deleteComment(e, comment.id)} className="site-button">Delete</button>
+                  <button onClick={(e) => deleteCurrComment(e, comment.commentId)} className="site-button">Delete</button>
                 ) : null}
               </div>
             </li>

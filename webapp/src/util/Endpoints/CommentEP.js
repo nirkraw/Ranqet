@@ -23,8 +23,11 @@ export const createComment = (listId, comment, userId, sessionToken) => {
   );
 };
 
-export const deleteComment = (listId, sessionToken) => {
-  return axios.delete(`${server}/list/${listId}/comments?pageNumber=${pageNum}`, {
-    "Content-Type": "application/json",
-  });
+export const deleteComment = (commentId, listId, userId, sessionToken) => {
+  return axios.delete(
+    `${server}/list/${listId}/comment/${commentId}?userId=${userId}&sessionToken=${sessionToken}`,
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
