@@ -53,7 +53,11 @@ public class CommentsResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/list/{listId}/comment/{commentId}")
-    public void deleteComment(@PathVariable(value = "listId") String listId, @PathVariable(value = "commentId") String commentId) {
-        commentManager.deleteComment(UUID.fromString(listId), UUID.fromString(commentId));
+    public void deleteComment(@PathVariable(value = "listId") String listId,
+            @PathVariable(value = "commentId") String commentId,
+            @RequestParam("userId") String userId, @RequestParam("sessionToken") String sessionToken) {
+        UUID authorId = UUID.fromString(userId);
+        sessionTokenAuthenticator.verifySessionToken(authorId, sessionToken);
+        commentManager.deleteComment(UUID.fromString(listId), authorId, UUID.fromString(commentId));
     }
 }
