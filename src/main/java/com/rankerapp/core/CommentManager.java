@@ -76,12 +76,12 @@ public class CommentManager {
     }
 
     @Transactional
-    public void deleteComment(UUID listId, UUID commentId) {
+    public void deleteComment(UUID listId, UUID authorId, UUID commentId) {
         if (!commentsRepository.existsById(commentId)) {
             throw new NotFoundException("Comment with commentId: " + commentId.toString() + " does not exist!");
         }
 
-        long deleted = commentsRepository.deleteByIdAndListId(commentId, listId);
+        long deleted = commentsRepository.deleteByIdAndListIdAndPostedBy(commentId, listId, authorId);
         if (deleted == 0) {
             throw new NotFoundException(String.format("Comment with listId %s and commentId %s not found!", listId, commentId));
         }
