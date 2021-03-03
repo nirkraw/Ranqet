@@ -77,6 +77,12 @@ export default function Comments({ openModal }) {
     } else openModal(["login"]);
   };
 
+  const deleteComment = async (e ,commentId) => {
+    e.preventDefault();
+    await deleteComment(commentId, localStorage.getItem("sessionToken"));
+    fetchComments();
+  }
+
   if (loading) return <LoadingSpinner />;
 
   return (
@@ -133,6 +139,9 @@ export default function Comments({ openModal }) {
                 <div className="comment-content">
                   <p>{comment.comment}</p>
                 </div>
+                {comment.authorId === localStorage.getItem("userId") ? (
+                  <button onClick={(e) => deleteComment(e, comment.id)} className="site-button">Delete</button>
+                ) : null}
               </div>
             </li>
           );
