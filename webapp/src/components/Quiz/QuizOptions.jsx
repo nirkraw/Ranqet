@@ -5,10 +5,12 @@ import {
 } from "../../util/Endpoints/OptionEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";
+import { useHistory } from "react-router-dom";
 
-export default function QuizOptions({ listId, history }) {
+export default function QuizOptions({ listId, setVotesRemaining, setVotesCompleted }) {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     fetchNextOptionPair();
@@ -25,6 +27,8 @@ export default function QuizOptions({ listId, history }) {
       } else {
         setOptions([res.data.first, res.data.second]);
       }
+      setVotesCompleted(res.data.numVotesCompleted);
+      setVotesRemaining(res.data.numVotesRemaining);
       setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);

@@ -11,6 +11,8 @@ export default function Quiz() {
   const [listName, setListName] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
+  const [votesRemaining, setVotesRemaining] = useState(1);
+  const [votesCompleted, setVotesCompleted] = useState(1);
 
   if (!localStorage.getItem("sessionToken")) {
     history.push(`/${match.params.listId}/rankings`);
@@ -37,8 +39,13 @@ export default function Quiz() {
     <div id="quiz-main-div">
       <h1 id="main-quiz-header">{listName}</h1>
       <h2 id="main-quiz-description">{description}</h2>
+      <h2>{votesCompleted}/{votesCompleted}</h2>
       <div id="options-and-versus-container">
-        <QuizOptions listId={match.params.listId} history={history} />
+        <QuizOptions
+          listId={match.params.listId}
+          setVotesRemaining={setVotesRemaining}
+          setVotesCompleted={setVotesCompleted}
+        />
         <div id="versus-container">
           <h3>VS</h3>
         </div>
