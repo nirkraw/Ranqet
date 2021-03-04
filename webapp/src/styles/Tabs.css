@@ -1,15 +1,17 @@
 #tabs-container-div {
-  width: 70%;
+  width: 100%;
   background-color: white;
+  border: 1px solid rgb(250, 248, 248);
 }
 
 #tab-names-ul {
-  width: 70%;
-  padding: 10px;
+  padding: 20px;
+  min-width: 250px;
 }
 
 .tab-names-li {
-  margin-right: 40px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .activeTab {

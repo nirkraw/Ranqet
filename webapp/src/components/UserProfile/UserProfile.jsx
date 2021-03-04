@@ -69,21 +69,22 @@ export default function UserProfile({ tabType, setTabType }) {
       />
       {localStorage.getItem("userId") === match.params.userId &&
       !publicFacing ? (
-        // <UserTabs
-        //   inProgressLists={inProgressLists}
-        //   completedLists={completedLists}
-        //   createdLists={createdLists}
-        //   setIsOpen={setIsOpen}
-        //   setCurrListId={setCurrListId}
-        //   tabType={tabType}
-        //   setTabType={setTabType}
-        // />
         <Tabs
           tabs={[
-            { name: "Completed", list: completedLists },
-            { name: "In Progress", list: inProgressLists },
-            { name: "My Lists", list: createdLists },
+            {
+              name: "My Lists",
+              content: <ListIndex passedList={createdLists} />,
+            },
+            {
+              name: "Completed",
+              content: <ListIndex passedList={completedLists} />,
+            },
+            {
+              name: "In Progress",
+              content: <ListIndex passedList={inProgressLists} />,
+            }
           ]}
+          tabDirection={"vertical"}
         />
       ) : (
         <div id="tabs-container-div">

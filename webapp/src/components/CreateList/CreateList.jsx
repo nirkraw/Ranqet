@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import Tooltip from "../Tooltip";
 
 export default function CreateList() {
+  console.log("RENDERED");
   const history = useHistory();
   const [listTitle, setListTitle] = useState("");
   const [description, setDescription] = useState("");
