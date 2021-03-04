@@ -5,15 +5,12 @@ import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
+import useEndpoint from "./useEndpoint";
 
-export default function UserInfo({
-  numCreated,
-  numCompleted,
-  setPublicFacing,
-  publicFacing,
-}) {
+export default function UserInfo({ numCreated }) {
   const history = useHistory();
   const match = useRouteMatch();
+  const [user, loadingOrError] = useEndpoint(fetchUser, [match.params.userId]);
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -22,20 +19,16 @@ export default function UserInfo({
   const [userError, setUserError] = useState(null);
 
   useEffect(() => {
-    fetchUserInfo();
-  }, [match.params.userId]);
+    if (loadingOrError === "loading") setLoading(true);
+    else if (loadingOrError === "Not loading") setLoading(false);
+    else history.push(`/error/${loadingOrError}`);
 
-  const fetchUserInfo = async () => {
-    try {
-      const res = await fetchUser(match.params.userId);
-      setDate(formatUploadTime(res.data.createdOn));
-      setName(res.data.name);
-      if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
-      setLoading(false);
-    } catch (err) {
-      history.push(`/error/${err.message}`);
+    if (user) {
+      setDate(formatUploadTime(user.createdOn));
+      setName(user.name);
+      if (user.avatarUrl) setAvatarUrl(user.avatarUrl);
     }
-  };
+  }, [loadingOrError, user]);
 
   const handleUserPhotoFile = async (e) => {
     e.preventDefault();
@@ -65,32 +58,8 @@ export default function UserInfo({
     currentImage = (
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
-  } else if (localStorage.getItem("userId") === match.params.userId && !publicFacing) {
+  } else if (localStorage.getItem("userId") === match.params.userId) {
     currentImage = <p className="site-button">Add Avatar</p>;
-  }
-
-  let button;
-  if (!publicFacing && localStorage.getItem("userId") === match.params.userId) {
-    button = (
-      <button
-        className="site-button"
-        onClick={() => setPublicFacing(!publicFacing)}
-      >
-        View Public Profile
-      </button>
-    );
-  } else if (
-    publicFacing &&
-    localStorage.getItem("userId") === match.params.userId
-  ) {
-    button = (
-      <button
-        className="site-button"
-        onClick={() => setPublicFacing(!publicFacing)}
-      >
-        Back to Full Profile
-      </button>
-    );
   }
 
   if (loading) return <LoadingSpinner />;
@@ -104,8 +73,7 @@ export default function UserInfo({
         onChange={handleUserPhotoFile}
         hidden
       />
-      {localStorage.getItem("userId") === match.params.userId &&
-      !publicFacing ? (
+      {localStorage.getItem("userId") === match.params.userId ? (
         <div id="user-profile-image-container">
           {currentImage}
           {avatarUrl ? (
@@ -130,10 +98,6 @@ export default function UserInfo({
         <h1>
           <span>{numCreated}</span> lists created
         </h1>
-        <h1>
-          <span>{numCompleted}</span> lists completed
-        </h1>
-        {button}
       </div>
     </div>
   );

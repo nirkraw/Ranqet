@@ -10,18 +10,20 @@ import useEndpoint from "./useEndpoint.js";
 export default function UserProfile() {
   const match = useRouteMatch();
   const history = useHistory();
+  const [publicLists, setPublicLists] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [publicLists, loadingOrError] = useEndpoint(
-    fetchUserPublicList,
-    [match.params.userId],
-    { data: [] }
-  );
+  const [data, loadingOrError] = useEndpoint(fetchUserPublicList, [
+    match.params.userId,
+  ]);
 
   useEffect(() => {
     if (loadingOrError === "loading") setLoading(true);
     else if (loadingOrError === "Not loading") setLoading(false);
     else history.push(`/error/${loadingOrError}`);
-  }, [loadingOrError]);
+
+    if(data.lists && data.lists.length) setPublicLists(data.lists)
+  }, [loadingOrError, data]);
+
 
   if (loading) return <LoadingSpinner />;
 
