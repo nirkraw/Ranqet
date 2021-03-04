@@ -4,6 +4,7 @@ import Tabs from "../Tabs";
 import { useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/newHome.css";
+import ConfirmationModal from "../ConfirmModal";
 
 export default function NewHome() {
   const history = useHistory();
@@ -65,6 +66,11 @@ export default function NewHome() {
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
       />
+      {/* <ConfirmationModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        listId={currListId}
+      /> */}
     </div>
   );
 }
