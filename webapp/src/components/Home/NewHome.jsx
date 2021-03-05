@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/newHome.css";
 import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
-import ConfirmationModal from "../ConfirmModal";
 
 export default function NewHome() {
   const history = useHistory();
@@ -20,26 +19,25 @@ export default function NewHome() {
       if (cache[type]) {
         setCurrList(cache[type]);
         setLoading(false);
-      } else {
-        const res = await fetchUserLists(
-          localStorage.getItem("userId"),
-          localStorage.getItem("sessionToken")
-        );
-        const lists = res.data[type];
-        for (let i = 0; i < lists.length; i++) {
-          const listItem = lists[i];
-          const res = await fetchListOptionPair(
-            listItem.id,
-            localStorage.getItem("userId")
-          );
-          listItem.complete = Boolean(res.data.isCompleted);
-        }
-        setCurrList(res.data[type]);
-        const cacheCopy = JSON.parse(JSON.stringify(cache));
-        cacheCopy[type] = res.data[type];
-        setCache(cacheCopy);
-        setLoading(false);
       }
+      const res = await fetchUserLists(
+        localStorage.getItem("userId"),
+        localStorage.getItem("sessionToken")
+      );
+      const lists = res.data[type];
+      for (let i = 0; i < lists.length; i++) {
+        const listItem = lists[i];
+        const res = await fetchListOptionPair(
+          listItem.id,
+          localStorage.getItem("userId")
+        );
+        listItem.complete = Boolean(res.data.isCompleted);
+      }
+      setCurrList(res.data[type]);
+      const cacheCopy = JSON.parse(JSON.stringify(cache));
+      cacheCopy[type] = res.data[type];
+      setCache(cacheCopy);
+      setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
     }
@@ -75,6 +73,7 @@ export default function NewHome() {
         currList={currList}
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
+        getCompletedLists={getCompletedLists}
       />
       {/* <ConfirmationModal
         isOpen={isOpen}

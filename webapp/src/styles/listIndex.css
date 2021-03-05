@@ -54,19 +54,10 @@
   background-repeat: no-repeat;
 }
 
-.delete-list-button {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  right: 3%;
-  top: 4%;
+.list-index-button {
+  margin-right: 20px;
 }
 
-.delete-list-button:hover {
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
-}
 
 .list-index-item-info {
   margin-left: 10px;

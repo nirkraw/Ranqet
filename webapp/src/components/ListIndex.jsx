@@ -1,15 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import { formatUploadTime } from "../util/DateCalc";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import TrashImage from "../assets/trash-icon.png";
+import ConfirmationModal from "./ConfirmModal";
 
-export default function ListIndex({
-  passedList,
-  trash,
-  setCurrListId,
-  setIsOpen,
-}) {
+
+export default function ListIndex({ passedList, trash, getCompletedLists }) {
+  const [currListId, setCurrListId] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
 
   if (!passedList || !passedList.length)
@@ -26,6 +25,12 @@ export default function ListIndex({
 
   return (
     <ul id="list-index-ul">
+      <ConfirmationModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        listId={currListId}
+        getCompletedLists={getCompletedLists}
+      />
       {passedList.map((list, i) => {
         return (
           <div className="list-index-item" key={i}>
@@ -65,21 +70,31 @@ export default function ListIndex({
                 <div className="list-index-item-description">
                   <p>{list.description}</p>
                 </div>
-                {list.complete ? (
-                  <div
-                    className="list-index-button site-button-3"
-                    onClick={() => history.push(`/${list.id}/rankings`)}
-                  >
-                    View Results
-                  </div>
-                ) : (
-                  <div
-                    className="list-index-button site-button-2"
-                    onClick={() => history.push(`/${list.id}/quiz`)}
-                  >
-                    Rank It!
-                  </div>
-                )}
+                <div className="justify-start">
+                  {list.complete ? (
+                    <div
+                      className="list-index-button site-button-3"
+                      onClick={() => history.push(`/${list.id}/rankings`)}
+                    >
+                      View Results
+                    </div>
+                  ) : (
+                    <div
+                      className="list-index-button site-button-2"
+                      onClick={() => history.push(`/${list.id}/quiz`)}
+                    >
+                      Rank It!
+                    </div>
+                  )}
+                  {trash ? (
+                    <div
+                      className="site-button-3"
+                      onClick={() => deleteList(list.id)}
+                    >
+                      Delete
+                    </div>
+                  ) : null}
+                </div>
                 <p
                   className="list-index-category"
                   onClick={(e) => {
@@ -101,14 +116,6 @@ export default function ListIndex({
                 ) : null}
               </div>
             </li>
-            {trash ? (
-              <img
-                className="delete-list-button"
-                src={TrashImage}
-                alt="trash"
-                onClick={() => deleteList(list.id)}
-              ></img>
-            ) : null}
           </div>
         );
       })}

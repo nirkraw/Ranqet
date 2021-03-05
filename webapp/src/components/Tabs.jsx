@@ -3,19 +3,36 @@ import "../styles/Tabs.css";
 import HomeCategories from "./Home/HomeCategories";
 import ListIndex from "./ListIndex";
 
-export default function Tabs({ tabs, tabDirection, currList, activeIdx, setActiveIdx }) {
-  const [currTabContent, setCurrTabContent] = useState(null);
 
-  useEffect(() => {
-    if(tabDirection === "horizontal" && activeIdx === 0) setCurrTabContent(<HomeCategories />);
-  }, [activeIdx]);
-
+export default function Tabs({
+  tabs,
+  tabDirection,
+  currList,
+  activeIdx,
+  setActiveIdx,
+  getCompletedLists,
+}) {
   const setTab = (i, tab) => {
-    if(i === activeIdx) return;
+    if (i === activeIdx) return;
     setActiveIdx(i);
     if (tab.endpoint && tab.type) tab.endpoint(tab.type);
     else if (tab.endpoint) tab.endpoint(i);
   };
+
+  let currTab;
+  if (tabDirection === "horizontal" && activeIdx === 0) {
+    currTab = <HomeCategories />;
+  } else if (tabDirection === "horizontal" && activeIdx === 1) {
+    currTab = (
+      <ListIndex
+        passedList={currList}
+        trash={true}
+        getCompletedLists={getCompletedLists}
+      />
+    );
+  } else {
+    currTab = <ListIndex passedList={currList} />;
+  }
 
   return (
     <div
@@ -46,7 +63,7 @@ export default function Tabs({ tabs, tabDirection, currList, activeIdx, setActiv
           </li>
         ))}
       </ul>
-      {currTabContent ? currTabContent : <ListIndex passedList={currList} />}
+      {currTab}
     </div>
   );
 }

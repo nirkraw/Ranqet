@@ -1,26 +1,31 @@
 import React from "react";
 import Modal from "react-modal";
 import "../styles/ConfirmationModal.css";
-import {deleteList} from "../util/Endpoints/ListEP";
-import {useHistory} from "react-router-dom"
+import { deleteList } from "../util/Endpoints/ListEP";
+import { useHistory } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
-export default function ConfirmModal({isOpen, setIsOpen, listId, fetchLists}) {
+export default function ConfirmModal({
+  isOpen,
+  setIsOpen,
+  listId,
+  getCompletedLists,
+}) {
   const history = useHistory();
   const confirmDeleteList = async () => {
     try {
       await deleteList(
-      window.localStorage.getItem("userId"),
-      listId,
-      window.localStorage.getItem("sessionToken")
-    );
+        window.localStorage.getItem("userId"),
+        listId,
+        window.localStorage.getItem("sessionToken")
+      );
     } catch (err) {
       history.push(`/error/${err.message}`);
     }
     setIsOpen(false);
-    fetchLists();
-  }  
+    getCompletedLists();
+  };
   return (
     <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" } }}>
       <div id="confirmation-modal-container">
