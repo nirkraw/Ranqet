@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function useEndpoint(fn, args, defaultValue = []) {
+  const history = useHistory();
   const prevArgs = useRef(null);
   const [data, setData] = useState(defaultValue);
-  const [isLoading, setLoading] = useState("loading");
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     // args is an object so deep compare to rule out false changes
@@ -15,19 +17,36 @@ export default function useEndpoint(fn, args, defaultValue = []) {
     // look in cache and set response if present
     if (localStorage.getItem(cacheID)) {
       setData(JSON.parse(localStorage.getItem(cacheID)));
-      setLoading("Not loading");
+      setLoading(false);
     } else {
       // else make sure loading set to true
-      setLoading("loading");
+      setLoading(true);
     }
     // fetch new data
-    fn(...args).then((newData) => {
-      localStorage.setItem(cacheID, JSON.stringify(newData));
-      setData(newData.data);
-      setLoading("Not loading");
-    }).catch(error => {
-        setLoading(error)
-    });
+     async function loadEndpoint() {
+          try {
+             const res = await fn(...args);
+             localStorage.setItem(cacheID, JSON.stringify(res));
+             setData(res.data);
+             setLoading(false);
+          } catch (err) {
+              history.push(`/error/${err}`);
+          }
+     }
+
+     loadEndpoint();
+
+
+ 
+    // fn(...args)
+    //   .then((newData) => {
+    //     localStorage.setItem(cacheID, JSON.stringify(newData));
+    //     setData(newData.data);
+    //     setLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     if(error) history.push(`/error/${error}`);
+    //   });
   }, [args, fn]);
 
   useEffect(() => {
@@ -45,6 +64,6 @@ function stringify(val) {
   return typeof val === "object" ? JSON.stringify(val) : String(val);
 }
 
-const isEqual = (obj1, obj2) =>{
+const isEqual = (obj1, obj2) => {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
-}
+};

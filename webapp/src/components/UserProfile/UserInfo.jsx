@@ -10,25 +10,10 @@ import useEndpoint from "../useEndpoint";
 export default function UserInfo({ numCreated }) {
   const history = useHistory();
   const match = useRouteMatch();
-  const [user, loadingOrError] = useEndpoint(fetchUser, [match.params.userId]);
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [user, loading] = useEndpoint(fetchUser, [match.params.userId]);
   const [imageLoading, setImageLoading] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [userError, setUserError] = useState(null);
-
-  useEffect(() => {
-    if (loadingOrError === "loading") setLoading(true);
-    else if (loadingOrError === "Not loading") setLoading(false);
-    else history.push(`/error/${loadingOrError}`);
-
-    if (user) {
-      setDate(formatUploadTime(user.createdOn));
-      setName(user.name);
-      if (user.avatarUrl) setAvatarUrl(user.avatarUrl);
-    }
-  }, [loadingOrError, user]);
+  const {name, createdOn, avatarUrl} = user;
 
   const handleUserPhotoFile = async (e) => {
     e.preventDefault();
@@ -43,7 +28,6 @@ export default function UserInfo({ numCreated }) {
     setImageLoading(true);
     try {
       const res = await uploadImage(formData);
-      setAvatarUrl(res.data.imageUrl);
       await updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
       setImageLoading(false);
     } catch (err) {
@@ -93,7 +77,7 @@ export default function UserInfo({ numCreated }) {
       <h1 id="user-profile-name">{name}</h1>
       <div id="user-stats">
         <h1>
-          Joined <span>{date}</span>
+          Joined <span>{formatUploadTime(createdOn)}</span>
         </h1>
         <h1>
           <span>{numCreated}</span> lists created
