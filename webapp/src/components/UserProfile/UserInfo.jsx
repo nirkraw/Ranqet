@@ -5,7 +5,7 @@ import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import useEndpoint from "./useEndpoint";
+import useEndpoint from "../useEndpoint";
 
 export default function UserInfo({ numCreated }) {
   const history = useHistory();

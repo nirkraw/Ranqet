@@ -1,11 +1,24 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { fetchUser } from "../../util/Endpoints/UserEP";
+import useEndpoint from "../useEndpoint";
+import LoadingSpinner from "../Misc/LoadingSpinner";
 
-export default function ProfileDropdown({ useOutsideAlerter, setTabType }) {
+export default function ProfileDropdown({ useOutsideAlerter }) {
   const [active, setActive] = useState(false);
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const wrapperRef = useRef(null);
+  const [user, loadingOrError] = useEndpoint(fetchUser, [
+    localStorage.getItem("userId"),
+  ]);
   useOutsideAlerter(wrapperRef, setActive);
+
+  useEffect(() => {
+    if (loadingOrError === "loading") setLoading(true);
+    else if (loadingOrError === "Not loading") setLoading(false);
+    else history.push(`/error/${loadingOrError}`);
+  }, [loadingOrError]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -14,10 +27,16 @@ export default function ProfileDropdown({ useOutsideAlerter, setTabType }) {
     window.location.reload();
   };
 
+  if (loading) return <LoadingSpinner />;
   return (
-    <div id="profile-dropdown-main">
-      <h3 className="nav-session-button" onClick={() => setActive(true)}>
-        Profile {String.fromCharCode(9660)}
+    <div id="profile-dropdown-main" className="justify-start-center">
+      <div id="nav-user-profile-picture">
+        {user.avatarUrl ? (
+          <img src={user.avatarUrl} alt="profile-pic"></img>
+        ) : null}
+      </div>
+      <h3 className="nav-session-button" onClick={() => setActive(!active)}>
+        {user.name} <span>{String.fromCharCode(9660)}</span>
       </h3>
       <div
         className={
@@ -35,36 +54,6 @@ export default function ProfileDropdown({ useOutsideAlerter, setTabType }) {
           }}
         >
           <p>View Profile</p>
-        </div>
-        <div
-          className="profile-dropdown-item-container"
-          onClick={() => {
-            history.push(`/profile/${localStorage.getItem("userId")}`);
-            setActive(false);
-            setTabType("created");
-          }}
-        >
-          <p>My Lists</p>
-        </div>
-        <div
-          className="profile-dropdown-item-container"
-          onClick={() => {
-            history.push(`/profile/${localStorage.getItem("userId")}`);
-            setActive(false);
-            setTabType("completed");
-          }}
-        >
-          <p>Completed Lists</p>
-        </div>
-        <div
-          className="profile-dropdown-item-container"
-          onClick={() => {
-            history.push(`/profile/${localStorage.getItem("userId")}`);
-            setActive(false);
-            setTabType("inProgress");
-          }}
-        >
-          <p>In Progress Lists</p>
         </div>
         <div className="profile-dropdown-item-container" onClick={logout}>
           <p>Log Out</p>

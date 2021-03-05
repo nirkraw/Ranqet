@@ -5,7 +5,7 @@ import "../../styles/UserProfile.css";
 import UserInfo from "./UserInfo";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import ListIndex from "../ListIndex";
-import useEndpoint from "./useEndpoint.js";
+import useEndpoint from "../useEndpoint.js";
 
 export default function UserProfile() {
   const match = useRouteMatch();
