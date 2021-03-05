@@ -31,13 +31,14 @@
   font-weight: 900;
   text-decoration: none;
   width: fit-content;
-  margin-right: 20px;
+  margin-right: 30px;
   color: white;
   text-align: center;
   vertical-align: center;
   color: var(--pink-3);
   padding: 7px 5px 7px 5px;
   text-align: center;
+
 }
 
 .nav-session-button:last-child {
@@ -88,10 +89,9 @@
 
 .profile-dropdown-item-container > p {
   margin: 0;
-  font-family: var(--font-1);
-  font-weight: 900;
-  font-size: 20px;
-  color: rgb(12, 12, 12);
+  font-family: var(--font-6);
+  line-height: 30px;
+  font-size: 25px;
   padding: 10px;
 }
 
