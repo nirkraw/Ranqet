@@ -5,6 +5,7 @@ import { fetchCategoryList } from "../../util/Endpoints/ListEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory } from "react-router-dom";
 import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
+import "../../styles/HomeCategories.css";
 
 export default function HomeCategories() {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -53,7 +54,7 @@ export default function HomeCategories() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div>
+    <div id="home-categories-container">
       <Tabs
         tabs={[
           {
@@ -71,6 +72,7 @@ export default function HomeCategories() {
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
       />
+      <div className="home-create-list-button site-button-2">Create List</div>
     </div>
   );
 }

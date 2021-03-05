@@ -25,9 +25,10 @@ export default function Tabs({ tabs, tabDirection, currList, activeIdx, setActiv
       }
     >
       <ul
-        id="tab-names-ul"
         className={
-          tabDirection === "horizontal" ? "column-start" : "justify-start"
+          tabDirection === "horizontal"
+            ? "column-start tab-names-ul-horizontal"
+            : "justify-start tab-names-ul"
         }
       >
         {tabs.map((tab, i) => (
@@ -35,6 +36,7 @@ export default function Tabs({ tabs, tabDirection, currList, activeIdx, setActiv
             className={
               activeIdx === i ? "tab-names-li activeTab" : "tab-names-li"
             }
+            id={tabDirection === "horizontal" ? "tab-names-li-horizontal" : ""}
             onClick={() => setTab(i, tab)}
             key={i}
           >

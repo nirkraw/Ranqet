@@ -52,22 +52,33 @@ export default function ListIndex({
         return (
           <div className="list-index-item" key={i}>
             <li className="list-index-item-li">
-              <div className="list-index-image-container">
-                {list.imageUrl ? (
-                  <img
-                    src={list.imageUrl}
-                    alt="list"
-                    className="list-image"
-                  ></img>
-                ) : null}
-              </div>
-              <div className="list-index-item-name-and-description-container">
-                <p
-                  className="list-index-item-name"
-                  onClick={() => handleLink(list.id)}
-                >
-                  {list.title}
-                </p>
+              <div className="list-index-item-info column-start">
+                <div className="title-and-completion-container justify-start-center">
+                  <p
+                    className="list-index-item-name"
+                    onClick={() => handleLink(list.id)}
+                  >
+                    {list.title}
+                  </p>
+                  {list.numCompletions === 1 ? (
+                    <p className="list-index-item-num-completions">
+                      Taken by:
+                      <span className="num-completions-span">
+                        {list.numCompletions}
+                      </span>
+                      person
+                    </p>
+                  ) : (
+                    <p className="list-index-item-num-completions">
+                      Taken by:
+                      <span className="num-completions-span">
+                        {list.numCompletions}
+                      </span>
+                      people
+                    </p>
+                  )}
+                </div>
+
                 <p
                   className="list-index-author"
                   onClick={(e) => {
@@ -78,6 +89,10 @@ export default function ListIndex({
                   <span>By: </span>
                   {list.createdBy.name}
                 </p>
+                <div className="list-index-item-description">
+                  <p>{list.description}</p>
+                </div>
+                <div className="list-index-div site-button-2">Rank It!</div>
                 <p
                   className="list-index-category"
                   onClick={(e) => {
@@ -88,26 +103,15 @@ export default function ListIndex({
                   {list.category}
                 </p>
                 <p>Created {formatUploadTime(list.createdOn)}</p>
-                <p className="list-index-item-description">
-                  {list.description}
-                </p>
-                {list.numCompletions === 1 ? (
-                  <p className="list-index-item-num-completions">
-                    Taken by:
-                    <span className="num-completions-span">
-                      {list.numCompletions}
-                    </span>
-                    person
-                  </p>
-                ) : (
-                  <p className="list-index-item-num-completions">
-                    Taken by:
-                    <span className="num-completions-span">
-                      {list.numCompletions}
-                    </span>
-                    people
-                  </p>
-                )}
+              </div>
+              <div className="list-index-image-container">
+                {list.imageUrl ? (
+                  <img
+                    src={list.imageUrl}
+                    alt="list"
+                    className="list-image"
+                  ></img>
+                ) : null}
               </div>
             </li>
             {trash ? (
