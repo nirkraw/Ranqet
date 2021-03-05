@@ -72,7 +72,7 @@ export default function HomeCategories() {
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
       />
-      <div className="home-create-list-button site-button-2">Create List</div>
+      <div className="home-create-list-button site-button-2" onClick={() => history.push("./create-list")}>Create List</div>
     </div>
   );
 }

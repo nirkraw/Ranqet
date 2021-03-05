@@ -54,12 +54,7 @@ export default function ListIndex({
             <li className="list-index-item-li">
               <div className="list-index-item-info column-start">
                 <div className="title-and-completion-container justify-start-center">
-                  <p
-                    className="list-index-item-name"
-                    onClick={() => handleLink(list.id)}
-                  >
-                    {list.title}
-                  </p>
+                  <p className="list-index-item-name">{list.title}</p>
                   {list.numCompletions === 1 ? (
                     <p className="list-index-item-num-completions">
                       Taken by:
@@ -92,7 +87,12 @@ export default function ListIndex({
                 <div className="list-index-item-description">
                   <p>{list.description}</p>
                 </div>
-                <div className="list-index-div site-button-2">Rank It!</div>
+                <div
+                  className="list-index-button site-button-2"
+                  onClick={() => handleLink(list.id)}
+                >
+                  Rank It!
+                </div>
                 <p
                   className="list-index-category"
                   onClick={(e) => {

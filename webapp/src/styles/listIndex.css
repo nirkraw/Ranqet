@@ -68,7 +68,7 @@
   cursor: pointer;
 }
 
-.list-index-item-info{
+.list-index-item-info {
   margin-left: 10px;
 }
 
@@ -89,12 +89,17 @@
   font-weight: 400;
   color: var(--gray-1);
   width: fit-content;
-  text-transform:capitalize;
+  text-transform: capitalize;
   margin-bottom: 10px;
 }
 
 .list-index-author > span {
-  color: var(--gray-1)
+  color: var(--gray-1);
+}
+
+.list-index-author:hover {
+  cursor: pointer;
+  color: var(--blue-3);
 }
 
 .list-index-category {
@@ -108,24 +113,15 @@
   color: var(--blue-3);
 }
 
-.list-index-item-name:hover {
-  cursor: pointer;
-  opacity: .7;
-}
-
-.list-index-item-li:hover  {
-  cursor: pointer;
-}
-
 .list-index-author:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .list-index-item-description {
   width: 500px;
 }
-.list-index-item-description > p{
+.list-index-item-description > p {
   font-size: 20px;
   font-family: var(--font-6);
   font-weight: 400;
@@ -141,7 +137,6 @@
   margin: 0;
   margin-left: 20px;
 }
-
 
 .num-completions-span {
   margin-left: 5px;

@@ -172,7 +172,7 @@ q {
   align-items: center;
 }
 
-.site-button:hover {
+.site-button:hover, .site-button-2:hover {
   cursor: pointer;
   opacity: 0.8;
 }

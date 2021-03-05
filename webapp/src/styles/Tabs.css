@@ -53,7 +53,7 @@
   color: var(--orange-1) !important;
 }
 
-.tab-names-li:hover > h1, #tab-names-li-horizontal:hover > h1  {
+.tab-names-li > h1:hover, #tab-names-li-horizontal > h1:hover  {
   color: var(--blue-2);
   cursor: pointer;
 }
