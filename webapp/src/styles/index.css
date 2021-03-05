@@ -129,15 +129,15 @@ q {
   --yellow-4: #b0a502;
   --orange-1: #fd5f1b;
   --gray-1: #a7a7a7;
-  --gray-2: #E5E5E5; 
-  --gray-3: #f5f5f5; 
+  --gray-2: #e5e5e5;
+  --gray-3: #f5f5f5;
 
   --font-1: "Open Sans", sans-serif;
   --font-2: "Potta One", cursive;
   --font-3: "Nanum Gothic", sans-serif;
   --font-4: "Josefin Sans", sans-serif;
   --font-5: "Teko", sans-serif;
-  --font-6: 'Lato', sans-serif;
+  --font-6: "Lato", sans-serif;
   --main-page-header: "Montserrat", sans-serif;
 }
 
@@ -172,9 +172,30 @@ q {
   align-items: center;
 }
 
-.site-button:hover, .site-button-2:hover {
+.site-button-3 {
+  width: 153px;
+  height: 56px;
+  color: #fd5f1b;
+  border-radius: 5px;
+  border: 2px solid #fd5f1b;
+  font: var(--font-6);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.site-button:hover,
+.site-button-2:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+.site-button-3:hover {
+  background-color: var(--gray-3);
+  cursor: pointer;
 }
 
 .justify-start {

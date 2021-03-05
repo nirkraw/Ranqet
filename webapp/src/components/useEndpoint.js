@@ -23,7 +23,6 @@ export default function useEndpoint(fn, args, defaultValue = []) {
     // fetch new data
     fn(...args).then((newData) => {
       localStorage.setItem(cacheID, JSON.stringify(newData));
-      debugger
       setData(newData.data);
       setLoading("Not loading");
     }).catch(error => {

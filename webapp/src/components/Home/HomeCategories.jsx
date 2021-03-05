@@ -5,6 +5,7 @@ import { fetchCategoryList } from "../../util/Endpoints/ListEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory } from "react-router-dom";
 import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
+import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 import "../../styles/HomeCategories.css";
 
 export default function HomeCategories() {
@@ -19,17 +20,30 @@ export default function HomeCategories() {
     return () => setCache({});
   }, []);
 
+
   const getLists = async (type, endpoint, args) => {
     try {
       setLoading(true);
       if (cache[type]) {
+        console.log("HELLLOO", cache[type])
         setCurrList(cache[type]);
         setLoading(false);
       } else {
         const res = await endpoint(...args);
-        setCurrList(res.data.lists);
+        const lists = res.data.lists;
+        //checks each item in list if it's completed to show proper button
+        for (let i = 0; i < lists.length; i++) {
+          const listItem = lists[i];
+            const res = await fetchListOptionPair(
+              listItem.id,
+              localStorage.getItem("userId")
+            );
+            listItem.complete = Boolean(res.data.isCompleted);
+        }
+
+        setCurrList(lists);
         const cacheCopy = JSON.parse(JSON.stringify(cache));
-        cacheCopy[type] = res.data.lists;
+        cacheCopy[type] = lists;
         setCache(cacheCopy);
         setLoading(false);
       }

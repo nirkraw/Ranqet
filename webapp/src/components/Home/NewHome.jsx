@@ -4,6 +4,7 @@ import Tabs from "../Tabs";
 import { useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/newHome.css";
+import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 import ConfirmationModal from "../ConfirmModal";
 
 export default function NewHome() {
@@ -24,6 +25,15 @@ export default function NewHome() {
           localStorage.getItem("userId"),
           localStorage.getItem("sessionToken")
         );
+        const lists = res.data[type];
+        for (let i = 0; i < lists.length; i++) {
+          const listItem = lists[i];
+          const res = await fetchListOptionPair(
+            listItem.id,
+            localStorage.getItem("userId")
+          );
+          listItem.complete = Boolean(res.data.isCompleted);
+        }
         setCurrList(res.data[type]);
         const cacheCopy = JSON.parse(JSON.stringify(cache));
         cacheCopy[type] = res.data[type];
