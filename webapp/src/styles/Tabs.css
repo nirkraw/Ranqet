@@ -1,6 +1,5 @@
 #tabs-container-div {
   width: 100%;
-  background-color: white;
   border: 1px solid rgb(250, 248, 248);
   border-top: none;
 }
@@ -54,7 +53,7 @@
   color: var(--orange-1) !important;
 }
 
-.tab-names-li:hover > h1 {
+.tab-names-li:hover > h1, #tab-names-li-horizontal:hover > h1  {
   color: var(--blue-2);
   cursor: pointer;
 }

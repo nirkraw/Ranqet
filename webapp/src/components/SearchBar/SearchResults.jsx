@@ -40,17 +40,15 @@ export default function SearchResults({ results, searchWrapper, active }) {
             className="search-result-item"
             onClick={() => handleLink(result.id)}
             key={i}
-          >
+            >
+            <h2 className="search-result-title">{result.title}</h2>
             {result.imageUrl ? (
               <img
                 className="search-result-item-image"
                 src={result.imageUrl}
                 alt="list"
               />
-            ) : (
-              <div className="search-result-item-image"></div>
-            )}
-            <h2 className="search-result-title">{result.title}</h2>
+            ) : null}
           </li>
         );
       })}

@@ -21,7 +21,6 @@
 }
 
 .list-index-item-li {
-  z-index: 0;
   display: flex;
   justify-content: flex-start;
   margin-bottom: 10px;
@@ -90,7 +89,6 @@
   font-weight: 400;
   color: var(--gray-1);
   width: fit-content;
-  z-index: 1;
   text-transform:capitalize;
   margin-bottom: 10px;
 }
