@@ -5,12 +5,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum ListCategory {
     SPORTS("SPORTS"),
+    @Deprecated
     MUSIC("MUSIC"),
     MOVIES_TV("MOVIES_TV"),
+    @Deprecated
     FUN("FUN"),
     MISC("MISC"),
+    @Deprecated
     POLITICS("POLITICS"),
     SOCIAL("SOCIAL"),
+    @Deprecated
     BUSINESS("BUSINESS");
 
     private final String value;
@@ -31,6 +35,10 @@ public enum ListCategory {
     }
 
     public com.rankerapp.transport.model.ListCategory toTransportModel() {
-        return com.rankerapp.transport.model.ListCategory.valueOf(value);
+        try {
+            return com.rankerapp.transport.model.ListCategory.valueOf(value);
+        } catch (IllegalArgumentException e) {
+            return com.rankerapp.transport.model.ListCategory.MISC;
+        }
     }
 }
