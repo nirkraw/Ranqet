@@ -201,6 +201,7 @@ public class ListFetcher {
     }
 
     // TODO: limit number of lists returned
+    @Deprecated
     public GetAllUserListsResponse getAllListsForUser(UUID userId, String sessionToken) {
 
         sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
@@ -233,6 +234,52 @@ public class ListFetcher {
                         .map(ListFetcher::convertListToResponse)
                         .collect(Collectors.toList()))
                 .build();
+    }
+    
+    @Transactional
+    public List<ListResponse> getCompletedLists(UUID userId, String sessionToken) {
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        List<UserListEntity> userLists = userListsRepo.findByUserIdAndIsCompleted(userId, true);
+        Set<UUID> completedListIds = userLists.stream()
+                .filter(UserListEntity::isCompleted)
+                .map(UserListEntity::getListId)
+                .collect(Collectors.toSet());
+    
+        return listsRepo.findAllById(completedListIds).stream()
+                .map((list) -> ListFetcher.convertListToResponse(list, true))
+                .collect(Collectors.toList());
+    }
+    
+    @Transactional
+    public List<ListResponse> getInProgressLists(UUID userId, String sessionToken) {
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+    
+        List<UserListEntity> userLists = userListsRepo.findByUserIdAndIsCompleted(userId, true);
+        
+        Set<UUID> incompleteListIds = userLists.stream()
+                .filter((userList) -> !userList.isCompleted())
+                .map(UserListEntity::getListId)
+                .collect(Collectors.toSet());
+        
+        return listsRepo.findAllById(incompleteListIds).stream()
+                .map((list) -> ListFetcher.convertListToResponse(list, false))
+                .collect(Collectors.toList());
+    }
+    
+    @Transactional
+    // TODO: order by most recently created first?
+    public List<ListResponse> getCreatedLists(UUID userId, String sessionToken) {
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+    
+        Set<UUID> completedUserLists = userListsRepo.findByUserIdAndIsCompleted(userId, true).stream()
+                .map(UserListEntity::getListId)
+                .collect(Collectors.toSet());
+    
+        UserEntity createdBy = new UserEntity();
+        createdBy.setId(userId);
+        return listsRepo.findByCreatedBy(createdBy).stream()
+                .map((list) -> ListFetcher.convertListToResponse(list, completedUserLists.contains(list.getId())))
+                .collect(Collectors.toList());
     }
 
     public List<ListResponse> getAllPublicListsForUser(UUID userId) {
