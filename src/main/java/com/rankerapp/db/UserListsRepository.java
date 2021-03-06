@@ -14,6 +14,8 @@ public interface UserListsRepository extends JpaRepository<UserListEntity, UUID>
     List<UserListEntity> findByUserIdAndListIdInAndIsCompleted(UUID userId, List<UUID> listIds, boolean isCompleted);
     
     List<UserListEntity> findByUserId(UUID userId);
+    
+    List<UserListEntity> findByUserIdAndIsCompleted(UUID userId, boolean isCompleted);
 
     Long deleteByListId(UUID listId);
 }

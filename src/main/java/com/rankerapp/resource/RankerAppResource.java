@@ -118,6 +118,34 @@ public class RankerAppResource {
 
         return listFetcher.getAllListsForUser(asUUID(userId), sessionToken);
     }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/lists/user/{userId}")
+    public GenericListsResponse getUserLists(@PathVariable(value = "userId") String userId,
+        @RequestParam(value = "sessionToken") String sessionToken, @RequestParam(value = "filter") UserListFilter filter) {
+        if (StringUtils.isAnyEmpty(userId, sessionToken) || Objects.isNull(filter)) {
+            throw new BadRequestException("Fetching user lists requires a userId, a sessionToken, and a filter");
+        }
+        
+        List<ListResponse> results;
+        switch (filter) {
+            case CREATED:
+                results = listFetcher.getCreatedLists(asUUID(userId), sessionToken);
+                break;
+            case COMPLETED:
+                results = listFetcher.getCompletedLists(asUUID(userId), sessionToken);
+                break;
+            case IN_PROGRESS:
+                results = listFetcher.getInProgressLists(asUUID(userId), sessionToken);
+                break;
+            default:
+                throw new BadRequestException("Unsupported filter type: " + filter);
+        }
+        
+        return GenericListsResponse.builder()
+                .lists(results)
+                .build();
+    }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/user/{userId}/public")
