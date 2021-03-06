@@ -82,7 +82,6 @@
   padding: 4px 10px 4px 10px;
   border-radius: 5%;
   border: none;
-  z-index: 1;
 }
 
 #rankings-quiz-button:hover {
@@ -114,7 +113,6 @@
   background-image: url("../assets/rankingbackground.png");
   filter: blur(8px);
   -webkit-filter: blur(8px);
-  z-index: 0;
   position: absolute;
   bottom: 0;
   top: 0;

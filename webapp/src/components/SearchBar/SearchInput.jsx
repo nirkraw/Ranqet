@@ -6,7 +6,6 @@ import SearchIcon from "../../assets/searchIcon.png";
 import { searchForLists } from "../../util/Endpoints/ListEP";
 import debounce from "lodash.debounce";
 
-
 export default function SearchInput({ useOutsideAlerter }) {
   const [active, setActive] = useState(false);
   const [results, setResults] = useState([]);
@@ -58,12 +57,14 @@ export default function SearchInput({ useOutsideAlerter }) {
           onChange={(e) => handleChange(e)}
           onClick={() => setActive(true)}
         />
-        <img
-          onClick={handleSubmit}
-          id="search-icon"
-          src={SearchIcon}
-          alt="search"
-        />
+        <div id="search-icon-container">
+          <img
+            onClick={handleSubmit}
+            id="search-icon"
+            src={SearchIcon}
+            alt="search"
+          />
+        </div>
       </div>
       <SearchResults
         searchWrapper={searchWrapper}

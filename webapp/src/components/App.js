@@ -12,10 +12,12 @@ import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
 import ErrorPage from "./Misc/ErrorPage";
 import ListCompleted from "./CreateList/ListCompleted"
+import {useHistory } from "react-router-dom";
 
 function App() {
   const [formType, openModal] = useState([]);
   const [tabType, setTabType] = useState("completed");
+  const history = useHistory();
 
   function useOutsideAlerter(ref, setActive) {
     useEffect(() => {
@@ -40,8 +42,16 @@ function App() {
       />
       <Modal formType={formType} openModal={openModal} />
       <Switch>
-        <Route exact path="/error/:errorMessage" render={() => <ErrorPage />} />
-        <Route exact path="/list/new/:listId" render={() => <ListCompleted />} />
+        <Route
+          exact
+          path="/error/:errorMessage"
+          render={() => <ErrorPage />}
+        />
+        <Route
+          exact
+          path="/list/new/:listId"
+          render={() => <ListCompleted />}
+        />
         <Route
           exact
           path="/create-list"

@@ -1,0 +1,10 @@
+#home-categories-container { 
+    width: 100%;
+    position: relative;
+}
+
+.home-create-list-button {
+    position: absolute;
+    top: 10px;
+    right: 70px;
+}
