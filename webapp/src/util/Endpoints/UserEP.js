@@ -29,9 +29,9 @@ export const fetchUser = (userId) => {
   });
 };
 
-export const fetchUserLists = (userId, sessionToken) => {
+export const fetchUserLists = (filter, userId, sessionToken) => {
   return axios.get(
-    `${server}/lists/user/${userId}/all?sessionToken=${sessionToken}`,
+    `${server}/lists/user/${userId}?sessionToken=${sessionToken}&userId=${userId}&filter=${filter}`,
     {
       "Content-Type": "application/json",
     }

@@ -28,22 +28,13 @@ export const createList = (
   );
 };
 
-export const fetchTopLists = () => {
-  return axios.get(`${server}/lists/top`, {
-    "Content-Type": "application/json",
-  });
-};
-
-export const fetchNewLists = () => {
-  return axios.get(`${server}/lists/new`, {
-    "Content-Type": "application/json",
-  });
-};
-
-export const fetchCategoryList = (category) => {
-  return axios.get(`${server}/lists/top?category=${category}`, {
-    "Content-Type": "application/json",
-  });
+export const fetchCategoryList = (category, userId, sessionToken) => {
+  return axios.get(
+    `${server}/lists?category=${category}&userId=${userId}&sessionToken=${sessionToken}`,
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
 
 export const deleteList = (userId, listId, sessionToken) => {
@@ -66,4 +57,3 @@ export const searchForLists = (searchString) => {
     "Content-Type": "application/json",
   });
 };
-

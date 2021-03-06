@@ -4,7 +4,7 @@ import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
 import { fetchCategoryList } from "../../util/Endpoints/ListEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory } from "react-router-dom";
-import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
+// import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
 import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 import "../../styles/HomeCategories.css";
 
@@ -16,33 +16,26 @@ export default function HomeCategories() {
   const [currList, setCurrList] = useState([]);
 
   useEffect(() => {
-    getTopLists();
+    getLists("POPULAR");
     return () => setCache({});
   }, []);
 
-
-  const getLists = async (type, endpoint, args) => {
+  const getLists = async (category) => {
     try {
       setLoading(true);
-      if (cache[type]) {
-        setCurrList(cache[type]);
+      if (cache[category]) {
+        setCurrList(cache[category]);
         setLoading(false);
       } else {
-        const res = await endpoint(...args);
-        const lists = res.data.lists;
-        //checks each item in list if it's completed to show proper button
-        for (let i = 0; i < lists.length; i++) {
-          const listItem = lists[i];
-            const res = await fetchListOptionPair(
-              listItem.id,
-              localStorage.getItem("userId")
-            );
-            listItem.complete = Boolean(res.data.isCompleted);
-        }
+        const res = await fetchCategoryList(
+          category,
+          localStorage.getItem("userId"),
+          localStorage.getItem("sessionToken")
+        );
 
-        setCurrList(lists);
+        setCurrList(res.data.lists);
         const cacheCopy = JSON.parse(JSON.stringify(cache));
-        cacheCopy[type] = lists;
+        cacheCopy[category] = res.data.lists;
         setCache(cacheCopy);
         setLoading(false);
       }
@@ -51,17 +44,9 @@ export default function HomeCategories() {
     }
   };
 
-  const getCategoryLists = (categoryType) =>
-    getLists(categoryType, fetchCategoryList, [categoryType]);
-
-  const getTopLists = () => getLists("fetchTopLists", fetchTopLists, []);
-
-  const getNewLists = () => getLists("getNewLists", fetchNewLists, []);
-
   const categoryObjects = ListCategory.map((category, i) => ({
     name: ListCategoryToTitle[category],
     type: category,
-    endpoint: getCategoryLists,
   }));
 
   if (loading) return <LoadingSpinner />;
@@ -69,23 +54,19 @@ export default function HomeCategories() {
   return (
     <div id="home-categories-container">
       <Tabs
-        tabs={[
-          {
-            name: "Popular",
-            endpoint: getTopLists,
-          },
-          {
-            name: "New",
-            endpoint: getNewLists,
-          },
-          ...categoryObjects,
-        ]}
+        tabs={[...categoryObjects]}
+        getLists={getLists}
         tabDirection="vertical"
         currList={currList}
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
       />
-      <div className="home-create-list-button site-button-2" onClick={() => history.push("./create-list")}>Create List</div>
+      <div
+        className="home-create-list-button site-button-2"
+        onClick={() => history.push("./create-list")}
+      >
+        Create List
+      </div>
     </div>
   );
 }

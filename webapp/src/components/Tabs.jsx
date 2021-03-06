@@ -3,19 +3,19 @@ import "../styles/Tabs.css";
 import HomeCategories from "./Home/HomeCategories";
 import ListIndex from "./ListIndex";
 
-
 export default function Tabs({
   tabs,
   tabDirection,
   currList,
   activeIdx,
-  setActiveIdx
+  setActiveIdx,
+  getLists,
 }) {
   const setTab = (i, tab) => {
     if (i === activeIdx) return;
     setActiveIdx(i);
-    if (tab.endpoint && tab.type) tab.endpoint(tab.type);
-    else if (tab.endpoint) tab.endpoint(i);
+
+    if (getLists) getLists(tab.type);
   };
 
   let currTab;

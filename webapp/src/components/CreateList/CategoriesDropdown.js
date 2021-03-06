@@ -13,11 +13,13 @@ export default function Categories({setCategory}) {
           defaultValue="-- SELECT --"
         >
           <option disabled>-- SELECT --</option>
-          {ListCategory.map((category, i) => (
+          {ListCategory.map((category, i) => {
+            if(category === "NEW" || category === "POPULAR") return "";
+            return (
             <option key={i} value={category} className="category-option">
               {category}
             </option>
-          ))}
+          )})}
         </select>
       </div>
     );

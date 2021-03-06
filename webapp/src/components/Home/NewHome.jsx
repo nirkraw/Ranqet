@@ -4,7 +4,7 @@ import Tabs from "../Tabs";
 import { useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/newHome.css";
-import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
+import { UserFilterToTitle, UserFilter } from "../../enums/UserListFilter";
 
 export default function NewHome() {
   const history = useHistory();
@@ -21,21 +21,13 @@ export default function NewHome() {
         setLoading(false);
       }
       const res = await fetchUserLists(
+        type,
         localStorage.getItem("userId"),
         localStorage.getItem("sessionToken")
       );
-      const lists = res.data[type];
-      for (let i = 0; i < lists.length; i++) {
-        const listItem = lists[i];
-        const res = await fetchListOptionPair(
-          listItem.id,
-          localStorage.getItem("userId")
-        );
-        listItem.complete = Boolean(res.data.isCompleted);
-      }
-      setCurrList(res.data[type]);
+      setCurrList(res.data.lists);
       const cacheCopy = JSON.parse(JSON.stringify(cache));
-      cacheCopy[type] = res.data[type];
+      cacheCopy[type] = res.data.lists;
       setCache(cacheCopy);
       setLoading(false);
     } catch (err) {
@@ -43,11 +35,12 @@ export default function NewHome() {
     }
   };
 
-  const getInProgressLists = () => getLists("inProgressLists");
-  const getCreatedLists = () => getLists("createdLists");
-  const getCompletedLists = () => getLists("completedLists");
-
   if (loading) return <LoadingSpinner />;
+
+  const userLists = UserFilter.map((filter) => ({
+    name: UserFilterToTitle[filter],
+    type: filter,
+  }));
 
   return (
     <div id="newhome-main-container">
@@ -56,23 +49,13 @@ export default function NewHome() {
           {
             name: "All Lists",
           },
-          {
-            name: "My Lists",
-            endpoint: getCreatedLists,
-          },
-          {
-            name: "In Progress",
-            endpoint: getInProgressLists,
-          },
-          {
-            name: "Completed",
-            endpoint: getCompletedLists,
-          },
+          ...userLists,
         ]}
         tabDirection="horizontal"
         currList={currList}
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
+        getLists={getLists}
       />
     </div>
   );

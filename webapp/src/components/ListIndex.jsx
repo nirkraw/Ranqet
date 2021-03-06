@@ -71,7 +71,7 @@ export default function ListIndex({ passedList, trash, getCreatedLists }) {
                   <p>{list.description}</p>
                 </div>
                 <div className="justify-start">
-                  {list.complete ? (
+                  {list.isCompleted ? (
                     <div
                       className="list-index-button site-button-3"
                       onClick={() => history.push(`/${list.id}/rankings`)}
