@@ -1,9 +1,8 @@
-import React, {useState} from "react";
-import { formatUploadTime } from "../util/DateCalc";
+import React, { useState } from "react";
+import { getFormattedDate } from "../util/DateCalc";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import ConfirmationModal from "./ConfirmModal";
-
 
 export default function ListIndex({ passedList, trash, getCreatedLists }) {
   const [currListId, setCurrListId] = useState(null);
@@ -55,7 +54,6 @@ export default function ListIndex({ passedList, trash, getCreatedLists }) {
                     </p>
                   )}
                 </div>
-
                 <p
                   className="list-index-author"
                   onClick={(e) => {
@@ -65,6 +63,9 @@ export default function ListIndex({ passedList, trash, getCreatedLists }) {
                 >
                   <span>By: </span>
                   {list.createdBy.name}
+                </p>
+                <p className={"created-date"}>
+                  {getFormattedDate(list.createdOn)}
                 </p>
                 <div className="list-index-item-description">
                   <p>{list.description}</p>
@@ -94,16 +95,6 @@ export default function ListIndex({ passedList, trash, getCreatedLists }) {
                     </div>
                   ) : null}
                 </div>
-                <p
-                  className="list-index-category"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    history.push(`/category/${list.category}`);
-                  }}
-                >
-                  {list.category}
-                </p>
-                <p>Created {formatUploadTime(list.createdOn)}</p>
               </div>
               <div className="list-index-image-container">
                 {list.imageUrl ? (
