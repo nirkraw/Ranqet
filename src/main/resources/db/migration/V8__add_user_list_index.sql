@@ -1,0 +1,1 @@
+CREATE INDEX user_id_list_id_idx ON UserLists(user_id, list_id);
