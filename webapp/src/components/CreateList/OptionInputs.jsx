@@ -37,7 +37,6 @@ export default function OptionInputs({
     e.preventDefault();
     const optionsCopy = [...options];
     optionsCopy[index].photoUrl = "";
-    console.log(optionsCopy);
     setOptions(optionsCopy);
   };
 

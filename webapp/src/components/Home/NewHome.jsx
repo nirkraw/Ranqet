@@ -73,13 +73,7 @@ export default function NewHome() {
         currList={currList}
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
-        getCompletedLists={getCompletedLists}
       />
-      {/* <ConfirmationModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        listId={currListId}
-      /> */}
     </div>
   );
 }

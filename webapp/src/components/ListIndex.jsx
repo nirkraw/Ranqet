@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import { formatUploadTime } from "../util/DateCalc";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
-import TrashImage from "../assets/trash-icon.png";
 import ConfirmationModal from "./ConfirmModal";
 
 
-export default function ListIndex({ passedList, trash, getCompletedLists }) {
+export default function ListIndex({ passedList, trash, getCreatedLists }) {
   const [currListId, setCurrListId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
@@ -29,7 +28,7 @@ export default function ListIndex({ passedList, trash, getCompletedLists }) {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         listId={currListId}
-        getCompletedLists={getCompletedLists}
+        getCreatedLists={getCreatedLists}
       />
       {passedList.map((list, i) => {
         return (

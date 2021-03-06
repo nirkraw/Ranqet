@@ -25,7 +25,6 @@ export default function HomeCategories() {
     try {
       setLoading(true);
       if (cache[type]) {
-        console.log("HELLLOO", cache[type])
         setCurrList(cache[type]);
         setLoading(false);
       } else {

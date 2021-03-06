@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../styles/Tabs.css";
 import HomeCategories from "./Home/HomeCategories";
 import ListIndex from "./ListIndex";
@@ -9,8 +9,7 @@ export default function Tabs({
   tabDirection,
   currList,
   activeIdx,
-  setActiveIdx,
-  getCompletedLists,
+  setActiveIdx
 }) {
   const setTab = (i, tab) => {
     if (i === activeIdx) return;
@@ -27,7 +26,7 @@ export default function Tabs({
       <ListIndex
         passedList={currList}
         trash={true}
-        getCompletedLists={getCompletedLists}
+        getCreatedLists={tabs[1].endpoint}
       />
     );
   } else {

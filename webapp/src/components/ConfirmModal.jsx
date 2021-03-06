@@ -6,12 +6,7 @@ import { useHistory } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
-export default function ConfirmModal({
-  isOpen,
-  setIsOpen,
-  listId,
-  getCompletedLists,
-}) {
+export default function ConfirmModal({ isOpen, setIsOpen, listId, getCreatedLists }) {
   const history = useHistory();
   const confirmDeleteList = async () => {
     try {
@@ -24,7 +19,7 @@ export default function ConfirmModal({
       history.push(`/error/${err.message}`);
     }
     setIsOpen(false);
-    getCompletedLists();
+    getCreatedLists();
   };
   return (
     <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" } }}>
