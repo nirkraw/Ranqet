@@ -1,41 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../styles/UserProfile.css";
 import { formatUploadTime } from "../../util/DateCalc";
 import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
+import useEndpoint from "../useEndpoint";
 
-export default function UserInfo({
-  numCreated,
-  numCompleted,
-  setPublicFacing,
-  publicFacing,
-}) {
+export default function UserInfo({ numCreated }) {
   const history = useHistory();
   const match = useRouteMatch();
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [user, loading] = useEndpoint(fetchUser, [match.params.userId]);
   const [imageLoading, setImageLoading] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [userError, setUserError] = useState(null);
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, [match.params.userId]);
-
-  const fetchUserInfo = async () => {
-    try {
-      const res = await fetchUser(match.params.userId);
-      setDate(formatUploadTime(res.data.createdOn));
-      setName(res.data.name);
-      if (res.data.avatarUrl) setAvatarUrl(res.data.avatarUrl);
-      setLoading(false);
-    } catch (err) {
-      history.push(`/error/${err.message}`);
-    }
-  };
+  const {name, createdOn, avatarUrl} = user;
 
   const handleUserPhotoFile = async (e) => {
     e.preventDefault();
@@ -50,7 +28,6 @@ export default function UserInfo({
     setImageLoading(true);
     try {
       const res = await uploadImage(formData);
-      setAvatarUrl(res.data.imageUrl);
       await updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
       setImageLoading(false);
     } catch (err) {
@@ -65,32 +42,8 @@ export default function UserInfo({
     currentImage = (
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
-  } else if (localStorage.getItem("userId") === match.params.userId && !publicFacing) {
+  } else if (localStorage.getItem("userId") === match.params.userId) {
     currentImage = <p className="site-button">Add Avatar</p>;
-  }
-
-  let button;
-  if (!publicFacing && localStorage.getItem("userId") === match.params.userId) {
-    button = (
-      <button
-        className="site-button"
-        onClick={() => setPublicFacing(!publicFacing)}
-      >
-        View Public Profile
-      </button>
-    );
-  } else if (
-    publicFacing &&
-    localStorage.getItem("userId") === match.params.userId
-  ) {
-    button = (
-      <button
-        className="site-button"
-        onClick={() => setPublicFacing(!publicFacing)}
-      >
-        Back to Full Profile
-      </button>
-    );
   }
 
   if (loading) return <LoadingSpinner />;
@@ -104,8 +57,7 @@ export default function UserInfo({
         onChange={handleUserPhotoFile}
         hidden
       />
-      {localStorage.getItem("userId") === match.params.userId &&
-      !publicFacing ? (
+      {localStorage.getItem("userId") === match.params.userId ? (
         <div id="user-profile-image-container">
           {currentImage}
           {avatarUrl ? (
@@ -125,15 +77,11 @@ export default function UserInfo({
       <h1 id="user-profile-name">{name}</h1>
       <div id="user-stats">
         <h1>
-          Joined <span>{date}</span>
+          Joined <span>{formatUploadTime(createdOn)}</span>
         </h1>
         <h1>
           <span>{numCreated}</span> lists created
         </h1>
-        <h1>
-          <span>{numCompleted}</span> lists completed
-        </h1>
-        {button}
       </div>
     </div>
   );

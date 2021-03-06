@@ -1,43 +1,68 @@
-import React, { useState, useEffect} from "react";
+import React from "react";
+import "../styles/Tabs.css";
+import HomeCategories from "./Home/HomeCategories";
 import ListIndex from "./ListIndex";
-import "../styles/Tabs.css"
 
-export default function Tabs({ tabs }) {
-  const [currTab, setCurrTab] = useState([]);
-  const [activeIdx, setActiveIdx] = useState(0);
 
-  useEffect(() => {
-     if(!currTab.length && tabs.length) setCurrTab(tabs[0].list)
-  }, [tabs])
-
-  const setTab = (i, tabList) => {
-    setCurrTab(tabList);
+export default function Tabs({
+  tabs,
+  tabDirection,
+  currList,
+  activeIdx,
+  setActiveIdx
+}) {
+  const setTab = (i, tab) => {
+    if (i === activeIdx) return;
     setActiveIdx(i);
+    if (tab.endpoint && tab.type) tab.endpoint(tab.type);
+    else if (tab.endpoint) tab.endpoint(i);
   };
 
+  let currTab;
+  if (tabDirection === "horizontal" && activeIdx === 0) {
+    currTab = <HomeCategories />;
+  } else if (tabDirection === "horizontal" && activeIdx === 1) {
+    currTab = (
+      <ListIndex
+        passedList={currList}
+        trash={true}
+        getCreatedLists={tabs[1].endpoint}
+      />
+    );
+  } else {
+    currTab = <ListIndex passedList={currList} />;
+  }
+
   return (
-    <div id="tabs-container-div" className="column-start">
-      <ul id="tab-names-ul" className="justify-start">
+    <div
+      id="tabs-container-div"
+      className={
+        tabDirection === "horizontal" ? "justify-start" : "column-start"
+      }
+    >
+      <ul
+        className={
+          tabDirection === "horizontal"
+            ? "column-start tab-names-ul-horizontal"
+            : "justify-start tab-names-ul"
+        }
+      >
         {tabs.map((tab, i) => (
           <li
             className={
               activeIdx === i ? "tab-names-li activeTab" : "tab-names-li"
             }
-            onClick={() => setTab(i, tab.list)}
+            id={tabDirection === "horizontal" ? "tab-names-li-horizontal" : ""}
+            onClick={() => setTab(i, tab)}
             key={i}
           >
-            <h1
-              className={
-                activeIdx === i ? "activeTabText" : ""
-              }
-            >
+            <h1 className={activeIdx === i ? "activeTabText" : ""}>
               {tab.name}
             </h1>
           </li>
         ))}
       </ul>
-
-      <ListIndex passedList={currTab} />
+      {currTab}
     </div>
   );
 }

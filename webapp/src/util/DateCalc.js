@@ -22,3 +22,30 @@ export const formatUploadTime = (created_at) => {
   else return "Today";
 };
 
+export const getFormattedDate = (currDate) => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  
+  const date = new Date(currDate)
+  let year = date.getFullYear();
+
+  let month = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : "0" + month;
+
+  let day = date.getDate().toString();
+  day = day.length > 1 ? day : "0" + day;
+
+  return monthNames[Number(month)] + " " + day + ", " + year;
+}

@@ -7,8 +7,10 @@ import ListIndex from "../ListIndex";
 import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
 import NewLists from "./NewLists";
 import Flame from "../../assets/flame.png";
+import Home2 from "./NewHome";
 
-export default function Home({ openModal}) {
+export default function Home({ openModal }) {
+  return <Home2 />
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [topLists, setTopLists] = useState([]);

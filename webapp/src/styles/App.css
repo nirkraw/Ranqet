@@ -2,7 +2,7 @@
   width: 100vw;
   display: flex;
   justify-content: center;
-  background-color: rgb(250, 248, 248);
+  /* background-color: rgb(250, 248, 248); */
 }
 
 .App {
@@ -14,5 +14,5 @@
   flex-direction: column;
   align-items: center;
   align-self:center;
-  background-color: rgb(250, 248, 248);
+  /* background-color: rgb(250, 248, 248); */
 }

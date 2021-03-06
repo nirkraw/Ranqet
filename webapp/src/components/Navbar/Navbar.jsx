@@ -30,15 +30,6 @@ export default function Navbar({ openModal, useOutsideAlerter, setTabType }) {
         </div>
       ) : (
         <div id="navbar-buttons-container">
-          <h3
-            onClick={() => history.push("/create-list")}
-            className="nav-session-button"
-          >
-            Create List
-          </h3>
-          <h3 onClick={() => history.push("/")} className="nav-session-button">
-            Home
-          </h3>
           <ProfileDropdown
             useOutsideAlerter={useOutsideAlerter}
             setTabType={setTabType}
