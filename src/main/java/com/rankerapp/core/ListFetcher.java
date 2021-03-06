@@ -94,7 +94,7 @@ public class ListFetcher {
                 .completedBy(null)
                 .build();
     }
-
+    
     @Transactional
     public GenericListsResponse getTopLists() {
         PageRequest pageRequest =
@@ -102,11 +102,34 @@ public class ListFetcher {
         List<ListResponse> topLists = listsRepo.findByIsPrivate(false, pageRequest)
                 .map(ListFetcher::convertListToResponse)
                 .collect(Collectors.toList());
+    
         return GenericListsResponse.builder()
                 .lists(topLists)
                 .build();
     }
-
+    
+    @Transactional
+    public GenericListsResponse getTopLists(UUID userId, String sessionToken) {
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        
+        PageRequest pageRequest =
+                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
+        List<ListEntity> topLists = listsRepo.findByIsPrivate(false, pageRequest)
+                .collect(Collectors.toList());
+        
+        Set<UUID> completedUserListIds = getCompletedListIdsForUser(userId, topLists.stream()
+                .map(ListEntity::getId)
+                .collect(Collectors.toList()));
+        
+        List<ListResponse> resolvedTopLists = topLists.stream()
+                .map((list) -> ListFetcher.convertListToResponse(list, completedUserListIds.contains(list.getId())))
+                .collect(Collectors.toList());
+        
+        return GenericListsResponse.builder()
+                .lists(resolvedTopLists)
+                .build();
+    }
+    
     @Transactional
     public GenericListsResponse getTopListsByCategory(ListCategory listCategory) {
         PageRequest pageRequest =
@@ -119,7 +142,30 @@ public class ListFetcher {
                 .lists(topLists)
                 .build();
     }
-
+    
+    @Transactional
+    public GenericListsResponse getTopListsByCategory(UUID userId, String sessionToken, ListCategory listCategory) {
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+    
+        PageRequest pageRequest =
+                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
+        com.rankerapp.db.model.ListCategory category = com.rankerapp.db.model.ListCategory.valueOf(listCategory.name());
+        List<ListEntity> topLists = listsRepo.findByCategoryAndIsPrivate(category, false, pageRequest)
+                .collect(Collectors.toList());
+        
+        Set<UUID> completedUserListIds = getCompletedListIdsForUser(userId, topLists.stream()
+                .map(ListEntity::getId)
+                .collect(Collectors.toList()));
+        
+        List<ListResponse> resolvedTopLists = topLists.stream()
+                .map((list) -> ListFetcher.convertListToResponse(list, completedUserListIds.contains(list.getId())))
+                .collect(Collectors.toList());
+        
+        return GenericListsResponse.builder()
+                .lists(resolvedTopLists)
+                .build();
+    }
+    
     @Transactional
     public GenericListsResponse getNewLists() {
         PageRequest pageRequest =
@@ -129,6 +175,28 @@ public class ListFetcher {
                 .collect(Collectors.toList());
         return GenericListsResponse.builder()
                 .lists(topLists)
+                .build();
+    }
+    
+    @Transactional
+    public GenericListsResponse getNewLists(UUID userId, String sessionToken) {
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+    
+        PageRequest pageRequest =
+                PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("createdOn")));
+        List<ListEntity> topLists = listsRepo.findByIsPrivate(false, pageRequest)
+                .collect(Collectors.toList());
+    
+        Set<UUID> completedUserListIds = getCompletedListIdsForUser(userId, topLists.stream()
+                .map(ListEntity::getId)
+                .collect(Collectors.toList()));
+    
+        List<ListResponse> resolvedTopLists = topLists.stream()
+                .map((list) -> ListFetcher.convertListToResponse(list, completedUserListIds.contains(list.getId())))
+                .collect(Collectors.toList());
+        
+        return GenericListsResponse.builder()
+                .lists(resolvedTopLists)
                 .build();
     }
 
@@ -182,6 +250,12 @@ public class ListFetcher {
                 .map(ListFetcher::convertListToResponse)
                 .collect(Collectors.toList());
     }
+    
+    // finds the listIds in a set that were completed by a user
+    private Set<UUID> getCompletedListIdsForUser(UUID userId, List<UUID> listIds) {
+        return userListsRepo.findByUserIdAndListIdInAndIsCompleted(userId, listIds, true)
+                .stream().map(UserListEntity::getListId).collect(Collectors.toSet());
+    }
 
     private static List<RankedOption> convertAndSortList(List<ScoreEntity> scores) {
         return scores.stream()
@@ -191,10 +265,14 @@ public class ListFetcher {
     }
 
     private static ListResponse convertListToResponse(ListEntity listEntity) {
+        return convertListToResponse(listEntity, false);
+    }
+    
+    private static ListResponse convertListToResponse(ListEntity listEntity, boolean completed) {
         List<Option> options = listEntity.getOptions().stream()
                 .map(OptionsFactory::convertOption)
                 .collect(Collectors.toList());
-
+    
         return ListResponse.builder()
                 .id(listEntity.getId().toString())
                 .createdOn(listEntity.getCreatedOn())
@@ -206,6 +284,7 @@ public class ListFetcher {
                 .imageUrl(listEntity.getImageUrl())
                 .isUnlisted(listEntity.isPrivate())
                 .category(listEntity.getCategory().toTransportModel())
+                .isCompleted(completed)
                 .build();
     }
 

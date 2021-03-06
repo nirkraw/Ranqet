@@ -74,6 +74,25 @@ public class RankerAppResource {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/lists")
+    public GenericListsResponse getLists(@RequestParam(value = "userId") String userId,
+        @RequestParam(value = "sessionToken") String sessionToken, @RequestParam(value = "category") ListCategory category) {
+        if (Objects.isNull(category)) {
+            throw new BadRequestException("category query param is required");
+        } else if (StringUtils.isEmpty(sessionToken)) {
+            throw new BadRequestException("session token param is required");
+        }
+        
+        if (category == ListCategory.POPULAR) {
+            return listFetcher.getTopLists(asUUID(userId), sessionToken);
+        } else if (category == ListCategory.NEW) {
+            return listFetcher.getNewLists(asUUID(userId), sessionToken);
+        } else {
+            return listFetcher.getTopListsByCategory(asUUID(userId), sessionToken, category);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/search")
     public GenericListsResponse searchForListsByName(@RequestParam(value = "query") String query) {
         if (StringUtils.isEmpty(query)) {
@@ -90,6 +109,7 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/user/{userId}/all")
+    // TODO: Separate these out into individual endpoints
     public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId,
             @RequestParam(value = "sessionToken") String sessionToken) {
         if (StringUtils.isEmpty(sessionToken)) {

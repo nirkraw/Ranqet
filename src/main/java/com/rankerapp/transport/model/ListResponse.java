@@ -24,6 +24,9 @@ public class ListResponse {
     private final ListCategory category;
 
     private final boolean isUnlisted;
+    
+    // Whether this list was completed by the userId provided Otherwise default to false.
+    private final boolean isCompleted;
 
     private ListResponse(Builder builder) {
         this.id = builder.id;
@@ -36,6 +39,7 @@ public class ListResponse {
         this.imageUrl = builder.imageUrl;
         this.isUnlisted = builder.isUnlisted;
         this.category = builder.category;
+        this.isCompleted = builder.isCompleted;
     }
 
     public String getId() {
@@ -77,6 +81,10 @@ public class ListResponse {
     public ListCategory getCategory() {
         return category;
     }
+    
+    public boolean getIsCompleted() {
+        return isCompleted;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -103,6 +111,8 @@ public class ListResponse {
         private boolean isUnlisted;
 
         private ListCategory category;
+        
+        private boolean isCompleted;
 
         private Builder() {
 
@@ -155,6 +165,11 @@ public class ListResponse {
 
         public Builder category(ListCategory category) {
             this.category = category;
+            return this;
+        }
+        
+        public Builder isCompleted(boolean isCompleted) {
+            this.isCompleted = isCompleted;
             return this;
         }
 
