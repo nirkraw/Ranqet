@@ -9,13 +9,13 @@ export default function Tabs({
   currList,
   activeIdx,
   setActiveIdx,
-  getLists,
+  setFilter,
 }) {
   const setTab = (i, tab) => {
     if (i === activeIdx) return;
     setActiveIdx(i);
-
-    if (getLists) getLists(tab.type);
+    //for the HomeCategories tab we don't need to call an endpoint so doesn't have tab.filter
+    if (tab.filter) setFilter(tab.filter)
   };
 
   let currTab;

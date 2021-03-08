@@ -5,18 +5,24 @@ import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import useEndpoint from "../useEndpoint";
+import useCache from "../useCache";
+import { clearEndpointCache } from "../clearEndpointCache";
 
 export default function UserInfo({ numCreated }) {
   const history = useHistory();
   const match = useRouteMatch();
-  const [user, loading] = useEndpoint(fetchUser, [match.params.userId]);
+  const [user, loading] = useCache({
+    fn: fetchUser,
+    args: [match.params.userId],
+    defaultValue: {}
+  });
   const [imageLoading, setImageLoading] = useState(false);
   const [userError, setUserError] = useState(null);
-  const {name, createdOn, avatarUrl} = user;
+  const { name, createdOn, avatarUrl } = user;
 
   const handleUserPhotoFile = async (e) => {
     e.preventDefault();
+    clearEndpointCache(fetchUser, [localStorage.getItem("userId")]);
     setUserError("");
     const file = e.currentTarget.files[0];
     if (file.size > 1048576) {

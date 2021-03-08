@@ -4,13 +4,15 @@ import "../../styles/UserProfile.css";
 import UserInfo from "./UserInfo";
 import { useRouteMatch } from "react-router-dom";
 import ListIndex from "../ListIndex";
-import useEndpoint from "../useEndpoint.js";
+import useCache from "../useCache.js";
 
 export default function UserProfile() {
   const match = useRouteMatch();
-  const [data, loading] = useEndpoint(fetchUserPublicList, [
-    match.params.userId,
-  ]);
+  const [data, loading] = useCache({
+    fn: fetchUserPublicList,
+    args: [match.params.userId],
+    defaultValue: {}
+  });
 
   if (loading) return <LoadingSpinner />;
 
