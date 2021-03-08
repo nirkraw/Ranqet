@@ -38,6 +38,8 @@ public class ListWriter {
                                  String imageUrl, ListCategory category, boolean isPrivate) {
         if (category == null) {
             throw new BadRequestException("List category is required!");
+        } else if (category == ListCategory.NEW || category == ListCategory.POPULAR) {
+            throw new BadRequestException("Invalid ListCategory: " + category);
         }
 
         // validate that two options don't have the same name
