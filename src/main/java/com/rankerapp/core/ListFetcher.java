@@ -254,7 +254,7 @@ public class ListFetcher {
     public List<ListResponse> getInProgressLists(UUID userId, String sessionToken) {
         sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
     
-        List<UserListEntity> userLists = userListsRepo.findByUserIdAndIsCompleted(userId, true);
+        List<UserListEntity> userLists = userListsRepo.findByUserIdAndIsCompleted(userId, false);
         
         Set<UUID> incompleteListIds = userLists.stream()
                 .filter((userList) -> !userList.isCompleted())
