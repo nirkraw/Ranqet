@@ -46,18 +46,6 @@
   font-size: 17;
 }
 
-/* .tab-container {
-  display: flex;
-  padding: 5px;
-  font-family: var(--font-3);
-  color: var(--pink-2);
-  font-size: 30px;
-}
-
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color: var(--blue-3) !important;
-} */
-
 #user-profile-name {
   margin-left: 17px;
   font-size: 45px;
