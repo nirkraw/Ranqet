@@ -20,7 +20,7 @@ public class PresetsResource {
     }
     
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/user/{userId}/presets")
+    @GetMapping("/users/{userId}/presets")
     public FetchPresetsResponse fetchPreset(@PathVariable(value = "userId") String userId,
                                             @RequestParam(value = "sessionToken") String sessionToken) {
         List<Preset> presets = presetsManager.getPresetsForUser(UUID.fromString(userId), sessionToken);
