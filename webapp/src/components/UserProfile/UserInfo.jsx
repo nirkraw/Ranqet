@@ -5,18 +5,17 @@ import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import useCache from "../useCache";
+// import useCache from "../useCache";
 import { clearEndpointCache } from "../clearEndpointCache";
 
-export default function UserInfo({ numCreated }) {
+export default function UserInfo({ numCreated, user, loading, setImageLoading, imageLoading }) {
   const history = useHistory();
   const match = useRouteMatch();
-  const [user, loading] = useCache({
-    fn: fetchUser,
-    args: [match.params.userId],
-    defaultValue: {}
-  });
-  const [imageLoading, setImageLoading] = useState(false);
+  // const [user, loading] = useCache({
+  //   fn: fetchUser,
+  //   args: [match.params.userId, imageLoading],
+  //   defaultValue: {}
+  // });
   const [userError, setUserError] = useState(null);
   const { name, createdOn, avatarUrl } = user;
 
