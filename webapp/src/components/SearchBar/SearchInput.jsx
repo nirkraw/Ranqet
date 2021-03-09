@@ -71,6 +71,7 @@ export default function SearchInput() {
         searchWrapper={searchWrapper}
         results={results}
         active={active}
+        setActive={setActive}
       />
     </div>
   );
