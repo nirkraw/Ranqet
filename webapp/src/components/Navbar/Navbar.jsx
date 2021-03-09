@@ -4,7 +4,7 @@ import SearchInput from "../SearchBar/SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ openModal }) {
+export default function Navbar({ openModal, userInfo }) {
   const history = useHistory();
 
   return (
@@ -30,7 +30,7 @@ export default function Navbar({ openModal }) {
         </div>
       ) : (
         <div id="navbar-buttons-container">
-          <ProfileDropdown />
+          <ProfileDropdown userInfo={userInfo}/>
         </div>
       )}
     </div>

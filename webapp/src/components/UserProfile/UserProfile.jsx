@@ -6,7 +6,7 @@ import { useRouteMatch } from "react-router-dom";
 import ListIndex from "../ListIndex";
 import useCache from "../../util/useCache.js";
 
-export default function UserProfile() {
+export default function UserProfile({ userInfo, setUserInfo }) {
   const match = useRouteMatch();
   const [userListCacheId, userListloading] = useCache({
     fn: fetchUserPublicList,
@@ -16,10 +16,13 @@ export default function UserProfile() {
   const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (userListloading) return <LoadingSpinner />;
 
-
   return (
     <div id="user-profile-main-container">
-      <UserInfo numCreated={data.lists.length} />
+      <UserInfo
+        numCreated={data.lists.length}
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+      />
       <div id="tabs-container-div">
         <ListIndex passedList={data.lists} />
       </div>
