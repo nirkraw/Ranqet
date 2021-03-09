@@ -12,27 +12,14 @@ import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
 import ErrorPage from "./Misc/ErrorPage";
 import ListCompleted from "./CreateList/ListCompleted";
-import { fetchUser } from "../util/Endpoints/UserEP";
-import useCache from "../util/useCache";
+
 
 function App() {
   const [formType, openModal] = useState([]);
-  const [imageLoading, setImageLoading] = useState(false);
-  const [user, loading] = useCache({
-    fn: fetchUser,
-    args: [localStorage.getItem("userId"), imageLoading],
-    defaultValue: [],
-    blocking: true,
-  });
-
 
   return (
     <div className="App">
-      <Navbar
-        openModal={openModal}
-        user={user}
-        loading={loading}
-      />
+      <Navbar openModal={openModal}  />
       <Modal formType={formType} openModal={openModal} />
       <Switch>
         <Route exact path="/error/:errorMessage" render={() => <ErrorPage />} />
@@ -66,14 +53,7 @@ function App() {
         <Route
           exact
           path="/profile/:userId"
-          render={() => (
-            <UserProfile
-              imageLoading={imageLoading}
-              setImageLoading={setImageLoading}
-              user={user}
-              loading={loading}
-            />
-          )}
+          render={() => <UserProfile />}
         />
         <Route exact path="/search/:searchVal" render={() => <SearchPage />} />
         <Route exact path="/" render={() => <Home openModal={openModal} />} />

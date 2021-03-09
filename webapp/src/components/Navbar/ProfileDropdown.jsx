@@ -1,13 +1,23 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import {useOutsideAlerter} from "../../util/useOutsideAlerter"
+import { useOutsideAlerter } from "../../util/useOutsideAlerter";
+import { fetchUser } from "../../util/Endpoints/UserEP";
+import useCache from "../../util/useCache";
 
-export default function ProfileDropdown({ user, loading }) {
+export default function ProfileDropdown() {
   const [active, setActive] = useState(false);
   const history = useHistory();
   const wrapperRef = useRef(null);
+  const [userInfoCacheId, loading] = useCache({
+    fn: fetchUser,
+    args: [localStorage.getItem("userId")],
+    defaultValue: [],
+    blocking: true,
+  });
+  const user = JSON.parse(localStorage.getItem(userInfoCacheId))
   useOutsideAlerter(wrapperRef, setActive);
+
 
   const logout = (e) => {
     e.preventDefault();
@@ -17,15 +27,19 @@ export default function ProfileDropdown({ user, loading }) {
   };
 
   if (loading) return <LoadingSpinner />;
-  
+
   return (
-    <div id="profile-dropdown-main" className="justify-start-center">
+    <div
+      id="profile-dropdown-main"
+      className="justify-start-center"
+      onClick={() => setActive(!active)}
+    >
       <div id="nav-user-profile-picture">
         {user.avatarUrl ? (
           <img src={user.avatarUrl} alt="profile-pic"></img>
         ) : null}
       </div>
-      <h3 className="nav-session-button" onClick={() => setActive(!active)}>
+      <h3 className="nav-session-button">
         {user.name} <span>{String.fromCharCode(9660)}</span>
       </h3>
       <div

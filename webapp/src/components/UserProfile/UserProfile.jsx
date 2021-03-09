@@ -6,30 +6,20 @@ import { useRouteMatch } from "react-router-dom";
 import ListIndex from "../ListIndex";
 import useCache from "../../util/useCache.js";
 
-export default function UserProfile({
-  imageLoading,
-  setImageLoading,
-  user,
-  loading,
-}) {
+export default function UserProfile() {
   const match = useRouteMatch();
-  const [data, userListloading] = useCache({
+  const [userListCacheId, userListloading] = useCache({
     fn: fetchUserPublicList,
     args: [match.params.userId],
     defaultValue: {},
   });
-
+  const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (userListloading) return <LoadingSpinner />;
+
 
   return (
     <div id="user-profile-main-container">
-      <UserInfo
-        numCreated={data.lists.length}
-        imageLoading={imageLoading}
-        setImageLoading={setImageLoading}
-        user={user}
-        loading={loading}
-      />
+      <UserInfo numCreated={data.lists.length} />
       <div id="tabs-container-div">
         <ListIndex passedList={data.lists} />
       </div>

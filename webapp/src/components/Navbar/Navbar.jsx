@@ -4,7 +4,7 @@ import SearchInput from "../SearchBar/SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ openModal, user, loading }) {
+export default function Navbar({ openModal }) {
   const history = useHistory();
 
   return (
@@ -12,7 +12,7 @@ export default function Navbar({ openModal, user, loading }) {
       <h3 onClick={() => history.push(`/`)} id="navbar-title">
         ranqet
       </h3>
-      <SearchInput  />
+      <SearchInput />
       {!localStorage.getItem("sessionToken") ? (
         <div id="navbar-buttons-container">
           <div
@@ -30,10 +30,7 @@ export default function Navbar({ openModal, user, loading }) {
         </div>
       ) : (
         <div id="navbar-buttons-container">
-          <ProfileDropdown
-            user={user}
-            loading={loading}
-          />
+          <ProfileDropdown />
         </div>
       )}
     </div>
