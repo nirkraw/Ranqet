@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "PresetOptions")
+@Table(name = "presetoptions")
 public class PresetOptionEntity {
     
     @Id
@@ -14,8 +14,8 @@ public class PresetOptionEntity {
     private String name;
     
     @ManyToOne(targetEntity = PresetEntity.class)
-    @JoinColumn(name = "preset_id")
-    private PresetEntity  preset;
+    @JoinColumn(name = "preset_id", referencedColumnName = "id")
+    private PresetEntity preset;
     
     @Column(name = "photo_url")
     private String photoUrl;
