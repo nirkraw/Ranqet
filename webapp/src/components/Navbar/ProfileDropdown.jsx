@@ -23,19 +23,21 @@ export default function ProfileDropdown() {
 
   const [userInfo, setUserInfo] = useState("");
 
-  window.addEventListener("editStorage", () => {
-    setUserInfo(JSON.parse(localStorage.getItem(cacheId)));
-  });
-
-  // window.onunload = () => {
-  //   localStorage.removeItem(cacheId);
-  // };
+  useEffect(() => {
+    const updateUserInfo = () => {
+      setUserInfo(JSON.parse(localStorage.getItem(cacheId)));
+    };
+    window.addEventListener("editStorage", updateUserInfo);
+    return () => {
+      window.removeEventListener("editStorage", updateUserInfo);
+    };
+  }, []);
 
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem(userInfoCacheId)));
   }, [userInfoCacheId]);
 
-  if (!userInfo) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner />;
 
   const { name, avatarUrl } = userInfo;
 

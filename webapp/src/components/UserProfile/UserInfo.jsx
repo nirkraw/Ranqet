@@ -31,7 +31,7 @@ export default function UserInfo({ numCreated }) {
     formData.append("file", file);
     try {
       const res = await uploadImage(formData);
-      await updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
+      updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
       const userInfoCopy = JSON.parse(JSON.stringify(userInfo));
       userInfoCopy.avatarUrl = res.data.imageUrl;
       const cacheId = getCacheId(fetchUser, [localStorage.getItem("userId")]);
