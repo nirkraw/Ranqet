@@ -1,52 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Tabs from "../Tabs";
 import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
 import { fetchCategoryList } from "../../util/Endpoints/ListEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory } from "react-router-dom";
-// import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
-import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 import "../../styles/HomeCategories.css";
+import useCache from "../useCache";
 
 export default function HomeCategories() {
   const [activeIdx, setActiveIdx] = useState(0);
-  const [cache, setCache] = useState({});
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const [currList, setCurrList] = useState([]);
+  const [filter, setFilter] = useState("POPULAR");
+  const [data, loading] = useCache({
+    fn: fetchCategoryList,
+    args: [
+      filter,
+      localStorage.getItem("userId"),
+      localStorage.getItem("sessionToken"),
+    ],
+    defaultValue: []
+  });
 
-  useEffect(() => {
-    getLists("POPULAR");
-    return () => setCache({});
-  }, []);
-
-  const getLists = async (category) => {
-    try {
-      setLoading(true);
-      if (cache[category]) {
-        setCurrList(cache[category]);
-        setLoading(false);
-      } else {
-        const res = await fetchCategoryList(
-          category,
-          localStorage.getItem("userId"),
-          localStorage.getItem("sessionToken")
-        );
-
-        setCurrList(res.data.lists);
-        const cacheCopy = JSON.parse(JSON.stringify(cache));
-        cacheCopy[category] = res.data.lists;
-        setCache(cacheCopy);
-        setLoading(false);
-      }
-    } catch (err) {
-      history.push(`/error/${err.message}`);
-    }
-  };
-
-  const categoryObjects = ListCategory.map((category, i) => ({
-    name: ListCategoryToTitle[category],
-    type: category,
+  const categoryObjects = ListCategory.map((filter) => ({
+    name: ListCategoryToTitle[filter],
+    filter,
   }));
 
   if (loading) return <LoadingSpinner />;
@@ -55,9 +32,9 @@ export default function HomeCategories() {
     <div id="home-categories-container">
       <Tabs
         tabs={[...categoryObjects]}
-        getLists={getLists}
+        setFilter={setFilter}
         tabDirection="vertical"
-        currList={currList}
+        currList={data.lists}
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
       />

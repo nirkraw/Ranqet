@@ -1,18 +1,12 @@
-import React, { useState, useRef} from "react";
+import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import { fetchUser } from "../../util/Endpoints/UserEP";
-import useEndpoint from "../useEndpoint";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
-export default function ProfileDropdown({ useOutsideAlerter }) {
+export default function ProfileDropdown({ useOutsideAlerter, user, loading }) {
   const [active, setActive] = useState(false);
   const history = useHistory();
   const wrapperRef = useRef(null);
-  const [user, loading] = useEndpoint(fetchUser, [
-    localStorage.getItem("userId"),
-  ]);
   useOutsideAlerter(wrapperRef, setActive);
-
 
   const logout = (e) => {
     e.preventDefault();

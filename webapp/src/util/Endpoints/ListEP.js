@@ -16,11 +16,12 @@ export const createList = (
   options,
   authorId,
   isUnlisted,
-  category
+  category,
+  presetTitle
 ) => {
   return axios.post(
     `${server}/list/create`,
-    { title, imageUrl, description, options, authorId, isUnlisted, category },
+    { title, imageUrl, description, options, authorId, isUnlisted, category, presetTitle },
     {
       "Content-Type": "false",
       ProcessData: "false",
@@ -57,3 +58,11 @@ export const searchForLists = (searchString) => {
     "Content-Type": "application/json",
   });
 };
+
+export const fetchListPresets = (userId, sessionToken) => {
+  return axios.get(`${server}/users/${userId}/presets?sessionToken=${sessionToken}`, {
+    "Content-Type": "application/json",
+  });
+};
+
+

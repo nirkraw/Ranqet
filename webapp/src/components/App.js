@@ -11,13 +11,20 @@ import Category from "./Category";
 import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
 import ErrorPage from "./Misc/ErrorPage";
-import ListCompleted from "./CreateList/ListCompleted"
-import {useHistory } from "react-router-dom";
+import ListCompleted from "./CreateList/ListCompleted";
+
+import { fetchUser } from "../util/Endpoints/UserEP";
+import useCache from "./useCache";
 
 function App() {
   const [formType, openModal] = useState([]);
-  const [tabType, setTabType] = useState("completed");
-  const history = useHistory();
+  const [imageLoading, setImageLoading] = useState(false);
+  const [user, loading] = useCache({
+    fn: fetchUser,
+    args: [localStorage.getItem("userId"), imageLoading],
+    defaultValue: [],
+    blocking: true,
+  });
 
   function useOutsideAlerter(ref, setActive) {
     useEffect(() => {
@@ -38,15 +45,12 @@ function App() {
       <Navbar
         openModal={openModal}
         useOutsideAlerter={useOutsideAlerter}
-        setTabType={setTabType}
+        user={user}
+        loading={loading}
       />
       <Modal formType={formType} openModal={openModal} />
       <Switch>
-        <Route
-          exact
-          path="/error/:errorMessage"
-          render={() => <ErrorPage />}
-        />
+        <Route exact path="/error/:errorMessage" render={() => <ErrorPage />} />
         <Route
           exact
           path="/list/new/:listId"
@@ -78,7 +82,12 @@ function App() {
           exact
           path="/profile/:userId"
           render={() => (
-            <UserProfile tabType={tabType} setTabType={setTabType} />
+            <UserProfile
+              imageLoading={imageLoading}
+              setImageLoading={setImageLoading}
+              user={user}
+              loading={loading}
+            />
           )}
         />
         <Route exact path="/search/:searchVal" render={() => <SearchPage />} />

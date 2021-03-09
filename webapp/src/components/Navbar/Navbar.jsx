@@ -4,7 +4,7 @@ import SearchInput from "../SearchBar/SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ openModal, useOutsideAlerter, setTabType }) {
+export default function Navbar({ openModal, useOutsideAlerter, setTabType, user, loading }) {
   const history = useHistory();
 
   return (
@@ -33,6 +33,8 @@ export default function Navbar({ openModal, useOutsideAlerter, setTabType }) {
           <ProfileDropdown
             useOutsideAlerter={useOutsideAlerter}
             setTabType={setTabType}
+            user={user}
+            loading={loading}
           />
         </div>
       )}

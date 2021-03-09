@@ -1,76 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { fetchUserLists } from "../../util/Endpoints/UserEP";
+import Tabs from "../Tabs";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Home.css";
-// import { fetchTopLists, fetchNewLists } from "../../util/Endpoints/ListEP";
-import { useHistory } from "react-router-dom";
-import ListIndex from "../ListIndex";
-import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
-import NewLists from "./NewLists";
-import Flame from "../../assets/flame.png";
-import Home2 from "./NewHome";
+import { UserFilterToTitle, UserFilter } from "../../enums/UserListFilter";
+import useCache from "../useCache";
 
-export default function Home({ openModal }) {
-  return <Home2 />;
-//   const history = useHistory();
-//   const [loading, setLoading] = useState(true);
-//   const [topLists, setTopLists] = useState([]);
-//   const [newLists, setNewLists] = useState([]);
+export default function Home() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [filter, setFilter] = useState("");
+  //returnDefault of false prevents fetch on first render since we don't need a userList
+  const [data, loading] = useCache({
+    fn: fetchUserLists,
+    args: [
+      filter,
+      localStorage.getItem("userId"),
+      localStorage.getItem("sessionToken"),
+    ],
+    defaultValue: [],
+    running: Boolean(filter),
+  });
 
-//   useEffect(() => {
-//     fetchList();
-//   }, []);
+  if (loading) return <LoadingSpinner />;
 
-//   const fetchList = async () => {
-//     try {
-//       const topListsRes = await fetchTopLists();
-//       setTopLists(topListsRes.data.lists);
-//       const newListsRes = await fetchNewLists();
-//       setNewLists(newListsRes.data.lists);
-//       setLoading(false);
-//     } catch (err) {
-//       history.push(`/error/${err.message}`);
-//     }
-//   };
+  const userLists = UserFilter.map((filter) => ({
+    name: UserFilterToTitle[filter],
+    filter,
+  }));
 
-//   if (loading) return <LoadingSpinner />;
-
-//   return (
-//     <div id="home-main">
-//       <div id="category-container">
-//         {ListCategory.map((category, i) => (
-//           <div
-//             onClick={() => history.push(`/category/${category}`)}
-//             className="category-container-item"
-//             key={i}
-//           >
-//             <p>{ListCategoryToTitle[category]}</p>
-//           </div>
-//         ))}
-//       </div>
-//       <div id="top-and-new-lists-container">
-//         <div id="top-list-container">
-//           <div id="top-list-title-and-icon">
-//             <h3 id="home-title">Most Popular</h3>
-//             <img src={Flame} alt="flame" id="top-lists-icon"></img>
-//           </div>
-//           <ListIndex passedList={topLists} />
-//         </div>
-//         <div id="create-button-and-new-list-container">
-//           <div id="home-create-list-container">
-//             <button
-//               className="site-button"
-//               onClick={() =>
-//                 localStorage.getItem("sessionToken")
-//                   ? history.push("/create-list")
-//                   : openModal(["login", "/create-list"])
-//               }
-//             >
-//               Create List
-//             </button>
-//           </div>
-//           <NewLists newLists={newLists} />
-//         </div>
-//       </div>
-//     </div>
-//   );
+  return (
+    <div id="home-main-container">
+      <Tabs
+        tabs={[
+          {
+            name: "All Lists",
+          },
+          ...userLists,
+        ]}
+        tabDirection="horizontal"
+        currList={data.lists}
+        activeIdx={activeIdx}
+        setActiveIdx={setActiveIdx}
+        setFilter={setFilter}
+      />
+    </div>
+  );
 }

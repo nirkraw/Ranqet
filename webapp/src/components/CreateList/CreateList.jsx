@@ -6,7 +6,6 @@ import OptionInputs from "./OptionInputs";
 import ListImage from "./ListImage";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
-import SavePresetOptions from "./PresetOptions/SavePresetOptions";
 import { useHistory } from "react-router-dom";
 import Tooltip from "../Tooltip";
 
@@ -22,7 +21,8 @@ export default function CreateList() {
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [presetModalOpen, setPresetModalOpen] = useState(false);
-  const [savePresetModalOpen, setSavePresetModalOpen] = useState(false);
+  const [savePresets, setSavePresets] = useState(false);
+  const [presetTitle, setPresetTitle] = useState("");
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -32,7 +32,8 @@ export default function CreateList() {
     e.preventDefault();
 
     if (!listTitle) setUserError("*List must have title.");
-    else if (listOptions.length < 2) setUserError("Please add at least two options.");
+    else if (listOptions.length < 2)
+      setUserError("Please add at least two options.");
     else if (!category) setUserError("Please choose category.");
     else {
       const visitedOptions = new Set();
@@ -57,7 +58,8 @@ export default function CreateList() {
           listOptions,
           localStorage.getItem("userId"),
           unlisted,
-          category
+          category,
+          presetTitle
         );
         setLoading(false);
         history.push(`/list/new/${res.data.id}`);
@@ -135,24 +137,28 @@ export default function CreateList() {
             setPresetModalOpen={setPresetModalOpen}
           />
           <div id="infotag-and-preset-button-container">
-            <button
-              id="option-preset-button"
-              onClick={(e) => {
-                e.preventDefault();
-                setSavePresetModalOpen(true);
-              }}
-            >
-              Save Options As Preset
-            </button>
+            <label id="unlisted-label">Save Options As Preset:</label>
+            <input
+              type="checkbox"
+              id="unlisted-input"
+              name="unlisted"
+              onChange={() => setSavePresets(!savePresets)}
+            />
             <Tooltip
               helpText={"Save your options as a preset for future use"}
             />
           </div>
-          <SavePresetOptions
-            isOpen={savePresetModalOpen}
-            setSavePresetModalOpen={setSavePresetModalOpen}
-            options={listOptions}
-          />
+          {savePresets ? (
+            <div className="preset-input-container">
+              <label className="preset-input-label">Preset Name</label>
+              <input
+                id="preset-privacy-input"
+                maxLength="32"
+                type="text"
+                onChange={(e) => setPresetTitle(e.target.value)}
+              />
+            </div>
+          ) : null}
         </div>
         <button onClick={handleListSubmit} id="create-list-submit">
           Create List
