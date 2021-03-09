@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 export default function PresetOptionsTabs({ presets, setCurrOptions }) {
   const [activeIndex, setActiveIndex] = useState(null);
+
   return (
     <div id="options-tabs-container">
       <h1>My Presets</h1>
@@ -11,7 +12,7 @@ export default function PresetOptionsTabs({ presets, setCurrOptions }) {
             className={activeIndex === i ? "active-preset" : "preset-tab-item"}
             key={i}
             onClick={() => {
-              setCurrOptions(presets[i].options);
+              setCurrOptions(presets[i].presetOptions);
               setActiveIndex(i);
             }}
           >
