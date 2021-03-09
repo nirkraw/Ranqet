@@ -5,7 +5,7 @@ import { fetchCategoryList } from "../../util/Endpoints/ListEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory } from "react-router-dom";
 import "../../styles/HomeCategories.css";
-import useCache from "../useCache";
+import useCache from "../../util/useCache";
 
 export default function HomeCategories() {
   const [activeIdx, setActiveIdx] = useState(0);

@@ -4,7 +4,7 @@ import SearchInput from "../SearchBar/SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ openModal, setTabType, user, loading }) {
+export default function Navbar({ openModal, user, loading }) {
   const history = useHistory();
 
   return (
@@ -31,7 +31,6 @@ export default function Navbar({ openModal, setTabType, user, loading }) {
       ) : (
         <div id="navbar-buttons-container">
           <ProfileDropdown
-            setTabType={setTabType}
             user={user}
             loading={loading}
           />

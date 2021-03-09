@@ -4,7 +4,7 @@ import "../../styles/UserProfile.css";
 import UserInfo from "./UserInfo";
 import { useRouteMatch } from "react-router-dom";
 import ListIndex from "../ListIndex";
-import useCache from "../useCache.js";
+import useCache from "../../util/useCache.js";
 
 export default function UserProfile({
   imageLoading,
@@ -21,7 +21,6 @@ export default function UserProfile({
 
   if (userListloading) return <LoadingSpinner />;
 
-  if (!data.lists) return null;
   return (
     <div id="user-profile-main-container">
       <UserInfo

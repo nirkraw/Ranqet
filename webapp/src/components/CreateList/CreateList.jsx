@@ -35,6 +35,7 @@ export default function CreateList() {
     else if (listOptions.length < 2)
       setUserError("Please add at least two options.");
     else if (!category) setUserError("Please choose category.");
+    else if(savePresets && !presetTitle) setUserError("Please add a preset title")
     else {
       const visitedOptions = new Set();
       for (let i = 0; i < listOptions.length; i++) {

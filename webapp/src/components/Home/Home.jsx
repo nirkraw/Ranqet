@@ -4,7 +4,7 @@ import Tabs from "../Tabs";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Home.css";
 import { UserFilterToTitle, UserFilter } from "../../enums/UserListFilter";
-import useCache from "../useCache";
+import useCache from "../../util/useCache";
 
 export default function Home() {
   const [activeIdx, setActiveIdx] = useState(0);

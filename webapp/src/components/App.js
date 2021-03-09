@@ -12,9 +12,8 @@ import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
 import ErrorPage from "./Misc/ErrorPage";
 import ListCompleted from "./CreateList/ListCompleted";
-
 import { fetchUser } from "../util/Endpoints/UserEP";
-import useCache from "./useCache";
+import useCache from "../util/useCache";
 
 function App() {
   const [formType, openModal] = useState([]);

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Modal from "react-modal";
 import "../styles/ConfirmationModal.css";
 import { deleteList } from "../util/Endpoints/ListEP";
@@ -7,9 +7,6 @@ import { useHistory } from "react-router-dom";
 Modal.setAppElement("#root");
 
 export default function ConfirmModal({ isOpen, setIsOpen, listId, getCreatedLists }) {
-  useEffect(() => {
-    // debugger
-  }, [])
   const history = useHistory();
   const confirmDeleteList = async () => {
     try {

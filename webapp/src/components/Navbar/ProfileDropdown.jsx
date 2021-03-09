@@ -17,6 +17,7 @@ export default function ProfileDropdown({ user, loading }) {
   };
 
   if (loading) return <LoadingSpinner />;
+  
   return (
     <div id="profile-dropdown-main" className="justify-start-center">
       <div id="nav-user-profile-picture">
@@ -43,6 +44,15 @@ export default function ProfileDropdown({ user, loading }) {
           }}
         >
           <p>View Profile</p>
+        </div>
+        <div
+          className="profile-dropdown-item-container"
+          onClick={() => {
+            history.push(`/create-list`);
+            setActive(false);
+          }}
+        >
+          <p>Create List</p>
         </div>
         <div className="profile-dropdown-item-container" onClick={logout}>
           <p>Log Out</p>
