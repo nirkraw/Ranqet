@@ -5,3 +5,4 @@ build/
 webapp/node_modules
 webapp/.eslintcache
 src/main/resources/secrets.txt
+aws_secrets.txt
