@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 export default function useCache(cacheObj) {
-  const { fn, args, defaultValue, running } = cacheObj;
+  const { fn, args, enabled } = cacheObj;
   const history = useHistory();
   const prevArgs = useRef(null);
-  const [cacheId, setCacheId] = useState(defaultValue);
+  const [cacheId, setCacheId] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (running === false) {
+    if (enabled === false) {
       setLoading(false);
       return;
     }

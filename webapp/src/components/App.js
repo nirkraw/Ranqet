@@ -5,7 +5,7 @@ import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings";
 import Quiz from "./Quiz/Quiz";
 import { Switch, Route, Redirect } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UserProfile from "./UserProfile/UserProfile";
 import Category from "./Category";
 import Modal from "./Modal";

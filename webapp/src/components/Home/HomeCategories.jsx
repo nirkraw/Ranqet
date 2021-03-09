@@ -11,22 +11,23 @@ export default function HomeCategories() {
   const [activeIdx, setActiveIdx] = useState(0);
   const history = useHistory();
   const [filter, setFilter] = useState("POPULAR");
-  const [data, loading] = useCache({
+  const [userListCacheId, loading] = useCache({
     fn: fetchCategoryList,
     args: [
       filter,
       localStorage.getItem("userId"),
       localStorage.getItem("sessionToken"),
     ],
-    defaultValue: []
+    defaultValue: [],
   });
+
+  const data = JSON.parse(localStorage.getItem(userListCacheId));
+  if (loading) return <LoadingSpinner />;
 
   const categoryObjects = ListCategory.map((filter) => ({
     name: ListCategoryToTitle[filter],
     filter,
   }));
-
-  if (loading) return <LoadingSpinner />;
 
   return (
     <div id="home-categories-container">

@@ -9,18 +9,18 @@ import useCache from "../../util/useCache";
 export default function Home() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [filter, setFilter] = useState("");
-  //returnDefault of false prevents fetch on first render since we don't need a userList
-  const [data, loading] = useCache({
+  //enabled:false on first render because we don't need a userList for HomeCategories 
+  const [userListCacheId, loading] = useCache({
     fn: fetchUserLists,
     args: [
       filter,
       localStorage.getItem("userId"),
       localStorage.getItem("sessionToken"),
     ],
-    defaultValue: [],
-    running: Boolean(filter),
+    enabled: Boolean(filter),
   });
 
+  const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (loading) return <LoadingSpinner />;
 
   const userLists = UserFilter.map((filter) => ({
@@ -38,7 +38,7 @@ export default function Home() {
           ...userLists,
         ]}
         tabDirection="horizontal"
-        currList={data.lists}
+        currList={data ? data.lists : []}
         activeIdx={activeIdx}
         setActiveIdx={setActiveIdx}
         setFilter={setFilter}
