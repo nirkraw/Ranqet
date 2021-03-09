@@ -5,7 +5,7 @@ import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings";
 import Quiz from "./Quiz/Quiz";
 import { Switch, Route, Redirect } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UserProfile from "./UserProfile/UserProfile";
 import Category from "./Category";
 import Modal from "./Modal";
@@ -26,25 +26,11 @@ function App() {
     blocking: true,
   });
 
-  function useOutsideAlerter(ref, setActive) {
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setActive(false);
-        }
-      }
-
-      document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
-    }, [ref]);
-  }
 
   return (
     <div className="App">
       <Navbar
         openModal={openModal}
-        useOutsideAlerter={useOutsideAlerter}
         user={user}
         loading={loading}
       />

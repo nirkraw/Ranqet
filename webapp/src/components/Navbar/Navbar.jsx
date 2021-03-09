@@ -4,7 +4,7 @@ import SearchInput from "../SearchBar/SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ openModal, useOutsideAlerter, setTabType, user, loading }) {
+export default function Navbar({ openModal, setTabType, user, loading }) {
   const history = useHistory();
 
   return (
@@ -12,7 +12,7 @@ export default function Navbar({ openModal, useOutsideAlerter, setTabType, user,
       <h3 onClick={() => history.push(`/`)} id="navbar-title">
         ranqet
       </h3>
-      <SearchInput useOutsideAlerter={useOutsideAlerter} />
+      <SearchInput  />
       {!localStorage.getItem("sessionToken") ? (
         <div id="navbar-buttons-container">
           <div
@@ -31,7 +31,6 @@ export default function Navbar({ openModal, useOutsideAlerter, setTabType, user,
       ) : (
         <div id="navbar-buttons-container">
           <ProfileDropdown
-            useOutsideAlerter={useOutsideAlerter}
             setTabType={setTabType}
             user={user}
             loading={loading}

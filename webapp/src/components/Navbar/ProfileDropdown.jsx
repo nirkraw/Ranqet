@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
+import {useOutsideAlerter} from "../../util/useOutsideAlerter"
 
-export default function ProfileDropdown({ useOutsideAlerter, user, loading }) {
+export default function ProfileDropdown({ user, loading }) {
   const [active, setActive] = useState(false);
   const history = useHistory();
   const wrapperRef = useRef(null);

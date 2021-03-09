@@ -5,8 +5,9 @@ import "../../styles/SearchBar.css";
 import SearchIcon from "../../assets/searchIcon.png";
 import { searchForLists } from "../../util/Endpoints/ListEP";
 import debounce from "lodash.debounce";
+import {useOutsideAlerter} from "../../util/useOutsideAlerter";
 
-export default function SearchInput({ useOutsideAlerter }) {
+export default function SearchInput() {
   const [active, setActive] = useState(false);
   const [results, setResults] = useState([]);
   const [searchVal, setSearchVal] = useState("");
