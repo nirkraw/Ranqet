@@ -2,8 +2,10 @@ package com.rankerapp.transport.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @JsonDeserialize(builder = CreateListRequest.Builder.class)
 public class CreateListRequest {
@@ -21,6 +23,8 @@ public class CreateListRequest {
     private final ListCategory category;
 
     private final boolean isUnlisted;
+    
+    private final String presetTitle;
 
     private CreateListRequest(Builder builder) {
         this.title = builder.title;
@@ -30,6 +34,7 @@ public class CreateListRequest {
         this.imageUrl = builder.imageUrl;
         this.category = builder.category;
         this.isUnlisted = builder.isUnlisted;
+        this.presetTitle = builder.presetTitle;
     }
 
     public String getTitle() {
@@ -59,6 +64,10 @@ public class CreateListRequest {
     public boolean isUnlisted() {
         return isUnlisted;
     }
+    
+    public Optional<String> getPresetTitle() {
+        return Optional.ofNullable(presetTitle);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -80,6 +89,8 @@ public class CreateListRequest {
         private ListCategory category;
 
         private boolean isUnlisted;
+        
+        private String presetTitle;
 
         private Builder() {
         }
@@ -116,6 +127,11 @@ public class CreateListRequest {
 
         public Builder withIsUnlisted(boolean isUnlisted) {
             this.isUnlisted = isUnlisted;
+            return this;
+        }
+        
+        public Builder withPresetTitle(String presetTitle) {
+            this.presetTitle = StringUtils.trimToNull(presetTitle);
             return this;
         }
 

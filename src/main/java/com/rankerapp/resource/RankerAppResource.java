@@ -1,9 +1,6 @@
 package com.rankerapp.resource;
 
-import com.rankerapp.core.ListDeleter;
-import com.rankerapp.core.ListFetcher;
-import com.rankerapp.core.ListWriter;
-import com.rankerapp.core.VoteProcessor;
+import com.rankerapp.core.*;
 import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.transport.model.*;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class RankerAppResource {
@@ -25,22 +23,34 @@ public class RankerAppResource {
     private final ListDeleter listDeleter;
 
     private final VoteProcessor voteProcessor;
+    
+    private final PresetsManager presetsManager;
 
     @Inject
     public RankerAppResource(ListWriter listWriter, ListFetcher listFetcher,
-                             ListDeleter listDeleter, VoteProcessor voteProcessor) {
+                             ListDeleter listDeleter, VoteProcessor voteProcessor, PresetsManager presetsManager) {
         this.listWriter = listWriter;
         this.listFetcher = listFetcher;
         this.listDeleter = listDeleter;
         this.voteProcessor = voteProcessor;
+        this.presetsManager = presetsManager;
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/list/create")
     public ListResponse createNewList(@RequestBody CreateListRequest request) {
+        UUID authorId = UUID.fromString(request.getAuthorId());
         UUID persistedId = listWriter.createList(request.getTitle(), request.getDescription(),
-                UUID.fromString(request.getAuthorId()), request.getOptions(), request.getImageUrl(),
+                authorId, request.getOptions(), request.getImageUrl(),
                 request.getCategory(), request.isUnlisted()).getId();
+        
+        if (request.getPresetTitle().isPresent()) {
+            List<PresetOption> presetOptions =
+                    request.getOptions().stream()
+                            .map((option) -> new PresetOption(option.getName(), option.getPhotoUrl()))
+                            .collect(Collectors.toList());
+            presetsManager.createPreset(request.getPresetTitle().get(), authorId, presetOptions);
+        }
 
         return listFetcher.fetchListById(persistedId);
     }

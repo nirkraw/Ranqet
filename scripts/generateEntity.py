@@ -1,4 +1,4 @@
-classname = "PostCommentRequest"
+classname = "FetchPresetsResponse"
 
 def getFields():
     filename = classname + ".txt"
