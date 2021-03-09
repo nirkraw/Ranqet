@@ -17,8 +17,7 @@ export default function HomeCategories() {
       filter,
       localStorage.getItem("userId"),
       localStorage.getItem("sessionToken"),
-    ],
-    defaultValue: [],
+    ]
   });
 
   const data = JSON.parse(localStorage.getItem(userListCacheId));

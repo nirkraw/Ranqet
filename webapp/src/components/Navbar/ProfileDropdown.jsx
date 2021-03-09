@@ -9,9 +9,7 @@ import { getCacheId } from "../../util/getCacheId";
 export default function ProfileDropdown() {
   const [userInfoCacheId, loading] = useCache({
     fn: fetchUser,
-    args: [localStorage.getItem("userId")],
-    defaultValue: "",
-    blocking: true,
+    args: [localStorage.getItem("userId")]
   });
   const [active, setActive] = useState(false);
   const history = useHistory();

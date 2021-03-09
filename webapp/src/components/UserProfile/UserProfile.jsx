@@ -10,8 +10,7 @@ export default function UserProfile({ userInfo, setUserInfo }) {
   const match = useRouteMatch();
   const [userListCacheId, userListloading] = useCache({
     fn: fetchUserPublicList,
-    args: [match.params.userId],
-    defaultValue: {},
+    args: [match.params.userId]
   });
   const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (userListloading) return <LoadingSpinner />;
