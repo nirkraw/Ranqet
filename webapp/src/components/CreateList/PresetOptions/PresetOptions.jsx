@@ -57,7 +57,7 @@ export default function PresetOptions({
   // ];
 
   useEffect(() => {
-    // fetchCurrPresets();
+    fetchCurrPresets();
   }, []);
 
   const fetchCurrPresets = async () => {
@@ -66,9 +66,9 @@ export default function PresetOptions({
         localStorage.getItem("userId"),
         localStorage.getItem("sessionToken")
       );
-      setPresets(res.presets);
+      setPresets(res.data.presets);
     } catch (err) {
-      history.push(`error/${err}`);
+      history.push(`/error/${err}`);
     }
   };
 

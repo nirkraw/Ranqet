@@ -83,12 +83,12 @@ export default function OptionInputs({
           options={options}
           setOptions={setOptions}
         />
-        <PresetOptions
+        {presetModalOpen ? <PresetOptions
           isOpen={presetModalOpen}
           setPresetModalOpen={setPresetModalOpen}
           setOptions={setOptions}
           options={options}
-        />
+        /> : null}
         <input
           placeholder={`Option ${i + 1}`}
           value={option.name}
