@@ -2,32 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "../../styles/SearchBar.css";
 
-export default function SearchResults({ results, searchWrapper, active }) {
+export default function SearchResults({ results, searchWrapper, setActive, active }) {
   const history = useHistory();
   if (results.length === 0) return null;
-
-  const handleLink = async (listId) => {
-    if (!localStorage.getItem("userId")) history.push(`/${listId}/rankings`);
-    else {
-      if (await listIsComplete(listId)) {
-        history.push(`/${listId}/rankings`);
-      } else {
-        history.push(`/${listId}/quiz`);
-      }
-    }
-  };
-
-  const listIsComplete = async (listId) => {
-    try {
-      //   const res = await fetchListOptionPair(
-      //     listId,
-      //     localStorage.getItem("userId")
-      //   );
-      //   return res.data.isCompleted;
-    } catch (err) {
-      return false;
-    }
-  };
 
   return (
     <ul
@@ -38,9 +15,19 @@ export default function SearchResults({ results, searchWrapper, active }) {
         return (
           <li
             className="search-result-item"
-            onClick={() => handleLink(result.id)}
+            onClick={
+              result.isCompleted
+                ? () => {
+                    history.push(`/${result.id}/rankings`);
+                    setActive(false);
+                  }
+                : () => {
+                    history.push(`/${result.id}/quiz`);
+                    setActive(false);
+                  }
+            }
             key={i}
-            >
+          >
             <h2 className="search-result-title">{result.title}</h2>
             {result.imageUrl ? (
               <img

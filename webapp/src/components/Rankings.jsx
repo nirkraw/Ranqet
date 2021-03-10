@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchPersonalRankings, fetchGlobalRankings } from "../util/Endpoints/RankingEP";
+import {
+  fetchPersonalRankings,
+  fetchGlobalRankings,
+} from "../util/Endpoints/RankingEP";
 import "../styles/Rankings.css";
 import LoadingSpinner from "./Misc/LoadingSpinner";
 import { useRouteMatch, useHistory } from "react-router-dom";
@@ -18,6 +21,10 @@ export default function Rankings({ openModal }) {
     getGlobalRankings();
   }, []);
 
+  useEffect(() => {
+    getGlobalRankings();
+  }, [match.params.listId]);
+
   const getPersonalRankings = async () => {
     try {
       const personal = await fetchPersonalRankings(
@@ -29,12 +36,12 @@ export default function Rankings({ openModal }) {
       history.push(`/error/${err.message}`);
     }
   };
-  
+
   const getGlobalRankings = async () => {
     try {
       if (localStorage.getItem("userId")) getPersonalRankings();
       const global = await fetchGlobalRankings(match.params.listId);
-      setTitle(global.data.title)
+      setTitle(global.data.title);
       setGlobalRanking(global.data.ranking);
       setLoading(false);
     } catch (err) {

@@ -1,33 +1,43 @@
 import React, { useState } from "react";
 import "../../styles/UserProfile.css";
 import { formatUploadTime } from "../../util/DateCalc";
-import { fetchUser, updateUserAvatar } from "../../util/Endpoints/UserEP";
+import { updateUserAvatar } from "../../util/Endpoints/UserEP";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import { clearEndpointCache } from "../../util/clearEndpointCache";
+import { getCacheId } from "../../util/getCacheId";
+import { fetchUser } from "../../util/Endpoints/UserEP";
 
-export default function UserInfo({ numCreated, user, loading, setImageLoading, imageLoading }) {
+export default function UserInfo({ numCreated }) {
   const history = useHistory();
   const match = useRouteMatch();
   const [userError, setUserError] = useState(null);
-  const { name, createdOn, avatarUrl } = user;
+  const [imageLoading, setImageLoading] = useState(false);
+  const cacheId = getCacheId(fetchUser, [localStorage.getItem("userId")]);
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem(cacheId)))
+  if (!userInfo) return null;
+  const { name, createdOn, avatarUrl } = userInfo;
 
   const handleUserPhotoFile = async (e) => {
     e.preventDefault();
-    clearEndpointCache(fetchUser, [localStorage.getItem("userId")]);
     setUserError("");
     const file = e.currentTarget.files[0];
     if (file.size > 1048576) {
       setUserError("Please upload files smaller than 1 megabyte.");
       return;
     }
+    setImageLoading(true);
     const formData = new FormData();
     formData.append("file", file);
-    setImageLoading(true);
     try {
       const res = await uploadImage(formData);
-      await updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
+      updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
+      const userInfoCopy = JSON.parse(JSON.stringify(userInfo));
+      userInfoCopy.avatarUrl = res.data.imageUrl;
+      const cacheId = getCacheId(fetchUser, [localStorage.getItem("userId")]);
+      localStorage.setItem(cacheId, JSON.stringify(userInfoCopy));
+      window.dispatchEvent(new Event("editStorage")); 
+      setUserInfo(userInfoCopy);
       setImageLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
@@ -44,8 +54,6 @@ export default function UserInfo({ numCreated, user, loading, setImageLoading, i
   } else if (localStorage.getItem("userId") === match.params.userId) {
     currentImage = <p className="site-button">Add Avatar</p>;
   }
-
-  if (loading) return <LoadingSpinner />;
 
   return (
     <div id="user-profile-header">

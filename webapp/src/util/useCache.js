@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 export default function useCache(cacheObj) {
-  const { fn, args, defaultValue, running, blocking } = cacheObj;
+  const { fn, args, enabled } = cacheObj;
   const history = useHistory();
   const prevArgs = useRef(null);
-  const [data, setData] = useState(defaultValue);
+  const [cacheId, setCacheId] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (running === false) {
+    if (enabled === false) {
       setLoading(false);
       return;
     }
@@ -17,29 +17,28 @@ export default function useCache(cacheObj) {
 
     const cacheID = JSON.stringify(fn.name) + JSON.stringify(...args);
     if (localStorage.getItem(cacheID)) {
-      setData(JSON.parse(localStorage.getItem(cacheID)).data);
+      setCacheId(cacheID);
       setLoading(false);
-      if (blocking) return;
+    } else {
+      loadEndpoint();
     }
 
     async function loadEndpoint() {
       try {
         const res = await fn(...args);
-        localStorage.setItem(cacheID, JSON.stringify(res));
-        setData(res.data);
+        localStorage.setItem(cacheID, JSON.stringify(res.data));
+        setCacheId(cacheID);
 
         setLoading(false);
       } catch (err) {
         history.push(`/error/${err}`);
       }
     }
-
-    loadEndpoint();
   }, [args, fn]);
 
   useEffect(() => {
     prevArgs.current = args;
   });
 
-  return [data, loading];
+  return [cacheId, loading];
 }
