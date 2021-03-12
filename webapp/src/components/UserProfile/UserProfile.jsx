@@ -18,7 +18,7 @@ export default function UserProfile() {
   return (
     <div id="user-profile-main-container">
       <UserInfo numCreated={data.lists.length} />
-      <ListIndex passedList={data.lists} />
+      <ListIndex cacheId={userListCacheId} />
     </div>
   );
 }
