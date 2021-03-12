@@ -8,6 +8,8 @@ import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 import { useHistory } from "react-router-dom";
 import Tooltip from "../Tooltip";
+import {clearEndpointCache} from "../../util/clearEndpointCache";
+import { fetchUserPublicList } from "../../util/Endpoints/UserEP";
 
 export default function CreateList() {
   const history = useHistory();
@@ -63,6 +65,7 @@ export default function CreateList() {
           presetTitle
         );
         setLoading(false);
+        clearEndpointCache(fetchUserPublicList, [localStorage.getItem("userId")]);
         history.push(`/list/new/${res.data.id}`);
       } catch (err) {
         history.push(`/error/${err.message}`);

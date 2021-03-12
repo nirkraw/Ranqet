@@ -7,7 +7,11 @@ import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";
 import { useHistory } from "react-router-dom";
 
-export default function QuizOptions({ listId, setTotalVoteCount, setVotesCompleted }) {
+export default function QuizOptions({
+  listId,
+  setTotalVoteCount,
+  setVotesCompleted,
+}) {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const history = useHistory();

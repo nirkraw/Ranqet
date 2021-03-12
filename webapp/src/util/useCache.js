@@ -16,6 +16,7 @@ export default function useCache(cacheObj) {
     if (JSON.stringify(args) === JSON.stringify(prevArgs.current)) return;
 
     const cacheID = JSON.stringify(fn.name) + JSON.stringify(...args);
+
     if (localStorage.getItem(cacheID)) {
       setCacheId(cacheID);
       setLoading(false);
