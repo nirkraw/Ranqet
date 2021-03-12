@@ -8,7 +8,6 @@ import useCache from "../../util/useCache";
 import { clearEndpointCache } from "../../util/clearEndpointCache";
 
 export default function Home() {
-  const [activeIdx, setActiveIdx] = useState(0);
   const [filter, setFilter] = useState("");
   //enabled:false on first render because we don't need a userList for HomeCategories
   const [userListCacheId, loading] = useCache({
@@ -33,7 +32,7 @@ export default function Home() {
     };
   }, []);
 
-  const data = JSON.parse(localStorage.getItem(userListCacheId));
+  // const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (loading) return <LoadingSpinner />;
 
   const userLists = UserFilter.map((filter) => ({
@@ -51,9 +50,8 @@ export default function Home() {
           ...userLists,
         ]}
         tabDirection="horizontal"
-        currList={data ? data.lists : []}
-        activeIdx={activeIdx}
-        setActiveIdx={setActiveIdx}
+        // currList={data ? data.lists : []}
+        cacheId={userListCacheId}
         setFilter={setFilter}
       />
     </div>

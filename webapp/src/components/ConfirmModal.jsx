@@ -3,10 +3,12 @@ import Modal from "react-modal";
 import "../styles/ConfirmationModal.css";
 import { deleteList } from "../util/Endpoints/ListEP";
 import { useHistory } from "react-router-dom";
+import { getCacheId } from "../util/getCacheId";
+import { fetchUserLists } from "../util/Endpoints/UserEP";
 
 Modal.setAppElement("#root");
 
-export default function ConfirmModal({ isOpen, setIsOpen, listId, getCreatedLists }) {
+export default function ConfirmModal({ isOpen, setIsOpen, listId, setFilter }) {
   const history = useHistory();
   const confirmDeleteList = async () => {
     try {
@@ -18,8 +20,20 @@ export default function ConfirmModal({ isOpen, setIsOpen, listId, getCreatedList
     } catch (err) {
       history.push(`/error/${err.message}`);
     }
+    const cacheId = getCacheId(fetchUserLists, [
+      "CREATED",
+      localStorage.getItem("userId"),
+      localStorage.getItem("sessionToken"),
+    ]);
+    const cachedUserLists = JSON.parse(localStorage.getItem(cacheId)).lists;
+    const newCachedUserLists = {lists: []};
+    for (let i = 0; i < cachedUserLists.length; i++) {
+      const list = cachedUserLists[i];
+      if(list.id === listId) continue;
+      newCachedUserLists.lists.push(list);
+    }
+    localStorage.setItem(cacheId, JSON.stringify(newCachedUserLists));
     setIsOpen(false);
-    getCreatedLists();
   };
   return (
     <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" } }}>

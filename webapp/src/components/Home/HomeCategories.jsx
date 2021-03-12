@@ -8,7 +8,6 @@ import "../../styles/HomeCategories.css";
 import useCache from "../../util/useCache";
 
 export default function HomeCategories() {
-  const [activeIdx, setActiveIdx] = useState(0);
   const history = useHistory();
   const [filter, setFilter] = useState("POPULAR");
   const [userListCacheId, loading] = useCache({
@@ -20,7 +19,7 @@ export default function HomeCategories() {
     ]
   });
 
-  const data = JSON.parse(localStorage.getItem(userListCacheId));
+  // const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (loading) return <LoadingSpinner />;
 
   const categoryObjects = ListCategory.map((filter) => ({
@@ -34,9 +33,8 @@ export default function HomeCategories() {
         tabs={[...categoryObjects]}
         setFilter={setFilter}
         tabDirection="vertical"
-        currList={data.lists}
-        activeIdx={activeIdx}
-        setActiveIdx={setActiveIdx}
+        // currList={data.lists}
+        cacheId={userListCacheId}
       />
       <div
         className="home-create-list-button site-button-2"
