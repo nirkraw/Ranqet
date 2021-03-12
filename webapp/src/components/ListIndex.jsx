@@ -4,10 +4,18 @@ import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import ConfirmationModal from "./ConfirmModal";
 
-export default function ListIndex({ passedList, trash, getCreatedLists }) {
+export default function ListIndex({
+  cacheId,
+  includeDelete,
+}) {
   const [currListId, setCurrListId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
+
+  const passedList = cacheId
+    ? JSON.parse(localStorage.getItem(cacheId)).lists
+    : [];
+
 
   if (!passedList || !passedList.length)
     return (
@@ -27,7 +35,6 @@ export default function ListIndex({ passedList, trash, getCreatedLists }) {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         listId={currListId}
-        getCreatedLists={getCreatedLists}
       />
       {passedList.map((list, i) => {
         return (
@@ -86,7 +93,7 @@ export default function ListIndex({ passedList, trash, getCreatedLists }) {
                       Rank It!
                     </div>
                   )}
-                  {trash ? (
+                  {includeDelete ? (
                     <div
                       className="site-button-3"
                       onClick={() => deleteList(list.id)}

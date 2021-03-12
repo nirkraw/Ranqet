@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Tabs.css";
 import HomeCategories from "./Home/HomeCategories";
 import ListIndex from "./ListIndex";
@@ -6,16 +6,16 @@ import ListIndex from "./ListIndex";
 export default function Tabs({
   tabs,
   tabDirection,
-  currList,
-  activeIdx,
-  setActiveIdx,
+  cacheId,
   setFilter,
 }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+
   const setTab = (i, tab) => {
     if (i === activeIdx) return;
     setActiveIdx(i);
     //for the HomeCategories tab we don't need to call an endpoint so doesn't have tab.filter
-    if (tab.filter) setFilter(tab.filter)
+    if (tab.filter) setFilter(tab.filter);
   };
 
   let currTab;
@@ -24,13 +24,12 @@ export default function Tabs({
   } else if (tabDirection === "horizontal" && activeIdx === 1) {
     currTab = (
       <ListIndex
-        passedList={currList}
-        trash={true}
-        getCreatedLists={tabs[1].endpoint}
+        cacheId={cacheId}
+        includeDelete={true}
       />
     );
   } else {
-    currTab = <ListIndex passedList={currList} />;
+    currTab = <ListIndex cacheId={cacheId} />;
   }
 
   return (
