@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/Rankings.css";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 export default function RankingsList({ rankings, rankingName, openModal }) {

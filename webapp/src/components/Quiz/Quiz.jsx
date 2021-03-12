@@ -20,11 +20,7 @@ export default function Quiz() {
 
   useEffect(() => {
     fetchCurrList();
-  }, []);
-
-    useEffect(() => {
-      fetchCurrList();
-    }, [match.params.listId]);
+  }, [match.params.listId]);
 
   const fetchCurrList = async () => {
     try {
@@ -38,13 +34,13 @@ export default function Quiz() {
   };
 
   if (loading) return <LoadingSpinner />;
-  const percentFinished = (votesCompleted/totalVoteCount) * 100;
+  const percentFinished = (votesCompleted / totalVoteCount) * 100;
   const divStyle = {
     width: `${percentFinished}%`,
     height: "100%",
     backgroundColor: "var(--pink-3)",
     borderTopLeftRadius: "30px",
-    borderBottomLeftRadius: "30px"
+    borderBottomLeftRadius: "30px",
   };
   return (
     <div id="quiz-main-div">

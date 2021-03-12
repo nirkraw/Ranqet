@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import {
   fetchPersonalRankings,
   fetchGlobalRankings,
-} from "../util/Endpoints/RankingEP";
-import "../styles/Rankings.css";
-import LoadingSpinner from "./Misc/LoadingSpinner";
+} from "../../util/Endpoints/RankingEP";
+import "../../styles/Rankings.css";
+import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import Comments from "./Comments";
+import Comments from "../Comments";
 import RankingsList from "./RankingsList";
 
 export default function Rankings({ openModal }) {
@@ -17,9 +17,6 @@ export default function Rankings({ openModal }) {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
 
-  useEffect(() => {
-    getGlobalRankings();
-  }, []);
 
   useEffect(() => {
     getGlobalRankings();
