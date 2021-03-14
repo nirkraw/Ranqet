@@ -22,7 +22,8 @@
 }
 
 .session-input-container {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  height: 90px;
 }
 
 .session-input-container > p {
@@ -96,16 +97,27 @@
   opacity: 80%;
 }
 
-.session-errors {
-  font-family: sans-serif;
+.session-info-error {
+  font-family: var(--font-6);
+  font-size: 18px;
+  color: rgb(245, 7, 7);
+  margin-top: 5px;
+}
+
+.login-error {
+  font-family: var(--font-6);
   font-size: 18px;
   color: rgb(245, 7, 7);
   text-align: center;
   position: absolute;
   width: fit-content;
-  top: 12%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.input-error {
+  border: 2px solid red !important;
 }
 
 
