@@ -7,7 +7,7 @@ import useCache from "../../util/useCache";
 import { getCacheId } from "../../util/getCacheId";
 
 export default function ProfileDropdown() {
-  const [userInfoCacheId, loading] = useCache({
+  const [userInfoCacheId] = useCache({
     fn: fetchUser,
     args: [localStorage.getItem("userId")]
   });
@@ -31,18 +31,19 @@ export default function ProfileDropdown() {
     };
   }, []);
 
+
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem(userInfoCacheId)));
   }, [userInfoCacheId]);
 
-  if (loading) return <LoadingSpinner />;
+  if (!userInfo) return <LoadingSpinner />;
 
   const { name, avatarUrl } = userInfo;
 
   const logout = (e) => {
     e.preventDefault();
-    localStorage.clear("userId");
-    localStorage.clear("sessionToken");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("sessionToken");
     window.location.reload();
   };
 

@@ -19,7 +19,7 @@ export default function Home() {
     ],
     enabled: Boolean(filter),
   });
-
+  
   useEffect(() => {
     return () => {
       for (let filter of UserFilter) {
@@ -31,14 +31,16 @@ export default function Home() {
       }
     };
   }, []);
-
-  // const data = JSON.parse(localStorage.getItem(userListCacheId));
+  
+  if(!localStorage.getItem("sessionToken")) return null; 
   if (loading) return <LoadingSpinner />;
 
-  const userLists = UserFilter.map((filter) => ({
-    name: UserFilterToTitle[filter],
-    filter,
-  }));
+  const userLists = localStorage.getItem("sessionToken")
+    ? UserFilter.map((filter) => ({
+        name: UserFilterToTitle[filter],
+        filter,
+      }))
+    : null;
 
   return (
     <div id="home-main-container">
@@ -50,7 +52,6 @@ export default function Home() {
           ...userLists,
         ]}
         tabDirection="horizontal"
-        // currList={data ? data.lists : []}
         cacheId={userListCacheId}
         setFilter={setFilter}
       />

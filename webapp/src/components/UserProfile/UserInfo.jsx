@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/UserProfile.css";
 import { formatUploadTime } from "../../util/DateCalc";
 import { updateUserAvatar } from "../../util/Endpoints/UserEP";
@@ -6,6 +6,7 @@ import { uploadImage } from "../../util/Endpoints/ListEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { getCacheId } from "../../util/getCacheId";
+import useCache from "../../util/useCache";
 import { fetchUser } from "../../util/Endpoints/UserEP";
 
 export default function UserInfo({ numCreated }) {
@@ -13,9 +14,17 @@ export default function UserInfo({ numCreated }) {
   const match = useRouteMatch();
   const [userError, setUserError] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
-  const cacheId = getCacheId(fetchUser, [localStorage.getItem("userId")]);
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem(cacheId)))
-  if (!userInfo) return null;
+  const [userInfoCacheId] = useCache({
+    fn: fetchUser,
+    args: [match.params.userId],
+  });
+  const [userInfo, setUserInfo] = useState("");
+
+  useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem(userInfoCacheId)));
+  }, [userInfoCacheId]);
+
+  if (!userInfo) return <LoadingSpinner />;
   const { name, createdOn, avatarUrl } = userInfo;
 
   const handleUserPhotoFile = async (e) => {
@@ -36,7 +45,7 @@ export default function UserInfo({ numCreated }) {
       userInfoCopy.avatarUrl = res.data.imageUrl;
       const cacheId = getCacheId(fetchUser, [localStorage.getItem("userId")]);
       localStorage.setItem(cacheId, JSON.stringify(userInfoCopy));
-      window.dispatchEvent(new Event("editStorage")); 
+      window.dispatchEvent(new Event("editStorage"));
       setUserInfo(userInfoCopy);
       setImageLoading(false);
     } catch (err) {

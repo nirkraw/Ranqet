@@ -44,7 +44,7 @@ export default function Category({openModal}) {
             onClick={() =>
               localStorage.getItem("sessionToken")
                 ? history.push("/create-list")
-                : openModal(["login", "/create-list"])
+                : openModal({formType:"login", route: "/create-list"})
             }
           >
             <h1>

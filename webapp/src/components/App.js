@@ -14,19 +14,21 @@ import ErrorPage from "./Misc/ErrorPage";
 import ListCompleted from "./CreateList/ListCompleted";
 
 function App() {
-  const [formType, openModal] = useState([]);
+  const [modalSettings, openModal] = useState({formType: "", route: ""});
   window.onunload = () => {
     const userId = localStorage.getItem("userId");
     const sessionToken = localStorage.getItem("sessionToken");
     localStorage.clear();
-    localStorage.setItem("userId", userId);
-    localStorage.setItem("sessionToken", sessionToken);
+    if(userId && sessionToken) {
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("sessionToken", sessionToken);
+    }
   };
 
   return (
     <div className="App">
       <Navbar openModal={openModal} />
-      <Modal formType={formType} openModal={openModal} />
+      <Modal modalSettings={modalSettings} openModal={openModal} />
       <Switch>
         <Route exact path="/error/:errorMessage" render={() => <ErrorPage />} />
         <Route

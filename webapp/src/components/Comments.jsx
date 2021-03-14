@@ -78,7 +78,7 @@ export default function Comments({ openModal }) {
 
       setCurrRows(currentRows);
       setNewComment(e.target.value);
-    } else openModal(["login"]);
+    } else openModal({ formType: "login", route: "" });
   };
 
   const deleteCurrComment = async (e , commentId) => {

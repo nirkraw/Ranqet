@@ -28,7 +28,7 @@ export default function SessionForm({ formType, openModal, route }) {
       const res = await endpoint(name, username, password);
       localStorage.setItem("userId", res.data.id);
       localStorage.setItem("sessionToken", res.data.sessionToken);
-      openModal([]);
+      openModal({ formType: "", route: "" });
       if (route) {
         history.push(route);
       } else {
@@ -80,7 +80,7 @@ export default function SessionForm({ formType, openModal, route }) {
               className="switch-session-button"
               onClick={(e) => {
                 e.preventDefault();
-                openModal(["signup", route]);
+                openModal({ formType: "signup", route: route});
               }}
             >
               Sign Up
@@ -90,7 +90,7 @@ export default function SessionForm({ formType, openModal, route }) {
               className="switch-session-button"
               onClick={(e) => {
                 e.preventDefault();
-                openModal(["login", route]);
+                openModal({ formType: "login", route: route });
               }}
             >
               Log In

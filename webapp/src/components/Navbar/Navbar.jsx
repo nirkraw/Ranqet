@@ -17,20 +17,20 @@ export default function Navbar({ openModal, userInfo }) {
         <div id="navbar-buttons-container">
           <div
             className="nav-session-button"
-            onClick={() => openModal(["login"])}
+            onClick={() => openModal({ formType: "login", route: "" })}
           >
             Login
           </div>
           <div
             className="nav-session-button"
-            onClick={() => openModal(["signup"])}
+            onClick={() => openModal({ formType: "signup", route: "" })}
           >
             Sign Up
           </div>
         </div>
       ) : (
         <div id="navbar-buttons-container">
-          <ProfileDropdown userInfo={userInfo}/>
+          <ProfileDropdown userInfo={userInfo} />
         </div>
       )}
     </div>
