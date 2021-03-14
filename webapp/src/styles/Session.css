@@ -1,80 +1,94 @@
-.session-form-container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-#login-form {
+#session-form {
   position: relative;
-  width: 30%;
-  min-height: 370px;
-  padding: 15px;
+  padding: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: white;
-  box-shadow: 10px 7px 7px 1px rgba(0, 0, 0, 0.3);
 }
 
-#login-form > h3 {
+#session-form > h3 {
   margin: 10px;
-  font-size: 45px;
-  font-family: var(--font-3);
+  font-size: 40px;
+  font-family: var(--font-6);
   font-weight: 400;
-  color: var(--pink-3);
-}
-
-#login-form > input {
-  width: 90%;
-  height: 30px;
-  margin: 5px;
-  border: 1px solid rgb(190, 190, 190);
-  border-radius: 4px;
-  border-color: var(--pink-3);
+  color: var(--orange-1);
   text-align: center;
-  font-size: 20px;
 }
 
-.session-buttons-container {
-  width: 93%;
+#session-inputs-container {
+  padding: 25px 25px 5px 25px;
+}
+
+.session-input-container {
+  margin-bottom: 20px;
+}
+
+.session-input-container > p {
+  color: #818181;
+  font-size: 25px;
+  font-family: var(--font-6);
+  font-weight: 400;
+  line-height: 30px;
+  margin: 0;
+  margin-bottom: 10px;
+
+}
+
+.session-input-container > input {
+  height: 40px;
+  border: 3px solid var(--gray-2);
+  font-size: 20px;
+  font-family: var(--font-6);
+  padding-left: 15px;
+  width: 30ch;
+}
+
+.session-submit-container {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  padding-right: 25px;
 }
 
 #session-submit{
-  background-color: var(--pink-3);
-  width: 50%;
-  height: 50px;
-  margin: 5px;
-  border: 1px solid rgb(190, 190, 190);
-  border-radius: 4px;
+  background-color: var(--orange-1);
+  display: flex;
+  justify-content: center;
+  padding: 10px 25px 10px 25px;
+  align-items: center;
+  border-radius: 5px;
   color: white;
-  font-family: 'Overpass', sans-serif;
-  box-shadow: 10px 7px 7px 1px rgba(0, 0, 0, 0.3);
-  font-size: 17px;
+  font-family: var(--font-6);
+  font-size: 20px;
+  line-height: 24px;
 }
 
-.switch-session-button  {
-  width: 30%;
-  height: 50px;
-  margin: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgb(190, 190, 190);
-  border-radius: 4px;
-  color: var(--pink-3);
-  font-family: 'Overpass', sans-serif;
-  box-shadow: 10px 7px 7px 1px rgba(0, 0, 0, 0.3);
+
+.switch-session-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.switch-session-text, .switch-session-button {
+  font-family: var(--font-6);
   font-size: 20px;
+  line-height: 24px;
+}
+
+.switch-session-text {
+  color: #818181;
 }
 
 .switch-session-button:hover {
-  background-color: rgb(186, 185, 185);
+  cursor: pointer;
+  opacity: .8;
+}
+
+.switch-session-button {
+  color: var(--orange-1);
+  margin-left: 5px;
 }
 
 #session-submit:hover {

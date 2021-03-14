@@ -4,25 +4,26 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(189, 181, 181, 0.95);
-  z-index: 10;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  z-index: 3;
   animation-name: modal-background-fade-in;
   animation-duration: 0.4s;
-  width: 100vw;
 }
 
 @keyframes modal-background-fade-in {
   from {
     background: transparent;
+    backdrop-filter: blur(0px);
   }
   to {
-     background: rgba(189, 181, 181, 0.98);
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
   }
 }
 
 .modal-child {
   position: absolute;
-  width: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
