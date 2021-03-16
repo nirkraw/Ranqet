@@ -71,7 +71,7 @@ export default function SessionForm({ formType, openModal, route }) {
             className={
               usernameError ? "login-input input-error" : "login-input"
             }
-            maxlength="30"
+            maxLength="30"
           />
           {usernameError ? (
             <h2 className="session-info-error">{usernameError}</h2>
@@ -89,7 +89,7 @@ export default function SessionForm({ formType, openModal, route }) {
             className={
               passwordError ? "login-input input-error" : "login-input"
             }
-            maxlength="24"
+            maxLength="24"
           />
           {passwordError ? (
             <h2 className="session-info-error">{passwordError}</h2>

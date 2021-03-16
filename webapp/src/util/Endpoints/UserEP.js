@@ -3,20 +3,20 @@ const server = window.location.origin.includes("localhost")
   ? "http://localhost:8080"
   : window.location.origin;
 
-export const createUser = (name, username, password) => {
+export const createUser = (username, password) => {
   return axios.post(
     `${server}/user/create`,
-    { name, username, password },
+    { username, password },
     {
       "Content-Type": "application/json",
     }
   );
 };
 
-export const loginUser = (name, username, password) => {
+export const loginUser = (username, password) => {
   return axios.post(
     `${server}/user/login`,
-    { name, username, password },
+    { username, password },
     {
       "Content-Type": "application/json",
     }

@@ -21,7 +21,16 @@ export const createList = (
 ) => {
   return axios.post(
     `${server}/list/create`,
-    { title, imageUrl, description, options, authorId, isUnlisted, category, presetTitle },
+    {
+      title,
+      imageUrl,
+      description,
+      options,
+      authorId,
+      isUnlisted,
+      category,
+      presetTitle,
+    },
     {
       "Content-Type": "false",
       ProcessData: "false",
@@ -30,7 +39,7 @@ export const createList = (
 };
 
 export const fetchCategoryList = (category, userId, sessionToken) => {
-  if(!userId) userId = "";
+  if (!userId) userId = "";
   if (!sessionToken) sessionToken = "";
   return axios.get(
     `${server}/lists?category=${category}&userId=${userId}&sessionToken=${sessionToken}`,
@@ -62,9 +71,10 @@ export const searchForLists = (searchString) => {
 };
 
 export const fetchListPresets = (userId, sessionToken) => {
-  return axios.get(`${server}/users/${userId}/presets?sessionToken=${sessionToken}`, {
-    "Content-Type": "application/json",
-  });
+  return axios.get(
+    `${server}/users/${userId}/presets?sessionToken=${sessionToken}`,
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
-
-
