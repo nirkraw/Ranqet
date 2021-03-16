@@ -41,7 +41,7 @@ export const getFormattedDate = (currDate) => {
   const date = new Date(currDate)
   let year = date.getFullYear();
 
-  let month = (1 + date.getMonth()).toString();
+  let month = (date.getMonth()).toString();
   month = month.length > 1 ? month : "0" + month;
 
   let day = date.getDate().toString();
