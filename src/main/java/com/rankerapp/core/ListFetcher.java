@@ -110,19 +110,24 @@ public class ListFetcher {
     
     @Transactional
     public GenericListsResponse getTopLists(UUID userId, String sessionToken) {
-        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        boolean userPresent = userId != null;
+        
+        if (userPresent) {
+            sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        }
         
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
         List<ListEntity> topLists = listsRepo.findByIsPrivate(false, pageRequest)
                 .collect(Collectors.toList());
         
-        Set<UUID> completedUserListIds = getCompletedListIdsForUser(userId, topLists.stream()
+        Set<UUID> completedUserListIds = userPresent ? getCompletedListIdsForUser(userId, topLists.stream()
                 .map(ListEntity::getId)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())) : Collections.emptySet();
         
         List<ListResponse> resolvedTopLists = topLists.stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, completedUserListIds.contains(list.getId())))
+                .map((list) -> ListFetcher.convertListToResponse(list,
+                        userPresent ? completedUserListIds.contains(list.getId()) : true))
                 .collect(Collectors.toList());
         
         return GenericListsResponse.builder()
@@ -145,7 +150,10 @@ public class ListFetcher {
     
     @Transactional
     public GenericListsResponse getTopListsByCategory(UUID userId, String sessionToken, ListCategory listCategory) {
-        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        boolean userPresent = userId != null;
+        if (userPresent) {
+            sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        }
     
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
@@ -153,12 +161,12 @@ public class ListFetcher {
         List<ListEntity> topLists = listsRepo.findByCategoryAndIsPrivate(category, false, pageRequest)
                 .collect(Collectors.toList());
         
-        Set<UUID> completedUserListIds = getCompletedListIdsForUser(userId, topLists.stream()
+        Set<UUID> completedUserListIds = userPresent ? getCompletedListIdsForUser(userId, topLists.stream()
                 .map(ListEntity::getId)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())) : Collections.emptySet();
         
         List<ListResponse> resolvedTopLists = topLists.stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, completedUserListIds.contains(list.getId())))
+                .map((list) -> ListFetcher.convertListToResponse(list, userPresent ? completedUserListIds.contains(list.getId()) : true))
                 .collect(Collectors.toList());
         
         return GenericListsResponse.builder()
@@ -180,19 +188,22 @@ public class ListFetcher {
     
     @Transactional
     public GenericListsResponse getNewLists(UUID userId, String sessionToken) {
-        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        boolean userPresent = userId != null;
+        if (userPresent) {
+            sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        }
     
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("createdOn")));
         List<ListEntity> topLists = listsRepo.findByIsPrivate(false, pageRequest)
                 .collect(Collectors.toList());
     
-        Set<UUID> completedUserListIds = getCompletedListIdsForUser(userId, topLists.stream()
+        Set<UUID> completedUserListIds = userPresent ? getCompletedListIdsForUser(userId, topLists.stream()
                 .map(ListEntity::getId)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())) : Collections.emptySet();
     
         List<ListResponse> resolvedTopLists = topLists.stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, completedUserListIds.contains(list.getId())))
+                .map((list) -> ListFetcher.convertListToResponse(list, userPresent ? completedUserListIds.contains(list.getId()) : true))
                 .collect(Collectors.toList());
         
         return GenericListsResponse.builder()

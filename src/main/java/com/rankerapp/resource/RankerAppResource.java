@@ -89,16 +89,16 @@ public class RankerAppResource {
         @RequestParam(value = "sessionToken") String sessionToken, @RequestParam(value = "category") ListCategory category) {
         if (Objects.isNull(category)) {
             throw new BadRequestException("category query param is required");
-        } else if (StringUtils.isEmpty(sessionToken)) {
+        } else if (asNullableUUID(userId) != null && StringUtils.isEmpty(sessionToken)) {
             throw new BadRequestException("session token param is required");
         }
         
         if (category == ListCategory.POPULAR) {
-            return listFetcher.getTopLists(asUUID(userId), sessionToken);
+            return listFetcher.getTopLists(asNullableUUID(userId), sessionToken);
         } else if (category == ListCategory.NEW) {
-            return listFetcher.getNewLists(asUUID(userId), sessionToken);
+            return listFetcher.getNewLists(asNullableUUID(userId), sessionToken);
         } else {
-            return listFetcher.getTopListsByCategory(asUUID(userId), sessionToken, category);
+            return listFetcher.getTopListsByCategory(asNullableUUID(userId), sessionToken, category);
         }
     }
 
@@ -209,5 +209,13 @@ public class RankerAppResource {
             throw new BadRequestException("Empty UUID is invalid");
         }
         return UUID.fromString(id);
+    }
+    
+    private static UUID asNullableUUID(String id) {
+        if (StringUtils.trimToNull(id) == null) {
+            return null;
+        }
+        
+        return asUUID(id);
     }
 }
