@@ -3,6 +3,8 @@ package com.rankerapp.core;
 import com.rankerapp.db.PresetsRepository;
 import com.rankerapp.db.model.PresetEntity;
 import com.rankerapp.db.model.PresetOptionEntity;
+import com.rankerapp.exceptions.ForbiddenException;
+import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.Preset;
 import com.rankerapp.transport.model.PresetOption;
 import org.springframework.stereotype.Component;
@@ -53,6 +55,20 @@ public class PresetsManager {
         presetsRepo.save(preset);
         
         return convertPreset(preset);
+    }
+    
+    @Transactional
+    public void deletePreset(UUID presetId, UUID userId, String sessionToken) {
+        sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+        
+        PresetEntity preset =
+                presetsRepo.findById(presetId).orElseThrow(() -> new NotFoundException("Preset with id " + presetId + " does not exist"));
+        
+        if (!preset.getCreatedBy().equals(userId)) {
+            throw new ForbiddenException("Only the author of this preset can delete this preset");
+        }
+        
+        presetsRepo.delete(preset);
     }
     
     private static Preset convertPreset(PresetEntity presetEntity) {
