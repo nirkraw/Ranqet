@@ -32,7 +32,7 @@ export default function Home() {
     };
   }, []);
   
-  if(!localStorage.getItem("sessionToken")) return null; 
+  // if(!localStorage.getItem("sessionToken")) return null; 
   if (loading) return <LoadingSpinner />;
 
   const userLists = localStorage.getItem("sessionToken")
@@ -40,7 +40,7 @@ export default function Home() {
         name: UserFilterToTitle[filter],
         filter,
       }))
-    : null;
+    : [];
 
   return (
     <div id="home-main-container">

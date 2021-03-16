@@ -30,6 +30,8 @@ export const createList = (
 };
 
 export const fetchCategoryList = (category, userId, sessionToken) => {
+  if(!userId) userId = "";
+  if (!sessionToken) sessionToken = "";
   return axios.get(
     `${server}/lists?category=${category}&userId=${userId}&sessionToken=${sessionToken}`,
     {
