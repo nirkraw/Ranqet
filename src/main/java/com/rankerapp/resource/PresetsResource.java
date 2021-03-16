@@ -1,6 +1,7 @@
 package com.rankerapp.resource;
 
 import com.rankerapp.core.PresetsManager;
+import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.transport.model.FetchPresetsResponse;
 import com.rankerapp.transport.model.Preset;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,18 @@ public class PresetsResource {
         return FetchPresetsResponse.builder()
                 .withPresets(presets)
                 .build();
+    }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/users/{userId}/preset/{presetId}")
+    public void deletePreset(@PathVariable(value = "userId") String userId,
+                             @PathVariable(value = "presetId") String presetId,
+                             @RequestParam(value = "sessionToken") String sessionToken) {
+        try {
+            presetsManager.deletePreset(UUID.fromString(presetId), UUID.fromString(userId), sessionToken);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Malformatted presetId and/or userId");
+        }
     }
     
 }
