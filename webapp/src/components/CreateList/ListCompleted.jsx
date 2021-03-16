@@ -50,7 +50,7 @@ export default function ListCompleted() {
             ref={linkRef}
             id="share-url-input"
             disabled
-            value={`${window.location.origin}/#/${match.params.listId}/quiz`}
+            value={`${window.location.origin}/${match.params.listId}/quiz`}
           />
           <button className="site-button" onClick={copyToClipboard}>
             Copy Link
