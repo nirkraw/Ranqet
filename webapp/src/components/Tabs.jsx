@@ -7,7 +7,7 @@ export default function Tabs({
   tabs,
   tabDirection,
   cacheId,
-  setFilter,
+  setFilter
 }) {
   const [activeIdx, setActiveIdx] = useState(0);
 
@@ -20,7 +20,7 @@ export default function Tabs({
 
   let currTab;
   if (tabDirection === "horizontal" && activeIdx === 0) {
-    currTab = <HomeCategories />;
+    currTab = <HomeCategories/>;
   } else if (tabDirection === "horizontal" && activeIdx === 1) {
     currTab = (
       <ListIndex

@@ -16,7 +16,7 @@ export default function HomeCategories() {
       filter,
       localStorage.getItem("userId"),
       localStorage.getItem("sessionToken"),
-    ]
+    ],
   });
 
   if (loading) return <LoadingSpinner />;
@@ -32,15 +32,16 @@ export default function HomeCategories() {
         tabs={[...categoryObjects]}
         setFilter={setFilter}
         tabDirection="vertical"
-        // currList={data.lists}
         cacheId={userListCacheId}
       />
-      <div
-        className="home-create-list-button site-button-2"
-        onClick={() => history.push("./create-list")}
-      >
-        Create List
-      </div>
+      {localStorage.getItem("sessionToken") ? (
+        <div
+          className="home-create-list-button site-button-2"
+          onClick={() => history.push("./create-list")}
+        >
+          Create List
+        </div>
+      ) : null}
     </div>
   );
 }
