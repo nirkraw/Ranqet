@@ -1,7 +1,21 @@
 import React, { useState } from "react";
+import { deletePreset } from "../../../util/Endpoints/ListEP";
 
-export default function PresetOptionsTabs({ presets, setCurrOptions }) {
+export default function PresetOptionsTabs({
+  presets,
+  setCurrOptions,
+  fetchCurrPresets,
+}) {
   const [activeIndex, setActiveIndex] = useState(null);
+
+  const deleteCurrPreset = async (presetId) => {
+    await deletePreset(
+      localStorage.getItem("userId"),
+      localStorage.getItem("sessionToken"),
+      presetId
+    );
+    fetchCurrPresets();
+  };
 
   return (
     <div id="options-tabs-container">
@@ -9,7 +23,11 @@ export default function PresetOptionsTabs({ presets, setCurrOptions }) {
       <ul className="preset-tab-ul">
         {presets.map((preset, i) => (
           <li
-            className={activeIndex === i ? "active-preset" : "preset-tab-item"}
+            className={
+              activeIndex === i
+                ? "preset-tab-item active-preset"
+                : "preset-tab-item"
+            }
             key={i}
             onClick={() => {
               setCurrOptions(presets[i].presetOptions);
@@ -17,6 +35,12 @@ export default function PresetOptionsTabs({ presets, setCurrOptions }) {
             }}
           >
             <h1 className="preset-tab-title">{preset.title}</h1>
+            <button
+              onClick={() => deleteCurrPreset(preset.id)}
+              className="delete-preset site-button"
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>

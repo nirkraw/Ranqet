@@ -14,12 +14,12 @@ import ErrorPage from "./Misc/ErrorPage";
 import ListCompleted from "./CreateList/ListCompleted";
 
 function App() {
-  const [modalSettings, openModal] = useState({formType: "", route: ""});
+  const [modalSettings, openModal] = useState({ formType: "", route: "" });
   window.onunload = () => {
     const userId = localStorage.getItem("userId");
     const sessionToken = localStorage.getItem("sessionToken");
     localStorage.clear();
-    if(userId && sessionToken) {
+    if (userId && sessionToken) {
       localStorage.setItem("userId", userId);
       localStorage.setItem("sessionToken", sessionToken);
     }
@@ -28,8 +28,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <Navbar openModal={openModal} />
-      <Modal modalSettings={modalSettings} openModal={openModal} />
+        <Navbar openModal={openModal} />
+        <Modal modalSettings={modalSettings} openModal={openModal} />
         <Switch>
           <Route
             exact

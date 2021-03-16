@@ -19,7 +19,6 @@ export default function HomeCategories() {
     ]
   });
 
-  // const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (loading) return <LoadingSpinner />;
 
   const categoryObjects = ListCategory.map((filter) => ({

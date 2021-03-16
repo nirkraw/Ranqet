@@ -94,7 +94,7 @@
 
 #session-submit:hover {
   cursor: pointer;
-  opacity: 80%;
+  opacity: .8;
 }
 
 .session-info-error {

@@ -113,11 +113,12 @@
 }
 
 .preset-tab-item {
-  width: 100%;
+  width: 98%;
   border-bottom: 1px solid rgb(190, 190, 190);
   display: flex;
   align-items: center;
   padding: 5px 0px 5px 0px;
+  justify-content: space-between;
 }
 
 .preset-tab-title {
@@ -125,6 +126,7 @@
   font-size: 20px;
   margin: 0;
   margin-left: 15px;
+  display: flex;
 }
 
 .preset-tab-item:hover {
@@ -133,12 +135,7 @@
 }
 
 .active-preset {
-  background-color: rgb(221, 220, 220);
-  width: 100%;
-  border-bottom: 1px solid rgb(190, 190, 190);
-  display: flex;
-  align-items: center;
-  padding: 5px 0px 5px 0px;
+  background-color: rgb(221, 220, 220) !important;
 }
 
 .Modal {
