@@ -95,7 +95,7 @@ export default function Comments({ openModal }) {
   };
 
   if (loading) return <LoadingSpinner />;
-
+ 
   return (
     <div id="main-comments-container">
       <div id="add-comment-container">
@@ -162,7 +162,7 @@ export default function Comments({ openModal }) {
                 {comment.authorId === localStorage.getItem("userId") ? (
                   <button
                     onClick={(e) => deleteCurrComment(e, comment.commentId)}
-                    className="site-button"
+                    className="site-button delete-comment"
                   >
                     Delete
                   </button>

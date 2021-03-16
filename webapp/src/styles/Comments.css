@@ -125,4 +125,8 @@
   margin-top: 2%;
 }
 
+.delete-comment {
+  align-self:flex-end;
+}
+
 
