@@ -31,8 +31,7 @@ export default function Home() {
       }
     };
   }, []);
-  
-  // if(!localStorage.getItem("sessionToken")) return null; 
+
   if (loading) return <LoadingSpinner />;
 
   const userLists = localStorage.getItem("sessionToken")

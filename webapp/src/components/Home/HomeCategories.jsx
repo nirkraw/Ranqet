@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tabs from "../Tabs";
 import { ListCategory, ListCategoryToTitle } from "../../enums/ListCategory";
 import { fetchCategoryList } from "../../util/Endpoints/ListEP";
@@ -6,6 +6,7 @@ import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory } from "react-router-dom";
 import "../../styles/HomeCategories.css";
 import useCache from "../../util/useCache";
+import { clearEndpointCache } from "../../util/clearEndpointCache";
 
 export default function HomeCategories() {
   const history = useHistory();
@@ -18,6 +19,18 @@ export default function HomeCategories() {
       localStorage.getItem("sessionToken"),
     ],
   });
+
+  useEffect(() => {
+    return () => {
+      for (let filter of ListCategory) {
+        clearEndpointCache(fetchCategoryList, [
+          filter,
+          localStorage.getItem("userId"),
+          localStorage.getItem("sessionToken"),
+        ]);
+      }
+    };
+  }, []);
 
   if (loading) return <LoadingSpinner />;
 
