@@ -64,7 +64,7 @@ td {
   margin-top: 0px;
   margin-bottom: 0px;
   margin-left: 0px;
-  margin-right: 0px;
+  margin-right: 0px; 
   margin: 0;
   padding: 0;
   border: 0;
@@ -141,12 +141,17 @@ q {
   --main-page-header: "Montserrat", sans-serif;
 }
 
+.no-margin {
+  margin: 0;
+}
+
 ::-moz-selection {
   color: none;
   background: none;
 }
 
 .site-button {
+  margin: 0;
   font-family: var(--font-1);
   width: fit-content;
   background-color: var(--pink-3);
@@ -158,6 +163,7 @@ q {
 }
 
 .site-button-disabled {
+  margin: 0;
   font-family: var(--font-1);
   width: fit-content;
   background-color: gray;
@@ -168,6 +174,7 @@ q {
 }
 
 .site-button-2 {
+  margin: 0;
   width: 153px;
   height: 56px;
   background: #fd5f1b;
@@ -183,6 +190,7 @@ q {
 }
 
 .site-button-3 {
+  margin: 0;
   width: 153px;
   height: 56px;
   color: #fd5f1b;
