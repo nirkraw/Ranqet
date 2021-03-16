@@ -25,7 +25,7 @@ export default function UserInfo({ numCreated }) {
   }, [userInfoCacheId]);
 
   if (!userInfo) return <LoadingSpinner />;
-  const { name, createdOn, avatarUrl } = userInfo;
+  const { username, createdOn, avatarUrl } = userInfo;
 
   const handleUserPhotoFile = async (e) => {
     e.preventDefault();
@@ -61,7 +61,14 @@ export default function UserInfo({ numCreated }) {
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
   } else if (localStorage.getItem("userId") === match.params.userId) {
-    currentImage = <p className="site-button">Add Avatar</p>;
+    currentImage = (
+      <p
+        onClick={() => document.getElementById("user-photo-input").click()}
+        className="site-button"
+      >
+        Add Avatar
+      </p>
+    );
   }
 
   return (
@@ -90,7 +97,7 @@ export default function UserInfo({ numCreated }) {
       ) : (
         <div id="user-profile-image-container-no-hover">{currentImage}</div>
       )}
-      <h1 id="user-profile-name">{name}</h1>
+      <h1 id="user-profile-name">{username}</h1>
       <div id="user-stats">
         <h1>
           Joined <span>{formatUploadTime(createdOn)}</span>

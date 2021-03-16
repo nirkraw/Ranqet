@@ -53,7 +53,7 @@ export default function PresetOptions({
           <PresetOptionsList
             presets={presets}
             setCurrOptions={setCurrOptions}
-            fetchCurrPresets={fetchCurrPresets()}
+            fetchCurrPresets={fetchCurrPresets}
           />
           <PresetOptionsDisplay
             options={currOptions}

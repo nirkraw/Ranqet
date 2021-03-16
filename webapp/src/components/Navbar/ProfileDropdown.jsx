@@ -38,13 +38,13 @@ export default function ProfileDropdown() {
 
   if (!userInfo) return <LoadingSpinner />;
 
-  const { name, avatarUrl } = userInfo;
+  const { username, avatarUrl } = userInfo;
 
   const logout = (e) => {
     e.preventDefault();
+    window.location.reload();
     localStorage.removeItem("userId");
     localStorage.removeItem("sessionToken");
-    window.location.reload();
   };
 
   return (
@@ -57,7 +57,7 @@ export default function ProfileDropdown() {
         {avatarUrl ? <img src={avatarUrl} alt="profile-pic"></img> : null}
       </div>
       <h3 className="nav-session-button">
-        {name} <span>{String.fromCharCode(9660)}</span>
+        {username} <span>{String.fromCharCode(9660)}</span>
       </h3>
       <div
         className={

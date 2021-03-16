@@ -30,7 +30,7 @@ export default function Navbar({ openModal, userInfo }) {
         </div>
       ) : (
         <div id="navbar-buttons-container">
-          <ProfileDropdown userInfo={userInfo} />
+          <ProfileDropdown />
         </div>
       )}
     </div>
