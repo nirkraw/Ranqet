@@ -4,7 +4,7 @@ import Home from "./Home/Home";
 import CreateList from "./CreateList/CreateList";
 import Rankings from "./Rankings/Rankings";
 import Quiz from "./Quiz/Quiz";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import React, { useState } from "react";
 import UserProfile from "./UserProfile/UserProfile";
 import Category from "./Category";
@@ -27,41 +27,51 @@ function App() {
 
   return (
     <div className="App">
+      <BrowserRouter>
       <Navbar openModal={openModal} />
       <Modal modalSettings={modalSettings} openModal={openModal} />
-      <Switch>
-        <Route exact path="/error/:errorMessage" render={() => <ErrorPage />} />
-        <Route
-          exact
-          path="/list/new/:listId"
-          render={() => <ListCompleted />}
-        />
-        <Route
-          exact
-          path="/create-list"
-          render={() =>
-            localStorage.getItem("sessionToken") ? (
-              <CreateList />
-            ) : (
-              <Redirect to="/" />
-            )
-          }
-        />
-        <Route
-          exact
-          path="/category/:categoryType"
-          render={() => <Category openModal={openModal} />}
-        />
-        <Route exact path="/:listId/quiz" render={() => <Quiz />} />
-        <Route
-          exact
-          path="/:listId/rankings"
-          render={() => <Rankings openModal={openModal} />}
-        />
-        <Route exact path="/profile/:userId" render={() => <UserProfile />} />
-        <Route exact path="/search/:searchVal" render={() => <SearchPage />} />
-        <Route exact path="/" render={() => <Home openModal={openModal} />} />
-      </Switch>
+        <Switch>
+          <Route
+            exact
+            path="/error/:errorMessage"
+            render={() => <ErrorPage />}
+          />
+          <Route
+            exact
+            path="/list/new/:listId"
+            render={() => <ListCompleted />}
+          />
+          <Route
+            exact
+            path="/create-list"
+            render={() =>
+              localStorage.getItem("sessionToken") ? (
+                <CreateList />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/category/:categoryType"
+            render={() => <Category openModal={openModal} />}
+          />
+          <Route exact path="/:listId/quiz" render={() => <Quiz />} />
+          <Route
+            exact
+            path="/:listId/rankings"
+            render={() => <Rankings openModal={openModal} />}
+          />
+          <Route exact path="/profile/:userId" render={() => <UserProfile />} />
+          <Route
+            exact
+            path="/search/:searchVal"
+            render={() => <SearchPage />}
+          />
+          <Route exact path="/" render={() => <Home openModal={openModal} />} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
