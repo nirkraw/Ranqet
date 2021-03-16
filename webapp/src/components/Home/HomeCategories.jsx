@@ -50,7 +50,7 @@ export default function HomeCategories() {
       {localStorage.getItem("sessionToken") ? (
         <div
           className="home-create-list-button site-button-2"
-          onClick={() => history.push("./create-list")}
+          onClick={() => history.push("/create-list")}
         >
           Create List
         </div>
