@@ -119,18 +119,10 @@
 	box-shadow: 0px 4px 10px -8px black;
 }
 
-#add-comment-input-and-submit > button {
+.add-comment-button {
   align-self: flex-end;
   margin-right: 10px;
   margin-top: 2%;
-  font-size: 17px;
-  width: fit-content;
-  background-color: var(--pink-3);
-  color: white;
-
 }
 
-#add-comment-input-and-submit > button:hover {
-  cursor:pointer;
-  opacity: .7;
-}
+

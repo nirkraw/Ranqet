@@ -60,7 +60,7 @@ export const deleteList = (userId, listId, sessionToken) => {
 
 export const deletePreset = (userId, sessionToken, presetId) => {
   return axios.delete(
-    `${server}/list/${presetId}?userId=${userId}&sessionToken=${sessionToken}`,
+    `${server}/users/${userId}/preset/${presetId}?sessionToken=${sessionToken}`,
     {
       "Content-Type": "application/json",
     }

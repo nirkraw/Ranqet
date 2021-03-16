@@ -157,6 +157,16 @@ q {
   box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.3);
 }
 
+.site-button-disabled {
+  font-family: var(--font-1);
+  width: fit-content;
+  background-color: gray;
+  color: white;
+  padding: 4px 8px 4px 8px;
+  border-radius: 5px;
+  border: none;
+}
+
 .site-button-2 {
   width: 153px;
   height: 56px;

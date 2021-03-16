@@ -78,11 +78,13 @@ export default function Comments({ openModal }) {
 
       setCurrRows(currentRows);
       setNewComment(e.target.value);
-    } else openModal({ formType: "login", route: "" });
+    } else {
+      openModal({ formType: "login", route: "" });
+    }
   };
 
-  const deleteCurrComment = async (e , commentId) => {
-    e.preventDefault()
+  const deleteCurrComment = async (e, commentId) => {
+    e.preventDefault();
     await deleteComment(
       commentId,
       match.params.listId,
@@ -90,7 +92,7 @@ export default function Comments({ openModal }) {
       localStorage.getItem("sessionToken")
     );
     fetchComments();
-  }
+  };
 
   if (loading) return <LoadingSpinner />;
 
@@ -113,9 +115,18 @@ export default function Comments({ openModal }) {
             onChange={handleCommentChange}
             ref={addCommentInput}
           />
-          <button className="site-button" onClick={addComment}>
-            Comment
-          </button>
+          {localStorage.getItem("sessionToken") ? (
+            <div
+              className="site-button add-comment-button"
+              onClick={addComment}
+            >
+              Comment
+            </div>
+          ) : (
+            <div className="site-button-disabled add-comment-button">
+              Comment
+            </div>
+          )}
         </div>
       </div>
       <ul id="main-comments-ul">
@@ -149,7 +160,12 @@ export default function Comments({ openModal }) {
                   <p>{comment.comment}</p>
                 </div>
                 {comment.authorId === localStorage.getItem("userId") ? (
-                  <button onClick={(e) => deleteCurrComment(e, comment.commentId)} className="site-button">Delete</button>
+                  <button
+                    onClick={(e) => deleteCurrComment(e, comment.commentId)}
+                    className="site-button"
+                  >
+                    Delete
+                  </button>
                 ) : null}
               </div>
             </li>
