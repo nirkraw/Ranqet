@@ -19,7 +19,7 @@ export default function ListIndex({
 
   if (!passedList || !passedList.length)
     return (
-      <div className="justify-center-center" style={{ width: "100%" }}>
+      <div className="justify-center-center" style={{ width: "100%", minHeight:"400px" }}>
         <h1 id="no-lists">No Lists Yet</h1>
       </div>
     );

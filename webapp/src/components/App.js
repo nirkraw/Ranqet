@@ -12,6 +12,7 @@ import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
 import ErrorPage from "./Misc/ErrorPage";
 import ListCompleted from "./CreateList/ListCompleted";
+import NotFound from "./NotFound";
 
 function App() {
   const [modalSettings, openModal] = useState({ formType: "", route: "" });
@@ -31,18 +32,9 @@ function App() {
         <Navbar openModal={openModal} />
         <Modal modalSettings={modalSettings} openModal={openModal} />
         <Switch>
+          <Route path="/error/:errorMessage" render={() => <ErrorPage />} />
+          <Route path="/list/new/:listId" render={() => <ListCompleted />} />
           <Route
-            exact
-            path="/error/:errorMessage"
-            render={() => <ErrorPage />}
-          />
-          <Route
-            exact
-            path="/list/new/:listId"
-            render={() => <ListCompleted />}
-          />
-          <Route
-            exact
             path="/create-list"
             render={() =>
               localStorage.getItem("sessionToken") ? (
@@ -53,23 +45,18 @@ function App() {
             }
           />
           <Route
-            exact
             path="/category/:categoryType"
             render={() => <Category openModal={openModal} />}
           />
           <Route exact path="/:listId/quiz" render={() => <Quiz />} />
           <Route
-            exact
             path="/:listId/rankings"
             render={() => <Rankings openModal={openModal} />}
           />
           <Route exact path="/profile/:userId" render={() => <UserProfile />} />
-          <Route
-            exact
-            path="/search/:searchVal"
-            render={() => <SearchPage />}
-          />
+          <Route path="/search/:searchVal" render={() => <SearchPage />} />
           <Route exact path="/" render={() => <Home openModal={openModal} />} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     </BrowserRouter>
