@@ -26,8 +26,8 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="App">
         <Navbar openModal={openModal} />
         <Modal modalSettings={modalSettings} openModal={openModal} />
         <Switch>
@@ -71,8 +71,8 @@ function App() {
           />
           <Route exact path="/" render={() => <Home openModal={openModal} />} />
         </Switch>
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
