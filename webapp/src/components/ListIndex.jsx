@@ -4,10 +4,7 @@ import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
 import ConfirmationModal from "./ConfirmModal";
 
-export default function ListIndex({
-  cacheId,
-  includeDelete,
-}) {
+export default function ListIndex({ cacheId, includeDelete }) {
   const [currListId, setCurrListId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
@@ -16,10 +13,12 @@ export default function ListIndex({
     ? JSON.parse(localStorage.getItem(cacheId)).lists
     : [];
 
-
   if (!passedList || !passedList.length)
     return (
-      <div className="justify-center-center" style={{ width: "100%", minHeight:"400px" }}>
+      <div
+        className="justify-center-center"
+        style={{ width: "100%", minHeight: "400px" }}
+      >
         <h1 id="no-lists">No Lists Yet</h1>
       </div>
     );
@@ -45,7 +44,7 @@ export default function ListIndex({
                   <p className="list-index-item-name">{list.title}</p>
                   {list.numCompletions === 1 ? (
                     <p className="list-index-item-num-completions">
-                      Taken by:
+                      Ranked by
                       <span className="num-completions-span">
                         {list.numCompletions}
                       </span>
@@ -53,7 +52,7 @@ export default function ListIndex({
                     </p>
                   ) : (
                     <p className="list-index-item-num-completions">
-                      Taken by:
+                      Ranked by
                       <span className="num-completions-span">
                         {list.numCompletions}
                       </span>
@@ -61,19 +60,22 @@ export default function ListIndex({
                     </p>
                   )}
                 </div>
-                <p
-                  className="list-index-author"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    history.push(`/profile/${list.createdBy.id}`);
-                  }}
-                >
-                  <span>By: </span>
-                  {list.createdBy.name}
-                </p>
-                <p className={"created-date"}>
-                  {getFormattedDate(list.createdOn)}
-                </p>
+                <div className="list-author-and-date-container justify-start-center">
+                  <div
+                    className="list-index-author"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      history.push(`/profile/${list.createdBy.id}`);
+                    }}
+                  >
+                    <span>By: </span>
+                    <p>{list.createdBy.name}</p>
+                    <span>·</span>
+                  </div>
+                  <p className={"created-date"}>
+                    {getFormattedDate(list.createdOn)}
+                  </p>
+                </div>
                 <div className="list-index-item-description">
                   <p>{list.description}</p>
                 </div>

@@ -147,7 +147,7 @@ q {
 
 .site-button {
   margin: 0;
-  font-family: var(--font-1);
+  font-family: var(--font-6);
   width: fit-content;
   background-color: var(--pink-3);
   color: white;

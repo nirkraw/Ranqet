@@ -8,18 +8,21 @@
   padding: 20px;
   min-width: 250px;
   width: 95%;
-  border-bottom: 3px solid var(--gray-3);
+  border-bottom: 1.5px solid var(--gray-3);
 }
 
 .tab-names-ul-horizontal {
   padding: 20px;
   width: 325px;
-  border-right: 3px solid var(--gray-3);
+  border-right: 1.5px solid var(--gray-3);
 }
-
 
 .activeTab {
   border-bottom: 2px solid var(--orange-1) !important;
+}
+
+.activeTab > h1 {
+  font-weight: 800 !important;
 }
 
 .tab-names-li {
@@ -30,7 +33,7 @@
 .tab-names-li > h1 {
   color: var(--gray-1);
   font-family: var(--font-6);
-  font-weight: 700;
+  font-weight: 300;
   font-size: 25px;
   line-height: 30px;
 }
@@ -44,7 +47,7 @@
 #tab-names-li-horizontal > h1 {
   color: var(--gray-1);
   font-family: var(--font-6);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 30px;
   line-height: 36px;
 }
@@ -53,7 +56,8 @@
   color: var(--orange-1) !important;
 }
 
-.tab-names-li > h1:hover, #tab-names-li-horizontal > h1:hover  {
+.tab-names-li > h1:hover,
+#tab-names-li-horizontal > h1:hover {
   color: var(--blue-2);
   cursor: pointer;
 }
