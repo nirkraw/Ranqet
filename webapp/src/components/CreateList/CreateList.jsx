@@ -8,7 +8,7 @@ import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 import { useHistory } from "react-router-dom";
 import Tooltip from "../Tooltip";
-import {clearEndpointCache} from "../../util/clearEndpointCache";
+import { clearEndpointCache } from "../../util/clearEndpointCache";
 import { fetchUserPublicList } from "../../util/Endpoints/UserEP";
 
 export default function CreateList() {
@@ -37,7 +37,8 @@ export default function CreateList() {
     else if (listOptions.length < 2)
       setUserError("Please add at least two options.");
     else if (!category) setUserError("Please choose category.");
-    else if(savePresets && !presetTitle) setUserError("Please add a preset title")
+    else if (savePresets && !presetTitle)
+      setUserError("Please add a preset title");
     else {
       const visitedOptions = new Set();
       for (let i = 0; i < listOptions.length; i++) {
@@ -65,7 +66,9 @@ export default function CreateList() {
           presetTitle
         );
         setLoading(false);
-        clearEndpointCache(fetchUserPublicList, [localStorage.getItem("userId")]);
+        clearEndpointCache(fetchUserPublicList, [
+          localStorage.getItem("userId"),
+        ]);
         history.push(`/list/new/${res.data.id}`);
       } catch (err) {
         history.push(`/error/${err.message}`);
@@ -76,98 +79,96 @@ export default function CreateList() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div id="create-list-main-div">
-      <form id="create-list-form">
-        <div id="create-list-error-container">
-          <h2 id="create-list-error">{userError}</h2>
-        </div>
-        <div id="create-list-info-and-image-container">
-          <div id="list-info-container">
-            <div id="create-list-title-div">
-              <h2 id="title-label">List Title:</h2>
-              <input
-                id="title-input"
-                maxLength="32"
-                type="text"
-                onChange={(e) => setListTitle(e.target.value)}
-              />
-            </div>
-            <div id="create-list-description-div">
-              <h2 id="description-label">List Description:</h2>
-              <textarea
-                id="description-input"
-                rows="3"
-                maxLength="190"
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div id="categories-unlisted-container">
-              <CategoriesDropdown setCategory={setCategory} />
-              <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
-            </div>
-          </div>
-          <ListImage
-            setImageLoading={setImageLoading}
-            setUserError={setUserError}
-            setListImgUrl={setListImgUrl}
-            imageLoading={imageLoading}
-            listImgUrl={listImgUrl}
-          />
-        </div>
-        <div id="create-list-options-div">
-          <h2 id="options-label">List Options (any order):</h2>
-          <div id="infotag-and-preset-button-container">
-            <button
-              id="option-preset-button"
-              onClick={(e) => {
-                e.preventDefault();
-                setPresetModalOpen(true);
-              }}
-            >
-              Use Preset Options
-            </button>
-            <Tooltip
-              helpText={
-                "Prefill your options with previously made public or personal options"
-              }
-            />
-          </div>
-          <OptionInputs
-            listOptions={listOptions}
-            imageLoading={imageLoading}
-            setListOptions={setListOptions}
-            setImageLoading={setImageLoading}
-            presetModalOpen={presetModalOpen}
-            setPresetModalOpen={setPresetModalOpen}
-          />
-          <div id="infotag-and-preset-button-container">
-            <label id="unlisted-label">Save Options As Preset:</label>
+    <form id="create-list-form">
+      <h1 id="create-list-title">Create List</h1>
+      <div id="create-list-error-container">
+        <h2 id="create-list-error">{userError}</h2>
+      </div>
+      <div id="create-list-info-and-image-container">
+        <div id="list-info-container">
+          <div id="create-list-title-div">
+            <h2 id="title-label">Title</h2>
             <input
-              type="checkbox"
-              id="unlisted-input"
-              name="unlisted"
-              onChange={() => setSavePresets(!savePresets)}
-            />
-            <Tooltip
-              helpText={"Save your options as a preset for future use"}
+              id="title-input"
+              maxLength="32"
+              type="text"
+              onChange={(e) => setListTitle(e.target.value)}
             />
           </div>
-          {savePresets ? (
-            <div className="preset-input-container">
-              <label className="preset-input-label">Preset Name</label>
-              <input
-                id="preset-privacy-input"
-                maxLength="32"
-                type="text"
-                onChange={(e) => setPresetTitle(e.target.value)}
-              />
-            </div>
-          ) : null}
+          <p id="category-label">Category</p>
+          <div className="categories-unlisted-container justify-start-center">
+            <CategoriesDropdown setCategory={setCategory} />
+            <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
+          </div>
+          <div id="create-list-description-div">
+            <h2 id="description-label">List Description</h2>
+            <textarea
+              id="description-input"
+              rows="3"
+              maxLength="190"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
         </div>
-        <button onClick={handleListSubmit} id="create-list-submit">
-          Create List
-        </button>
-      </form>
-    </div>
+        <ListImage
+          setImageLoading={setImageLoading}
+          setUserError={setUserError}
+          setListImgUrl={setListImgUrl}
+          imageLoading={imageLoading}
+          listImgUrl={listImgUrl}
+        />
+      </div>
+      <div id="create-list-options-div">
+        <h2 id="options-label">List Options (any order):</h2>
+        <div id="infotag-and-preset-button-container">
+          <button
+            id="option-preset-button"
+            onClick={(e) => {
+              e.preventDefault();
+              setPresetModalOpen(true);
+            }}
+          >
+            Use Preset Options
+          </button>
+          <Tooltip
+            helpText={
+              "Prefill your options with previously made public or personal options"
+            }
+          />
+        </div>
+        <OptionInputs
+          listOptions={listOptions}
+          imageLoading={imageLoading}
+          setListOptions={setListOptions}
+          setImageLoading={setImageLoading}
+          presetModalOpen={presetModalOpen}
+          setPresetModalOpen={setPresetModalOpen}
+        />
+        <div id="infotag-and-preset-button-container">
+          <label id="unlisted-label">Save Options As Preset:</label>
+          <input
+            type="checkbox"
+            id="unlisted-input"
+            name="unlisted"
+            onChange={() => setSavePresets(!savePresets)}
+          />
+          <Tooltip helpText={"Save your options as a preset for future use"} />
+        </div>
+        {savePresets ? (
+          <div className="preset-input-container">
+            <label className="preset-input-label">Preset Name</label>
+            <input
+              id="preset-privacy-input"
+              maxLength="32"
+              type="text"
+              onChange={(e) => setPresetTitle(e.target.value)}
+            />
+          </div>
+        ) : null}
+      </div>
+      <button onClick={handleListSubmit} id="create-list-submit">
+        Create List
+      </button>
+    </form>
   );
 }
