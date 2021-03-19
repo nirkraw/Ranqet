@@ -36,18 +36,18 @@
 
 #create-list-info-and-image-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-self: center;
   width: 100%;
 }
 
-.categories-unlisted-container {
-  margin-bottom: 30px;
-  width: 100%; 
-}
-
 #list-info-container {
   width: 50%;
+}
+
+.categories-unlisted-container {
+  margin-bottom: 30px;
+  width: 100%;
 }
 
 #create-list-options-div,
@@ -60,12 +60,9 @@
   width: 100%;
 }
 
-#title-label,
-#options-label,
-#description-label,
 #unlisted-label,
 #image-label,
-#category-label {
+.create-list-label {
   font-family: var(--font-6);
   font-size: 25px;
   line-height: 30px;

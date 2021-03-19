@@ -1,0 +1,26 @@
+.list-upload-image-main {
+  margin: auto;
+  margin-top: 0;
+}
+
+.list-upload-image {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 25px;
+  height: 250px;
+  width: 375px;
+  border: 3px dashed var(--gray-2);
+}
+
+.list-upload-uploadImage {
+  box-sizing: border-box;
+  width: 50%;
+  border-right: 3px solid var(--gray-2);
+  height: 100%;
+}
+
+.list-upload-searchGiffy {
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+}

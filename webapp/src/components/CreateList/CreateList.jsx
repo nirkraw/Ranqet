@@ -4,6 +4,7 @@ import "../../styles/createList/CreateList.css";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import OptionInputs from "./OptionInputs";
 import ListImage from "./ListImage";
+import ListUploadImage from "./ListUploadImage";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
 import { useHistory } from "react-router-dom";
@@ -87,7 +88,7 @@ export default function CreateList() {
       <div id="create-list-info-and-image-container">
         <div id="list-info-container">
           <div id="create-list-title-div">
-            <h2 id="title-label">Title</h2>
+            <h2 className="create-list-label">Title</h2>
             <input
               id="title-input"
               maxLength="32"
@@ -95,13 +96,13 @@ export default function CreateList() {
               onChange={(e) => setListTitle(e.target.value)}
             />
           </div>
-          <p id="category-label">Category</p>
+          <h2 className="create-list-label">Category</h2>
           <div className="categories-unlisted-container justify-start-center">
             <CategoriesDropdown setCategory={setCategory} />
             <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
           </div>
           <div id="create-list-description-div">
-            <h2 id="description-label">List Description</h2>
+            <h2 className="create-list-label">List Description</h2>
             <textarea
               id="description-input"
               rows="3"
@@ -110,16 +111,17 @@ export default function CreateList() {
             />
           </div>
         </div>
-        <ListImage
+        {/* <ListImage
           setImageLoading={setImageLoading}
           setUserError={setUserError}
           setListImgUrl={setListImgUrl}
           imageLoading={imageLoading}
           listImgUrl={listImgUrl}
-        />
+        /> */}
+        <ListUploadImage />
       </div>
       <div id="create-list-options-div">
-        <h2 id="options-label">List Options (any order):</h2>
+        <h2 className="create-list-label">List Options (any order):</h2>
         <div id="infotag-and-preset-button-container">
           <button
             id="option-preset-button"
