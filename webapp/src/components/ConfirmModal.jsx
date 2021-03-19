@@ -36,7 +36,11 @@ export default function ConfirmModal({ isOpen, setIsOpen, listId, setFilter }) {
     setIsOpen(false);
   };
   return (
-    <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" } }}>
+    <Modal
+      isOpen={isOpen}
+      className="Modal"
+      overlayClassName="Overlay"
+    >
       <div id="confirmation-modal-container">
         <h1>Are you sure you want to delete this list?</h1>
         <div id="confirmation-modal-button-container">

@@ -29,6 +29,7 @@
   border-radius: 2px;
   border: 2px solid var(--gray-2);
   background: var(--gray-3);
+  font-family: var(--font-6);
 }
 
 #search-icon-container {
@@ -60,7 +61,6 @@
   position: absolute;
   z-index: 2;
   top: 50px;
-  /* background-color: var(--gray-3); */
   background-color: white;
   padding-top: 2%;
   visibility: hidden;

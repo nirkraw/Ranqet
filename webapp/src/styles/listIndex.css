@@ -135,3 +135,16 @@
   margin-left: 5px;
   margin-right: 3px;
 }
+
+.list-index-delete {
+  font-family: var(--font-6);
+  font-size: 20px;
+  line-height: 30px;
+  color: var(--gray-1);
+  text-decoration: underline;
+}
+
+.list-index-delete:hover {
+  color: rgb(114, 114, 114);
+  cursor: pointer;
+}

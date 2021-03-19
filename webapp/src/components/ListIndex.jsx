@@ -69,7 +69,7 @@ export default function ListIndex({ cacheId, includeDelete }) {
                     }}
                   >
                     <span>By: </span>
-                    <p>{list.createdBy.name}</p>
+                    <p>{list.createdBy.username}</p>
                     <span>·</span>
                   </div>
                   <p className={"created-date"}>
@@ -79,7 +79,7 @@ export default function ListIndex({ cacheId, includeDelete }) {
                 <div className="list-index-item-description">
                   <p>{list.description}</p>
                 </div>
-                <div className="justify-start">
+                <div className="justify-start-center">
                   {list.isCompleted ? (
                     <div
                       className="list-index-button site-button-3"
@@ -97,10 +97,10 @@ export default function ListIndex({ cacheId, includeDelete }) {
                   )}
                   {includeDelete ? (
                     <div
-                      className="site-button-3"
+                      className="list-index-delete"
                       onClick={() => deleteList(list.id)}
                     >
-                      Delete
+                      Delete this list
                     </div>
                   ) : null}
                 </div>
