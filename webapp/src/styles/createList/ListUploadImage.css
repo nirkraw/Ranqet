@@ -27,22 +27,31 @@
   position: relative;
 }
 
+.list-upload-searchGiffy:hover .list-upload-icon-2,
+.list-upload-uploadImage:hover .list-upload-icon {
+  opacity: 0.9;
+}
+
+.list-upload-uploadImage:hover,
+.list-upload-searchGiffy:hover {
+  cursor: pointer;
+}
+
 .list-upload-icon {
-  width: 72px;
-  height: 72px;
-  opacity: 0.7;
-  
+  width: 70px;
+  height: 70px;
+  opacity: 0.6;
 }
 
 .list-upload-icon-2 {
   width: 75px;
   height: 75px;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .list-upload-type-header {
   position: absolute;
-  bottom: -5px;
+  bottom: -10px;
   font-family: var(--font-6);
   font-size: 20px;
   line-height: 24px;
