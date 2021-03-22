@@ -11,6 +11,7 @@ public class UserEntity {
     @Id
     private UUID id;
 
+    @Deprecated
     @Column(name = "name")
     private String name;
 
