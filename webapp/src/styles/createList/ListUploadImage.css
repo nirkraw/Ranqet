@@ -20,6 +20,13 @@
   position: relative;
 }
 
+.list-upload-uploadImage-no-giffy {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .list-upload-searchGiffy {
   box-sizing: border-box;
   width: 50%;
@@ -28,12 +35,14 @@
 }
 
 .list-upload-searchGiffy:hover .list-upload-icon-2,
+.list-upload-uploadImage-no-giffy:hover .list-upload-icon,
 .list-upload-uploadImage:hover .list-upload-icon {
   opacity: 0.9;
 }
 
 .list-upload-uploadImage:hover,
-.list-upload-searchGiffy:hover {
+.list-upload-searchGiffy:hover,
+.list-upload-uploadImage-no-giffy {
   cursor: pointer;
 }
 
@@ -56,4 +65,13 @@
   font-size: 20px;
   line-height: 24px;
   color: var(--gray-1);
+}
+
+.create-list-image {
+  height: 250px;
+  width: 375px;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }

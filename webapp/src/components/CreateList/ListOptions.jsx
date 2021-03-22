@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
-import LoadingSpinner from "../Misc/LoadingSpinner";
-import UploadImage from "./UploadImage";
-import "../../styles/createList/OptionInputs.css";
+import ListUploadImage from "./ListUploadImage";
+import "../../styles/createList/ListOptions.css";
 import PresetOptions from "./PresetOptions/PresetOptions";
 
-export default function OptionInputs({
-  imageLoading,
+export default function ListOptions({
   setListOptions,
-  setImageLoading,
   presetModalOpen,
   setPresetModalOpen,
+  setUserError,
 }) {
   const [options, setOptions] = useState([
     { name: "", photoUrl: "" },
     { name: "", photoUrl: "" },
   ]);
-  const [currModalOptionIdx, setCurrModalOptionIdx] = useState();
-  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     setListOptions(options);
@@ -26,11 +22,6 @@ export default function OptionInputs({
     const optionsCopy = [...options];
     optionsCopy[index].name = e.currentTarget.value;
     setOptions(optionsCopy);
-  };
-
-  const openImageModal = (index) => {
-    setCurrModalOptionIdx(index);
-    setOpenModal(true);
   };
 
   const deleteOptionImage = (e, index) => {
@@ -56,39 +47,15 @@ export default function OptionInputs({
     setOptions(optionsCopy);
   };
 
-  const optionInputs = options.map((option, i) => {
-    let currImg;
-    if (!option.photoUrl) {
-      currImg = "Add Image";
-    } else if (imageLoading) {
-      currImg = <LoadingSpinner />;
-    } else {
-      currImg = (
-        <img
-          onClick={() => openImageModal(i)}
-          className="option-input-image"
-          src={option.photoUrl}
-          alt="option-preview"
-        ></img>
-      );
-    }
+  const setOptionImage = (url, idx) => {
+    const newOptions = [...options];
+    newOptions[idx].photoUrl = url;
+    setOptions(newOptions);
+  };
 
+  const optionInputs = options.map((option, i) => {
     return (
       <li className="option-input-li" key={i}>
-        <UploadImage
-          isOpen={openModal}
-          closeModal={() => setOpenModal(false)}
-          setImageLoading={setImageLoading}
-          currOptionIdx={currModalOptionIdx}
-          options={options}
-          setOptions={setOptions}
-        />
-        {presetModalOpen ? <PresetOptions
-          isOpen={presetModalOpen}
-          setPresetModalOpen={setPresetModalOpen}
-          setOptions={setOptions}
-          options={options}
-        /> : null}
         <input
           placeholder={`Option ${i + 1}`}
           value={option.name}
@@ -103,19 +70,18 @@ export default function OptionInputs({
         >
           Delete Option Image
         </button>
-
         <button
           onClick={(e) => removeOption(e, i)}
           className="remove-option site-button"
         >
           Delete Option
         </button>
-        <div
-          className="option-input-add-image"
-          onClick={() => openImageModal(i)}
-        >
-          {currImg}
-        </div>
+        <ListUploadImage
+          setUserError={setUserError}
+          setImgUrl={setOptionImage}
+          imgUrl={option.photoUrl}
+          optionIdx={i}
+        />
       </li>
     );
   });
@@ -123,6 +89,14 @@ export default function OptionInputs({
   return (
     <div id="options-input-main-container">
       <ul id="options-input-ul">{optionInputs}</ul>
+      {presetModalOpen ? ( //do we need this?
+        <PresetOptions
+          isOpen={true}
+          setPresetModalOpen={setPresetModalOpen}
+          setOptions={setOptions}
+          options={options}
+        />
+      ) : null}
       {options.length < 8 ? (
         <button className="site-button" onClick={addOption}>
           Add Option

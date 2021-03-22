@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createList } from "../../util/Endpoints/ListEP";
 import "../../styles/createList/CreateList.css";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import OptionInputs from "./OptionInputs";
-import ListImage from "./ListImage";
+import ListOptions from "./ListOptions";
 import ListUploadImage from "./ListUploadImage";
 import CategoriesDropdown from "./CategoriesDropdown";
 import UnlistedDropdown from "./UnlistedCheckbox";
@@ -22,7 +21,6 @@ export default function CreateList() {
   const [listOptions, setListOptions] = useState([]);
   const [userError, setUserError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [imageLoading, setImageLoading] = useState(false);
   const [presetModalOpen, setPresetModalOpen] = useState(false);
   const [savePresets, setSavePresets] = useState(false);
   const [presetTitle, setPresetTitle] = useState("");
@@ -111,14 +109,11 @@ export default function CreateList() {
             />
           </div>
         </div>
-        {/* <ListImage
-          setImageLoading={setImageLoading}
+        <ListUploadImage
           setUserError={setUserError}
-          setListImgUrl={setListImgUrl}
-          imageLoading={imageLoading}
-          listImgUrl={listImgUrl}
-        /> */}
-        <ListUploadImage />
+          setImgUrl={setListImgUrl}
+          imgUrl={listImgUrl}
+        />
       </div>
       <div id="create-list-options-div">
         <h2 className="create-list-label">List Options (any order):</h2>
@@ -138,13 +133,11 @@ export default function CreateList() {
             }
           />
         </div>
-        <OptionInputs
-          listOptions={listOptions}
-          imageLoading={imageLoading}
+        <ListOptions
           setListOptions={setListOptions}
-          setImageLoading={setImageLoading}
           presetModalOpen={presetModalOpen}
           setPresetModalOpen={setPresetModalOpen}
+          setUserError={setUserError}
         />
         <div id="infotag-and-preset-button-container">
           <label id="unlisted-label">Save Options As Preset:</label>

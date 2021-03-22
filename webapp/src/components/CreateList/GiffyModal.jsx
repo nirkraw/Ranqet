@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/createList/UploadImage.css";
+import "../../styles/createList/GiffyModal.css";
 import Modal from "react-modal";
 import axios from "axios";
 import Homer from "../../assets/homer-simpsons-155238_1280.png";
-import { uploadImage } from "../../util/Endpoints/ListEP";
 Modal.setAppElement("#root");
 
-export default function UploadImage({
+export default function GiffyModal({
   isOpen,
   closeModal,
   currOptionIdx,
-  setImageLoading,
-  options,
-  setOptions
+  setImgUrl,
 }) {
   const [giphySearch, setGiphySearch] = useState();
   const [giphyUrl, setGiphyUrl] = useState("");
@@ -36,27 +33,9 @@ export default function UploadImage({
     }
   };
 
-  const handlePhotoFile = async (e) => {
-    setImageLoading(true);
-    const file = e.currentTarget.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    try {
-      const res = await uploadImage(formData);
-      options[currOptionIdx].photoUrl = res.data.imageUrl;
-      setImageLoading(false);
-      closeModal();
-    } catch (err) {}
-  };
-
-  const addUrlToOption = (idx, url) => {
-    options[idx].photoUrl = url;
-    setOptions(options);
-  };
-
   const handleGiphySubmit = (e) => {
     e.preventDefault();
-    addUrlToOption(currOptionIdx, giphyUrl);
+    setImgUrl(giphyUrl, currOptionIdx);
     closeModal();
   };
 
@@ -83,10 +62,10 @@ export default function UploadImage({
               ) : null}
             </div>
           </div>
-          <div id="file-upload-container">
+          {/* <div id="file-upload-container">
             <h3 className="gifphy-and-file-title">Upload Image File</h3>
             <input id="photo-input" type="file" onChange={handlePhotoFile} />
-          </div>
+          </div> */}
         </div>
         <div id="exit-modal-buttons">
           <button id="exit-modal-button" onClick={closeModal}>
