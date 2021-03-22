@@ -37,6 +37,7 @@ export default function SearchInput() {
   };
 
   const handleSubmit = () => {
+    if(!searchVal) return;
     history.push(`/search/${searchVal}`);
   };
 
