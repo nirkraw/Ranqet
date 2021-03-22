@@ -303,9 +303,19 @@ public class ListFetcher {
                 .collect(Collectors.toList());
     }
 
-    public List<ListResponse> searchForListsByName(String query) {
+    public List<ListResponse> searchForListsByName(UUID userId, String sessionToken, String query) {
+        final Set<UUID> completedLists;
+        if (userId != null) {
+            sessionTokenAuthenticator.verifySessionToken(userId, sessionToken);
+            completedLists = userListsRepo.findByUserIdAndIsCompleted(userId, true).stream()
+                    .map(UserListEntity::getListId)
+                    .collect(Collectors.toSet());
+        } else {
+            completedLists = Collections.emptySet();
+        }
+        
         return listsRepo.searchByNameContaining(StringUtils.strip(query)).stream()
-                .map(ListFetcher::convertListToResponse)
+                .map((list) -> convertListToResponse(list, (userId != null) && completedLists.contains(list.getId())))
                 .collect(Collectors.toList());
     }
     

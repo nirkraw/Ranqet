@@ -104,14 +104,15 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/search")
-    public GenericListsResponse searchForListsByName(@RequestParam(value = "query") String query) {
+    public GenericListsResponse searchForListsByName(@RequestParam("userId") String userId,
+          @RequestParam String sessionToken, @RequestParam(value = "query") String query) {
         if (StringUtils.isEmpty(query)) {
             return GenericListsResponse.builder()
                     .lists(Collections.emptyList())
                     .build();
         }
 
-        List<ListResponse> searchResults = listFetcher.searchForListsByName(query);
+        List<ListResponse> searchResults = listFetcher.searchForListsByName(asNullableUUID(userId), sessionToken, query);
         return GenericListsResponse.builder()
                 .lists(searchResults)
                 .build();

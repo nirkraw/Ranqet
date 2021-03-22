@@ -94,7 +94,7 @@ public class CommentManager {
                 .withComment(entity.getContents())
                 .withCreatedOn(entity.getCreatedOn())
                 .withPostedBy(entity.getPostedBy())
-                .withAuthorName(user.getName())
+                .withAuthorName(user.getUsername())
                 .withAuthorAvatarUrl(user.getAvatarUrl())
                 .build();
     }
