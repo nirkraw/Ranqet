@@ -56,8 +56,10 @@ export default function ListOptions({
   const optionInputs = options.map((option, i) => {
     return (
       <li className="option-input-li" key={i}>
-        <div className="column-start-center" style={{width:"55%"}}>
-          <h2 className="create-list-label" style={{marginBottom:"25px"}}>Option {i + 1}</h2>
+        <div className="column-start-center" style={{ width: "55%" }}>
+          <h2 className="create-list-label" style={{ marginBottom: "25px" }}>
+            Option {i + 1}
+          </h2>
           <input
             value={option.name}
             maxLength="32"
@@ -66,18 +68,20 @@ export default function ListOptions({
             onChange={(e) => handleOptionNameChange(e, i)}
           />
         </div>
-        {/* <button
-          onClick={(e) => deleteOptionImage(e, i)}
-          className="delete-option-image site-button"
-        >
-          Delete Option Image
-        </button>
+        {option.photoUrl ? (
+          <button
+            onClick={(e) => deleteOptionImage(e, i)}
+            className="delete-option-image site-button"
+          >
+            Delete Option Image
+          </button>
+        ) : null}
         <button
           onClick={(e) => removeOption(e, i)}
-          className="remove-option site-button"
+          className="remove-option site-button-3"
         >
-          Delete Option
-        </button> */}
+          Remove Option {i + 1}
+        </button>
         <ListUploadImage
           setUserError={setUserError}
           setImgUrl={setOptionImage}
@@ -100,9 +104,9 @@ export default function ListOptions({
         />
       ) : null}
       {options.length < 8 ? (
-        <button className="site-button" onClick={addOption}>
-          Add Option
-        </button>
+        <div className="site-button-3" onClick={addOption}>
+          + Add Option
+        </div>
       ) : null}
     </div>
   );
