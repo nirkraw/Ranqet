@@ -7,7 +7,6 @@ import Quiz from "./Quiz/Quiz";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import React, { useState } from "react";
 import UserProfile from "./UserProfile/UserProfile";
-import Category from "./Category";
 import Modal from "./Modal";
 import SearchPage from "./SearchBar/SearchPage";
 import ErrorPage from "./Misc/ErrorPage";
@@ -43,10 +42,6 @@ function App() {
                 <Redirect to="/" />
               )
             }
-          />
-          <Route
-            path="/category/:categoryType"
-            render={() => <Category openModal={openModal} />}
           />
           <Route exact path="/:listId/quiz" render={() => <Quiz />} />
           <Route

@@ -100,7 +100,7 @@ export default function CreateList() {
             <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
           </div>
           <div id="create-list-description-div">
-            <h2 className="create-list-label">List Description</h2>
+            <h2 className="create-list-label">Description</h2>
             <textarea
               id="description-input"
               rows="3"

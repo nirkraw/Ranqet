@@ -2,9 +2,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "../../styles/SearchBar.css";
 
-export default function SearchResults({ results, searchWrapper, setActive, active }) {
+export default function SearchResults({ searchWrapper, setActive, active }) {
   const history = useHistory();
-  if (results.length === 0) return null;
+  if (!localStorage.getItem("searchResults")) return null;
+  const results = JSON.parse(localStorage.getItem("searchResults")).lists;
 
   return (
     <ul
