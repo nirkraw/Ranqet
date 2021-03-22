@@ -1,6 +1,7 @@
 #create-list-form {
   width: 100vw;
   padding-left: 6%;
+  padding-right: 6%;
   padding-top: 2%;
   display: flex;
   flex-direction: column;
@@ -8,7 +9,7 @@
   position: relative;
 }
 
-#create-list-title {
+.create-list-title {
   font-family: var(--font-6);
   font-size: 50px;
   color: var(--orange-1);
@@ -42,7 +43,7 @@
 }
 
 #list-info-container {
-  width: 50%;
+  width: 55%;
 }
 
 .categories-unlisted-container {
@@ -74,10 +75,9 @@
 #title-input,
 #description-input,
 .option-input {
-  height: 45px;
-  border: 1px solid gray;
+  height: 65px;
+  border: 3px solid var(--gray-2);
   border-radius: 3%;
-  width: 350px;
   font-size: 30px;
   line-height: 35px;
   color: #818181;

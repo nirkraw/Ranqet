@@ -24,9 +24,9 @@
 
 .option-input-li {
   width: 100%;
-  height: 300px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  padding-bottom: 35px;
   margin-bottom: 35px;
   border-bottom: 1px solid var(--gray-1);
   position: relative;
@@ -44,7 +44,7 @@
   
 
 .option-input {
-  width: 55%;
+  width: 100%;
 }
 
 .option-input-add-image {

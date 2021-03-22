@@ -79,7 +79,7 @@ export default function CreateList() {
 
   return (
     <form id="create-list-form">
-      <h1 id="create-list-title">Create List</h1>
+      <h1 className="create-list-title">Create List</h1>
       <div id="create-list-error-container">
         <h2 id="create-list-error">{userError}</h2>
       </div>
@@ -116,7 +116,7 @@ export default function CreateList() {
         />
       </div>
       <div id="create-list-options-div">
-        <h2 className="create-list-label">List Options (any order):</h2>
+        <h1 className="create-list-title">List Options</h1>
         <div id="infotag-and-preset-button-container">
           <button
             id="option-preset-button"

@@ -56,15 +56,17 @@ export default function ListOptions({
   const optionInputs = options.map((option, i) => {
     return (
       <li className="option-input-li" key={i}>
-        <input
-          placeholder={`Option ${i + 1}`}
-          value={option.name}
-          maxLength="32"
-          className="option-input"
-          type="text"
-          onChange={(e) => handleOptionNameChange(e, i)}
-        />
-        <button
+        <div className="column-start-center" style={{width:"55%"}}>
+          <h2 className="create-list-label" style={{marginBottom:"25px"}}>Option {i + 1}</h2>
+          <input
+            value={option.name}
+            maxLength="32"
+            className="option-input"
+            type="text"
+            onChange={(e) => handleOptionNameChange(e, i)}
+          />
+        </div>
+        {/* <button
           onClick={(e) => deleteOptionImage(e, i)}
           className="delete-option-image site-button"
         >
@@ -75,7 +77,7 @@ export default function ListOptions({
           className="remove-option site-button"
         >
           Delete Option
-        </button>
+        </button> */}
         <ListUploadImage
           setUserError={setUserError}
           setImgUrl={setOptionImage}
