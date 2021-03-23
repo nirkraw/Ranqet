@@ -10,6 +10,7 @@ import useCache from "../../util/useCache";
 import { clearEndpointCache } from "../../util/clearEndpointCache";
 
 export default function Home() {
+  console.log("HOME")
   const [filter, setFilter] = useState("");
   //enabled:false on first render because we don't need a userList for HomeCategories
   const [userListCacheId, loading] = useCache({
