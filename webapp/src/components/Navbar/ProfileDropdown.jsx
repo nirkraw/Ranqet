@@ -70,7 +70,7 @@ export default function ProfileDropdown() {
         <div
           className="profile-dropdown-item-container"
           onClick={() => {
-            history.push(`./profile/${localStorage.getItem("userId")}`);
+            history.push(`/profile/${localStorage.getItem("userId")}`);
             setActive(false);
           }}
         >
