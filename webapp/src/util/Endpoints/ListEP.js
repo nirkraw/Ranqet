@@ -73,10 +73,13 @@ export const uploadImage = (formData) => {
   });
 };
 
-export const searchForLists = (searchString) => {
-  return axios.get(`${server}/lists/search?query=${searchString}`, {
-    "Content-Type": "application/json",
-  });
+export const searchForLists = (searchString, sessionToken, userId) => {
+  return axios.get(
+    `${server}/lists/search?query=${searchString}&sessionToken=${sessionToken}&userId=${userId}`,
+    {
+      "Content-Type": "application/json",
+    }
+  );
 };
 
 export const fetchListPresets = (userId, sessionToken) => {

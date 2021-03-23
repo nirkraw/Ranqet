@@ -24,10 +24,19 @@ export default function SearchInput() {
   };
 
   const search = async (lookupKey) => {
-    if (!lookupKey) localStorage.removeItem("searchResults")
+    if (!lookupKey) localStorage.removeItem("searchResults");
     else {
+      let res;
       try {
-        const res = await searchForLists(lookupKey);
+        if (localStorage.getItem("sessionToken")) {
+          res = await searchForLists(
+            lookupKey,
+            localStorage.getItem("sessionToken"),
+            localStorage.getItem("userId")
+          );
+        } else {
+          res = await searchForLists(lookupKey, "", "");
+        }
         localStorage.setItem("searchResults", JSON.stringify(res.data));
       } catch (err) {
         history.push(`/error/${err.message}`);
@@ -37,7 +46,7 @@ export default function SearchInput() {
   };
 
   const handleSubmit = () => {
-    if(!searchVal) return;
+    if (!searchVal) return;
     history.push(`/search/${searchVal}`);
   };
 

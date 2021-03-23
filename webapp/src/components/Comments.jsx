@@ -95,7 +95,7 @@ export default function Comments({ openModal }) {
   };
 
   if (loading) return <LoadingSpinner />;
- 
+
   return (
     <div id="main-comments-container">
       <div id="add-comment-container">
