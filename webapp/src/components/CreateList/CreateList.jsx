@@ -71,7 +71,6 @@ export default function CreateList() {
         history.push(`/list/new/${res.data.id}`);
       } catch (err) {
         history.push(`/error/${err.message}`);
-        console.log("ERROR ON SUBMIT");
       }
     }
   };

@@ -6,7 +6,6 @@ export default function ErrorPage() {
   const history = useHistory();
   const match = useRouteMatch();
   if (!match.params.errorMessage) return null;
-  console.log(match.params.errorMessage);
 
   return (
     <div id="error-page-container">
