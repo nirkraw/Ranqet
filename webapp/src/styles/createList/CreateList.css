@@ -74,12 +74,12 @@
 
 #title-input,
 #description-input,
-.option-input {
-  height: 65px;
+.option-input, #category-input {
+  height: 50px;
   border: 3px solid var(--gray-2);
   border-radius: 3%;
-  font-size: 30px;
-  line-height: 35px;
+  font-size: 23px;
+  line-height: 30px;
   color: #818181;
   margin-bottom: 30px;
   padding-left: 10px;

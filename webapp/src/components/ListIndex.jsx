@@ -88,11 +88,19 @@ export default function ListIndex({ cacheId, includeDelete }) {
                       View Results
                     </div>
                   ) : (
-                    <div
-                      className="list-index-button site-button-2"
-                      onClick={() => history.push(`/${list.id}/quiz`)}
-                    >
-                      Rank It!
+                    <div className="justify-start-center">
+                      <div
+                        className="list-index-button site-button-2"
+                        onClick={() => history.push(`/${list.id}/quiz`)}
+                      >
+                        Rank It!
+                      </div>
+                      <div
+                        className="list-index-button site-button-3"
+                        onClick={() => history.push(`/${list.id}/rankings`)}
+                      >
+                        View Results
+                      </div>
                     </div>
                   )}
                   {includeDelete ? (

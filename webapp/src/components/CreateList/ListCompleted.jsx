@@ -20,6 +20,7 @@ export default function ListCompleted() {
   const loadList = async () =>  {
     try {
       const res = await fetchList(match.params.listId);
+      if (res.data.createdBy.id !== localStorage.getItem("userId")) history.push("/");
       setTitle(res.data.title);
       setDescription(res.data.description);
       setImageUrl(res.data.imageUrl);

@@ -5,14 +5,6 @@
 }
 
 #category-input {
-  border: 1px solid gray;
   width: 350px;
-  border: 3px solid var(--gray-2);
-  border-radius: 3%;
-  font-size: 25px;
-  height: 65px;
-  font-family: var(--font-6);
-  font-weight: 400;
-  padding-left: 10px;
-  color: #a7a7a7;
+  margin-bottom: 0px;
 }

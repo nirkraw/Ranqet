@@ -89,7 +89,7 @@ export default function CreateList() {
             <h2 className="create-list-label">Title</h2>
             <input
               id="title-input"
-              maxLength="32"
+              maxLength="64"
               type="text"
               onChange={(e) => setListTitle(e.target.value)}
             />

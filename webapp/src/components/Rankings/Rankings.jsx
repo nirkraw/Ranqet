@@ -3,6 +3,7 @@ import {
   fetchPersonalRankings,
   fetchGlobalRankings,
 } from "../../util/Endpoints/RankingEP";
+import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 import "../../styles/Rankings.css";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useRouteMatch, useHistory } from "react-router-dom";
@@ -17,13 +18,17 @@ export default function Rankings({ openModal }) {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
 
-
   useEffect(() => {
     getGlobalRankings();
   }, [match.params.listId]);
 
   const getPersonalRankings = async () => {
     try {
+      const res = await fetchListOptionPair(
+        match.params.listId,
+        localStorage.getItem("userId")
+      );
+      if (!res.data.isCompleted) return;
       const personal = await fetchPersonalRankings(
         match.params.listId,
         localStorage.getItem("userId")

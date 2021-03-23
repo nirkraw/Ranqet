@@ -32,7 +32,16 @@ function App() {
         <Modal modalSettings={modalSettings} openModal={openModal} />
         <Switch>
           <Route path="/error/:errorMessage" render={() => <ErrorPage />} />
-          <Route path="/list/new/:listId" render={() => <ListCompleted />} />
+          <Route
+            path="/list/new/:listId"
+            render={() =>
+              localStorage.getItem("sessionToken") ? (
+                <ListCompleted />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
           <Route
             path="/create-list"
             render={() =>
