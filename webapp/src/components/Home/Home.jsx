@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { fetchUserLists } from "../../util/Endpoints/UserEP";
+import { fetchCategoryList } from "../../util/Endpoints/ListEP";
 import Tabs from "../Tabs";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Home.css";
 import { UserFilterToTitle, UserFilter } from "../../enums/UserListFilter";
+import { ListCategory } from "../../enums/ListCategory";
 import useCache from "../../util/useCache";
 import { clearEndpointCache } from "../../util/clearEndpointCache";
 
@@ -24,6 +26,13 @@ export default function Home() {
     return () => {
       for (let filter of UserFilter) {
         clearEndpointCache(fetchUserLists, [
+          filter,
+          localStorage.getItem("userId"),
+          localStorage.getItem("sessionToken"),
+        ]);
+      }
+      for (let filter of ListCategory) {
+        clearEndpointCache(fetchCategoryList, [
           filter,
           localStorage.getItem("userId"),
           localStorage.getItem("sessionToken"),
