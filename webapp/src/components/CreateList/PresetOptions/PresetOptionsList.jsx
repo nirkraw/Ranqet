@@ -21,28 +21,32 @@ export default function PresetOptionsTabs({
     <div id="options-tabs-container">
       <h1>My Presets</h1>
       <ul className="preset-tab-ul">
-        {presets.map((preset, i) => (
-          <li
-            className={
-              activeIndex === i
-                ? "preset-tab-item active-preset"
-                : "preset-tab-item"
-            }
-            key={i}
-            onClick={() => {
-              setCurrOptions(presets[i].presetOptions);
-              setActiveIndex(i);
-            }}
-          >
-            <h1 className="preset-tab-title">{preset.title}</h1>
-            <button
-              onClick={() => deleteCurrPreset(preset.id)}
-              className="delete-preset site-button"
+        {presets.length === 0 ? (
+          <h2>No Presets Saved</h2>
+        ) : (
+          presets.map((preset, i) => (
+            <li
+              className={
+                activeIndex === i
+                  ? "preset-tab-item active-preset"
+                  : "preset-tab-item"
+              }
+              key={i}
+              onClick={() => {
+                setCurrOptions(presets[i].presetOptions);
+                setActiveIndex(i);
+              }}
             >
-              Delete
-            </button>
-          </li>
-        ))}
+              <h1 className="preset-tab-title">{preset.title}</h1>
+              <button
+                onClick={() => deleteCurrPreset(preset.id)}
+                className="delete-preset site-button"
+              >
+                Delete
+              </button>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );
