@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import SearchResults from "./SearchResults";
 import { useHistory } from "react-router-dom";
 import "../../styles/SearchBar.css";
@@ -10,6 +10,7 @@ import { useOutsideAlerter } from "../../util/useOutsideAlerter";
 export default function SearchInput() {
   const [active, setActive] = useState(false);
   const [searchVal, setSearchVal] = useState("");
+  const [showResults, setShowResults] = useState(false)
   const debounceSave = useCallback(
     debounce((lookupKey) => search(lookupKey), 500),
     []
@@ -17,6 +18,11 @@ export default function SearchInput() {
   const history = useHistory();
   const searchWrapper = useRef(null);
   useOutsideAlerter(searchWrapper, setActive);
+
+  useEffect(() => {
+    if(!searchVal) setShowResults(false);
+    else setShowResults(true);
+  }, [searchVal]);
 
   const handleChange = (e) => {
     const lookupKey = e.target.value;
@@ -47,6 +53,7 @@ export default function SearchInput() {
 
   const handleSubmit = () => {
     if (!searchVal) return;
+    setSearchVal("");
     history.push(`/search/${searchVal}`);
   };
 
@@ -79,7 +86,7 @@ export default function SearchInput() {
         searchWrapper={searchWrapper}
         active={active}
         setActive={setActive}
-        searchVal={searchVal} //passed down in order to trigger rerender with new search results
+        showResults={showResults} 
       />
     </div>
   );

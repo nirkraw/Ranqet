@@ -61,8 +61,8 @@
   height: 500px;
 }
 
-#option-div,
-#option-div-no-image {
+.option-div,
+.option-div-no-image {
   width: 450px;
   height: 450px;
   display: flex;

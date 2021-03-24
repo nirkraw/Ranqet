@@ -42,8 +42,10 @@ export default function Quiz() {
     borderTopLeftRadius: "30px",
     borderBottomLeftRadius: "30px",
   };
+
+
   return (
-    <div id="quiz-main-div">
+    <div id="quiz-main-div" >
       <h1 id="main-quiz-header">{listName}</h1>
       <h2 id="main-quiz-description">{description}</h2>
       <div id="progress-bar-container">

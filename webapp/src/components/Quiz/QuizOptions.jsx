@@ -14,6 +14,7 @@ export default function QuizOptions({
 }) {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [clickable, setClickale] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
@@ -40,8 +41,12 @@ export default function QuizOptions({
   };
 
   const submitOption = async (e) => {
-    setLoading(true);
+    setClickale(false);
+    setTimeout(() => {
+      setClickale(true);
+    }, 1000);
     const winningOptionId = e.currentTarget.attributes.optionid.value;
+    setLoading(true);
     const losingOptionId =
       options[0].id === winningOptionId ? options[1].id : options[0].id;
     try {
@@ -65,9 +70,9 @@ export default function QuizOptions({
         if (option.photoUrl)
           return (
             <div
-              id="option-div"
+              className="option-div"
               optionid={option.id}
-              onClick={submitOption}
+              onClick={clickable ? submitOption : null}
               key={i}
             >
               <h3 className="option-header">{option.name}</h3>
@@ -81,7 +86,7 @@ export default function QuizOptions({
         else
           return (
             <div
-              id="option-div-no-image"
+              className="option-div-no-image"
               optionid={option.id}
               onClick={submitOption}
               key={i}
