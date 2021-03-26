@@ -17,7 +17,7 @@ export default function SearchInput() {
   );
   const history = useHistory();
   const searchWrapper = useRef(null);
-  useOutsideAlerter(searchWrapper, setActive);
+  useOutsideAlerter(searchWrapper, setActive, "mousedown");
 
   useEffect(() => {
     if(!searchVal) setShowResults(false);

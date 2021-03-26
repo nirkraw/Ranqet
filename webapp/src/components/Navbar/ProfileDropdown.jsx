@@ -9,7 +9,7 @@ import { getCacheId } from "../../util/getCacheId";
 export default function ProfileDropdown() {
   const [userInfoCacheId] = useCache({
     fn: fetchUser,
-    args: [localStorage.getItem("userId")]
+    args: [localStorage.getItem("userId")],
   });
   const [active, setActive] = useState(false);
   const history = useHistory();
@@ -17,7 +17,7 @@ export default function ProfileDropdown() {
   const [cacheId] = useState(
     getCacheId(fetchUser, [localStorage.getItem("userId")])
   );
-  useOutsideAlerter(wrapperRef, setActive);
+  useOutsideAlerter(wrapperRef, setActive, "mousedown");
 
   const [userInfo, setUserInfo] = useState("");
 
@@ -30,7 +30,6 @@ export default function ProfileDropdown() {
       window.removeEventListener("editStorage", updateUserInfo);
     };
   }, []);
-
 
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem(userInfoCacheId)));

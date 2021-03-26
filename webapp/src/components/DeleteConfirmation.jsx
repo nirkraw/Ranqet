@@ -9,7 +9,7 @@ export default function DeleteConfirmation({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, setIsOpen);
+  useOutsideAlerter(wrapperRef, setIsOpen, "mousedown");
   return (
     <div className="confirmation-modal-main" ref={wrapperRef}>
       <div onClick={() => setIsOpen(true)}>{parent}</div>
