@@ -1,0 +1,28 @@
+.confirmation-modal-main {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.confirmation-modal-box {
+  position: absolute;
+  width: 200px;
+  background-color: var(--gray-3);
+  transform: translate(0%, 65%);
+  border: 1px solid black;
+  z-index: 10;
+  padding: 15px;
+}
+
+.confirmation-modal-box > p {
+  font-family: var(--font-6);
+  text-align: center;
+}
+
+.confirmation-modal-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}

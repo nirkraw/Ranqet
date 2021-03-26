@@ -9,6 +9,7 @@ export default function PresetOptionsTabs({
   const [activeIndex, setActiveIndex] = useState(null);
 
   const deleteCurrPreset = async (presetId) => {
+    debugger
     await deletePreset(
       localStorage.getItem("userId"),
       localStorage.getItem("sessionToken"),
@@ -39,7 +40,7 @@ export default function PresetOptionsTabs({
             >
               <h1 className="preset-tab-title">{preset.title}</h1>
               <button
-                onClick={() => deleteCurrPreset(preset.id)}
+                onClick={() => deleteCurrPreset(preset)}
                 className="delete-preset site-button"
               >
                 Delete

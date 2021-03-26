@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getFormattedDate } from "../util/DateCalc";
 import { useHistory } from "react-router-dom";
 import "../styles/listIndex.css";
-import ConfirmationModal from "./ConfirmModal";
+import { getCacheId } from "../util/getCacheId";
+import { fetchUserLists } from "../util/Endpoints/UserEP";
+import { deleteList } from "../util/Endpoints/ListEP";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 export default function ListIndex({ cacheId, includeDelete }) {
-  const [currListId, setCurrListId] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
+  const [passedList, setPassedList] = useState([]);
 
-  const passedList = cacheId
-    ? JSON.parse(localStorage.getItem(cacheId)).lists
-    : [];
+  useEffect(() => {
+    if (cacheId) setPassedList(JSON.parse(localStorage.getItem(cacheId)).lists);
+  }, [cacheId]);
 
   if (!passedList || !passedList.length)
     return (
@@ -23,18 +25,34 @@ export default function ListIndex({ cacheId, includeDelete }) {
       </div>
     );
 
-  const deleteList = (listId) => {
-    setCurrListId(listId);
-    setIsOpen(true);
+  const confirmDeleteList = async (listId) => {
+    try {
+      await deleteList(
+        window.localStorage.getItem("userId"),
+        listId,
+        window.localStorage.getItem("sessionToken")
+      );
+    } catch (err) {
+      history.push(`/error/${err.message}`);
+    }
+    const cacheId = getCacheId(fetchUserLists, [
+      "CREATED",
+      localStorage.getItem("userId"),
+      localStorage.getItem("sessionToken"),
+    ]);
+    const cachedUserLists = JSON.parse(localStorage.getItem(cacheId)).lists;
+    const newCachedUserLists = { lists: [] };
+    for (let i = 0; i < cachedUserLists.length; i++) {
+      const list = cachedUserLists[i];
+      if (list.id === listId) continue;
+      newCachedUserLists.lists.push(list);
+    }
+    localStorage.setItem(cacheId, JSON.stringify(newCachedUserLists));
+    setPassedList(JSON.parse(localStorage.getItem(cacheId)).lists);
   };
 
   return (
     <ul id="list-index-ul">
-      <ConfirmationModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        listId={currListId}
-      />
       {passedList.map((list, i) => {
         return (
           <div className="list-index-item" key={i}>
@@ -104,12 +122,15 @@ export default function ListIndex({ cacheId, includeDelete }) {
                     </div>
                   )}
                   {includeDelete ? (
-                    <div
-                      className="list-index-delete"
-                      onClick={() => deleteList(list.id)}
-                    >
-                      Delete this list
-                    </div>
+                    <DeleteConfirmation
+                      parent={
+                        <div className="list-index-delete">
+                          Delete this list
+                        </div>
+                      }
+                      submitFunc={() => confirmDeleteList(list.id)}
+                      confirmMessage="Are you sure you want to delete this list?"
+                    />
                   ) : null}
                 </div>
               </div>

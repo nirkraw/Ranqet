@@ -35,7 +35,7 @@ export default function PresetOptionsDisplay({ options, setCurrOptions }) {
             />
             <label className="preset-checkbox-label">{option.name}</label>
           </div>
-          <img src={option.photoUrl} alt="option" />
+          {option.photoUrl ? <img src={option.photoUrl} alt="option" /> : null}
         </li>
       ))}
     </ul>
