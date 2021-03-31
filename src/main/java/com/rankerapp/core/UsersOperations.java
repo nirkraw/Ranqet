@@ -68,7 +68,7 @@ public class UsersOperations {
 
         userEntity.setPasswordHash(passwordHash);
         userEntity.setPasswordSalt(passwordSalt);
-        userEntity.setUsername(username);
+        userEntity.setUsername(username.toLowerCase());
         try {
             usersRepo.save(userEntity);
         } catch (DataIntegrityViolationException e) {
