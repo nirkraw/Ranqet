@@ -1,7 +1,9 @@
 package com.rankerapp.core;
 
+import com.rankerapp.db.ImageRecordsRepository;
 import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.UsersRepository;
+import com.rankerapp.db.model.ImageRecordEntity;
 import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.OptionEntity;
 import com.rankerapp.db.model.UserEntity;
@@ -10,28 +12,34 @@ import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.ListCategory;
 import com.rankerapp.transport.model.SubmittedOption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 public class ListWriter {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(ListWriter.class);
 
     private final ListsRepository listsRepository;
 
     private final UsersRepository usersRepository;
+    
+    private final ImageRecordsRepository imageRecordsRepository;
 
     @Inject
-    public ListWriter(ListsRepository listsRepository, UsersRepository usersRepository) {
+    public ListWriter(ListsRepository listsRepository, UsersRepository usersRepository,
+                      ImageRecordsRepository imageRecordsRepository) {
         this.listsRepository = listsRepository;
         this.usersRepository = usersRepository;
+        this.imageRecordsRepository = imageRecordsRepository;
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options,
@@ -71,7 +79,7 @@ public class ListWriter {
         listEntity.setTitle(title);
         listEntity.setDescription(description);
         List<OptionEntity> optionEntities = options.stream()
-                .map((submittedOption) -> new OptionEntity(submittedOption.getName(), listEntity, submittedOption.getPhotoUrl()))
+                .map((submittedOption) -> new OptionEntity(submittedOption.getName(), listEntity, submittedOption.getImageUrl()))
                 .collect(Collectors.toList());
         for (int i = 0; i < optionEntities.size(); i++) {
             optionEntities.get(i).setOptionNumber(i + 1);
@@ -83,6 +91,12 @@ public class ListWriter {
         listEntity.setPrivate(isPrivate);
         listEntity.setCategory(com.rankerapp.db.model.ListCategory.valueOf(category.name()));
         listsRepository.save(listEntity);
+        
+        List<UUID> imageIdsToLink = options.stream()
+                .filter((option) -> !StringUtils.isEmpty(option.getImageId()))
+                .map((option) -> UUID.fromString(option.getImageId()))
+                .collect(Collectors.toList());
+        linkImagesWithListId(listEntity.getId(), imageIdsToLink);
 
         return listEntity;
     }
@@ -95,6 +109,13 @@ public class ListWriter {
         }
 
         list.setPrivate(!list.isPrivate());
+    }
+    
+    private void linkImagesWithListId(UUID listId, List<UUID> imageIds) {
+        List<ImageRecordEntity> images = imageRecordsRepository.findAllById(imageIds).stream()
+                .peek((image) -> image.setAssociatedListId(listId))
+                .collect(Collectors.toList());
+        imageRecordsRepository.saveAll(images);
     }
 
 }
