@@ -10,8 +10,8 @@ export default function ListOptions({
   setUserError,
 }) {
   const [options, setOptions] = useState([
-    { name: "", photoUrl: "" },
-    { name: "", photoUrl: "" },
+    { name: "", photoUrl: "", id: "" },
+    { name: "", photoUrl: "", id: ""},
   ]);
 
   useEffect(() => {
