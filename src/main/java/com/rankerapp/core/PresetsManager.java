@@ -76,6 +76,7 @@ public class PresetsManager {
                 presetEntity.getPresetOptions().stream().map(PresetsManager::convertPresetOption).collect(Collectors.toList());
         
         return Preset.builder()
+                .withId(presetEntity.getId())
                 .withCreatedBy(presetEntity.getCreatedBy())
                 .withTitle(presetEntity.getTitle())
                 .withPresetOptions(options)
