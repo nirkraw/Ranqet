@@ -86,7 +86,9 @@ export default function CreateList() {
       <div id="create-list-info-and-image-container">
         <div id="list-info-container">
           <div id="create-list-title-div">
-            <h2 className="create-list-label">Title</h2>
+            <h2 className="create-list-label">
+              Title <span style={{ color: "var(--orange-1)" }}>*</span>
+            </h2>
             <input
               id="title-input"
               maxLength="64"
@@ -94,7 +96,9 @@ export default function CreateList() {
               onChange={(e) => setListTitle(e.target.value)}
             />
           </div>
-          <h2 className="create-list-label">Category</h2>
+          <h2 className="create-list-label">
+            Category <span style={{ color: "var(--orange-1)" }}>*</span>
+          </h2>
           <div className="categories-unlisted-container justify-start-center">
             <CategoriesDropdown setCategory={setCategory} />
             <UnlistedDropdown setUnlisted={setUnlisted} unlisted={unlisted} />
