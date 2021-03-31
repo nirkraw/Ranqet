@@ -47,7 +47,7 @@ export default function ListOptions({
     setOptions(optionsCopy);
   };
 
-  const setOptionImage = (imageUrl, imageId, idx) => {
+  const setOptionImage = (imageUrl, idx, imageId) => {
     const newOptions = [...options];
     newOptions[idx].photoUrl = imageUrl;
     newOptions[idx].id = imageId;

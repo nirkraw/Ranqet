@@ -30,7 +30,7 @@ export default function ListUploadImage({
 
     try {
       const res = await uploadImage(formData);
-      setOptionImage(res.data.imageUrl, res.data.imageId, optionIdx);
+      setOptionImage(res.data.imageUrl, optionIdx, res.data.imageId);
     } catch (err) {
       setUserError(
         "Image could not be uploaded. Please refresh and try again."
