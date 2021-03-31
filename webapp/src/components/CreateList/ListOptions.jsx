@@ -10,8 +10,8 @@ export default function ListOptions({
   setUserError,
 }) {
   const [options, setOptions] = useState([
-    { name: "", photoUrl: "", id: "" },
-    { name: "", photoUrl: "", id: ""},
+    { name: "", imageUrl: "" },
+    { name: "", imageUrl: "" },
   ]);
 
   useEffect(() => {
@@ -27,14 +27,15 @@ export default function ListOptions({
   const deleteOptionImage = (e, index) => {
     e.preventDefault();
     const optionsCopy = [...options];
-    optionsCopy[index].photoUrl = "";
+    optionsCopy[index].imageUrl = "";
+    if(optionsCopy[index].imageId) optionsCopy[index].imageId = "";
     setOptions(optionsCopy);
   };
 
   const addOption = (e) => {
     e.preventDefault();
     const optionsCopy = [...options];
-    optionsCopy.push({ name: "", photoUrl: "" });
+    optionsCopy.push({ name: "", imageUrl: "" });
     setOptions(optionsCopy);
   };
 
@@ -49,8 +50,8 @@ export default function ListOptions({
 
   const setOptionImage = (imageUrl, idx, imageId) => {
     const newOptions = [...options];
-    newOptions[idx].photoUrl = imageUrl;
-    newOptions[idx].id = imageId;
+    newOptions[idx].imageUrl = imageUrl;
+    newOptions[idx].imageId = imageId;
     setOptions(newOptions);
   };
 
@@ -69,7 +70,7 @@ export default function ListOptions({
             onChange={(e) => handleOptionNameChange(e, i)}
           />
         </div>
-        {option.photoUrl ? (
+        {option.imageUrl ? (
           <button
             onClick={(e) => deleteOptionImage(e, i)}
             className="delete-option-image site-button"
@@ -86,7 +87,7 @@ export default function ListOptions({
         <ListUploadImage
           setUserError={setUserError}
           setOptionImage={setOptionImage}
-          imgUrl={option.photoUrl}
+          imgUrl={option.imageUrl}
           optionIdx={i}
         />
       </li>
