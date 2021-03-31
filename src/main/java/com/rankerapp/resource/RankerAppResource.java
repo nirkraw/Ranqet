@@ -47,7 +47,7 @@ public class RankerAppResource {
         if (request.getPresetTitle().isPresent()) {
             List<PresetOption> presetOptions =
                     request.getOptions().stream()
-                            .map((option) -> new PresetOption(option.getName(), option.getPhotoUrl()))
+                            .map((option) -> new PresetOption(option.getName(), option.getImageUrl()))
                             .collect(Collectors.toList());
             presetsManager.createPreset(request.getPresetTitle().get(), authorId, presetOptions);
         }
