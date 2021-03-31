@@ -8,7 +8,7 @@ import GiffyModal from "./GiffyModal";
 
 export default function ListUploadImage({
   setUserError,
-  setImgUrl,
+  setOptionImage,
   imgUrl,
   optionIdx
 }) {
@@ -30,7 +30,7 @@ export default function ListUploadImage({
 
     try {
       const res = await uploadImage(formData);
-      setImgUrl(res.data.imageUrl, optionIdx);
+      setOptionImage(res.data.imageUrl, res.data.imageId, optionIdx);
     } catch (err) {
       setUserError(
         "Image could not be uploaded. Please refresh and try again."
@@ -103,7 +103,7 @@ export default function ListUploadImage({
         isOpen={giffyModalOpen}
         closeModal={() => setGiffyModalOpen(false)}
         currOptionIdx={optionIdx}
-        setImgUrl={setImgUrl}
+        setOptionImage={setOptionImage}
       />
     </div>
   );

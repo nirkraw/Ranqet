@@ -47,9 +47,10 @@ export default function ListOptions({
     setOptions(optionsCopy);
   };
 
-  const setOptionImage = (url, idx) => {
+  const setOptionImage = (imageUrl, imageId, idx) => {
     const newOptions = [...options];
-    newOptions[idx].photoUrl = url;
+    newOptions[idx].photoUrl = imageUrl;
+    newOptions[idx].id = imageId;
     setOptions(newOptions);
   };
 
@@ -84,7 +85,7 @@ export default function ListOptions({
         </button>
         <ListUploadImage
           setUserError={setUserError}
-          setImgUrl={setOptionImage}
+          setOptionImage={setOptionImage}
           imgUrl={option.photoUrl}
           optionIdx={i}
         />

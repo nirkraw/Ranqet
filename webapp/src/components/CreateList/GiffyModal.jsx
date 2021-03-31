@@ -9,7 +9,7 @@ export default function GiffyModal({
   isOpen,
   closeModal,
   currOptionIdx,
-  setImgUrl,
+  setOptionImage,
 }) {
   const [giphySearch, setGiphySearch] = useState();
   const [giphyUrl, setGiphyUrl] = useState("");
@@ -35,7 +35,7 @@ export default function GiffyModal({
 
   const handleGiphySubmit = (e) => {
     e.preventDefault();
-    setImgUrl(giphyUrl, currOptionIdx);
+    setOptionImage(giphyUrl, currOptionIdx);
     closeModal();
   };
 
