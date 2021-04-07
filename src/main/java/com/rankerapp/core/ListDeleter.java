@@ -1,9 +1,7 @@
 package com.rankerapp.core;
 
-import com.rankerapp.db.ListsRepository;
-import com.rankerapp.db.ScoresRepository;
-import com.rankerapp.db.UserListsRepository;
-import com.rankerapp.db.UsersRepository;
+import com.rankerapp.db.*;
+import com.rankerapp.db.model.ImageListLinkEntity;
 import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
@@ -25,14 +23,18 @@ public class ListDeleter {
     private final ScoresRepository scoresRepository;
 
     private final UserListsRepository userListsRepository;
+    
+    private final ImageListLinksRepository imageListLinksRepository;
 
     @Inject
     public ListDeleter(ListsRepository listsRepository, UsersRepository usersRepository,
-                       UserListsRepository userListsRepository, ScoresRepository scoresRepository) {
+                       UserListsRepository userListsRepository, ScoresRepository scoresRepository,
+                       ImageListLinksRepository imageListLinksRepository) {
         this.listsRepository = listsRepository;
         this.usersRepository = usersRepository;
         this.userListsRepository = userListsRepository;
         this.scoresRepository = scoresRepository;
+        this.imageListLinksRepository = imageListLinksRepository;
     }
 
     @Transactional
@@ -47,6 +49,11 @@ public class ListDeleter {
         userListsRepository.deleteByListId(listId);
         ListEntity listToDelete = listsRepository.getOne(listId);
         listsRepository.delete(listToDelete);
+        
+        List<ImageListLinkEntity> images = imageListLinksRepository.findByListId(listId);
+        images.forEach((link) -> link.setListId(null));
+        
+        imageListLinksRepository.saveAll(images);
     }
 
 

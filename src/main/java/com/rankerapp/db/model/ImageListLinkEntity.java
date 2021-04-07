@@ -8,21 +8,20 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ImageRecords")
-public class ImageRecordEntity {
+@Table(name = "ImageListLinks")
+public class ImageListLinkEntity {
     
     @Id
     private UUID id;
-
-    @Column(name = "filename")
-    private String filename;
     
-    @Column(name = "url")
-    private String url;
+    @Column(name = "image_id")
+    private UUID imageId;
+    
+    @Column(name = "list_id")
+    private UUID listId;
     
     @Column(name = "created_on")
     private Instant createdOn;
-    
     
     public UUID getId() {
         return id;
@@ -32,20 +31,20 @@ public class ImageRecordEntity {
         this.id = id;
     }
     
-    public String getFilename() {
-        return filename;
+    public UUID getImageId() {
+        return imageId;
     }
     
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setImageId(UUID imageId) {
+        this.imageId = imageId;
     }
     
-    public String getUrl() {
-        return url;
+    public UUID getListId() {
+        return listId;
     }
     
-    public void setUrl(String url) {
-        this.url = url;
+    public void setListId(UUID listId) {
+        this.listId = listId;
     }
     
     public Instant getCreatedOn() {
