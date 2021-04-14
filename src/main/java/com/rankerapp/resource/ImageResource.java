@@ -1,7 +1,9 @@
 package com.rankerapp.resource;
 
 import com.rankerapp.client.AwsClient;
+import com.rankerapp.db.ImageListLinksRepository;
 import com.rankerapp.db.ImageRecordsRepository;
+import com.rankerapp.db.model.ImageListLinkEntity;
 import com.rankerapp.db.model.ImageRecordEntity;
 import com.rankerapp.exceptions.NotFoundException;
 import com.rankerapp.transport.model.ImageUploadResponse;
@@ -22,11 +24,14 @@ public class ImageResource {
     private final AwsClient awsClient;
     
     private final ImageRecordsRepository imageRecordsRepo;
+    
+    private final ImageListLinksRepository imageListLinksRepo;
 
     @Inject
-    public ImageResource(AwsClient awsClient, ImageRecordsRepository imageRecordsRepo) {
+    public ImageResource(AwsClient awsClient, ImageRecordsRepository imageRecordsRepo, ImageListLinksRepository imageListLinksRepo) {
         this.awsClient = awsClient;
         this.imageRecordsRepo = imageRecordsRepo;
+        this.imageListLinksRepo = imageListLinksRepo;
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -41,7 +46,13 @@ public class ImageResource {
             file.delete();
             
             imageRecord = buildImageRecord(fileName, imageUrl);
+            ImageListLinkEntity imageLink = new ImageListLinkEntity();
+            imageLink.setCreatedOn(Instant.now());
+            imageLink.setId(UUID.randomUUID());
+            imageLink.setListId(null);
+            imageLink.setImageId(imageRecord.getId());
             imageRecordsRepo.save(imageRecord);
+            imageListLinksRepo.save(imageLink);
         } catch (Exception e) {
             throw new RuntimeException("Something went wrong while uploading image", e);
         }
@@ -76,7 +87,6 @@ public class ImageResource {
     private ImageRecordEntity buildImageRecord(String filename, String url) {
         ImageRecordEntity imageRecordEntity = new ImageRecordEntity();
         imageRecordEntity.setId(UUID.randomUUID());
-        imageRecordEntity.setAssociatedListId(null);
         imageRecordEntity.setCreatedOn(Instant.now());
         imageRecordEntity.setUrl(url);
         imageRecordEntity.setFilename(filename);

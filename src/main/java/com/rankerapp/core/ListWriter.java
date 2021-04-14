@@ -1,12 +1,10 @@
 package com.rankerapp.core;
 
+import com.rankerapp.db.ImageListLinksRepository;
 import com.rankerapp.db.ImageRecordsRepository;
 import com.rankerapp.db.ListsRepository;
 import com.rankerapp.db.UsersRepository;
-import com.rankerapp.db.model.ImageRecordEntity;
-import com.rankerapp.db.model.ListEntity;
-import com.rankerapp.db.model.OptionEntity;
-import com.rankerapp.db.model.UserEntity;
+import com.rankerapp.db.model.*;
 import com.rankerapp.exceptions.BadRequestException;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.exceptions.NotFoundException;
@@ -33,13 +31,16 @@ public class ListWriter {
     private final UsersRepository usersRepository;
     
     private final ImageRecordsRepository imageRecordsRepository;
+    
+    private final ImageListLinksRepository imageListLinksRepository;
 
     @Inject
     public ListWriter(ListsRepository listsRepository, UsersRepository usersRepository,
-                      ImageRecordsRepository imageRecordsRepository) {
+                      ImageRecordsRepository imageRecordsRepository, ImageListLinksRepository imageListLinksRepository) {
         this.listsRepository = listsRepository;
         this.usersRepository = usersRepository;
         this.imageRecordsRepository = imageRecordsRepository;
+        this.imageListLinksRepository = imageListLinksRepository;
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options,
@@ -112,10 +113,19 @@ public class ListWriter {
     }
     
     private void linkImagesWithListId(UUID listId, List<UUID> imageIds) {
-        List<ImageRecordEntity> images = imageRecordsRepository.findAllById(imageIds).stream()
-                .peek((image) -> image.setAssociatedListId(listId))
+        List<ImageListLinkEntity> imageLinks = imageRecordsRepository.findAllById(imageIds).stream()
+                .map((image) -> image.getId())
+                .map((imageId) -> {
+                    ImageListLinkEntity imageLink = new ImageListLinkEntity();
+                    imageLink.setId(UUID.randomUUID());
+                    imageLink.setImageId(imageId);
+                    imageLink.setListId(listId);
+                    imageLink.setCreatedOn(Instant.now());
+                    return imageLink;
+                })
                 .collect(Collectors.toList());
-        imageRecordsRepository.saveAll(images);
+        
+        imageListLinksRepository.saveAll(imageLinks);
     }
 
 }
