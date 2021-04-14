@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 public class ListFetcher {
 
     private static final int TOP_LIST_SIZE = 10;
+    
+    private static final int SEARCH_RESULT_LIMIT = 10;
 
     private final ListsRepository listsRepo;
 
@@ -315,6 +317,7 @@ public class ListFetcher {
         }
         
         return listsRepo.searchByNameContaining(StringUtils.strip(query)).stream()
+                .limit(SEARCH_RESULT_LIMIT)
                 .map((list) -> convertListToResponse(list, (userId != null) && completedLists.contains(list.getId())))
                 .collect(Collectors.toList());
     }
