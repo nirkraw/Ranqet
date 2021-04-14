@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ImageListLinks")
+@Table(name = "imagelistlinks")
 public class ImageListLinkEntity {
     
     @Id
