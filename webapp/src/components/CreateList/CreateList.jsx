@@ -16,6 +16,7 @@ export default function CreateList() {
   const [description, setDescription] = useState("");
   const [unlisted, setUnlisted] = useState(false);
   const [listImgUrl, setListImgUrl] = useState("");
+  const [listImgId, setListImgId] = useState("");
   const [category, setCategory] = useState("");
   const [listOptions, setListOptions] = useState([]);
   const [userError, setUserError] = useState("");
@@ -56,7 +57,8 @@ export default function CreateList() {
           listOptions,
           localStorage.getItem("userId"),
           unlisted,
-          category
+          category,
+          // listImgId
         );
         setLoading(false);
         clearEndpointCache(fetchUserPublicList, [
@@ -109,8 +111,9 @@ export default function CreateList() {
         </div>
         <ListUploadImage
           setUserError={setUserError}
-          setImgUrl={setListImgUrl}
+          setListImgUrl={setListImgUrl}
           imgUrl={listImgUrl}
+          setListImgId={setListImgId}
         />
       </div>
       <div id="create-list-options-div">

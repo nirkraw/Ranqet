@@ -10,6 +10,8 @@ export default function ListUploadImage({
   setUserError,
   setOptionImage,
   imgUrl,
+  setListImgUrl,
+  setListImgId,
   optionIdx
 }) {
   const [imageLoading, setImageLoading] = useState(false);
@@ -30,7 +32,12 @@ export default function ListUploadImage({
 
     try {
       const res = await uploadImage(formData);
-      setOptionImage(res.data.imageUrl, optionIdx, res.data.imageId);
+      if(optionIdx) { //if it's an option image
+        setOptionImage(res.data.imageUrl, optionIdx, res.data.imageId);
+      } else { //if it's the list image
+        setListImgUrl(res.data.imageUrl);
+        setListImgId(res.data.imageId);
+      }
     } catch (err) {
       setUserError(
         "Image could not be uploaded. Please refresh and try again."
