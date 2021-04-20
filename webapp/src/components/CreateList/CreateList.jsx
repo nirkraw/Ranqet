@@ -58,7 +58,7 @@ export default function CreateList() {
           localStorage.getItem("userId"),
           unlisted,
           category,
-          // listImgId
+          listImgId
         );
         setLoading(false);
         clearEndpointCache(fetchUserPublicList, [

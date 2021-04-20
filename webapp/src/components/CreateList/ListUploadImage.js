@@ -32,7 +32,7 @@ export default function ListUploadImage({
 
     try {
       const res = await uploadImage(formData);
-      if(optionIdx) { //if it's an option image
+      if(optionIdx !== undefined) { //if it's an option image
         setOptionImage(res.data.imageUrl, optionIdx, res.data.imageId);
       } else { //if it's the list image
         setListImgUrl(res.data.imageUrl);
