@@ -32,5 +32,17 @@ export default function PersonalRankings() {
     }
   };
   if (loading) return <LoadingSpinner />;
-  return <div className="rankings-personal-rankings"></div>;
+  return (
+    <div className="rankings-personal-rankings">
+      <h1 className="rankings-title">Your Rankings</h1>
+      <ul className="rankings-options">
+        {personalRanking.map((ranking, i) => (
+          <li className="rankings-personal-item justify-start-center" key={i}>
+            <span># {i + 1}</span>
+            <h2>{ranking.name}</h2>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }

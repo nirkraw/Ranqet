@@ -33,8 +33,8 @@ export default function RankingsGlobal() {
   if (loading) return <LoadingSpinner />;
   return (
     <div className="rankings-global-rankings">
-      <h1 className="rankings-global-title">Overall Rankings</h1>
-      <ul className="rankings-global-options">
+      <h1 className="rankings-title">Overall Rankings</h1>
+      <ul className="rankings-options">
         {globalRanking.map((ranking, i) => (
           <li className="rankings-global-item justify-start-center" key={i}>
             <div className="rankings-global-item-title justify-start-center">
