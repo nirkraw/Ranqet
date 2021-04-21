@@ -47,7 +47,7 @@ export default function RannkingsHeader() {
           >
             <span>By: </span>
             <p>{author}</p>
-            <span>·</span>
+            <span> ·</span>
           </div>
           <p className="rankings-list-created-date">{getFormattedDate(date)}</p>
         </div>

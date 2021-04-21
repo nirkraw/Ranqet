@@ -6,7 +6,6 @@
 
 .rankings-header-container {
   width: 100%;
-  border-color: 1px solid red;
 }
 
 .rankings-list-description {
@@ -17,13 +16,11 @@
 .rankings-list-stats {
   height: 200px;
   width: 40%;
-  background-color: green;
 }
 
 .rankings-list-image-container {
   height: 200px;
   width: 30%;
-  background-color: pink;
 }
 
 .rankings-list-image {
@@ -38,19 +35,17 @@
 .rankings-ranking-container {
   width: 100%;
   height: 350px;
-  background-color: yellow;
+  margin-top: 20px;
 }
 
 .rankings-global-rankings {
   width: 70%;
   height: 100%;
-  background-color: teal;
 }
 
 .rankings-personal-rankings {
   width: 30%;
   height: 100%;
-  background-color: silver;
 }
 
 .rankings-list-title {
@@ -63,7 +58,6 @@
 .rankings-list-author {
   display: flex;
   justify-content: flex-start;
-  margin-right: 5px;
 }
 
 .rankings-list-author > p,
@@ -99,3 +93,43 @@
   font-weight: 400;
   text-transform: capitalize;
 }
+
+.rankings-global-title {
+  font-size: 20px;
+  line-height: 24px;
+  font-family: var(--font-6);
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.rankings-global-options {
+  width: 100%;
+}
+
+.rankings-global-item {
+  width: 100%;
+}
+
+.rankings-global-item-title {
+  width: 30%;
+}
+
+.ranking-global-visual-container {
+  width: 70%;
+}
+
+.rankings-global-item-visual {
+  background-image: linear-gradient(to right,  #FFB800, #FD5F1B);
+  height: 15px;
+}
+
+.rankings-global-item-title  > span, .rankings-global-item-title  > h2 {
+  font-size: 20px;
+  line-height: 24px;
+  font-family: var(--font-6);
+  font-weight: 700;
+  margin: 0;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
