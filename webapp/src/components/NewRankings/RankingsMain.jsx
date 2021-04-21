@@ -4,11 +4,11 @@ import {
   fetchGlobalRankings,
 } from "../../util/Endpoints/RankingEP";
 import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
-import "../../styles/Rankings.css";
+import "../../styles/NewRankings.css";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import Comments from "../Comments";
-import RankingsList from "./RankingsList";
+import RankingsHeader from "./RannkingsHeader";
 
 export default function Rankings({ openModal }) {
   const match = useRouteMatch();
@@ -16,7 +16,6 @@ export default function Rankings({ openModal }) {
   const [personalRanking, setPersonalRanking] = useState([]);
   const [globalRanking, setGlobalRanking] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [title, setTitle] = useState("");
 
   useEffect(() => {
     getGlobalRankings();
@@ -43,7 +42,6 @@ export default function Rankings({ openModal }) {
     try {
       if (localStorage.getItem("userId")) getPersonalRankings();
       const global = await fetchGlobalRankings(match.params.listId);
-      setTitle(global.data.title);
       setGlobalRanking(global.data.ranking);
       setLoading(false);
     } catch (err) {
@@ -54,18 +52,13 @@ export default function Rankings({ openModal }) {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div id="completed-list-main-div">
-      <h1 id="main-ranking-header">{title}</h1>
-      <div id="personal-and-global-ranking-main-div">
-        <RankingsList
-          rankings={personalRanking}
-          rankingName="Personal Rankings"
-          openModal={openModal}
-        />
-        <div id="space-div"></div>
-        <RankingsList rankings={globalRanking} rankingName="Global Rankings" />
+    <div className="rankings-main-container column-start">
+      <RankingsHeader />
+      <div className="rankings-ranking-container justify-start-center">
+        <div className="rankings-global-rankings"></div>
+        <div className="rankings-personal-rankings"></div>
       </div>
-      <Comments openModal={openModal} />
+      <Comments />
     </div>
   );
 }

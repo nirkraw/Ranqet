@@ -2,7 +2,7 @@ import "../styles/App.css";
 import Navbar from "./Navbar/Navbar";
 import Home from "./Home/Home";
 import CreateList from "./CreateList/CreateList";
-import Rankings from "./Rankings/Rankings";
+import Rankings from "./NewRankings/RankingsMain";
 import Quiz from "./Quiz/Quiz";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import React, { useState } from "react";

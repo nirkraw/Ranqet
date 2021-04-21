@@ -1,0 +1,101 @@
+.rankings-main-container {
+  width: 90%;
+  border-color: 1px solid blue;
+  margin-top: 2%;
+}
+
+.rankings-header-container {
+  width: 100%;
+  border-color: 1px solid red;
+}
+
+.rankings-list-description {
+  height: 200px;
+  width: 30%;
+}
+
+.rankings-list-stats {
+  height: 200px;
+  width: 40%;
+  background-color: green;
+}
+
+.rankings-list-image-container {
+  height: 200px;
+  width: 30%;
+  background-color: pink;
+}
+
+.rankings-list-image {
+  height: 200px;
+  width: 300px;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.rankings-ranking-container {
+  width: 100%;
+  height: 350px;
+  background-color: yellow;
+}
+
+.rankings-global-rankings {
+  width: 70%;
+  height: 100%;
+  background-color: teal;
+}
+
+.rankings-personal-rankings {
+  width: 30%;
+  height: 100%;
+  background-color: silver;
+}
+
+.rankings-list-title {
+  font-family: var(--font-6);
+  font-size: 25px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.rankings-list-author {
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 5px;
+}
+
+.rankings-list-author > p,
+.rankings-list-author > span {
+  font-size: 15px;
+  line-height: 18px;
+  font-family: var(--font-6);
+  font-weight: 400;
+  color: var(--gray-1);
+  text-transform: capitalize;
+  margin-right: 5px;
+}
+
+.rankings-list-author > p:hover {
+  cursor: pointer;
+  color: var(--blue-2);
+}
+
+.rankings-list-created-date {
+  font-size: 15px;
+  line-height: 18px;
+  font-family: var(--font-6);
+  font-weight: 400;
+  color: var(--gray-1);
+  text-transform: capitalize;
+  margin-right: 5px;
+}
+
+.rankings-list-description-text {
+  font-size: 15px;
+  line-height: 18px;
+  font-family: var(--font-6);
+  font-weight: 400;
+  text-transform: capitalize;
+}
