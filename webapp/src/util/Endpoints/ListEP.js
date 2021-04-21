@@ -17,7 +17,6 @@ export const createList = (
   authorId,
   isUnlisted,
   category,
-  presetTitle,
   listImgId
 ) => {
   return axios.post(
@@ -30,7 +29,6 @@ export const createList = (
       authorId,
       isUnlisted,
       category,
-      presetTitle,
       listImgId,
     },
     {
