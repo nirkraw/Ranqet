@@ -40,12 +40,11 @@ export default function GiffyModal({
   };
 
   return (
-    <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" } }}>
+    <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" }, content: { width: "30%",  left: "35%" }}}>
       <div id="upload-image-main-container">
-        <h1 id="upload-image-main-title">Choose Image</h1>
+        <h1 id="upload-image-main-title">Search Random Giphy</h1>
         <div id="gifphy-and-file-container">
           <div id="giphy-upload-container">
-            <h3 className="gifphy-and-file-title">Search Random Giphy</h3>
             <div id="giphy-search-container">
               <input
                 id="giphy-search"
@@ -62,10 +61,6 @@ export default function GiffyModal({
               ) : null}
             </div>
           </div>
-          {/* <div id="file-upload-container">
-            <h3 className="gifphy-and-file-title">Upload Image File</h3>
-            <input id="photo-input" type="file" onChange={handlePhotoFile} />
-          </div> */}
         </div>
         <div id="exit-modal-buttons">
           <button id="exit-modal-button" onClick={closeModal}>
