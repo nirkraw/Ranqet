@@ -29,7 +29,6 @@ export const createList = (
       authorId,
       isUnlisted,
       category,
-      presetTitle,
       imageId: listImgId,
     },
     {
