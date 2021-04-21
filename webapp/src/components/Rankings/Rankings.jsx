@@ -11,6 +11,7 @@ import Comments from "../Comments";
 import RankingsList from "./RankingsList";
 
 export default function Rankings({ openModal }) {
+  //new
   const match = useRouteMatch();
   const history = useHistory();
   const [personalRanking, setPersonalRanking] = useState([]);
