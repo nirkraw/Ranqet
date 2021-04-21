@@ -7,10 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,7 +38,7 @@ public class RankerAppResource {
     public ListResponse createNewList(@RequestBody CreateListRequest request) {
         UUID authorId = UUID.fromString(request.getAuthorId());
         UUID persistedId = listWriter.createList(request.getTitle(), request.getDescription(),
-                authorId, request.getOptions(), request.getImageUrl(),
+                authorId, request.getOptions(), asNullableUUID(request.getImageId()), request.getImageUrl(),
                 request.getCategory(), request.isUnlisted()).getId();
         
         if (request.getPresetTitle().isPresent()) {

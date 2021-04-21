@@ -44,7 +44,7 @@ public class ListWriter {
     }
 
     public ListEntity createList(String title, String description, UUID authorId, List<SubmittedOption> options,
-                                 String imageUrl, ListCategory category, boolean isPrivate) {
+                                 UUID imageId, String imageUrl, ListCategory category, boolean isPrivate) {
         if (category == null) {
             throw new BadRequestException("List category is required!");
         } else if (category == ListCategory.NEW || category == ListCategory.POPULAR) {
@@ -97,6 +97,11 @@ public class ListWriter {
                 .filter((option) -> !StringUtils.isEmpty(option.getImageId()))
                 .map((option) -> UUID.fromString(option.getImageId()))
                 .collect(Collectors.toList());
+        
+        if (imageId != null) {
+            imageIdsToLink.add(imageId);
+        }
+        
         linkImagesWithListId(listEntity.getId(), imageIdsToLink);
 
         return listEntity;

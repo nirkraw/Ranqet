@@ -17,6 +17,8 @@ public class CreateListRequest {
     private final List<SubmittedOption> options;
 
     private final String authorId;
+    
+    private final String imageId;
 
     private final String imageUrl;
 
@@ -31,6 +33,7 @@ public class CreateListRequest {
         this.description = builder.description;
         this.options = builder.options;
         this.authorId = builder.authorId;
+        this.imageId = builder.imageId;
         this.imageUrl = builder.imageUrl;
         this.category = builder.category;
         this.isUnlisted = builder.isUnlisted;
@@ -51,6 +54,10 @@ public class CreateListRequest {
 
     public String getAuthorId() {
         return authorId;
+    }
+    
+    public String getImageId() {
+        return imageId;
     }
 
     public String getImageUrl() {
@@ -83,6 +90,8 @@ public class CreateListRequest {
         private List<SubmittedOption> options;
 
         private String authorId;
+        
+        private String imageId;
 
         private String imageUrl;
 
@@ -112,6 +121,11 @@ public class CreateListRequest {
 
         public Builder withAuthorId(String authorId) {
             this.authorId = authorId;
+            return this;
+        }
+        
+        public Builder withImageId(String imageId) {
+            this.imageId = imageId;
             return this;
         }
 
