@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { fetchPersonalRankings } from "../../util/Endpoints/RankingEP";
-import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
@@ -12,15 +11,10 @@ export default function PersonalRankings() {
 
   useEffect(() => {
     getPersonalRankings();
-  }, []);
+  }, [match.params.listId]);
 
   const getPersonalRankings = async () => {
     try {
-      const res = await fetchListOptionPair(
-        match.params.listId,
-        localStorage.getItem("userId")
-      );
-      if (!res.data.isCompleted) return;
       const personal = await fetchPersonalRankings(
         match.params.listId,
         localStorage.getItem("userId")
@@ -32,17 +26,25 @@ export default function PersonalRankings() {
     }
   };
   if (loading) return <LoadingSpinner />;
-  return (
-    <div className="rankings-personal-rankings">
-      <h1 className="rankings-title">Your Rankings</h1>
-      <ul className="rankings-options">
-        {personalRanking.map((ranking, i) => (
-          <li className="rankings-personal-item justify-start-center" key={i}>
-            <span># {i + 1}</span>
-            <h2>{ranking.name}</h2>
-          </li>
-        ))}
-      </ul>
+  if (!personalRanking.length) return (
+    <div
+      className="list-index-button site-button-2"
+      onClick={() => history.push(`/${match.params.listId}/quiz`)}
+    >
+      Rank It!
     </div>
   );
+    return (
+      <div className="rankings-personal-rankings">
+        <h1 className="rankings-title">Your Rankings</h1>
+        <ul className="rankings-options">
+          {personalRanking.map((ranking, i) => (
+            <li className="rankings-personal-item justify-start-center" key={i}>
+              <span># {i + 1}</span>
+              <h2>{ranking.name}</h2>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
 }

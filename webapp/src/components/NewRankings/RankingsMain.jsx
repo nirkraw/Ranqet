@@ -9,7 +9,7 @@ export default function Rankings() {
   return (
     <div className="rankings-main-container column-start">
       <RankingsHeader />
-      <div className="rankings-ranking-container justify-start-center">
+      <div className="rankings-ranking-container justify-start">
         <GlobalRankings />
         <PersonalRankings />
       </div>

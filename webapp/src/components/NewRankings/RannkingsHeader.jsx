@@ -17,7 +17,7 @@ export default function RannkingsHeader() {
 
   useEffect(() => {
     getListInfo();
-  }, []);
+  }, [match.params.listId]);
 
   const getListInfo = async () => {
     try {
@@ -37,7 +37,7 @@ export default function RannkingsHeader() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="rankings-header-container justify-start-center">
+    <div className="rankings-header-container justify-start">
       <div className="rankings-list-description">
         <h1 className="rankings-list-title">{title}</h1>
         <div className="rankings-author-and-date-container justify-start-center">
@@ -53,9 +53,21 @@ export default function RannkingsHeader() {
         </div>
         <p className="rankings-list-description-text">{description}</p>
       </div>
-      <div className="rankings-list-stats"></div>
-      <div className="rankings-list-image-container justify-center-center">
-        <img className="rankings-list-image" src={listImg} alt="list" />
+      <div className="rankings-list-stats">
+        <div className="rankings-rank-total-container">
+          <p className="rankings-stats-header">Ranked By</p>
+          <p className="rankings-stats-data">242 users</p>
+        </div>
+        <div className="rankings-rank-total-container">
+          <p className="rankings-stats-header">Pageviews</p>
+          <p className="rankings-stats-data">432423</p>
+        </div>
+      </div>
+
+      <div className="rankings-list-image-container justify-start-center">
+        {listImg ? (
+          <img className="rankings-list-image" src={listImg} alt="list" />
+        ) : null}
       </div>
     </div>
   );

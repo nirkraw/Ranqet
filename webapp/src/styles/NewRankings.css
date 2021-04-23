@@ -16,13 +16,35 @@
 }
 
 .rankings-list-stats {
-  height: 200px;
-  width: 40%;
+  height: 160px;
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rankings-stats-header {
+  margin-bottom: 10px;
+  font-family: var(--font-6);
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 700;
+  color: #c4c4c4;
+}
+
+.rankings-stats-data {
+  font-family: var(--font-6);
+  font-size: 17px;
+  line-height: 20px;
+  font-weight: 400;
 }
 
 .rankings-list-image-container {
   height: 200px;
   width: 30%;
+  padding-left: 2%;
 }
 
 .rankings-list-image {
@@ -41,13 +63,12 @@
 
 .rankings-global-rankings {
   width: 70%;
-  height: 100%;
 }
 
 .rankings-personal-rankings {
   width: 30%;
   height: 100%;
-  padding-left: 25px;
+  padding-left: 2%;
 }
 
 .rankings-list-title {
@@ -55,6 +76,7 @@
   font-size: 25px;
   line-height: 30px;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 .rankings-list-author {
