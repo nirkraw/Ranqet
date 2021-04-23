@@ -4,6 +4,7 @@ import "../../styles/Quiz.css";
 import QuizOptions from "./QuizOptions";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import { fetchListOptionPair } from "../../util/Endpoints/OptionEP";
 
 export default function Quiz() {
   const match = useRouteMatch();
@@ -13,12 +14,14 @@ export default function Quiz() {
   const [loading, setLoading] = useState(true);
   const [totalVoteCount, setTotalVoteCount] = useState(1);
   const [votesCompleted, setVotesCompleted] = useState(1);
+  const [options, setOptions] = useState([]);
 
   if (!localStorage.getItem("sessionToken")) {
     history.push(`/${match.params.listId}/rankings`);
   }
 
   useEffect(() => {
+    fetchNextOptionPair();
     fetchCurrList();
   }, [match.params.listId]);
 
@@ -27,6 +30,25 @@ export default function Quiz() {
       const res = await fetchList(match.params.listId);
       setListName(res.data.title);
       setDescription(res.data.description);
+      setLoading(false);
+    } catch (err) {
+      history.push(`/error/${err.message}`);
+    }
+  };
+
+  const fetchNextOptionPair = async () => { //function lives in quiz instead of quizOptions for quick reroute if user already completed quiz
+    try {
+      const res = await fetchListOptionPair(
+        match.params.listId,
+        localStorage.getItem("userId")
+      );
+      if (res.data.isCompleted) {
+        history.push(`/${match.params.listId}/rankings`);
+      } else {
+        setOptions([res.data.first, res.data.second]);
+      }
+      setVotesCompleted(res.data.numVotesCompleted);
+      setTotalVoteCount(res.data.totalVoteCount);
       setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
@@ -43,9 +65,8 @@ export default function Quiz() {
     borderBottomLeftRadius: "30px",
   };
 
-
   return (
-    <div id="quiz-main-div" >
+    <div id="quiz-main-div">
       <h1 id="main-quiz-header">{listName}</h1>
       <h2 id="main-quiz-description">{description}</h2>
       <div id="progress-bar-container">
@@ -53,9 +74,8 @@ export default function Quiz() {
       </div>
       <div id="options-and-versus-container">
         <QuizOptions
-          listId={match.params.listId}
-          setTotalVoteCount={setTotalVoteCount}
-          setVotesCompleted={setVotesCompleted}
+          options={options}
+          fetchNextOptionPair={fetchNextOptionPair}
         />
         <div id="versus-container">
           <h3>VS</h3>

@@ -14,6 +14,11 @@ export default function PersonalRankings() {
   }, [match.params.listId]);
 
   const getPersonalRankings = async () => {
+    if (!localStorage.getItem("userId")) {
+      setLoading(false);
+      return;
+    }
+
     try {
       const personal = await fetchPersonalRankings(
         match.params.listId,
@@ -22,29 +27,59 @@ export default function PersonalRankings() {
       setPersonalRanking(personal.data.ranking);
       setLoading(false);
     } catch (err) {
-      history.push(`/error/${err.message}`);
+      if (err.response.status === 403) {
+        setLoading(false); //for when user doesn't have personal rankings
+      } else {
+        history.push(`/error/${err.message}`);
+      }
     }
   };
   if (loading) return <LoadingSpinner />;
-  if (!personalRanking.length) return (
-    <div
-      className="list-index-button site-button-2"
-      onClick={() => history.push(`/${match.params.listId}/quiz`)}
-    >
-      Rank It!
-    </div>
-  );
+  if (!localStorage.getItem("userId")) {
     return (
       <div className="rankings-personal-rankings">
         <h1 className="rankings-title">Your Rankings</h1>
-        <ul className="rankings-options">
-          {personalRanking.map((ranking, i) => (
-            <li className="rankings-personal-item justify-start-center" key={i}>
-              <span># {i + 1}</span>
-              <h2>{ranking.name}</h2>
-            </li>
-          ))}
-        </ul>
+        <div
+          className="list-index-button site-button-2"
+          onClick={() => {
+            const openModal = new CustomEvent("openModal", {
+              detail: {
+                newFormType: "login",
+                newRoute: `/${match.params.listId}/quiz`,
+              },
+            });
+            window.dispatchEvent(openModal);
+          }}
+        >
+          Rank It!
+        </div>
       </div>
     );
+  }
+  if (!personalRanking.length)
+    return (
+      <div className="rankings-personal-rankings">
+        <h1 className="rankings-title">Your Rankings</h1>
+        <div
+          className="list-index-button site-button-2"
+          onClick={() => history.push(`/${match.params.listId}/quiz`)}
+        >
+          Rank It!
+        </div>
+      </div>
+    );
+
+  return (
+    <div className="rankings-personal-rankings">
+      <h1 className="rankings-title">Your Rankings</h1>
+      <ul className="rankings-options">
+        {personalRanking.map((ranking, i) => (
+          <li className="rankings-personal-item justify-start-center" key={i}>
+            <span># {i + 1}</span>
+            <h2>{ranking.name}</h2>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }

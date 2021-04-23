@@ -172,3 +172,10 @@
   margin-right: 10px;
   margin-bottom: 5px;
 }
+
+.rankings-no-ranking-header {
+  font-size: 15px;
+  line-height: 18px;
+  font-family: var(--font-6);
+  font-weight: 700;
+}

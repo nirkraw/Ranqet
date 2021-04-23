@@ -31,25 +31,32 @@ export default function RankingsGlobal() {
   };
 
   if (loading) return <LoadingSpinner />;
+
   return (
     <div className="rankings-global-rankings">
       <h1 className="rankings-title">Overall Rankings</h1>
-      <ul className="rankings-options">
-        {globalRanking.map((ranking, i) => (
-          <li className="rankings-global-item justify-start-center" key={i}>
-            <div className="rankings-global-item-title justify-start-center">
-              <span># {i + 1}</span>
-              <h2>{ranking.name}</h2>
-            </div>
-            <div className="ranking-global-visual-container">
-              <div
-                className="rankings-global-item-visual"
-                style={{ width: `${(ranking.score / maxScore) * 100}%` }}
-              ></div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {globalRanking.length ? (
+        <ul className="rankings-options">
+          {globalRanking.map((ranking, i) => (
+            <li className="rankings-global-item justify-start-center" key={i}>
+              <div className="rankings-global-item-title justify-start-center">
+                <span># {i + 1}</span>
+                <h2>{ranking.name}</h2>
+              </div>
+              <div className="ranking-global-visual-container">
+                <div
+                  className="rankings-global-item-visual"
+                  style={{ width: `${(ranking.score / maxScore) * 100}%` }}
+                ></div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="rankings-no-ranking-header">
+          This list has no current rankings
+        </p>
+      )}
     </div>
   );
 }

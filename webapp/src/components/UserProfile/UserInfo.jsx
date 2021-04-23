@@ -45,7 +45,7 @@ export default function UserInfo({ numCreated }) {
       userInfoCopy.avatarUrl = res.data.imageUrl;
       const cacheId = getCacheId(fetchUser, [localStorage.getItem("userId")]);
       localStorage.setItem(cacheId, JSON.stringify(userInfoCopy));
-      window.dispatchEvent(new Event("editStorage"));
+      window.dispatchEvent(new Event("editStorage"));// in navbar, to update profile pic
       setUserInfo(userInfoCopy);
       setImageLoading(false);
     } catch (err) {
