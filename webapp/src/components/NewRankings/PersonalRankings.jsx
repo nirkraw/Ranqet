@@ -51,7 +51,7 @@ export default function PersonalRankings() {
             window.dispatchEvent(openModal);
           }}
         >
-          Rank It!
+          Ranqet
         </div>
       </div>
     );
