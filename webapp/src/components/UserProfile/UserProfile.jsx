@@ -16,7 +16,7 @@ export default function UserProfile() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div id="user-profile-main-container">
+    <div className="user-profile-main-container column-start-center">
       <UserInfo numCreated={data.lists.length} />
       <ListIndex cacheId={userListCacheId} />
     </div>
