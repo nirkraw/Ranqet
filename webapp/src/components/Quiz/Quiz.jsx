@@ -25,6 +25,8 @@ export default function Quiz() {
     fetchCurrList();
   }, [match.params.listId]);
 
+ 
+
   const fetchCurrList = async () => {
     try {
       const res = await fetchList(match.params.listId);

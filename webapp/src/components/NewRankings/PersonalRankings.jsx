@@ -64,7 +64,7 @@ export default function PersonalRankings() {
           className="list-index-button site-button-2"
           onClick={() => history.push(`/${match.params.listId}/quiz`)}
         >
-          Rank It!
+          Ranqet
         </div>
       </div>
     );

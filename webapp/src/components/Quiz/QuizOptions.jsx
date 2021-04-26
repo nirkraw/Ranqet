@@ -19,7 +19,6 @@ export default function QuizOptions({
       setClickale(true);
     }, 1000);
     const winningOptionId = e.currentTarget.attributes.optionid.value;
-    setLoading(true);
     const losingOptionId =
       options[0].id === winningOptionId ? options[1].id : options[0].id;
     try {
@@ -36,7 +35,6 @@ export default function QuizOptions({
   };
 
   if (loading) return <LoadingSpinner />;
-
   return (
     <div id="main-options-div">
       {options.map((option, i) => {
