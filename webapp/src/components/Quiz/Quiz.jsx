@@ -62,17 +62,19 @@ export default function Quiz() {
   const divStyle = {
     width: `${percentFinished}%`,
     height: "100%",
-    backgroundColor: "var(--pink-3)",
+    backgroundColor: "#FD5F1B",
     borderTopLeftRadius: "30px",
     borderBottomLeftRadius: "30px",
   };
 
   return (
     <div id="quiz-main-div">
-      <h1 id="main-quiz-header">{listName}</h1>
-      <h2 id="main-quiz-description">{description}</h2>
-      <div id="progress-bar-container">
-        <div className="progress-bar-progress" style={divStyle}></div>
+      <div className="quiz-header-container column-center-center">
+        <h1 id="main-quiz-header">{listName}</h1>
+        <h2 id="main-quiz-description">{description}</h2>
+        <div id="progress-bar-container">
+          <div className="progress-bar-progress" style={divStyle}></div>
+        </div>
       </div>
       <div id="options-and-versus-container">
         <QuizOptions
