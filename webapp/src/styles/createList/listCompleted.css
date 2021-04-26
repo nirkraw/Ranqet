@@ -1,0 +1,78 @@
+.list-completed-main {
+  margin-top: 2%;
+  width: 80%;
+}
+
+.list-completed-main-header {
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 60px;
+  font-family: var(--font-6);
+  color: #fd5f1b;
+}
+
+.list-completed-sub {
+  margin-top: 30px;
+}
+
+#list-completed-info-and-image {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#list-completed-info > p {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  font-family: var(--font-6);
+}
+
+#list-completed-info > p:last-child {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+#share-url-input {
+  width: 300px;
+  margin-right: 5px;
+}
+
+.list-completed-buttons {
+  margin-top: 15px;
+}
+
+.list-completed-buttons > button {
+    margin-right: 20px;
+}
+
+.list-completed-buttons > div {
+    margin-top: 20px;
+}
+
+.copied-message {
+  position: absolute;
+  top: -30px;
+  right: 13px;
+  font-family: var(--font-1);
+  font-size: 15px;
+  color: white;
+  width: 75px;
+  text-align: center;
+  background-color: rgb(128, 125, 125);
+  visibility: hidden;
+}
+
+.copied-message-active {
+  visibility: visible;
+}
+
+.list-completed-list-image {
+  height: 300px;
+  width: 450px;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin-left: 20px;
+}
