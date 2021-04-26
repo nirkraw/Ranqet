@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ListUploadImage from "./ListUploadImage";
 import "../../styles/createList/ListOptions.css";
 import PresetOptions from "./PresetOptions/PresetOptions";
+import DeleteConfirmation from "../DeleteConfirmation";
 
 export default function ListOptions({
   setListOptions,
@@ -28,7 +29,7 @@ export default function ListOptions({
     e.preventDefault();
     const optionsCopy = [...options];
     optionsCopy[index].imageUrl = "";
-    if(optionsCopy[index].imageId) optionsCopy[index].imageId = "";
+    if (optionsCopy[index].imageId) optionsCopy[index].imageId = "";
     setOptions(optionsCopy);
   };
 
@@ -39,8 +40,7 @@ export default function ListOptions({
     setOptions(optionsCopy);
   };
 
-  const removeOption = (e, deleteIdx) => {
-    e.preventDefault();
+  const removeOption = (deleteIdx) => {
     const optionsCopy = [];
     for (let i = 0; i < options.length; i++) {
       if (i !== deleteIdx) optionsCopy.push(options[i]);
@@ -58,38 +58,46 @@ export default function ListOptions({
   const optionInputs = options.map((option, i) => {
     return (
       <li className="option-input-li" key={i}>
-        <div className="column-start-center" style={{ width: "55%" }}>
-          <h2 className="create-list-label" style={{ marginBottom: "25px" }}>
-            Option {i + 1}
-          </h2>
-          <input
-            value={option.name}
-            maxLength="32"
-            className="option-input"
-            type="text"
-            onChange={(e) => handleOptionNameChange(e, i)}
-          />
-        </div>
-        {option.imageUrl ? (
-          <button
-            onClick={(e) => deleteOptionImage(e, i)}
-            className="delete-option-image site-button"
-          >
-            Delete Option Image
-          </button>
-        ) : null}
-        <button
+        {/* <button
           onClick={(e) => removeOption(e, i)}
           className="remove-option site-button-3"
         >
           Remove Option {i + 1}
-        </button>
-        <ListUploadImage
-          setUserError={setUserError}
-          setOptionImage={setOptionImage}
-          imgUrl={option.imageUrl}
-          optionIdx={i}
+        </button> */}
+        <DeleteConfirmation
+          parent={<div className="list-index-delete">Delete this option</div>}
+          submitFunc={removeOption}
+          confirmMessage="Are you sure you want to delete this option?"
+          funcArgs={[i]}
         />
+        <div className="justify-start" style={{ width: "100%" }}>
+          <div className="column-start" style={{ width: "55%" }}>
+            <h2 className="create-list-label" style={{ marginBottom: "25px" }}>
+              Option {i + 1}
+            </h2>
+            <input
+              value={option.name}
+              maxLength="32"
+              className="option-input"
+              type="text"
+              onChange={(e) => handleOptionNameChange(e, i)}
+            />
+          </div>
+          {option.imageUrl ? (
+            <button
+              onClick={(e) => deleteOptionImage(e, i)}
+              className="delete-option-image site-button"
+            >
+              Delete Option Image
+            </button>
+          ) : null}
+          <ListUploadImage
+            setUserError={setUserError}
+            setOptionImage={setOptionImage}
+            imgUrl={option.imageUrl}
+            optionIdx={i}
+          />
+        </div>
       </li>
     );
   });

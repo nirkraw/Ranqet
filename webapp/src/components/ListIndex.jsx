@@ -147,8 +147,9 @@ export default function ListIndex({ cacheId, includeDelete }) {
                           Delete this list
                         </div>
                       }
-                      submitFunc={() => confirmDeleteList(list.id)}
+                      submitFunc={confirmDeleteList}
                       confirmMessage="Are you sure you want to delete this list?"
+                      funcArgs={[list.id]}
                     />
                   ) : null}
                 </div>
