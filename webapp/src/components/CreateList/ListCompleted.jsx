@@ -64,30 +64,32 @@ export default function ListCompleted() {
             </div>
           </div>
           <div className="list-completed-buttons">
-            <input
-              ref={linkRef}
-              id="share-url-input"
-              disabled
-              value={`${window.location.origin}/${match.params.listId}/quiz`}
-            />
-            <button className="site-button" onClick={copyToClipboard}>
-              Copy Link
-            </button>
+            <div className="input-and-copy-link justify-start">
+              <input
+                ref={linkRef}
+                id="share-url-input"
+                disabled
+                value={`${window.location.origin}/${match.params.listId}/quiz`}
+              />
+              <div className="copy-link site-button" onClick={copyToClipboard}>
+                Copy Link
+                <p
+                  className={
+                    !active
+                      ? "copied-message"
+                      : "copied-message copied-message-active"
+                  }
+                >
+                  Copied!
+                </p>
+              </div>
+            </div>
             <div
-              className="site-button-2"
+              className="list-completed-rank-button site-button-2"
               onClick={() => history.push(`/${match.params.listId}/quiz`)}
             >
               Ranqet
             </div>
-            <p
-              className={
-                !active
-                  ? "copied-message"
-                  : "copied-message copied-message-active"
-              }
-            >
-              Copied!
-            </p>
           </div>
         </div>
         {imageUrl ? (
