@@ -45,7 +45,7 @@ export default function ListCompleted() {
   return (
     <div className="list-completed-main column-start">
       <h1 className="list-completed-main-header">List Created!</h1>
-      <div className="list-completed-sub justify-start">
+      <div className="list-completed-sub">
         <div className="list-completed-info-and-button">
           <div id="list-completed-info-and-image">
             <div id="list-completed-info">

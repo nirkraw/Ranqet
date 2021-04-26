@@ -45,7 +45,7 @@ export default function ListOptions({
     for (let i = 0; i < options.length; i++) {
       if (i !== deleteIdx) optionsCopy.push(options[i]);
     }
-    setOptions(optionsCopy);
+    setOptions(optionsCopy); 
   };
 
   const setOptionImage = (imageUrl, idx, imageId) => {

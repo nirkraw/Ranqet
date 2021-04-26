@@ -12,7 +12,10 @@
 }
 
 .list-completed-sub {
+  width: 100%;
   margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
 }
 
 #list-completed-info-and-image {
@@ -43,11 +46,11 @@
 }
 
 .list-completed-buttons > button {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .list-completed-buttons > div {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .copied-message {
