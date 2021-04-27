@@ -46,7 +46,8 @@
   background-color: white;
 }
 
-#giphy-search-button,
+
+/* #giphy-search-button,
 #giphy-save-button,
 #exit-modal-button {
   border: 1px solid black;
@@ -58,14 +59,18 @@
   background-color: white;
   border-radius: 3%;
   font-size: 20px;
-}
+} */
 
-#giphy-search-button:hover,
+/* #giphy-search-button:hover,
 #giphy-save-button:hover,
 #exit-modal-button:hover {
   cursor: pointer;
   background-color: rgb(209, 208, 208);
-  display: inline-block;
+} */
+
+#giphy-upload-container {
+  border-right: 1px solid black;
+  margin-right: -40px;
 }
 
 #exit-modal-buttons {
@@ -91,10 +96,10 @@
   margin-top: 30%;
 }
 
-#giphy-search {
+/* #giphy-search {
   font-size: 20px;
   font-family: var(--font-1);
   color: var(--pink-3);
   font-weight: 900;
   width: 200px;
-}
+} */

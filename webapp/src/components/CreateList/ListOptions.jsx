@@ -77,19 +77,12 @@ export default function ListOptions({
               onChange={(e) => handleOptionNameChange(e, i)}
             />
           </div>
-          {option.imageUrl ? (
-            <button
-              onClick={(e) => deleteOptionImage(e, i)}
-              className="delete-option-image site-button"
-            >
-              Delete Option Image
-            </button>
-          ) : null}
           <ListUploadImage
             setUserError={setUserError}
             setOptionImage={setOptionImage}
             imgUrl={option.imageUrl}
             optionIdx={i}
+            deleteImage={deleteOptionImage}
           />
         </div>
       </li>
