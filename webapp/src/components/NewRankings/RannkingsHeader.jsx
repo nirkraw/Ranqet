@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import { fetchList } from "../../util/Endpoints/ListEP";
+import { fetchList, /* addListVisit */ } from "../../util/Endpoints/ListEP";
 import { getFormattedDate } from "../../util/DateCalc";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
@@ -12,12 +12,19 @@ export default function RannkingsHeader() {
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [authorId, setAuthorId] = useState("");
+  const [pageVisits, setPageVisits] = useState(0);
+  const [totalRanks, setTotalRanks] = useState(0);
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    addPageVisit();
     getListInfo();
   }, [match.params.listId]);
+
+  const addPageVisit = async () => {
+    // await addListVisit(match.params.listId);
+  }
 
   const getListInfo = async () => {
     try {
@@ -28,6 +35,8 @@ export default function RannkingsHeader() {
       setAuthorId(res.data.createdBy.id);
       setDate(res.data.createdOn);
       setDescription(res.data.description);
+      // setPageVisits(res.data.pageVisits);
+      // setTotalRanks(res.data.totalRanks);
       setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
@@ -56,11 +65,11 @@ export default function RannkingsHeader() {
       <div className="rankings-list-stats">
         <div className="rankings-rank-total-container">
           <p className="rankings-stats-header">Ranked By</p>
-          <p className="rankings-stats-data">242 users</p>
+          <p className="rankings-stats-data">{totalRanks}users</p>
         </div>
         <div className="rankings-rank-total-container">
           <p className="rankings-stats-header">Pageviews</p>
-          <p className="rankings-stats-data">432423</p>
+          <p className="rankings-stats-data">{pageVisits}</p>
         </div>
       </div>
 
