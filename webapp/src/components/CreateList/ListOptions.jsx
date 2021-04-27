@@ -58,12 +58,6 @@ export default function ListOptions({
   const optionInputs = options.map((option, i) => {
     return (
       <li className="option-input-li" key={i}>
-        {/* <button
-          onClick={(e) => removeOption(e, i)}
-          className="remove-option site-button-3"
-        >
-          Remove Option {i + 1}
-        </button> */}
         <DeleteConfirmation
           parent={<div className="list-index-delete">Delete this option</div>}
           submitFunc={removeOption}

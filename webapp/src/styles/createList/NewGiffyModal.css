@@ -1,0 +1,31 @@
+.giffy-main {
+  padding: 25px;
+  background-color: white;
+  width: 450px;
+  height: 500px;
+}
+
+.giffy-header {
+  font-family: var(--font-6);
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  color: var(--orange-1);
+}
+
+.giphy-search-container {
+  margin-top: 20px;
+}
+
+.giphy-image-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  width: 300px;
+  height: 200px;
+}
+
+.exit-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
