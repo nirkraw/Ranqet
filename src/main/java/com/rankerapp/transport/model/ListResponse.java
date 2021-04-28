@@ -12,6 +12,8 @@ public class ListResponse {
     private final String description;
 
     private final int numCompletions;
+    
+    private final long numVisits;
 
     private final Instant createdOn;
 
@@ -33,6 +35,7 @@ public class ListResponse {
         this.title = builder.title;
         this.description = builder.description;
         this.numCompletions = builder.numCompletions;
+        this.numVisits = builder.numVisits;
         this.createdOn = builder.createdOn;
         this.options = builder.options;
         this.createdBy = builder.createdBy;
@@ -56,6 +59,10 @@ public class ListResponse {
 
     public int getNumCompletions() {
         return numCompletions;
+    }
+    
+    public long getNumVisits() {
+        return numVisits;
     }
 
     public Instant getCreatedOn() {
@@ -99,6 +106,8 @@ public class ListResponse {
         private String description;
 
         private int numCompletions;
+        
+        private long numVisits;
 
         private Instant createdOn;
 
@@ -135,6 +144,11 @@ public class ListResponse {
 
         public Builder numCompletions(int numCompletions) {
             this.numCompletions = numCompletions;
+            return this;
+        }
+        
+        public Builder numVisits(long numVisits) {
+            this.numVisits = numVisits;
             return this;
         }
 
