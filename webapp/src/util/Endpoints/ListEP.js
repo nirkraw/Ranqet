@@ -93,7 +93,7 @@ export const fetchListPresets = (userId, sessionToken) => {
 };
 
 export const addListVisit = (listId) => {
-  return axios.delete(`${server}/events/list/${listId}/visited`, {
+  return axios.post(`${server}/events/list/${listId}/visited`, {
     "Content-Type": "application/json",
   });
 };

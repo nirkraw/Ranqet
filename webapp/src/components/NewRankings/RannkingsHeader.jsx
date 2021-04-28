@@ -35,7 +35,7 @@ export default function RannkingsHeader() {
       setAuthorId(res.data.createdBy.id);
       setDate(res.data.createdOn);
       setDescription(res.data.description);
-      setPageVisits(res.data.pageVisits);
+      setPageVisits(res.data.numVisits);
       setTotalRanks(res.data.numCompletions);
       setLoading(false);
     } catch (err) {
