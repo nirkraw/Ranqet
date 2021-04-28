@@ -4,7 +4,8 @@ import Web from "../../assets/web.png";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import Picture from "../../assets/picture.png";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-import GiffyModal from "./GiffyModal";
+// import GiffyModal from "./GiffyModal";
+import NewGiffyModal from "./newGiffyModal";
 
 export default function ListUploadImage({
   setUserError,
@@ -12,7 +13,8 @@ export default function ListUploadImage({
   imgUrl,
   setListImgUrl,
   setListImgId,
-  optionIdx
+  optionIdx,
+  deleteImage,
 }) {
   const [imageLoading, setImageLoading] = useState(false);
   const [giffyModalOpen, setGiffyModalOpen] = useState(false);
@@ -32,9 +34,11 @@ export default function ListUploadImage({
 
     try {
       const res = await uploadImage(formData);
-      if(optionIdx !== undefined) { //if it's an option image
+      if (optionIdx !== undefined) {
+        //if it's an option image
         setOptionImage(res.data.imageUrl, optionIdx, res.data.imageId);
-      } else { //if it's the list image
+      } else {
+        //if it's the list image
         setListImgUrl(res.data.imageUrl);
         setListImgId(res.data.imageId);
       }
@@ -60,8 +64,14 @@ export default function ListUploadImage({
           src={imgUrl}
           alt="list"
           className="create-list-image"
-          onClick={() => inputFileRef.current.click()}
         ></img>
+
+        <button
+          onClick={(e) => deleteImage(e, optionIdx)}
+          className="delete-option-image site-button"
+        >
+          Delete Option Image
+        </button>
       </div>
     );
   } else {
@@ -106,7 +116,7 @@ export default function ListUploadImage({
         ref={inputFileRef}
       />
       {currentImage}
-      <GiffyModal
+      <NewGiffyModal
         isOpen={giffyModalOpen}
         closeModal={() => setGiffyModalOpen(false)}
         currOptionIdx={optionIdx}

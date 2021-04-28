@@ -58,6 +58,7 @@ export const deleteList = (userId, listId, sessionToken) => {
   );
 };
 
+//not used
 export const deletePreset = (userId, sessionToken, presetId) => {
   return axios.delete(
     `${server}/users/${userId}/preset/${presetId}?sessionToken=${sessionToken}`,
@@ -89,4 +90,10 @@ export const fetchListPresets = (userId, sessionToken) => {
       "Content-Type": "application/json",
     }
   );
+};
+
+export const addListVisit = (listId) => {
+  return axios.delete(`${server}/events/list/${listId}/visited`, {
+    "Content-Type": "application/json",
+  });
 };

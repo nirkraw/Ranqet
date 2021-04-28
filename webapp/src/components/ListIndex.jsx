@@ -50,10 +50,34 @@ export default function ListIndex({ cacheId, includeDelete }) {
     localStorage.setItem(cacheId, JSON.stringify(newCachedUserLists));
     setPassedList(JSON.parse(localStorage.getItem(cacheId)).lists);
   };
+  
 
   return (
     <ul id="list-index-ul">
       {passedList.map((list, i) => {
+        const rankButton = localStorage.getItem("userId") ? (
+          <div
+            className="list-index-button site-button-2"
+            onClick={() => history.push(`/${list.id}/quiz`)}
+          >
+            Ranqet
+          </div>
+        ) : (
+          <div
+            className="list-index-button site-button-2"
+            onClick={() => {
+              const openModal = new CustomEvent("openModal", {
+                detail: {
+                  newFormType: "login",
+                  newRoute: `/${list.id}/quiz`,
+                },
+              });
+              window.dispatchEvent(openModal);
+            }}
+          >
+            Ranqet
+          </div>
+        );
         return (
           <div className="list-index-item" key={i}>
             <li className="list-index-item-li">
@@ -98,26 +122,21 @@ export default function ListIndex({ cacheId, includeDelete }) {
                   <p>{list.description}</p>
                 </div>
                 <div className="justify-start-center">
-                  {list.isCompleted ? (
+                  {list.isCompleted && localStorage.getItem("userId") ? (
                     <div
                       className="list-index-button site-button-3"
                       onClick={() => history.push(`/${list.id}/rankings`)}
                     >
-                      View Results
+                      View Rankings
                     </div>
                   ) : (
                     <div className="justify-start-center">
-                      <div
-                        className="list-index-button site-button-2"
-                        onClick={() => history.push(`/${list.id}/quiz`)}
-                      >
-                        Rank It!
-                      </div>
+                      {rankButton}
                       <div
                         className="list-index-button site-button-3"
                         onClick={() => history.push(`/${list.id}/rankings`)}
                       >
-                        View Results
+                        View Rankings
                       </div>
                     </div>
                   )}
@@ -128,8 +147,9 @@ export default function ListIndex({ cacheId, includeDelete }) {
                           Delete this list
                         </div>
                       }
-                      submitFunc={() => confirmDeleteList(list.id)}
+                      submitFunc={confirmDeleteList}
                       confirmMessage="Are you sure you want to delete this list?"
+                      funcArgs={[list.id]}
                     />
                   ) : null}
                 </div>

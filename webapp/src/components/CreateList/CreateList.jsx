@@ -71,6 +71,11 @@ export default function CreateList() {
     }
   };
 
+  const deleteListImage = () => {
+    setListImgUrl("");
+    setListImgId("");
+  }
+
   if (loading) return <LoadingSpinner />;
 
   return (
@@ -114,6 +119,7 @@ export default function CreateList() {
           setListImgUrl={setListImgUrl}
           imgUrl={listImgUrl}
           setListImgId={setListImgId}
+          deleteImage={deleteListImage}
         />
       </div>
       <div id="create-list-options-div">

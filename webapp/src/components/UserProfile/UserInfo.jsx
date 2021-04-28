@@ -45,7 +45,7 @@ export default function UserInfo({ numCreated }) {
       userInfoCopy.avatarUrl = res.data.imageUrl;
       const cacheId = getCacheId(fetchUser, [localStorage.getItem("userId")]);
       localStorage.setItem(cacheId, JSON.stringify(userInfoCopy));
-      window.dispatchEvent(new Event("editStorage"));
+      window.dispatchEvent(new Event("changeProfilePicture")); // in navbar, to update profile pic
       setUserInfo(userInfoCopy);
       setImageLoading(false);
     } catch (err) {
@@ -72,7 +72,7 @@ export default function UserInfo({ numCreated }) {
   }
 
   return (
-    <div id="user-profile-header">
+    <div className="user-info-main-container justify-start-center">
       <h3 id="user-profile-error">{userError}</h3>
       <input
         id="user-photo-input"
@@ -97,14 +97,21 @@ export default function UserInfo({ numCreated }) {
       ) : (
         <div id="user-profile-image-container-no-hover">{currentImage}</div>
       )}
-      <h1 id="user-profile-name">{username}</h1>
-      <div id="user-stats">
-        <h1>
+      <div className="name-and-joined ">
+        <h1 id="user-profile-name">{username}</h1>
+        <h1 id="user-profile-joined">
           Joined <span>{formatUploadTime(createdOn)}</span>
         </h1>
-        <h1>
-          <span>{numCreated}</span> lists created
-        </h1>
+      </div>
+      <div className="user-info-data-container">
+        <div className="user-info-sub-container column-start">
+          <h1 className="user-info-category">Created</h1>
+          <h1 className="user-info-data">{numCreated} lists</h1>
+        </div>
+        <div className="user-info-sub-container column-start">
+          <h1 className="user-info-category">Ranked by</h1>
+          <h1 className="user-info-data">45 people</h1>
+        </div>
       </div>
     </div>
   );

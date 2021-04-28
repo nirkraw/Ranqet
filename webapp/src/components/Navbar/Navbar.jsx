@@ -4,7 +4,7 @@ import SearchInput from "../SearchBar/SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ openModal, userInfo }) {
+export default function Navbar() {
   const history = useHistory();
 
   return (
@@ -17,13 +17,29 @@ export default function Navbar({ openModal, userInfo }) {
         <div id="navbar-buttons-container">
           <div
             className="nav-session-button"
-            onClick={() => openModal({ formType: "login", route: "" })}
+            onClick={() => {
+              const openModal = new CustomEvent("openModal", {
+                detail: {
+                  newFormType: "login",
+                  newRoute: "",
+                },
+              });
+              window.dispatchEvent(openModal);
+            }}
           >
             Login
           </div>
           <div
             className="nav-session-button"
-            onClick={() => openModal({ formType: "signup", route: "" })}
+            onClick={() => {
+              const openModal = new CustomEvent("openModal", {
+                detail: {
+                  newFormType: "signup",
+                  newRoute: "",
+                },
+              });
+              window.dispatchEvent(openModal);
+            }}
           >
             Sign Up
           </div>

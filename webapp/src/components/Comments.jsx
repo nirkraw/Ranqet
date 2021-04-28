@@ -79,7 +79,13 @@ export default function Comments({ openModal }) {
       setCurrRows(currentRows);
       setNewComment(e.target.value);
     } else {
-      openModal({ formType: "login", route: "" });
+      const openModal = new CustomEvent("openModal", {
+        detail: {
+          newFormType: "login",
+          newRoute: "",
+        },
+      });
+      window.dispatchEvent(openModal);
     }
   };
 

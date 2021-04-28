@@ -11,8 +11,7 @@
 }
 
 .remove-option {
-  position:absolute;
-  bottom: 5px;
+
 }
 
 #options-input-ul {
@@ -75,8 +74,3 @@
   border: 1px solid black;
 }
 
-.delete-option-image {
-  position: absolute;
-  bottom: 2px;
-  right: 0;
-}

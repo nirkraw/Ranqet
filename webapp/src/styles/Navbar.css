@@ -34,6 +34,8 @@
   width: fit-content;
   margin-right: 50px;
   position: relative;
+  color: #7A7A7A;
+  text-transform: capitalize;
 }
 
 .nav-session-button:hover {

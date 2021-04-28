@@ -1,44 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {
-  fetchListOptionPair,
-  submitOptionChoice,
-} from "../../util/Endpoints/OptionEP";
+import { submitOptionChoice } from "../../util/Endpoints/OptionEP";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 import "../../styles/Quiz.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 export default function QuizOptions({
-  listId,
-  setTotalVoteCount,
-  setVotesCompleted,
+  options,
+  fetchNextOptionPair
 }) {
-  const [options, setOptions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const listId = useRouteMatch().params.listId;
   const [clickable, setClickale] = useState(true);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
-
-  useEffect(() => {
-    fetchNextOptionPair();
-  }, []);
-
-  const fetchNextOptionPair = async () => {
-    try {
-      const res = await fetchListOptionPair(
-        listId,
-        localStorage.getItem("userId")
-      );
-      if (res.data.isCompleted) {
-        history.push(`/${listId}/rankings`);
-      } else {
-        setOptions([res.data.first, res.data.second]);
-      }
-      setVotesCompleted(res.data.numVotesCompleted);
-      setTotalVoteCount(res.data.totalVoteCount);
-      setLoading(false);
-    } catch (err) {
-      history.push(`/error/${err.message}`);
-    }
-  };
 
   const submitOption = async (e) => {
     setClickale(false);
@@ -46,7 +19,6 @@ export default function QuizOptions({
       setClickale(true);
     }, 1000);
     const winningOptionId = e.currentTarget.attributes.optionid.value;
-    setLoading(true);
     const losingOptionId =
       options[0].id === winningOptionId ? options[1].id : options[0].id;
     try {
@@ -63,7 +35,6 @@ export default function QuizOptions({
   };
 
   if (loading) return <LoadingSpinner />;
-
   return (
     <div id="main-options-div">
       {options.map((option, i) => {

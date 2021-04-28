@@ -3,7 +3,7 @@ import "../styles/Session.css";
 import { createUser, loginUser } from "../util/Endpoints/UserEP";
 import { useHistory } from "react-router-dom";
 
-export default function SessionForm({ formType, openModal, route }) {
+export default function SessionForm({ formType, route }) {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,6 @@ export default function SessionForm({ formType, openModal, route }) {
     if (formType === "login") setFormHeader("Log In");
     else setFormHeader("Create Account");
   }, [formType]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,16 +37,24 @@ export default function SessionForm({ formType, openModal, route }) {
       const res = await endpoint(username, password);
       localStorage.setItem("userId", res.data.id);
       localStorage.setItem("sessionToken", res.data.sessionToken);
-      openModal({ formType: "", route: "" });
+      const openModal = new CustomEvent("openModal", {
+        detail: {
+          newFormType: "",
+          newRoute: "",
+        },
+      });
+      window.dispatchEvent(openModal);
       if (route) {
         history.push(route);
-      } else {
-        window.location.reload();
       }
+      window.location.reload(); //resets state of whole website with login creds
     } catch (err) {
       if (err.response.status === 403 && formHeader === "Log In") {
         setLoginError("*Username or password not found");
-      } else if (err.response.status === 400 && formHeader === "Create Account") {
+      } else if (
+        err.response.status === 400 &&
+        formHeader === "Create Account"
+      ) {
         setLoginError("*Username already exists");
       } else {
         history.push(`/error/${err.message}`);
@@ -108,7 +115,13 @@ export default function SessionForm({ formType, openModal, route }) {
             className="switch-session-button"
             onClick={(e) => {
               e.preventDefault();
-              openModal({ formType: "signup", route: route });
+              const openModal = new CustomEvent("openModal", {
+                detail: {
+                  newFormType: "signup",
+                  newRoute: route,
+                },
+              });
+              window.dispatchEvent(openModal);
             }}
           >
             Create an account.
@@ -121,7 +134,13 @@ export default function SessionForm({ formType, openModal, route }) {
             className="switch-session-button"
             onClick={(e) => {
               e.preventDefault();
-              openModal({ formType: "login", route: route });
+                 const openModal = new CustomEvent("openModal", {
+                   detail: {
+                     newFormType: "login",
+                     newRoute: route,
+                   },
+                 });
+                 window.dispatchEvent(openModal);
             }}
           >
             Log In.
