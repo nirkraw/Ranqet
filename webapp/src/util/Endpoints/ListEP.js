@@ -58,14 +58,15 @@ export const deleteList = (userId, listId, sessionToken) => {
   );
 };
 
-// export const deletePreset = (userId, sessionToken, presetId) => {
-//   return axios.delete(
-//     `${server}/users/${userId}/preset/${presetId}?sessionToken=${sessionToken}`,
-//     {
-//       "Content-Type": "application/json",
-//     }
-//   );
-// };
+//not used
+export const deletePreset = (userId, sessionToken, presetId) => {
+  return axios.delete(
+    `${server}/users/${userId}/preset/${presetId}?sessionToken=${sessionToken}`,
+    {
+      "Content-Type": "application/json",
+    }
+  );
+};
 
 export const uploadImage = (formData) => {
   return axios.post(`${server}/images/upload`, formData, {
@@ -91,11 +92,8 @@ export const fetchListPresets = (userId, sessionToken) => {
   );
 };
 
-// export const addListVisit = (listId) => {
-//   return axios.delete(
-//     `${server}/list/${listId}`,
-//     {
-//       "Content-Type": "application/json",
-//     }
-//   );
-// };
+export const addListVisit = (listId) => {
+  return axios.delete(`${server}/events/list/${listId}/visited`, {
+    "Content-Type": "application/json",
+  });
+};

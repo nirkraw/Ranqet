@@ -25,9 +25,9 @@ export default function ProfileDropdown() {
     const updateUserInfo = () => {
       setUserInfo(JSON.parse(localStorage.getItem(cacheId)));
     };
-    window.addEventListener("editStorage", updateUserInfo);
+    window.addEventListener("changeProfilePicture", updateUserInfo);
     return () => {
-      window.removeEventListener("editStorage", updateUserInfo);
+      window.removeEventListener("changeProfilePicture", updateUserInfo);
     };
   }, []);
 

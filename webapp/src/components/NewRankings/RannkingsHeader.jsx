@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import { fetchList, /* addListVisit */ } from "../../util/Endpoints/ListEP";
+import { fetchList, addListVisit  } from "../../util/Endpoints/ListEP";
 import { getFormattedDate } from "../../util/DateCalc";
 import LoadingSpinner from "../Misc/LoadingSpinner";
 
@@ -23,7 +23,7 @@ export default function RannkingsHeader() {
   }, [match.params.listId]);
 
   const addPageVisit = async () => {
-    // await addListVisit(match.params.listId);
+    await addListVisit(match.params.listId);
   }
 
   const getListInfo = async () => {
@@ -35,8 +35,8 @@ export default function RannkingsHeader() {
       setAuthorId(res.data.createdBy.id);
       setDate(res.data.createdOn);
       setDescription(res.data.description);
-      // setPageVisits(res.data.pageVisits);
-      // setTotalRanks(res.data.totalRanks);
+      setPageVisits(res.data.pageVisits);
+      setTotalRanks(res.data.numCompletions);
       setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
@@ -65,7 +65,7 @@ export default function RannkingsHeader() {
       <div className="rankings-list-stats">
         <div className="rankings-rank-total-container">
           <p className="rankings-stats-header">Ranked By</p>
-          <p className="rankings-stats-data">{totalRanks}users</p>
+          <p className="rankings-stats-data">{totalRanks} users</p>
         </div>
         <div className="rankings-rank-total-container">
           <p className="rankings-stats-header">Pageviews</p>
