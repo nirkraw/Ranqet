@@ -1,9 +1,6 @@
 package com.rankerapp.core;
 
-import com.rankerapp.db.ListsRepository;
-import com.rankerapp.db.ScoresRepository;
-import com.rankerapp.db.UserListsRepository;
-import com.rankerapp.db.UsersRepository;
+import com.rankerapp.db.*;
 import com.rankerapp.db.model.ListEntity;
 import com.rankerapp.db.model.ScoreEntity;
 import com.rankerapp.db.model.UserEntity;
@@ -11,6 +8,8 @@ import com.rankerapp.db.model.UserListEntity;
 import com.rankerapp.exceptions.ForbiddenException;
 import com.rankerapp.transport.model.*;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
@@ -22,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class ListFetcher {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(ListFetcher.class);
 
     private static final int TOP_LIST_SIZE = 10;
     
@@ -34,23 +35,28 @@ public class ListFetcher {
     private final UserListsRepository userListsRepo;
 
     private final UsersRepository usersRepo;
+    
+    private final EventsRepository eventsRepo;
 
     private final SessionTokenAuthenticator sessionTokenAuthenticator;
 
     @Inject
     public ListFetcher(ListsRepository listsRepo, ScoresRepository scoresRepo, UsersRepository usersRepo,
-                       UserListsRepository userListsRepo, SessionTokenAuthenticator sessionTokenAuthenticator) {
+                       UserListsRepository userListsRepo, EventsRepository eventsRepo,
+                       SessionTokenAuthenticator sessionTokenAuthenticator) {
         this.listsRepo = listsRepo;
         this.scoresRepo = scoresRepo;
         this.usersRepo = usersRepo;
         this.userListsRepo = userListsRepo;
+        this.eventsRepo = eventsRepo;
         this.sessionTokenAuthenticator = sessionTokenAuthenticator;
     }
 
     public ListResponse fetchListById(UUID id) {
         ListEntity listEntity = listsRepo.getOne(id);
-
-        return convertListToResponse(listEntity);
+    
+        long numVisits = getNumVisitsForList(id);
+        return convertListToResponse(listEntity, numVisits);
     }
 
     public RankingResponse fetchPersonalRankings(UUID listId, UUID userId) {
@@ -102,7 +108,7 @@ public class ListFetcher {
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
         List<ListResponse> topLists = listsRepo.findByIsPrivate(false, pageRequest)
-                .map(ListFetcher::convertListToResponse)
+                .map((list) -> ListFetcher.convertListToResponse(list, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
     
         return GenericListsResponse.builder()
@@ -129,7 +135,7 @@ public class ListFetcher {
         
         List<ListResponse> resolvedTopLists = topLists.stream()
                 .map((list) -> ListFetcher.convertListToResponse(list,
-                        userPresent ? completedUserListIds.contains(list.getId()) : true))
+                        userPresent ? completedUserListIds.contains(list.getId()) : true, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
         
         return GenericListsResponse.builder()
@@ -143,7 +149,7 @@ public class ListFetcher {
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("numCompletions")));
         com.rankerapp.db.model.ListCategory category = com.rankerapp.db.model.ListCategory.valueOf(listCategory.name());
         List<ListResponse> topLists = listsRepo.findByCategoryAndIsPrivate(category, false, pageRequest)
-                .map(ListFetcher::convertListToResponse)
+                .map((list) -> ListFetcher.convertListToResponse(list, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
         return GenericListsResponse.builder()
                 .lists(topLists)
@@ -168,7 +174,8 @@ public class ListFetcher {
                 .collect(Collectors.toList())) : Collections.emptySet();
         
         List<ListResponse> resolvedTopLists = topLists.stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, userPresent ? completedUserListIds.contains(list.getId()) : true))
+                .map((list) -> ListFetcher.convertListToResponse(list,
+                        userPresent ? completedUserListIds.contains(list.getId()) : true, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
         
         return GenericListsResponse.builder()
@@ -181,7 +188,7 @@ public class ListFetcher {
         PageRequest pageRequest =
                 PageRequest.of(0, TOP_LIST_SIZE, Sort.by(Sort.Order.desc("createdOn")));
         List<ListResponse> topLists = listsRepo.findByIsPrivate(false, pageRequest)
-                .map(ListFetcher::convertListToResponse)
+                .map((list) -> ListFetcher.convertListToResponse(list, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
         return GenericListsResponse.builder()
                 .lists(topLists)
@@ -205,7 +212,8 @@ public class ListFetcher {
                 .collect(Collectors.toList())) : Collections.emptySet();
     
         List<ListResponse> resolvedTopLists = topLists.stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, userPresent ? completedUserListIds.contains(list.getId()) : true))
+                .map((list) -> ListFetcher.convertListToResponse(list,
+                        userPresent ? completedUserListIds.contains(list.getId()) : true, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
         
         return GenericListsResponse.builder()
@@ -238,13 +246,13 @@ public class ListFetcher {
 
         return GetAllUserListsResponse.builder()
                 .createdLists(createdLists.stream()
-                        .map(ListFetcher::convertListToResponse)
+                        .map((list) -> ListFetcher.convertListToResponse(list, getNumVisitsForList(list.getId())))
                         .collect(Collectors.toList()))
                 .inProgressLists(inProgressLists.stream()
-                        .map(ListFetcher::convertListToResponse)
+                        .map((list) -> ListFetcher.convertListToResponse(list, getNumVisitsForList(list.getId())))
                         .collect(Collectors.toList()))
                 .completedLists(completedLists.stream()
-                        .map(ListFetcher::convertListToResponse)
+                        .map((list) -> ListFetcher.convertListToResponse(list, getNumVisitsForList(list.getId())))
                         .collect(Collectors.toList()))
                 .build();
     }
@@ -259,7 +267,7 @@ public class ListFetcher {
                 .collect(Collectors.toSet());
     
         return listsRepo.findAllById(completedListIds).stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, true))
+                .map((list) -> ListFetcher.convertListToResponse(list, true, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
     }
     
@@ -275,7 +283,7 @@ public class ListFetcher {
                 .collect(Collectors.toSet());
         
         return listsRepo.findAllById(incompleteListIds).stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, false))
+                .map((list) -> ListFetcher.convertListToResponse(list, false, getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
     }
     
@@ -291,7 +299,8 @@ public class ListFetcher {
         UserEntity createdBy = new UserEntity();
         createdBy.setId(userId);
         return listsRepo.findByCreatedBy(createdBy).stream()
-                .map((list) -> ListFetcher.convertListToResponse(list, completedUserLists.contains(list.getId())))
+                .map((list) -> ListFetcher.convertListToResponse(list, completedUserLists.contains(list.getId()),
+                        getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -300,7 +309,7 @@ public class ListFetcher {
         createdBy.setId(userId);
         return listsRepo.findByCreatedByAndIsPrivate(createdBy, false)
                 .stream()
-                .map(ListFetcher::convertListToResponse)
+                .map((list) -> ListFetcher.convertListToResponse(list, getNumVisitsForList(list.getId())))
                 .sorted((a, b) -> Integer.compare(a.getNumCompletions(), b.getNumCompletions()))
                 .collect(Collectors.toList());
     }
@@ -318,7 +327,8 @@ public class ListFetcher {
         
         return listsRepo.searchByNameContaining(StringUtils.strip(query)).stream()
                 .limit(SEARCH_RESULT_LIMIT)
-                .map((list) -> convertListToResponse(list, (userId != null) && completedLists.contains(list.getId())))
+                .map((list) -> convertListToResponse(list, (userId != null) && completedLists.contains(list.getId()),
+                        getNumVisitsForList(list.getId())))
                 .collect(Collectors.toList());
     }
     
@@ -326,6 +336,15 @@ public class ListFetcher {
     private Set<UUID> getCompletedListIdsForUser(UUID userId, List<UUID> listIds) {
         return userListsRepo.findByUserIdAndListIdInAndIsCompleted(userId, listIds, true)
                 .stream().map(UserListEntity::getListId).collect(Collectors.toSet());
+    }
+    
+    private long getNumVisitsForList(UUID listId) {
+        try {
+            return eventsRepo.countByListId(listId);
+        } catch (Exception e) {
+            LOG.error("Error while fetching the number of visits for listId: " + listId, e);
+            return 0;
+        }
     }
 
     private static List<RankedOption> convertAndSortList(List<ScoreEntity> scores) {
@@ -335,11 +354,11 @@ public class ListFetcher {
                 .collect(Collectors.toList());
     }
 
-    private static ListResponse convertListToResponse(ListEntity listEntity) {
-        return convertListToResponse(listEntity, false);
+    private static ListResponse convertListToResponse(ListEntity listEntity, long numVisits) {
+        return convertListToResponse(listEntity, false, numVisits);
     }
     
-    private static ListResponse convertListToResponse(ListEntity listEntity, boolean completed) {
+    private static ListResponse convertListToResponse(ListEntity listEntity, boolean completed, long numVisits) {
         List<Option> options = listEntity.getOptions().stream()
                 .map(OptionsFactory::convertOption)
                 .collect(Collectors.toList());
@@ -349,6 +368,7 @@ public class ListFetcher {
                 .createdOn(listEntity.getCreatedOn())
                 .description(listEntity.getDescription())
                 .numCompletions(listEntity.getNumCompletions())
+                .numVisits(numVisits)
                 .title(listEntity.getTitle())
                 .options(options)
                 .createdBy(UsersOperations.convertUserEntity(listEntity.getCreatedBy()))
