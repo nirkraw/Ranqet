@@ -82,7 +82,7 @@ export default function ListIndex({ cacheId, includeDelete }) {
           <div className="list-index-item" key={i}>
             <li className="list-index-item-li">
               <div className="list-index-item-info column-start">
-                <div className="title-and-completion-container justify-start-center">
+                <div className="title-and-completion-container justify-start">
                   <p className="list-index-item-name">{list.title}</p>
                   {list.numCompletions === 1 ? (
                     <p className="list-index-item-num-completions">
