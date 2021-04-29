@@ -67,6 +67,7 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/top")
+    @Deprecated // in favor of getLists()
     public GenericListsResponse getTopLists(@RequestParam(value = "category", required = false) ListCategory listCategory) {
         if (Objects.isNull(listCategory)) {
             return listFetcher.getTopLists();
@@ -76,6 +77,7 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/new")
+    @Deprecated // in favor of getLists()
     public GenericListsResponse getNewLists() {
         return listFetcher.getNewLists();
     }
@@ -117,7 +119,7 @@ public class RankerAppResource {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/lists/user/{userId}/all")
-    // TODO: Separate these out into individual endpoints
+    @Deprecated // in favor of getUserLists
     public GetAllUserListsResponse getAllUserLists(@PathVariable(value = "userId") String userId,
             @RequestParam(value = "sessionToken") String sessionToken) {
         if (StringUtils.isEmpty(sessionToken)) {
