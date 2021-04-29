@@ -9,7 +9,7 @@ import { getCacheId } from "../../util/getCacheId";
 import useCache from "../../util/useCache";
 import { fetchUser } from "../../util/Endpoints/UserEP";
 
-export default function UserInfo({ numCreated }) {
+export default function UserInfo({ lists }) {
   const history = useHistory();
   const match = useRouteMatch();
   const [userError, setUserError] = useState(null);
@@ -19,10 +19,20 @@ export default function UserInfo({ numCreated }) {
     args: [match.params.userId],
   });
   const [userInfo, setUserInfo] = useState("");
+  const [rankTotals, setRankTotal] = useState("");
 
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem(userInfoCacheId)));
   }, [userInfoCacheId]);
+
+  useEffect(() => {
+    let total = 0;
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      total += list.numCompletions
+    }
+    setRankTotal(total);
+  }, [])
 
   if (!userInfo) return <LoadingSpinner />;
   const { username, createdOn, avatarUrl } = userInfo;
@@ -106,11 +116,11 @@ export default function UserInfo({ numCreated }) {
       <div className="user-info-data-container">
         <div className="user-info-sub-container column-start">
           <h1 className="user-info-category">Created</h1>
-          <h1 className="user-info-data">{numCreated} lists</h1>
+          <h1 className="user-info-data">{lists.length} lists</h1>
         </div>
         <div className="user-info-sub-container column-start">
-          <h1 className="user-info-category">Ranked by</h1>
-          <h1 className="user-info-data">45 people</h1>
+          <h1 className="user-info-category">Lists Ranked By</h1>
+          <h1 className="user-info-data">{rankTotals} people</h1>
         </div>
       </div>
     </div>

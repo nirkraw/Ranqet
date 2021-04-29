@@ -14,10 +14,10 @@ export default function UserProfile() {
   });
   const data = JSON.parse(localStorage.getItem(userListCacheId));
   if (loading) return <LoadingSpinner />;
-
+  
   return (
     <div className="user-profile-main-container column-start-center">
-      <UserInfo numCreated={data.lists.length} />
+      <UserInfo lists={data.lists} />
       <ListIndex cacheId={userListCacheId} />
     </div>
   );

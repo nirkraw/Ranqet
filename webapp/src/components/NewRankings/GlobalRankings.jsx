@@ -44,7 +44,7 @@ export default function RankingsGlobal() {
     const moderatedRange = maxScore - moderatedMin
     const width = ((currScore - moderatedMin) / moderatedRange) * 100;
     return width;
-  }
+  };
 
   if (loading) return <LoadingSpinner />;
 

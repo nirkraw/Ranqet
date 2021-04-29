@@ -12,8 +12,8 @@ export default function RannkingsHeader() {
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [authorId, setAuthorId] = useState("");
-  const [pageVisits, setPageVisits] = useState(0);
-  const [totalRanks, setTotalRanks] = useState(0);
+  const [pageVisits, setPageVisits] = useState(1);
+  const [totalRanks, setTotalRanks] = useState(1);
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +31,7 @@ export default function RannkingsHeader() {
       const res = await fetchList(match.params.listId);
       setListImg(res.data.imageUrl);
       setTitle(res.data.title);
-      setAuthor(res.data.createdBy.name);
+      setAuthor(res.data.createdBy.username);
       setAuthorId(res.data.createdBy.id);
       setDate(res.data.createdOn);
       setDescription(res.data.description);
