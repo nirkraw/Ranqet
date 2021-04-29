@@ -83,15 +83,19 @@ export default function ListIndex({ cacheId, includeDelete }) {
             <li className="list-index-item-li">
               <div className="list-index-item-info column-start">
                 <div className="title-and-completion-container justify-start">
-                  <p className="list-index-item-name">{list.title}</p>
+                  <div className="list-index-item-name-container">
+                    <p className="list-index-item-name">{list.title}</p>
+                  </div>
                   {list.numCompletions === 1 ? (
-                    <p className="list-index-item-num-completions">
-                      Ranked by
-                      <span className="num-completions-span">
-                        {list.numCompletions}
-                      </span>
-                      person
-                    </p>
+                    <div className="list-index-item-num-completions-container">
+                      <p className="list-index-item-num-completions">
+                        Ranked by
+                        <span className="num-completions-span">
+                          {list.numCompletions}
+                        </span>
+                        person
+                      </p>
+                    </div>
                   ) : (
                     <p className="list-index-item-num-completions">
                       Ranked by

@@ -58,6 +58,15 @@
 
 .list-index-item-info {
   margin-left: 10px;
+  width: 60%;
+}
+
+.title-and-completion-container {
+  width: 100%;
+}
+
+.list-index-item-name-container {
+  max-width: 60%;
 }
 
 .list-index-item-name {
@@ -66,7 +75,21 @@
   font-family: var(--font-6);
   font-weight: 700;
   text-decoration: none;
-  max-width: 60%;
+  overflow-wrap: break-word;
+}
+
+.list-index-item-num-completions-container {
+  width: 38%;
+}
+
+.list-index-item-num-completions {
+  font-size: 20px;
+  font-family: var(--font-6);
+  font-weight: 700;
+  color: var(--orange-1);
+  text-decoration: none;
+  margin-top: 10px;
+  margin-left: 3git %;
 }
 
 .created-date {
@@ -118,16 +141,6 @@
   font-family: var(--font-6);
   font-weight: 400;
   text-decoration: none;
-}
-
-.list-index-item-num-completions {
-  font-size: 20px;
-  font-family: var(--font-6);
-  font-weight: 700;
-  color: var(--orange-1);
-  text-decoration: none;
-  margin-top: 10px;
-  margin-left: 20px;
 }
 
 .num-completions-span {
