@@ -7,8 +7,6 @@ export default function RankingsGlobal() {
   const match = useRouteMatch();
   const history = useHistory();
   const [globalRanking, setGlobalRanking] = useState([]);
-  const [maxScore, setMaxScore] = useState(1);
-  const[minScore, setMinScore] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,18 +17,6 @@ export default function RankingsGlobal() {
     try {
       const global = await fetchGlobalRankings(match.params.listId);
       setGlobalRanking(global.data.ranking);
-      let max = 0;
-      let min = Infinity;
-      for (let i = 0; i < global.data.ranking.length; i++) {
-        if (global.data.ranking[i].score > max) {
-          max = global.data.ranking[i].score;
-        }
-        if (global.data.ranking[i].score < min) {
-          min = global.data.ranking[i].score;
-        }
-      }
-      setMaxScore(max);
-      setMinScore(min);
       setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
