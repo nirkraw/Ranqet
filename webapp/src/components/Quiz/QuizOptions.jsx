@@ -46,7 +46,9 @@ export default function QuizOptions({
               onClick={clickable ? submitOption : null}
               key={i}
             >
-              <h3 className="option-header">{option.name}</h3>
+              <div className="header-container justify-center-center">
+                <h3 className="option-header">{option.name}</h3>
+              </div>
               <img
                 className="quiz-option-img"
                 src={option.photoUrl}
@@ -62,7 +64,9 @@ export default function QuizOptions({
               onClick={submitOption}
               key={i}
             >
-              <h3 className="option-header-no-image">{option.name}</h3>
+              <div className="header-container justify-center-center">
+                <h3 className="option-header-no-image">{option.name}</h3>
+              </div>
             </div>
           );
       })}
