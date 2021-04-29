@@ -38,11 +38,11 @@ export default function RankingsGlobal() {
   };
 
   const getRankingBarWidth = (currScore) => {
-    const range = maxScore - minScore;
-    const beta = range/10;
-    const moderatedMin = minScore - beta;
-    const moderatedRange = maxScore - moderatedMin
-    const width = ((currScore - moderatedMin) / moderatedRange) * 100;
+    const lowPossibleRating = 1400 - 30*(globalRanking.length - 1)/2;
+    const highPossibleRating = 1400 + 30*(globalRanking.length - 1)/2;
+    const possibleRange = highPossibleRating - lowPossibleRating;
+    const adjustedScore = currScore - lowPossibleRating;
+    const width = (adjustedScore / possibleRange) * 100;
     return width;
   };
 
