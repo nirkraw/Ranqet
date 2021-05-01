@@ -50,7 +50,6 @@ export default function ListIndex({ cacheId, includeDelete }) {
     localStorage.setItem(cacheId, JSON.stringify(newCachedUserLists));
     setPassedList(JSON.parse(localStorage.getItem(cacheId)).lists);
   };
-  
 
   return (
     <ul id="list-index-ul">
@@ -82,30 +81,7 @@ export default function ListIndex({ cacheId, includeDelete }) {
           <div className="list-index-item" key={i}>
             <li className="list-index-item-li">
               <div className="list-index-item-info column-start">
-                <div className="title-and-completion-container justify-start">
-                  <div className="list-index-item-name-container">
-                    <p className="list-index-item-name">{list.title}</p>
-                  </div>
-                  {list.numCompletions === 1 ? (
-                    <div className="list-index-item-num-completions-container">
-                      <p className="list-index-item-num-completions">
-                        Ranked by
-                        <span className="num-completions-span">
-                          {list.numCompletions}
-                        </span>
-                        person
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="list-index-item-num-completions">
-                      Ranked by
-                      <span className="num-completions-span">
-                        {list.numCompletions}
-                      </span>
-                      people
-                    </p>
-                  )}
-                </div>
+                <p className="list-index-item-name">{list.title}</p>
                 <div className="list-author-and-date-container justify-start-center">
                   <div
                     className="list-index-author"
@@ -122,6 +98,13 @@ export default function ListIndex({ cacheId, includeDelete }) {
                     {getFormattedDate(list.createdOn)}
                   </p>
                 </div>
+                <p className="list-index-item-num-completions">
+                  Ranked by
+                  <span className="num-completions-span">
+                    {list.numCompletions}
+                  </span>
+                  {list.numCompletions === 1 ? "person" : "people"}
+                </p>
                 <div className="list-index-item-description">
                   <p>{list.description}</p>
                 </div>
