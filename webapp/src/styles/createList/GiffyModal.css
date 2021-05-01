@@ -1,31 +1,66 @@
-#upload-image-main-container {
-  height: 90%;
-  width: 100%;
-  position: relative;
+.giffy-main {
+  padding: 25px;
+  background-color: white;
+  width: 450px;
 }
 
-#upload-image-main-title {
-  color: var(--pink-3);
+.giffy-header {
+  font-family: var(--font-6);
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  color: var(--orange-1);
 }
 
-#gifphy-and-file-container {
-  margin-top: 2%;
-  display: flex;
-  justify-content: space-around;
-  height: 100%;
-  width: 100%;
-}
-
-.gifphy-and-file-title {
-  color: var(--pink-2); 
-}
-
-#giphy-upload-container,
-#file-upload-container {
-  width: 75%;
-  height: 90%;
-  position: absolute;
+.giphy-search-container {
   margin-top: 20px;
+}
+
+.giphy-image-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  width: 310px;
+  height: 200px;
+}
+
+
+.exit-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#giphy-search-button,
+#giphy-save-button,
+#exit-modal-button {
+  border: 1px solid black;
+  margin-left: 10px;
+  padding: 4px;
+  width: 100px;
+  font-family: var(--font-6);
+  color: var(--orange-1);
+  background-color: white;
+  border-radius: 3%;
+  font-size: 20px;
+}
+
+#giphy-search {
+  font-size: 20px;
+  font-family: var(--font-6);
+  font-weight: 700;
+  width: 200px;
+}
+
+#giphy-search-button:hover,
+#giphy-save-button:hover,
+#exit-modal-button:hover {
+  cursor: pointer;
+  background-color: rgb(209, 208, 208);
+}
+
+#giphy-search-button {
+    color: white;
+    background-color: var(--orange-1);
 }
 
 #option-giphy-image {
@@ -37,69 +72,3 @@
   background-position: center center;
   background-repeat: no-repeat;
 }
-
-#giphy-image-container {
-  margin-top: 25px;
-  border: 1px solid black;
-  width: 100%;
-  height: 65%;
-  background-color: white;
-}
-
-
-/* #giphy-search-button,
-#giphy-save-button,
-#exit-modal-button {
-  border: 1px solid black;
-  margin-left: 10px;
-  padding: 4px;
-  width: 100px;
-  font-family: var(--font-1);
-  color: var(--pink-3);
-  background-color: white;
-  border-radius: 3%;
-  font-size: 20px;
-} */
-
-/* #giphy-search-button:hover,
-#giphy-save-button:hover,
-#exit-modal-button:hover {
-  cursor: pointer;
-  background-color: rgb(209, 208, 208);
-} */
-
-#giphy-upload-container {
-  border-right: 1px solid black;
-  margin-right: -40px;
-}
-
-#exit-modal-buttons {
-  position: absolute;
-  right: 0%;
-  bottom: -12%;
-}
-
-#upload-file-icon {
-  height: 100px;
-  width: 100px;
-  margin-top: 20%;
-}
-
-#upload-file-icon:hover {
-  cursor: pointer;
-  height: 103px;
-  width: 103px;
-}
-
-#photo-input {
-  width: 38%;
-  margin-top: 30%;
-}
-
-/* #giphy-search {
-  font-size: 20px;
-  font-family: var(--font-1);
-  color: var(--pink-3);
-  font-weight: 900;
-  width: 200px;
-} */

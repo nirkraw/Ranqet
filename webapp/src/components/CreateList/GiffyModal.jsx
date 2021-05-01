@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/createList/GiffyModal.css";
-import Modal from "react-modal";
 import axios from "axios";
 import Homer from "../../assets/homer-simpsons-155238_1280.png";
-Modal.setAppElement("#root");
+import "../../styles/createList/GiffyModal.css";
 
 export default function GiffyModal({
   isOpen,
@@ -38,14 +36,17 @@ export default function GiffyModal({
     setOptionImage(giphyUrl, currOptionIdx);
     closeModal();
   };
-
+  if (!isOpen) return null;
   return (
-    <Modal isOpen={isOpen} style={{ overlay: { backgroundColor: "grey" }, content: { width: "30%",  left: "35%" }}}>
-      <div id="upload-image-main-container">
-        <h1 id="upload-image-main-title">Search Random Giphy</h1>
-        <div id="gifphy-and-file-container">
-          <div id="giphy-upload-container">
-            <div id="giphy-search-container">
+    <div className="modal-background" onClick={closeModal}>
+      <div
+        className="modal-child column-start"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="giffy-main">
+          <h1 className="giffy-header">Search Giffy</h1>
+          <div className="column-center-center">
+            <div className="giphy-search-container justify-center">
               <input
                 id="giphy-search"
                 type="text"
@@ -55,22 +56,22 @@ export default function GiffyModal({
                 Search
               </button>
             </div>
-            <div id="giphy-image-container">
+            <div className="giphy-image-container">
               {giphyUrl ? (
                 <img src={giphyUrl} alt="giphy" id="option-giphy-image"></img>
               ) : null}
             </div>
           </div>
-        </div>
-        <div id="exit-modal-buttons">
-          <button id="exit-modal-button" onClick={closeModal}>
-            Cancel
-          </button>
-          <button onClick={handleGiphySubmit} id="giphy-save-button">
-            Save
-          </button>
+          <div className="exit-modal-buttons">
+            <button id="exit-modal-button" onClick={closeModal}>
+              Cancel
+            </button>
+            <button onClick={handleGiphySubmit} id="giphy-save-button">
+              Save
+            </button>
+          </div>
         </div>
       </div>
-    </Modal>
+    </div>
   );
 }

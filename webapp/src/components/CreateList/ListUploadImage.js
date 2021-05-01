@@ -4,8 +4,7 @@ import Web from "../../assets/web.png";
 import { uploadImage } from "../../util/Endpoints/ListEP";
 import Picture from "../../assets/picture.png";
 import LoadingSpinner from "../Misc/LoadingSpinner";
-// import GiffyModal from "./GiffyModal";
-import NewGiffyModal from "./newGiffyModal";
+import GiffyModal from "./GiffyModal";
 
 export default function ListUploadImage({
   setUserError,
@@ -116,7 +115,7 @@ export default function ListUploadImage({
         ref={inputFileRef}
       />
       {currentImage}
-      <NewGiffyModal
+      <GiffyModal
         isOpen={giffyModalOpen}
         closeModal={() => setGiffyModalOpen(false)}
         currOptionIdx={optionIdx}
