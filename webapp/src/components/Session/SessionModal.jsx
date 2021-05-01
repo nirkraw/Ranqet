@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../styles/Modal.css";
+import "../../styles/Session.css";
 import SessionForm from "./SessionForm";
 
 export default function Modal() {

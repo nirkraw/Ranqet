@@ -7,7 +7,7 @@ import Quiz from "./Quiz/Quiz";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import React from "react";
 import UserProfile from "./UserProfile/UserProfile";
-import Modal from "./Modal";
+import SessionModal from "./Session/SessionModal";
 import SearchPage from "./SearchBar/SearchPage";
 import ErrorPage from "./Misc/ErrorPage";
 import ListCompleted from "./CreateList/ListCompleted";
@@ -27,8 +27,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Navbar  />
-        <Modal />
+        <Navbar />
+        <SessionModal />
         <Switch>
           <Route path="/error/:errorMessage" render={() => <ErrorPage />} />
           <Route
@@ -52,10 +52,7 @@ function App() {
             }
           />
           <Route exact path="/:listId/quiz" render={() => <Quiz />} />
-          <Route
-            path="/:listId/rankings"
-            render={() => <Rankings  />}
-          />
+          <Route path="/:listId/rankings" render={() => <Rankings />} />
           <Route exact path="/profile/:userId" render={() => <UserProfile />} />
           <Route path="/search/:searchVal" render={() => <SearchPage />} />
           <Route exact path="/" render={() => <Home />} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Session.css";
-import { createUser, loginUser } from "../util/Endpoints/UserEP";
+import "../../styles/Session.css";
+import { createUser, loginUser } from "../../util/Endpoints/UserEP";
 import { useHistory } from "react-router-dom";
 
 export default function SessionForm({ formType, route }) {
