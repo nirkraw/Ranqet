@@ -122,23 +122,3 @@
   cursor: pointer;
   background-color: var(--pink-2);
 }
-
-#option-preset-button {
-  font-family: var(--font-1);
-  font-size: 18px;
-  border: 1px solid black;
-  padding: 2px 5px 2px 5px;
-  height: 40px;
-  width: fit-content;
-}
-
-#option-preset-button:hover {
-  opacity: 0.7;
-}
-
-#infotag-and-preset-button-container {
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}

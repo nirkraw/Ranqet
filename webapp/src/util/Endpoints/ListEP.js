@@ -58,15 +58,6 @@ export const deleteList = (userId, listId, sessionToken) => {
   );
 };
 
-//not used
-export const deletePreset = (userId, sessionToken, presetId) => {
-  return axios.delete(
-    `${server}/users/${userId}/preset/${presetId}?sessionToken=${sessionToken}`,
-    {
-      "Content-Type": "application/json",
-    }
-  );
-};
 
 export const uploadImage = (formData) => {
   return axios.post(`${server}/images/upload`, formData, {
@@ -83,14 +74,6 @@ export const searchForLists = (searchString, sessionToken, userId) => {
   );
 };
 
-export const fetchListPresets = (userId, sessionToken) => {
-  return axios.get(
-    `${server}/users/${userId}/presets?sessionToken=${sessionToken}`,
-    {
-      "Content-Type": "application/json",
-    }
-  );
-};
 
 export const addListVisit = (listId) => {
   return axios.post(`${server}/events/list/${listId}/visited`, {

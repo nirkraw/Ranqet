@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ListUploadImage from "./ListUploadImage";
 import "../../styles/createList/ListOptions.css";
-import PresetOptions from "./PresetOptions/PresetOptions";
 import DeleteConfirmation from "../DeleteConfirmation";
 
 export default function ListOptions({
   setListOptions,
-  presetModalOpen,
-  setPresetModalOpen,
   setUserError,
 }) {
   const [options, setOptions] = useState([
@@ -92,14 +89,6 @@ export default function ListOptions({
   return (
     <div id="options-input-main-container">
       <ul id="options-input-ul">{optionInputs}</ul>
-      {presetModalOpen ? ( //do we need this?
-        <PresetOptions
-          isOpen={true}
-          setPresetModalOpen={setPresetModalOpen}
-          setOptions={setOptions}
-          options={options}
-        />
-      ) : null}
       {options.length < 8 ? (
         <div className="site-button-3" onClick={addOption}>
           + Add Option

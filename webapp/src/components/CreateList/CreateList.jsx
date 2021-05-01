@@ -21,7 +21,7 @@ export default function CreateList() {
   const [listOptions, setListOptions] = useState([]);
   const [userError, setUserError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [presetModalOpen, setPresetModalOpen] = useState(false);
+
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -126,8 +126,6 @@ export default function CreateList() {
         <h1 className="create-list-title">List Options</h1>
         <ListOptions
           setListOptions={setListOptions}
-          presetModalOpen={presetModalOpen}
-          setPresetModalOpen={setPresetModalOpen}
           setUserError={setUserError}
         />
       </div>
