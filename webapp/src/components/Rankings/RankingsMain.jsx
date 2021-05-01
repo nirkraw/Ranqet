@@ -1,4 +1,4 @@
-import "../../styles/NewRankings.css";
+import "../../styles/Rankings.css";
 import Comments from "../Comments";
 import RankingsHeader from "./RannkingsHeader";
 import GlobalRankings from "./GlobalRankings";
