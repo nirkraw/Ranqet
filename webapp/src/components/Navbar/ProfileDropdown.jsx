@@ -7,20 +7,21 @@ import useCache from "../../util/useCache";
 import { getCacheId } from "../../util/getCacheId";
 
 export default function ProfileDropdown() {
+  const history = useHistory();
+  const wrapperRef = useRef(null);
   const [userInfoCacheId] = useCache({
     fn: fetchUser,
     args: [localStorage.getItem("userId")],
   });
   const [active, setActive] = useState(false);
-  const history = useHistory();
-  const wrapperRef = useRef(null);
+  const [userInfo, setUserInfo] = useState("");
   const [cacheId] = useState(
     getCacheId(fetchUser, [localStorage.getItem("userId")])
   );
+  // sets eventListener to close dropdown across site except on ref
   useOutsideAlerter(wrapperRef, setActive, "mousedown");
 
-  const [userInfo, setUserInfo] = useState("");
-
+  // sets eventListener to listen for any profile picture changes across site
   useEffect(() => {
     const updateUserInfo = () => {
       setUserInfo(JSON.parse(localStorage.getItem(cacheId)));
@@ -31,6 +32,7 @@ export default function ProfileDropdown() {
     };
   }, []);
 
+  //uses the cacheId to pull from localStorage and parse into state
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem(userInfoCacheId)));
   }, [userInfoCacheId]);

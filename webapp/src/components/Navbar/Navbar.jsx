@@ -24,7 +24,7 @@ export default function Navbar() {
                   newRoute: "",
                 },
               });
-              window.dispatchEvent(openModal);
+              window.dispatchEvent(openModal); //eventListener in SessionModal
             }}
           >
             Login
@@ -38,8 +38,8 @@ export default function Navbar() {
                   newRoute: "",
                 },
               });
-              window.dispatchEvent(openModal);
-            }}
+              window.dispatchEvent(openModal); //eventListener in SessionModal
+            };}
           >
             Sign Up
           </div>
