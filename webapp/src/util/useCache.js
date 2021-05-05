@@ -43,6 +43,6 @@ export default function useCache(cacheObj) {
   useEffect(() => {
     prevArgs.current = args;
   });
-  //need loading for components that have disabled cache functions so they can load even without an ID
+  //need loading for components that have disabled cache functions so they can load even without an cacheId
   return [cacheId, loading];
 }

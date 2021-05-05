@@ -19,9 +19,9 @@ export default function Tabs({
   };
 
   let currTab;
-  if (tabDirection === "horizontal" && activeIdx === 0) {
+  if (tabDirection === "horizontal" && activeIdx === 0) { 
     currTab = <HomeCategories/>;
-  } else if (tabDirection === "horizontal" && activeIdx === 1) {
+  } else if (tabDirection === "horizontal" && activeIdx === 1) { //my lists needs delete functionality
     currTab = (
       <ListIndex
         cacheId={cacheId}

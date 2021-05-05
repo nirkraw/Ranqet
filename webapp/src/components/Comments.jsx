@@ -11,7 +11,7 @@ import {
 import { fetchUser } from "../util/Endpoints/UserEP";
 import EmptyAvatar from "../assets/avatar.svg";
 
-export default function Comments({ openModal }) {
+export default function Comments() {
   const history = useHistory();
   const match = useRouteMatch();
   const addCommentInput = useRef(null);
@@ -19,7 +19,7 @@ export default function Comments({ openModal }) {
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState(EmptyAvatar);
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(0); //currently not used 
   const [currRows, setCurrRows] = useState(1);
 
   useEffect(() => {
@@ -66,6 +66,7 @@ export default function Comments({ openModal }) {
   };
 
   const handleCommentChange = (e) => {
+    //allows textarea to move with size of comment
     if (localStorage.getItem("userId")) {
       const textareaLineHeight = 24;
       const previousRows = e.target.rows;
@@ -85,7 +86,7 @@ export default function Comments({ openModal }) {
           newRoute: "",
         },
       });
-      window.dispatchEvent(openModal);
+      window.dispatchEvent(openModal); //if not logged in comment button promts login
     }
   };
 
@@ -97,7 +98,7 @@ export default function Comments({ openModal }) {
       localStorage.getItem("userId"),
       localStorage.getItem("sessionToken")
     );
-    fetchComments();
+    fetchComments(); //reset state and get new comments
   };
 
   if (loading) return <LoadingSpinner />;

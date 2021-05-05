@@ -4,7 +4,7 @@ import "../../styles/SearchBar.css";
 
 export default function SearchResults({ showResults, searchWrapper, setActive, active }) {
   const history = useHistory();
-  if (!localStorage.getItem("searchResults") || !showResults) return null;
+  if (!localStorage.getItem("searchResults") || !showResults) return null; //if there are no search results or it's inactive
   const results = JSON.parse(localStorage.getItem("searchResults")).lists;
 
   return (

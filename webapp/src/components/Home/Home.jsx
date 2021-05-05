@@ -22,6 +22,7 @@ export default function Home() {
     enabled: Boolean(filter),
   });
   
+  //clears cache upon leaving home page
   useEffect(() => {
     return () => {
       for (let filter of UserFilter) {
@@ -46,7 +47,7 @@ export default function Home() {
   const userLists = localStorage.getItem("sessionToken")
     ? UserFilter.map((filter) => ({
         name: UserFilterToTitle[filter],
-        filter,
+        filter, //filter sets which list is loaded from the useCache function's loadEndpoint()
       }))
     : [];
 

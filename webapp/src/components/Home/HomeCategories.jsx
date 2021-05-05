@@ -23,7 +23,7 @@ export default function HomeCategories() {
 
   const categoryObjects = ListCategory.map((filter) => ({
     name: ListCategoryToTitle[filter],
-    filter,
+    filter, //filter sets which list is loaded from the useCache function's loadEndpoint()
   }));
 
   return (
