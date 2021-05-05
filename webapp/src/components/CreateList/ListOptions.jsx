@@ -12,27 +12,31 @@ export default function ListOptions({
     { name: "", imageUrl: "" },
   ]);
 
+  // by keeping another state for options in ListOptions we can keep all our logic in the
+  // same component. However in order to submit CreateList needs access to the options. So we update the CreateList option this.state.
+  // everytime there is a change to ListOptions option state.
   useEffect(() => {
     setListOptions(options);
   }, [options]);
 
   const handleOptionNameChange = (e, index) => {
-    const optionsCopy = [...options];
+    const optionsCopy = [...options]; //deep copy in order to trigger the option state change
     optionsCopy[index].name = e.currentTarget.value;
     setOptions(optionsCopy);
   };
 
   const deleteOptionImage = (e, index) => {
     e.preventDefault();
-    const optionsCopy = [...options];
+    const optionsCopy = [...options]; //deep copy in order to trigger the option state change
     optionsCopy[index].imageUrl = "";
+    // Since we do not store Id for giphys we only delte the imageId for uploads
     if (optionsCopy[index].imageId) optionsCopy[index].imageId = "";
     setOptions(optionsCopy);
   };
 
   const addOption = (e) => {
     e.preventDefault();
-    const optionsCopy = [...options];
+    const optionsCopy = [...options]; //deep copy in order to trigger the option state change
     optionsCopy.push({ name: "", imageUrl: "" });
     setOptions(optionsCopy);
   };
@@ -40,11 +44,14 @@ export default function ListOptions({
   const removeOption = (deleteIdx) => {
     const optionsCopy = [];
     for (let i = 0; i < options.length; i++) {
+      //deep copy in order to trigger the option state change
       if (i !== deleteIdx) optionsCopy.push(options[i]);
     }
-    setOptions(optionsCopy); 
+    setOptions(optionsCopy);
   };
 
+  // imageId is used in backend for tracking and cleaning up uploads.
+  // Since giphy are not stored in anything but text, we do not need to keep Id's for them.
   const setOptionImage = (imageUrl, idx, imageId) => {
     const newOptions = [...options];
     newOptions[idx].imageUrl = imageUrl;

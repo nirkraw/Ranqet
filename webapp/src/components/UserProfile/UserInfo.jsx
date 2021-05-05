@@ -15,13 +15,13 @@ export default function UserInfo({ lists }) {
   const [userError, setUserError] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [userInfo, setUserInfo] = useState("");
+  const [rankTotals, setRankTotal] = useState("");
   const [userInfoCacheId] = useCache({
     fn: fetchUser,
     args: [match.params.userId],
   });
 
-  const [rankTotals, setRankTotal] = useState("");
-
+  //when userInfoCacheId is change update userInfo accordingly
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem(userInfoCacheId)));
   }, [userInfoCacheId]);
@@ -35,7 +35,6 @@ export default function UserInfo({ lists }) {
     setRankTotal(total);
   }, []);
 
-    // const user = JSON.parse(localStorage.getItem(userListCacheId));
   if(!userInfo) return <LoadingSpinner />
   const { username, createdOn, avatarUrl } = userInfo;
 
@@ -50,6 +49,7 @@ export default function UserInfo({ lists }) {
     setImageLoading(true);
     const formData = new FormData();
     formData.append("file", file);
+    // upload image and update the cache
     try {
       const res = await uploadImage(formData);
       updateUserAvatar(localStorage.getItem("userId"), res.data.imageUrl);
@@ -68,11 +68,11 @@ export default function UserInfo({ lists }) {
   let currentImage;
   if (imageLoading) {
     currentImage = <LoadingSpinner />;
-  } else if (avatarUrl) {
+  } else if (avatarUrl) { //if we have image
     currentImage = (
       <img src={avatarUrl} alt="user-profile" id="user-profile-image"></img>
     );
-  } else if (localStorage.getItem("userId") === match.params.userId) {
+  } else if (localStorage.getItem("userId") === match.params.userId) { // if we don't have an image
     currentImage = (
       <p
         onClick={() => document.getElementById("user-photo-input").click()}

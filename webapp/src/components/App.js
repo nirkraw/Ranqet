@@ -14,7 +14,8 @@ import ListCompleted from "./CreateList/ListCompleted";
 import NotFound from "./NotFound";
 
 function App() {
-  window.onunload = () => { //resets cache on refresh or window/tab close
+  window.onunload = () => {
+    //resets cache on refresh or window/tab close
     const userId = localStorage.getItem("userId");
     const sessionToken = localStorage.getItem("sessionToken");
     localStorage.clear();

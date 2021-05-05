@@ -6,7 +6,7 @@ export default function Modal() {
   const [formType, setFormType] = useState("");
   const [route, setRoute] = useState("");
 
-  useEffect(() => {
+  useEffect(() => {//eventListener across app
     const updateModalState = (event) => {
       setFormType(event.detail.newFormType);
       setRoute(event.detail.newRoute);

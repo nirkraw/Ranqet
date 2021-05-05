@@ -9,15 +9,11 @@ export default function QuizOptions({
   fetchNextOptionPair
 }) {
   const listId = useRouteMatch().params.listId;
-  const [clickable, setClickale] = useState(true);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const submitOption = async (e) => {
-    setClickale(false);
-    setTimeout(() => {
-      setClickale(true);
-    }, 1000);
+    setLoading(true);
     const winningOptionId = e.currentTarget.attributes.optionid.value;
     const losingOptionId =
       options[0].id === winningOptionId ? options[1].id : options[0].id;
@@ -29,6 +25,7 @@ export default function QuizOptions({
         losingOptionId
       );
       fetchNextOptionPair();
+      setLoading(false);
     } catch (err) {
       history.push(`/error/${err.message}`);
     }
@@ -43,7 +40,7 @@ export default function QuizOptions({
             <div
               className="option-div"
               optionid={option.id}
-              onClick={clickable ? submitOption : null}
+              onClick={submitOption}
               key={i}
             >
               <div className="header-container justify-center-center">

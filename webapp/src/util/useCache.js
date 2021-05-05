@@ -24,7 +24,6 @@ export default function useCache(cacheObj) {
     //if cacheId already exists return it otherwise create a new key in localStorage
     if (localStorage.getItem(cacheID)) {
       setCacheId(cacheID);
-      // setLoading(false);
     } else {
       loadEndpoint();
     }
@@ -33,9 +32,7 @@ export default function useCache(cacheObj) {
       try {
         const res = await fn(...args);
         localStorage.setItem(cacheID, JSON.stringify(res.data));
-
         setCacheId(cacheID);
-        // setLoading(false);
       } catch (err) {
         history.push(`/error/${err}`);
       }

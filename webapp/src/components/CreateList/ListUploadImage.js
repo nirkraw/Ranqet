@@ -73,7 +73,7 @@ export default function ListUploadImage({
         </button>
       </div>
     );
-  } else {
+  } else {//if there is no image
     currentImage = (
       <div className="list-upload-image justify-start-center">
         <div

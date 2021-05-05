@@ -37,7 +37,7 @@ export default function ListCompleted() {
   };
 
   const copyToClipboard = (e) => {
-    navigator.clipboard.writeText(linkRef.current.value);
+    navigator.clipboard.writeText(linkRef.current.value); //only works with https
     setActive(true);
   };
 

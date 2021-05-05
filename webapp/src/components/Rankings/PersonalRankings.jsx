@@ -48,7 +48,7 @@ export default function PersonalRankings() {
                 newRoute: `/${match.params.listId}/quiz`,
               },
             });
-            window.dispatchEvent(openModal);
+            window.dispatchEvent(openModal); //opens login window
           }}
         >
           Ranqet

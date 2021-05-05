@@ -58,7 +58,7 @@ export default function Quiz() {
   };
 
   if (loading) return <LoadingSpinner />;
-  const percentFinished = (votesCompleted / totalVoteCount) * 100;
+  const percentFinished = (votesCompleted / totalVoteCount) * 100; //used for progress bar
   const divStyle = {
     width: `${percentFinished}%`,
     height: "100%",

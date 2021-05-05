@@ -24,10 +24,10 @@ export default function RankingsGlobal() {
   };
 
   const getRankingBarWidth = (currScore) => {
-    const lowPossibleRating = 1400 - 30*(globalRanking.length - 1)/2;
-    const highPossibleRating = 1400 + 30*(globalRanking.length - 1)/2;
-    const possibleRange = highPossibleRating - lowPossibleRating;
-    const adjustedScore = currScore - lowPossibleRating;
+    const lowestPossibleRating = 1400 - 30*(globalRanking.length - 1)/2;
+    const highestPossibleRating = 1400 + 30*(globalRanking.length - 1)/2;
+    const possibleRange = highestPossibleRating - lowestPossibleRating;
+    const adjustedScore = currScore - lowestPossibleRating;
     const width = (adjustedScore / possibleRange) * 100;
     return width;
   };

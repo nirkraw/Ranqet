@@ -43,7 +43,7 @@ export default function SessionForm({ formType, route }) {
           newRoute: "",
         },
       });
-      window.dispatchEvent(openModal);
+      window.dispatchEvent(openModal); //sends to sessionModal event listner with empty formType which closes modal
       if (route) {
         history.push(route);
       }
