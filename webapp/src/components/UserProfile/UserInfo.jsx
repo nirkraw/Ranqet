@@ -14,11 +14,12 @@ export default function UserInfo({ lists }) {
   const match = useRouteMatch();
   const [userError, setUserError] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState("");
   const [userInfoCacheId] = useCache({
     fn: fetchUser,
     args: [match.params.userId],
   });
-  const [userInfo, setUserInfo] = useState("");
+
   const [rankTotals, setRankTotal] = useState("");
 
   useEffect(() => {
@@ -29,12 +30,13 @@ export default function UserInfo({ lists }) {
     let total = 0;
     for (let i = 0; i < lists.length; i++) {
       const list = lists[i];
-      total += list.numCompletions
+      total += list.numCompletions;
     }
     setRankTotal(total);
-  }, [])
+  }, []);
 
-  if (!userInfo) return <LoadingSpinner />;
+    // const user = JSON.parse(localStorage.getItem(userListCacheId));
+  if(!userInfo) return <LoadingSpinner />
   const { username, createdOn, avatarUrl } = userInfo;
 
   const handleUserPhotoFile = async (e) => {

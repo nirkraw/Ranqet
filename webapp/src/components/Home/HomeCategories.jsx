@@ -10,7 +10,7 @@ import useCache from "../../util/useCache";
 export default function HomeCategories() {
   const history = useHistory();
   const [filter, setFilter] = useState("POPULAR");
-  const [userListCacheId, loading] = useCache({
+  const [userListCacheId] = useCache({
     fn: fetchCategoryList,
     args: [
       filter,
@@ -19,7 +19,7 @@ export default function HomeCategories() {
     ],
   });
 
-  if (loading) return <LoadingSpinner />;
+  if (!userListCacheId) return <LoadingSpinner />;
 
   const categoryObjects = ListCategory.map((filter) => ({
     name: ListCategoryToTitle[filter],

@@ -1,18 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
-
-// this method is used to store cache results across site. It accepts function name and arguments 
-// to check for existing cache or create new key in localStorage. 
+// this method is used to store cache results across site. It accepts function name and arguments
+// to check for existing cache or create new key in localStorage.
 export default function useCache(cacheObj) {
   const { fn, args, enabled } = cacheObj;
   const history = useHistory();
   const prevArgs = useRef(null);
-  const [cacheId, setCacheId] = useState();
+  const [cacheId, setCacheId] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    //if cache is not enabeled then it does not store 
+    //if cache is not enabeled then it does not store and sets loading to false, 
     if (enabled === false) {
       setLoading(false);
       return;
@@ -25,7 +24,7 @@ export default function useCache(cacheObj) {
     //if cacheId already exists return it otherwise create a new key in localStorage
     if (localStorage.getItem(cacheID)) {
       setCacheId(cacheID);
-      setLoading(false);
+      // setLoading(false);
     } else {
       loadEndpoint();
     }
@@ -34,18 +33,19 @@ export default function useCache(cacheObj) {
       try {
         const res = await fn(...args);
         localStorage.setItem(cacheID, JSON.stringify(res.data));
+
         setCacheId(cacheID);
-        setLoading(false);
+        // setLoading(false);
       } catch (err) {
         history.push(`/error/${err}`);
       }
     }
   }, [args, fn]);
 
-  //sets a ref to the curren args to compare to next args to stop infinite cacheStorage 
+  //sets a ref to the curren args to compare to next args to stop infinite cacheStorage
   useEffect(() => {
     prevArgs.current = args;
   });
-
+  //need loading for components that have disabled cache functions so they can load even without an ID
   return [cacheId, loading];
 }

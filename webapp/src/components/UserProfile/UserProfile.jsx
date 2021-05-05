@@ -8,12 +8,13 @@ import useCache from "../../util/useCache.js";
 
 export default function UserProfile() {
   const match = useRouteMatch();
-  const [userListCacheId, loading] = useCache({
+  const [userListCacheId] = useCache({
     fn: fetchUserPublicList,
     args: [match.params.userId],
   });
+
+  if (!userListCacheId) return <LoadingSpinner />;
   const data = JSON.parse(localStorage.getItem(userListCacheId));
-  if (loading) return <LoadingSpinner />;
   
   return (
     <div className="user-profile-main-container column-start-center">

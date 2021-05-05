@@ -38,7 +38,6 @@ export default function ProfileDropdown() {
   }, [userInfoCacheId]);
 
   if (!userInfo) return <LoadingSpinner />;
-
   const { username, avatarUrl } = userInfo;
 
   const logout = (e) => {
