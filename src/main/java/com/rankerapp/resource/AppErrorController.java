@@ -1,5 +1,7 @@
 package com.rankerapp.resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class AppErrorController implements ErrorController {
     
-    private static final String ERROR_PATH = "/error";
+    private static final Logger LOG = LoggerFactory.getLogger(AppErrorController.class);
     
+    private static final String ERROR_PATH = "/error";
     
     @RequestMapping(value = ERROR_PATH)
     public String errorHtml(HttpServletRequest request) {
@@ -20,9 +23,10 @@ public class AppErrorController implements ErrorController {
     
         // for brevity, only handling 404
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            int statusCode = Integer.valueOf(status.toString());
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "forward:/#404";
+                LOG.error("Endpoint not found. Returning static 404 page");
+                return "redirect:index";
             }
         }
         return "error";
@@ -30,7 +34,7 @@ public class AppErrorController implements ErrorController {
     
     @Override
     public String getErrorPath() {
-        return ERROR_PATH;
+        return null;
     }
     
 }
