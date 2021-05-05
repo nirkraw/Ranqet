@@ -39,7 +39,7 @@ export default function Navbar() {
                 },
               });
               window.dispatchEvent(openModal); //eventListener in SessionModal
-            };}
+            }}
           >
             Sign Up
           </div>
