@@ -27,7 +27,7 @@ public class AppErrorController implements ErrorController {
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 // TODO: redirect to the url that was initially requested
                 LOG.error("Endpoint not found. Returning static 404 page");
-                return "redirect:";
+                return "redirect:index.html";
             }
         }
         return "error";
