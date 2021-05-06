@@ -15,7 +15,7 @@ A crowdsourced, social, ranking site where users can vote on the order of a list
 
 - Users can create, read, and delete lists
 - Users can vote on lists
-- Votes are aggregated to form Rankings
+- Votes are aggregated using the ELO rating system to form Rankings
 - Lists of lists are organized into categories and shown on home page
 - Users can comment
 - User's have profile pages
@@ -214,14 +214,13 @@ useOutsideAlerter(wrapperRef, setActive, "mousedown");
 
 
 
-### Running The Backend
+### Running Backend
 Initialize AWS Secrets:
 ```
 . ./scripts/initialize_secrets.sh
 ```
 then run `./gradlew run -PskipFrontend=true` in that same shell
 
+### Running Frontend
 
-## Minimum Viable Product:
-User is able to vote on a roster (take a quiz). Like Facemash, two options are presented, user picks one, frontend sends winner to backend.
-User is able to see an aggregated ranking of all items in list in order of ELO score, both global (only when they are done to avoid any bias, Global Ranking ELO score not influenced unless quiz is done) and user-specific rankings (maybe updates dynamically as the user casts votes)
+In the webapp directory run ```npm run start```
