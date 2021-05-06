@@ -1,4 +1,4 @@
-# [Ranqet](http://www.ranqet.com)
+# [Ranqet](http://www.ranqet.com){:target="_blank"}
 
 # Site Description
 A crowdsourced, social, ranking site where users can vote on the order of a list through indvidual matchups and view personal and global rankings based on aggregate vote results. Users can also create lists, comment on rankings, and see other users lists. 
