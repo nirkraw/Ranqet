@@ -81,19 +81,6 @@
    background-color: var(--gray-3);
 }
 
-.search-result-item-image {
-  height: 40px;
-  width: 60px;
-  object-fit: cover;
-  background-image: url(../assets/rankerLogo.png);
-  background-size: contain; /* or contain depending on what you want */
-  background-position: center center;
-  background-repeat: no-repeat;
-  border: 1px solid gray;
-  margin-left: auto;
-  margin-right: 10px;
-}
-
 .search-result-title {
   margin: 0;
   font-family: var(--font-6);

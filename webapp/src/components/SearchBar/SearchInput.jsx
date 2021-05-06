@@ -51,7 +51,7 @@ export default function SearchInput() {
         history.push(`/error/${err.message}`);
       }
     }
-    setSearchVal(lookupKey); //update input with typed keys
+    setSearchVal(lookupKey); //update input with typed keys and causes rerender for searchresults (empty show nothing otherwise update)
   };
 
   const handleSubmit = () => {
