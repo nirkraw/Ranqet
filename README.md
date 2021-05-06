@@ -130,7 +130,7 @@ export default function DeleteConfirmation({ parent, submitFunc, confirmMessage,
 }
 ```
 
-### JavaScript Pub/Sub for comonent sibling communication 
+### JavaScript Pub/Sub for component sibling communication 
 
 By setting up Pub/Sub using Custome Events and eventListeners, sibling components across the site were able to trigger the approriate Session Modal and pass in a target route: 
 ```
