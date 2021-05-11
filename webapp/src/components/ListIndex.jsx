@@ -28,9 +28,9 @@ export default function ListIndex({ cacheId, includeDelete }) {
   const confirmDeleteList = async (listId) => {
     try {
       await deleteList(
-        window.localStorage.getItem("userId"),
-        listId,
-        window.localStorage.getItem("sessionToken")
+        // window.localStorage.getItem("userId"),
+        // listId,
+        // window.localStorage.getItem("sessionToken")
       );
     } catch (err) {
       history.push(`/error/${err.message}`);
