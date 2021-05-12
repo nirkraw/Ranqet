@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.apache.commons:commons-lang3:3.11'
@@ -48,6 +49,7 @@ task copyWebApp(type: Copy) {
 	from "$rootDir/webapp/build"
 	into "$rootDir/build/resources/main/static/."
 }
+
 
 if (!project.hasProperty("skipFrontend")) {
 	bootJar.dependsOn(copyWebApp)
