@@ -7,7 +7,7 @@ export default function ErrorPage() {
   const history = useHistory();
   const match = useRouteMatch();
   if (!match.params.errorMessage) return null;
-  if (match.params.errorMessage.includes(100)) return <LoadingSpinner />
+  if (match.params.errorMessage.includes(301)) return <LoadingSpinner />
   
     return (
       <div id="error-page-container">
