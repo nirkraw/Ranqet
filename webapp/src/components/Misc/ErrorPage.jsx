@@ -1,13 +1,11 @@
 import "../../styles/ErrorPage.css";
 import Homer from "../../assets/homer-simpsons-155238_1280.png";
 import { useRouteMatch, useHistory} from "react-router-dom";
-import LoadingSpinner from "./LoadingSpinner";
 
 export default function ErrorPage() {
   const history = useHistory();
   const match = useRouteMatch();
   if (!match.params.errorMessage) return null;
-  if (match.params.errorMessage.includes(301)) return <LoadingSpinner />
   
     return (
       <div id="error-page-container">
