@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SSLResource {
     
-    @GetMapping(".well-known/acme-challenge/{key}")
+    @GetMapping("/.well-known/acme-challenge/{key}")
     public String returnChecksumResponse(@PathVariable(value = "key") String key) {
         return "3JLfyMdtyYIQDuoVdk0yre5QlXsI6mJKtJPqvHGg1Hk.5iaLsA_8UuwhIXgaCgzY32KP8RRLIhRo-GWe0vvuvUw";
     }
