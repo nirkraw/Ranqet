@@ -16,17 +16,17 @@ export default function Quiz() {
   const [votesCompleted, setVotesCompleted] = useState(1);
   const [options, setOptions] = useState([]);
 
-  if (!localStorage.getItem("sessionToken")) {
-    history.push(`/${match.params.listId}/rankings`);
-  }
-
   useEffect(() => {
-    fetchNextOptionPair();
-    fetchCurrList();
+    if (localStorage.getItem("sessionToken")) {
+      fetchNextOptionPair();
+      fetchCurrList();
+    }
   }, [match.params.listId]);
 
- 
-
+  if (!localStorage.getItem("sessionToken")) {
+    history.push(`/${match.params.listId}/rankings`);
+    return null;
+  }
   const fetchCurrList = async () => {
     try {
       const res = await fetchList(match.params.listId);
@@ -38,7 +38,8 @@ export default function Quiz() {
     }
   };
 
-  const fetchNextOptionPair = async () => { //function lives in quiz instead of quizOptions for quick reroute if user already completed quiz
+  const fetchNextOptionPair = async () => {
+    //function lives in quiz instead of quizOptions for quick reroute if user already completed quiz
     try {
       const res = await fetchListOptionPair(
         match.params.listId,
