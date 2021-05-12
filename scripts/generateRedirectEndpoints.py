@@ -1,7 +1,3 @@
-# This script is part of a hack to redirect backend routing requests back to the frontend
-# It reads the routes used in App.js and implements corresponding backend endpoints for it--all of them throwing
-# a 100 CONTINUE response which the frontend could recognize and route to the proper react view
-
 
 paths = []
 with open("../webapp/src/components/App.js") as f:
@@ -10,7 +6,9 @@ with open("../webapp/src/components/App.js") as f:
             tokens = line.strip().split();
             for tok in tokens:
                 if (tok.startswith("path=")):
-                    paths.append(tok.split("=")[1].strip("\""));
+                    path = tok.split("=")[1].strip("\"");
+                    if (path is not "/"):
+                        paths.append(path);
 
 
 print(str(paths))

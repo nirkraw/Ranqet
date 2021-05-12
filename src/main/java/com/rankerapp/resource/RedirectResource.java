@@ -56,10 +56,4 @@ public class RedirectResource {
     public void searchSearchval(@PathVariable(value = "searchVal") String searchVal) {
         throw new RedirectException();
     }
-    
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/")
-    public void index() {
-        throw new RedirectException();
-    }
 }
