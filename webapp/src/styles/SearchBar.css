@@ -87,3 +87,14 @@
   font-size: 17px;
   margin-left: 2%;
 }
+
+.search-result-item-image {
+  height: 40px;
+  width: 60px;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: 10px;
+}
