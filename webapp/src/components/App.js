@@ -18,11 +18,13 @@ function App() {
     //resets cache on refresh or window/tab close
     const userId = localStorage.getItem("userId");
     const sessionToken = localStorage.getItem("sessionToken");
+    const searchResults = localStorage.getItem("searchResults");
     localStorage.clear();
     if (userId && sessionToken) {
       localStorage.setItem("userId", userId);
       localStorage.setItem("sessionToken", sessionToken);
     }
+    localStorage.setItem("searchResults", searchResults);
   };
 
   return (
