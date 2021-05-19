@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The way we generate matchups for Ranqet is by hardcoding all of the possible matchup pairs for each size of list
+ * This is definitely not scalable, but worked for our narrow use case.
+ * We'd need to consider a more scalable solution if we want to increase this 8 option limit on our lists.
+ */
 class MatchupGenerator {
 
     static final Map<Integer, List<String>> MATCHUP_ORIENTATIONS = createMatchups();
