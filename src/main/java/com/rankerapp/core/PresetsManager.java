@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * THIS IS NOT CURRENTLY USED!!
+ * PRESETS IS A DEPRECATED FEATURE
+ */
 @Component
 public class PresetsManager {
     
