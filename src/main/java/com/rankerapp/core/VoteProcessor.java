@@ -35,8 +35,11 @@ public class VoteProcessor {
         this.scoresRepo = scoresRepo;
         this.userListsRepo = userListsRepo;
     }
-
-    // TODO: expose number of votes left
+    
+    /**
+     * Fetches the next queued option pair ids off of the persisted entity
+     * Maps these ids to two options on the list and returns the pair to be voted on
+     */
     public OptionPairResponse getNextPair(UUID listId, UUID userId) {
         Optional<UserListEntity> userListMaybe = userListsRepo.findByUserIdAndListId(userId, listId);
         ListEntity list = listsRepo.getOne(listId);
@@ -49,29 +52,23 @@ public class VoteProcessor {
         }
 
         UserListEntity userList = userListMaybe.get();
-        String matchup = userList.getMatchupsList().get(0);
-
-        String[] matchupPair = matchup.split(":");
-        OptionEntity firstMatchupOption = list.getOptions().stream()
-                .filter((op) -> op.getId().equals(UUID.fromString(matchupPair[0])))
-                .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matchup option"));
-
-        OptionEntity secondMatchupOption = list.getOptions().stream()
-                .filter((op) -> op.getId().equals(UUID.fromString(matchupPair[1])))
-                .findFirst().orElseThrow(() -> new RuntimeException("Something went wrong parsing matching option"));
+        Pair<OptionEntity, OptionEntity> matchupPair = getNextConsecutivePair(userList, list);
 
         // TODO: Fetch next matchup pair if the scores for these two don't satisfy criteria.
 
         int numVotesRemaining = userList.getMatchupsList().size();
         int totalVoteCount = MatchupGenerator.MATCHUP_ORIENTATIONS.get(list.getOptions().size()).size();
         return OptionPairResponse.builder()
-                .first(OptionsFactory.convertOption(firstMatchupOption))
-                .second(OptionsFactory.convertOption(secondMatchupOption))
+                .first(OptionsFactory.convertOption(matchupPair.getLeft()))
+                .second(OptionsFactory.convertOption(matchupPair.getRight()))
                 .numVotesCompleted(totalVoteCount - numVotesRemaining)
                 .totalVoteCount(totalVoteCount)
                 .build();
     }
-
+    
+    /**
+     * Fetches the options that were voted on, calculates the new score values, and persists them to the scores repository
+     */
     public OptionPairResponse castVote(UUID listId, UUID userId, UUID winningOptionId, UUID losingOptionId) {
         Optional<UserListEntity> userList = userListsRepo.findByUserIdAndListId(userId, listId);
         if (userList.isPresent() && userList.get().isCompleted()) {
@@ -82,6 +79,7 @@ public class VoteProcessor {
 
         ListEntity list = listsRepo.getOne(listId);
 
+        // make sure the options sent in were ones we expect; ie ones next in the queue on the persisted list
         Pair<OptionEntity, OptionEntity> nextOptionPair = getNextConsecutivePair(userList.get(), list);
         String firstId = nextOptionPair.getKey().getId().toString();
         String secondId = nextOptionPair.getValue().getId().toString();
@@ -98,13 +96,9 @@ public class VoteProcessor {
             scores = initializeScores(listId, userId);
         }
 
-        ScoreEntity winningOptionScore = scores.stream().filter((score) -> score.getOption().getId().equals(winningOptionId))
-                .findFirst()
-                .orElseThrow(() -> buildUnknownOptionIdException(winningOptionId, listId, userId));
-
-        ScoreEntity losingOptionScore = scores.stream().filter((score) -> score.getOption().getId().equals(losingOptionId))
-                .findFirst()
-                .orElseThrow(() -> buildUnknownOptionIdException(losingOptionId, listId, userId));
+        // SCORE CALCULATION
+        ScoreEntity winningOptionScore = findMatchingScore(scores, winningOptionId, listId, userId);
+        ScoreEntity losingOptionScore = findMatchingScore(scores, losingOptionId, listId, userId);
 
         double winnerExpected = getExpectedScore(winningOptionScore, losingOptionScore);
         double loserExpected = 1 - winnerExpected;
@@ -117,7 +111,7 @@ public class VoteProcessor {
 
         scoresRepo.saveAll(Arrays.asList(winningOptionScore, losingOptionScore));
 
-        // update the queue
+        // update the matchup queue
         List<String> matchupList = userList.get().getMatchupsList();
         if (matchupList.size() == 1) {
             // this was the last vote. mark as complete and return an empty pair response
@@ -135,6 +129,12 @@ public class VoteProcessor {
         userList.get().setMatchupsList(updatedMatchupList);
         userListsRepo.save(userList.get());
         return getNextPair(listId, userId);
+    }
+    
+    private ScoreEntity findMatchingScore(List<ScoreEntity> scores, UUID optionId, UUID listId, UUID userId) {
+        return scores.stream().filter((score) -> score.getOption().getId().equals(optionId))
+                .findFirst()
+                .orElseThrow(() -> buildUnknownOptionIdException(optionId, listId, userId));
     }
 
     private Pair<OptionEntity, OptionEntity> getNextConsecutivePair(UserListEntity userList, ListEntity list) {
@@ -169,7 +169,10 @@ public class VoteProcessor {
 
         return userListEntity;
     }
-
+    
+    /**
+     * Simply updates the global score by calculating the new global average with the newly completed list scores
+     */
     private void updateGlobalListWithUserList(ListEntity listEntity, UserListEntity userListEntity) {
         List<ScoreEntity> globalScores = scoresRepo.findByListIdAndUserId(userListEntity.getListId(), null);
         List<ScoreEntity> userListScores = scoresRepo.findByListIdAndUserId(userListEntity.getListId(), userListEntity.getUserId());
@@ -177,7 +180,6 @@ public class VoteProcessor {
         // this is the first time the list has been completed
         // initialize global list values
         int newNumCompletions = listEntity.getNumCompletions() + 1;
-
         if (globalScores.isEmpty()) {
             List<ScoreEntity> newGlobalScores = new ArrayList<>();
             for (ScoreEntity score : userListScores) {
