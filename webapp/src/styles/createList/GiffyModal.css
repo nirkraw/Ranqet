@@ -2,6 +2,8 @@
   padding: 25px;
   background-color: white;
   width: 450px;
+  border: 2px solid gray;
+  border-radius: 2%;
 }
 
 .giffy-header {
@@ -19,7 +21,8 @@
 .giphy-image-container {
   margin-top: 20px;
   margin-bottom: 20px;
-  border: 1px solid black;
+  border: 1px solid gray;
+  border-radius: 2%;
   width: 310px;
   height: 200px;
 }
@@ -33,19 +36,21 @@
 #giphy-search-button,
 #giphy-save-button,
 #exit-modal-button {
-  border: 1px solid black;
+  border: 1px solid gray;
+  border-radius: 2%;
   margin-left: 10px;
   padding: 4px;
   width: 100px;
   font-family: var(--font-6);
   color: var(--orange-1);
   background-color: white;
-  border-radius: 3%;
   font-size: 20px;
 }
 
 #giphy-search {
   font-size: 20px;
+  border: 2px solid gray;
+  border-radius: 2%;
   font-family: var(--font-6);
   font-weight: 700;
   width: 200px;

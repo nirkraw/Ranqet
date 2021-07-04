@@ -74,7 +74,7 @@ export default function CreateList() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <form id="create-list-form">
+    <div id="create-list-form">
       <h1 className="create-list-title">Create List</h1>
       <div id="create-list-error-container">
         <h2 id="create-list-error">{userError}</h2>
@@ -127,6 +127,6 @@ export default function CreateList() {
       <button onClick={handleListSubmit} id="create-list-submit">
         Create List
       </button>
-    </form>
+    </div>
   );
 }
